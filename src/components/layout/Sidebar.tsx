@@ -29,6 +29,7 @@ const items = [
   { to: '/alerts', label: 'Alerts & Updates', icon: Bell },
   { to: '/security', label: 'Security', icon: ShieldAlert },
   { to: '/reports', label: 'Reports', icon: FileText },
+  { to: '/settings', label: 'Settings', icon: LogOut },
 ]
 
 export function Sidebar() {
@@ -61,17 +62,12 @@ export function Sidebar() {
             <span className="truncate">{label}</span>
           </NavLink>
         ))}
+        <img src="./logo-b.png" alt="" className='h-30 mt-6 w-full'/>
       </nav>
 
-      <div className="p-3 border-t border-white/5 flex flex-col gap-4">
-        <button
-          type="button"
-          className="w-full flex items-center font-outfit gap-3 px-4 py-3 rounded-lg text-sm text-white hover:text-slate-200 hover:bg-white/5 transition-colors"
-        >
-          <LogOut className="w-5 h-5" strokeWidth={1.5} />
-          <span>Settings</span>
-        </button>
-        <img src="./logo-b.png" alt="" className='h-25'/>
+      <div className="p-3 flex justify-center">
+        <img src="/events-intel.png" alt="" />
+        
       </div>
     
     </aside>

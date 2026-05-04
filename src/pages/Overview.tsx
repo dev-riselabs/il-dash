@@ -1,32 +1,48 @@
-import { Users, Mic, Briefcase, ListChecks } from 'lucide-react'
+import { CircleArrowUp } from 'lucide-react'
 
 const kpis = [
-  { label: 'Total Attendance', value: '1,200', delta: '+4.5%', icon: Users },
-  { label: 'Number of Speakers', value: '20', delta: '+4.5%', icon: Mic },
-  { label: 'Active Deals', value: '12', delta: '+8.0%', icon: Briefcase },
-  { label: 'Resolutions Today', value: '7', delta: '+12%', icon: ListChecks },
+  { label: 'Total Attendance', value: '1,200', delta: '+4.5%' },
+  { label: 'Number of Speakers', value: '20', delta: '+4.5%' },
+  { label: 'Active Deals', value: '12', delta: '+8.0%' },
+  { label: 'Resolutions Today', value: '7', delta: '+12%' },
 ]
 
 export default function Overview() {
   return (
     <div className="space-y-6">
+      <div className='space-y-2'>
+        <h1 className='text-white text-2xl font-semibold font-lexend'>REAL-TIME INTELLIGENCE DASHBOARD [IL-DASH]</h1>
+        <p className='text-white font-lexend font-light text-xs'>Overview.</p>
+      </div>
+      <section className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
       {/* KPI grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {kpis.map(({ label, value, delta, icon: Icon }) => (
-          <div key={label} className="card">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+        {kpis.map(({ label, value, delta }) => (
+          <div key={label} className="border border-white/30 rounded-xl p-4">
             <div className="flex items-start justify-between">
               <div>
-                <div className="text-xs text-slate-500 uppercase tracking-wider">{label}</div>
-                <div className="text-3xl font-semibold text-white mt-2 tabular-nums">{value}</div>
+                <div className="text-xs text-white tracking-wider font-dmSans">{label}</div>
+                <div className="text-3xl font-semibold font-dmSans text-white mt-2 tabular-nums">{value}</div>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center">
-                <Icon className="w-6 h-6 text-cyan" strokeWidth={1.5} />
+              <div className="w-16 h-16">
+                <img src="/Chart-icon.png" alt="" />
               </div>
             </div>
-            <div className="mt-4 text-xs text-green">▲ {delta}</div>
+            <div className="mt-2 text-xs text-green flex items-center gap-2"><CircleArrowUp color='white' width={'20px'} /> {delta}</div>
           </div>
         ))}
       </div>
+      <div className='flex gap-4 items-center border border-white/30 rounded-xl overflow-hidden'>
+        <div className='flex flex-col gap-4 justify-center px-5 w-3/5'>
+          <p className='text-white font-lexend text-base'>Lagos is not just the future of Africa—it is the blueprint for sustainable urbanization globally.</p>
+          <div className=''>
+            <p className='text-white font-lexend text-sm text-right'>Babajide Olusola Sanwo-Olu</p>
+            <p className='text-white font-lexend text-[10px] text-right'>Executive Governor, Lagos State</p>
+          </div>
+        </div>
+        <img src="/Babajide-Sanwo-olu 2.png" alt="" className='w-2/5 h-full'/>
+      </div>
+      </section>
 
       {/* Two-column main area */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
