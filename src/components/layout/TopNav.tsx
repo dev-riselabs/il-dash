@@ -13,46 +13,52 @@ export function TopNav() {
   const now = useLiveClock()
 
   return (
-    <header className="h-[135px] bg-surface-900 border-b border-white/5 px-6 flex items-center">
-      <div className="flex-1 grid grid-cols-3 gap-6 items-center">
+    <header className="h-33.75 bg-surface900 border-b font-lexend border-white/45 divide-x divide-white  px-6 flex items-center">
         {/* Logo + brand */}
-        <div className="flex items-center gap-3">
-          <div className="text-2xl font-bold tracking-wider text-white">
-            INVEST LAGOS <span className="text-accent-cyan">3.0</span>
-          </div>
+        <div className="flex items-center gap-3 basis-2/8 px-2">
+          <img src="/invest-lagos.png" alt="" />
         </div>
 
         {/* Current session */}
-        <div>
-          <div className="text-[10px] font-semibold tracking-widest text-slate-500 uppercase">
+        <div className='basis-3/8 px-4'>
+          <div className="text-xs font-light tracking-widest text-white uppercase">
             Current Session
           </div>
-          <div className="text-lg font-medium text-white mt-1 truncate">
+          <div className="text-xl text-cyan font-semibold mt-1 truncate">
             Lagos &mdash; Africa's Global Gateway
           </div>
-          <div className="text-xs text-slate-500 mt-1">
+          <div className="text-sm text-white font-light mt-1">
             8&ndash;9 June 2026 | Eko Convention Center, NIGERIA
           </div>
         </div>
 
         {/* Live clock */}
-        <div className="text-right">
-          <div className="text-[10px] font-semibold tracking-widest text-slate-500 uppercase">
+        <div className="basis-3/8 px-4">
+        <div className='flex justify-between gap-4 items-center'>
+          <div>
+            <div className="text-xs font-light tracking-widest text-white uppercase">
             Live Clock
           </div>
-          <div className="text-2xl font-mono font-medium text-accent-cyan mt-1 tabular-nums">
+          <div className="text-2xl font-semibold text-green mt-1 tabular-nums">
             {now.toLocaleTimeString('en-GB', { hour12: false })}
           </div>
-          <div className="text-xs text-slate-500 mt-1">
+          </div>
+
+          <img src="/commonwealth.png" alt="" />
+        </div>
+          
+          {/* <div className="text-xs text-slate-500 mt-1">
             {now.toLocaleDateString('en-GB', {
               weekday: 'short',
               day: 'numeric',
               month: 'short',
               year: 'numeric',
             })}
+          </div> */}
+          <div className="text-sm text-white font-light mt-1">
+            8&ndash;9 June 2026 | Eko Convention Center, NIGERIA
           </div>
         </div>
-      </div>
     </header>
   )
 }

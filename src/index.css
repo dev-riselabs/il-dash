@@ -1,0 +1,21 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Outfit:wght@100..900&display=swap');
+
+
+@theme{
+    --font-outfit: "Outfit", sans-serif;
+    --font-lexend: "Lexend", sans-serif;
+
+    --color-cyan : #00c0e8;
+    --color-green : #34c759;
+    --color-red: #ff383c;
+    --color-yellow: #ffcc00;
+    --color-orange: #ff8d28;
+    --color-tertiary: #4ab1d9;
+    --color-surface950: #0a0e14;
+    --color-surface900: #0e1420;
+    --color-surface800: #141b2d;
+    --color-surface700: #1c2440;
+    --color-surface600: #2a3358;
+    --color-surface500: #3a4470;
+}
