@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-surface-950 text-slate-200 font-sans antialiased;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-surface-900 border border-white/5 rounded-2xl p-6;
+  }
+
+  .badge-live {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold
+           bg-accent-red/15 text-accent-red uppercase tracking-wider;
+  }
+
+  .badge-next {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold
+           bg-accent-yellow/15 text-accent-yellow uppercase tracking-wider;
+  }
+
+  .badge-completed {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold
+           bg-accent-green/15 text-accent-green uppercase tracking-wider;
+  }
+}
