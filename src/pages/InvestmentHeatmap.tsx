@@ -26,7 +26,7 @@ function InvestmentHeatmap() {
       {/* KPI grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
-          <div key={label} className="border border-white/30 rounded-xl p-4">
+          <div key={label} className="border border-white/30 rounded-xl p-4 flex flex-col gap-2">
             <div className="flex items-start justify-between">
               <div>
                 <div className="text-xs text-white tracking-wider font-dmSans">{label}</div>
@@ -41,7 +41,7 @@ function InvestmentHeatmap() {
                 <img src="/Chart-icon.png" alt="" />
               </div>
             </div>
-            <div className="mt-2 text-xs text-white font-dmSans flex items-center gap-2"><CircleArrowUp color='white' width={'20px'} /> {delta}</div>
+            <div className="text-xs text-white font-dmSans flex items-center gap-2 mt-auto"><CircleArrowUp color='white' width={'20px'} /> {delta}</div>
           </div>
         ))}
       </div>
@@ -55,9 +55,9 @@ function InvestmentHeatmap() {
        <section className='flex flex-col gap-6'>
             <div className='grid grid-cols-4 gap-4'>
                 <div className='text-sm font-lexend font-medium text-white uppercase'>SECTOR</div>
-                <div className='text-sm font-lexend font-medium text-white uppercase'>SECTOR</div>
-                <div className='text-sm font-lexend font-medium text-white uppercase'>EST. VALUE (N)</div>
-                <div className='text-sm font-lexend font-medium text-white uppercase'>TREND</div>
+                <div className='text-sm font-lexend font-medium text-white uppercase text-center'>SECTOR</div>
+                <div className='text-sm font-lexend font-medium text-white uppercase text-center'>EST. VALUE (N)</div>
+                <div className='text-sm font-lexend font-medium text-white uppercase text-center'>TREND</div>
             </div>
 
         <div className='flex flex-col gap-5'>
@@ -73,9 +73,9 @@ function InvestmentHeatmap() {
                             'bg-indigo'
                         }
                         `}></div> {title}</div>
-                    <div className='text-white font-lexend text-sm'>{percent}</div> 
-                    <div className='text-white font-lexend text-sm'>{value}</div>   
-                    <div className='flex items-center gap-2 text-white font-lexend text-sm'>{trend}</div>
+                    <div className='text-white font-lexend text-sm text-center'>{percent}</div> 
+                    <div className='text-white font-lexend text-sm text-center'>{value}</div>   
+                    <div className='flex items-center gap-2 text-white font-lexend text-sm justify-center'> <CircleArrowUp className='w-5 fill-white text-black'/>{trend}</div>
                 </div>)
             }
         </div>

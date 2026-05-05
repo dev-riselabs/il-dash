@@ -3,6 +3,7 @@ import { AppShell } from '@/components/layout/AppShell'
 import Overview from '@/pages/Overview'
 import Placeholder from '@/pages/Placeholder'
 import InvestmentHeatmap from './pages/InvestmentHeatmap'
+import ResolutionBoard from './pages/ResolutionBoard'
 
 function App() {
   return (
@@ -45,9 +46,7 @@ function App() {
         <Route
           path="/resolutions"
           element={
-            <Placeholder
-              title="Resolution Board"
-              description="Live feed of summit resolutions, commitments, and announcements."
+            <ResolutionBoard
             />
           }
         />

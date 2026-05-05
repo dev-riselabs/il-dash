@@ -18,7 +18,7 @@ export default function Overview() {
       {/* KPI grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
-          <div key={label} className="border border-white/30 rounded-xl p-4">
+          <div key={label} className="border border-white/30 rounded-xl p-4 flex flex-col gap-2">
             <div className="flex items-start justify-between">
               <div>
                 <div className="text-xs text-white tracking-wider font-dmSans">{label}</div>
@@ -33,7 +33,7 @@ export default function Overview() {
                 <img src="/Chart-icon.png" alt="" />
               </div>
             </div>
-            <div className="mt-2 text-xs text-white font-dmSans flex items-center gap-2"><CircleArrowUp color='white' width={'20px'} /> {delta}</div>
+            <div className="text-xs text-white font-dmSans flex items-center gap-2 mt-auto"><CircleArrowUp color='white' width={'20px'} /> {delta}</div>
           </div>
         ))}
       </div>
