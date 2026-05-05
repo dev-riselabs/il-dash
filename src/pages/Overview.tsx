@@ -210,7 +210,17 @@ export default function Overview() {
         <div className='lg:col-span-7 border border-white/55 rounded-2xl py-5 px-5 lg:px-7.5 flex flex-col gap-3'>
         <h4 className='text-green font-lexend font-medium text-base'>TOP FEEDBACK</h4>
         <div className='flex flex-col gap-7'>
-          <button></button>
+          <div className='flex flex-col gap-6'>
+            {
+              ['“Very insightful session with actionable takeaways.”',
+               '“Great lineup of speakers and relevant discussions”.', '“Need more time for Q&A and deeper engagement”.',
+              '“Excellent organization and flow!”.', '“Excellent organization and flow!”.'].map(item => <div key={item} className='flex items-center gap-3'>
+                  <img src="/quote.png" alt="" />
+                  <p className='font-lexend text-white text-sm'>{item}</p>
+              </div>)
+            }
+          </div>
+          <button className='border border-white rounded-lg text-white font-medium text-base font-rubik py-2.5 '>VIEW ALL FEEDBACK</button>
 
         </div>
 

@@ -34,7 +34,7 @@ const items = [
 
 export function Sidebar() {
   return (
-    <aside className="w-62 shrink-0 bg-surface900 border-r border-white/5 flex flex-col">
+    <aside className="w-62 shrink-0 bg-surface900 border-r border-white/5 flex flex-col ">
       <div className="p-6 border-b border-white/5 flex justify-center">
         {/* <div className="text-xs font-semibold tracking-widest text-accent-cyan">
           IL-DASH
@@ -43,7 +43,7 @@ export function Sidebar() {
         <img src="./logo_il.png" alt="" />
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto lg:pb-20">
         {items.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
@@ -64,11 +64,6 @@ export function Sidebar() {
         ))}
         <img src="./logo-b.png" alt="" className='h-30 mt-6 w-full'/>
       </nav>
-
-      <div className="p-3 flex justify-center">
-        <img src="/events-intel.png" alt="" />
-        
-      </div>
     
     </aside>
   )

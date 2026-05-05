@@ -1,11 +1,11 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lexend:wght@100..900&family=Outfit:wght@100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 @theme{
     --font-outfit: "Outfit", sans-serif;
     --font-lexend: "Lexend", sans-serif;
     --font-dmSans: "DM Sans", sans-serif;
+    --font-rubik: "Rubik", sans-serif;
 
     --color-cyan : #00c0e8;
     --color-green : #34c759;
@@ -13,6 +13,9 @@
     --color-red100: #F6001A;
     --color-yellow: #ffcc00;
     --color-orange: #ff8d28;
+    --color-mint : #00C8B3;
+    --color-blue: #0088FF;
+    --color-indigo : #6155F5;
     --color-tertiary: #4ab1d9;
     --color-surface950: #0a0e14;
     --color-surface900: #0e1420;

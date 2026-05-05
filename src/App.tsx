@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { AppShell } from '@/components/layout/AppShell'
 import Overview from '@/pages/Overview'
 import Placeholder from '@/pages/Placeholder'
+import InvestmentHeatmap from './pages/InvestmentHeatmap'
 
 function App() {
   return (
@@ -38,10 +39,7 @@ function App() {
         <Route
           path="/heatmap"
           element={
-            <Placeholder
-              title="Investment Heatmap"
-              description="Visual heatmap of investment commitments across sectors and regions."
-            />
+            <InvestmentHeatmap/>
           }
         />
         <Route
