@@ -1,4 +1,4 @@
-import { CircleArrowUp, CircleCheck } from 'lucide-react'
+import { CircleArrowUp, CircleCheck, ChevronsLeft, ChevronsRight, EllipsisVertical } from 'lucide-react'
 import DonutChart from '../components/Doughnut'
 
 const kpis = [
@@ -60,6 +60,54 @@ function ResolutionBoard() {
           </div>
         ))}
       </div>
+
+      <section className='border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-12'>
+        <div className='overflow-hidden flex flex-col gap-7.5 overflow-x-auto'>
+            <div className='grid grid-cols-12 gap-4 min-w-360'>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-4'>Resolution / Commitment</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Category</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-2'>Sector</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-2'>Committed By</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Stage</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Impact(EST.)</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Time Added</div>
+            </div>
+            <div className='grid grid-cols-12 gap-4 min-w-360'>
+                <div className='flex items-center gap-1.5 col-span-4'>
+                    <div className='w-12 h-12 rounded-md bg-green200 shrink-0'></div>
+                    <div className='flex flex-col gap-2'>
+                        <h5 className='text-white font-dmSans text-sm font-semibold'>Lagos Tech Hub Expansion</h5>
+                        <p className='text-white font-dmSans text-xs font-light'>Commitment to commence Phase 1 of the Lagos Blue Rail Project by Q1 2026.</p>
+                    </div>
+                </div>
+                <div className='bg-slate200 px-6 py-1 rounded-md text-white font-lexend text-xs font-semibold flex items-center justify-center place-items-center col-span-1'>Infrastructure</div>
+                <div className='text-xs font-lexend text-white flex justify-center items-center col-span-2'>Transport</div>
+                <div className='text-xs font-lexend text-white flex justify-center items-center col-span-2'>Lagos State Government & Private Partners </div>
+                <div className='border-2 border-green rounded-md py-1 px-6 text-green col-span-1'>Commitment</div>
+                <div className='text-green text-sm font-medium'>₦45.5B</div>
+                <div className='flex items-center justify-between gap-1 text-white font-lexend text-sm'>
+                    10:30AM
+                    <button><EllipsisVertical className='text-white'/></button>
+                </div>
+            </div>
+
+        </div>
+
+        <div className='flex items-center gap-3 justify-between'>
+            <div className='flex items-center gap-4 font-lexend text-white text-sm'>
+                <p>Showing</p>
+                <p>1 to 5 of 120</p>
+                <p>deals</p>
+            </div>
+
+            <div className='flex gap-3 items-center'>
+                <button className='w-5 h-5 border border-white rounded flex items-center justify-center'><ChevronsLeft className='text-white w-3 h-3'/></button>
+                <button className='w-5 h-5 border border-white rounded flex items-center justify-center'><ChevronsRight className='text-white w-3 h-3'/></button>
+            </div>
+
+        </div>
+
+      </section>
 
       <section className='border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-3'>
         <div className='flex items-center justify-between gap-3'>
