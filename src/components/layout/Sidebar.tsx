@@ -33,12 +33,13 @@ const items = [
 
 export function Sidebar() {
   return (
-    <aside className="w-[248px] shrink-0 bg-surface-900 border-r border-white/5 flex flex-col">
-      <div className="p-6 border-b border-white/5">
-        <div className="text-xs font-semibold tracking-widest text-accent-cyan">
+    <aside className="w-62 shrink-0 bg-surface900 border-r border-white/5 flex flex-col">
+      <div className="p-6 border-b border-white/5 flex justify-center">
+        {/* <div className="text-xs font-semibold tracking-widest text-accent-cyan">
           IL-DASH
         </div>
-        <div className="text-[10px] text-slate-500 mt-1">v1.0 · Command Centre</div>
+        <div className="text-[10px] text-slate-500 mt-1">v1.0 · Command Centre</div> */}
+        <img src="./logo_il.png" alt="" />
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
@@ -49,10 +50,10 @@ export function Sidebar() {
             end={end}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors',
+                'flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit',
                 isActive
-                  ? 'bg-accent-cyan/10 text-accent-cyan'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                  ? 'bg-cyan/10 text-cyan'
+                  : 'text-white hover:text-slate-200 hover:bg-white/5'
               )
             }
           >
@@ -62,15 +63,17 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-3 border-t border-white/5">
+      <div className="p-3 border-t border-white/5 flex flex-col gap-4">
         <button
           type="button"
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors"
+          className="w-full flex items-center font-outfit gap-3 px-4 py-3 rounded-lg text-sm text-white hover:text-slate-200 hover:bg-white/5 transition-colors"
         >
           <LogOut className="w-5 h-5" strokeWidth={1.5} />
           <span>Settings</span>
         </button>
+        <img src="./logo-b.png" alt="" className='h-25'/>
       </div>
+    
     </aside>
   )
 }

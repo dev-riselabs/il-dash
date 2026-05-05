@@ -19,11 +19,11 @@ export default function Overview() {
                 <div className="text-xs text-slate-500 uppercase tracking-wider">{label}</div>
                 <div className="text-3xl font-semibold text-white mt-2 tabular-nums">{value}</div>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-accent-cyan/10 flex items-center justify-center">
-                <Icon className="w-6 h-6 text-accent-cyan" strokeWidth={1.5} />
+              <div className="w-12 h-12 rounded-xl bg-cyan/10 flex items-center justify-center">
+                <Icon className="w-6 h-6 text-cyan" strokeWidth={1.5} />
               </div>
             </div>
-            <div className="mt-4 text-xs text-accent-green">▲ {delta}</div>
+            <div className="mt-4 text-xs text-green">▲ {delta}</div>
           </div>
         ))}
       </div>
@@ -36,7 +36,7 @@ export default function Overview() {
             Live Programme Flow
           </h2>
           <div className="space-y-4">
-            <div className="rounded-xl bg-surface-800 border border-accent-red/30 p-4">
+            <div className="rounded-xl bg-surface800 border border-red/30 p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] text-slate-500 tracking-wider">CURRENT SESSION</span>
                 <span className="badge-live">● LIVE</span>
@@ -48,7 +48,7 @@ export default function Overview() {
               <div className="text-xs text-slate-400 mt-1">Shaping Africa's Digital Future</div>
             </div>
 
-            <div className="rounded-xl bg-surface-800 border border-white/5 p-4">
+            <div className="rounded-xl bg-surface800 border border-white/5 p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] text-slate-500 tracking-wider">NEXT SESSION</span>
                 <span className="badge-next">UP NEXT</span>
@@ -58,7 +58,7 @@ export default function Overview() {
               <div className="text-xs text-slate-400 mt-1">Building Sustainable Cities</div>
             </div>
 
-            <div className="rounded-xl bg-surface-800 border border-white/5 p-4">
+            <div className="rounded-xl bg-surface800 border border-white/5 p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] text-slate-500 tracking-wider">UPCOMING</span>
                 <span className="badge-next">UP NEXT</span>
@@ -91,8 +91,8 @@ export default function Overview() {
               'Public-private partnerships will accelerate infrastructure delivery over the next decade.',
             ].map((insight, i) => (
               <div key={i} className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-accent-cyan/10 flex items-center justify-center shrink-0">
-                  <span className="text-xs text-accent-cyan font-semibold">AI</span>
+                <div className="w-8 h-8 rounded-lg bg-cyan/10 flex items-center justify-center shrink-0">
+                  <span className="text-xs text-cyan font-semibold">AI</span>
                 </div>
                 <p className="text-sm text-slate-300 pt-1">{insight}</p>
               </div>
