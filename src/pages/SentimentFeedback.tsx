@@ -1,4 +1,5 @@
 import DonutChart from "@/components/Doughnut"
+import Rating from "@/components/Rating"
 import { CircleArrowUp } from "lucide-react"
 
 const kpis = [
@@ -7,6 +8,34 @@ const kpis = [
   { label: 'Avg. Session Rating', value: '4.3 /5', delta: '3 New Today' },
   { label: 'Positive Feedback', value: '82%', delta: '6% vs Today' },
   { label: 'Neutral Feedback', value: '12%', delta: '3% vs Today' },
+]
+
+const sectorOne = [
+    {title : 'Unlocking Africa’s Infra Future', percent : 84},
+    {title : 'Lagos Tech & Innovation Hub', percent : 81},
+    {title : 'Financing Sustainable Cities', percent : 77},
+    {title : 'Healthcare Investment Outlook', percent : 74},
+    {title : 'Energy Transition Dialogue', percent : 73},
+    {title : 'Creative Economy Unleashed', percent : 71},
+    {title : 'Agri-Business & Food Security', percent : 69},
+    {title : 'Blue Economy Opportunities', percent : 65},
+]
+
+const sectorTwo = [
+    {title : 'Content Relevance', percent : 45},
+    {title : 'Speakers Quality', percent : 44},
+    {title : 'Session Organization', percent : 43},
+    {title : 'Venue & Logistics', percent : 41},
+    {title : 'Networking Opportunities', percent : 40},
+    {title : 'Overall Experience ', percent : 43},
+]
+
+const additions = [
+    {name: 'Tunde Elegbede', review: 'Very insightful session. Great Speakers!', rate: 5, time:'10:23 AM', label: 'Positive'},
+    {name: 'Aisha Mohammed', review: 'Great session, but more case studies would be helpful.', rate: 4, time:'10:23 AM', label: 'Positive'},
+    {name: 'John Adeyemi', review: 'Excellent discussion on energy transition. Very relevant.', rate: 5, time:'10:23 AM', label: 'Positive'},
+    {name: 'Chinedu Okafor', review: 'To much theory, not enough practical solutions.', rate: 5, time:'10:23 AM', label: 'Positive'},
+    {name: 'Ngozi Mbatha', review: 'Amazing insights! Looking forward to collaborations.', rate: 5, time:'10:23 AM', label: 'Positive'},
 ]
 
 function SentimentFeedback() {
@@ -92,6 +121,80 @@ function SentimentFeedback() {
                                 { label: "Other", value: 32, color: "#CB3CFF" },
                   ]}/>
                         </div>
+
+      </section>
+      <section className="grid grid-cols-12 gap-5">
+        <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-7'>
+        <h4 className='font-dmSans text-white font-medium text-base uppercase'>SESSION SENTIMENT SCORES</h4>
+
+        <div className='flex flex-col gap-4'>
+            {
+                sectorOne.map(({title, percent}, i) => <div key={title} className='grid grid-cols-12 gap-2'>
+                    <p className='col-span-4 text-white font-dmSans text-xs align-middle'>{title}</p>
+                    <div className='col-span-7 flex items-center'>
+                        <div className={`rounded-full h-2.5 ${
+                           sectorOne.length - 1 === i ? 'bg-red':
+                           sectorOne.length - 2 === i ? 'bg-red':
+                           'bg-green' 
+                        }`} style={{width : `${(percent * 100)/100}%`}}></div>
+                    </div>
+                    <p className='col-span-1 text-white font-dmSans text-sm flex items-center justify-center'>{percent}%</p>
+
+                </div>)
+            }
+
+        </div>
+        
+        </div>
+
+        <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-5'>
+        <h4 className='font-dmSans text-white font-medium text-base uppercase'>RESOLUTIONS BY SECTOR</h4>
+
+        <div className='flex flex-col gap-4'>
+            {
+                sectorTwo.map(({title, percent}) => <div key={title} className='grid grid-cols-12 gap-2'>
+                    <p className='col-span-4 text-white font-dmSans text-sm align-middle'>{title}</p>
+                    <div className='col-span-7 flex items-center'>
+                        <div className={`rounded-full h-2.5 bg-green`} style={{width : `${(percent * 100)/100}%`}}></div>
+                    </div>
+                    <p className='col-span-1 text-white font-dmSans text-sm flex items-center justify-center'>{percent/10}</p>
+
+                </div>)
+            }
+
+        </div>
+        
+        </div>
+
+      </section>
+
+      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+      <div className="flex items-center gap-4 justify-between">
+        <h4 className="text-base font-lexend text-white font-medium uppercase">LATEST ADDITIONS</h4>
+        <button className="text-base font-lexend text-cyan font-semibold">View All</button>
+      </div>
+
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
+            {
+                additions.map(({name, review, rate, time, label}) => <div key={name} className="border-b border-b-white pb-7.5 flex items-center justify-between">
+                    <div className="flex items-start gap-2.5">
+                        <div className="bg-white h-12.5 w-12.5 rounded-full"></div>
+                        <div className="flex flex-col gap-1">
+                            <p className="text-white font-bold font-dmSans text-sm">{name}</p>
+                            <Rating rate={rate}/>
+                            <p className="text-white font-medium font-dmSans text-xs">{review}</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-2.5">
+                        <p className="font-dmSans text-white text-sm font-medium">{time}</p>
+                        <div className="bg-green500 py-1 px-3.5 font-dmSans text-white text-sm font-medium rounded-md flex items-center justify-center">{label}</div>
+                    </div>
+                </div>)
+            }
+        </div>
+        <button className="border border-white/55 rounded-2xl py-2.5 px-7.5 font-rubik uppercase text-white text-sm">SUBMIT FEEDBACK</button>
+      </div>
 
       </section>
 
