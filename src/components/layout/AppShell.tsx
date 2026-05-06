@@ -26,12 +26,14 @@ export function AppShell({ children }: Props) {
   {/* FULL WIDTH FOOTER */}
   <footer className=" border-t border-white bg-surface900 flex items-center justify-between px-6 py-4">
     <div className='flex items-center gap-2 text-xs text-white font-lexend'>
-      <img src="/events-intel.png" alt="" className='h-20'/>
       Designed and developed by Events Intelligence & Technology Services Limited.
+      <img src="/events-intel.png" alt="" className='h-20'/>
+      
     </div>
     <div className=' text-xs text-white font-lexend flex items-center gap-1.5'>
-      <img src="/rise-networks-logo.png" alt="" />
-     text-xs text-white font-lexend
+      
+     AI Deployment Partner
+     <img src="/rise-networks-logo.png" alt="" />
     </div>
     
   </footer>

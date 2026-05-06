@@ -5,6 +5,7 @@ import Placeholder from '@/pages/Placeholder'
 import InvestmentHeatmap from './pages/InvestmentHeatmap'
 import ResolutionBoard from './pages/ResolutionBoard'
 import ParticipationAnalytics from './pages/ParticipationAnalytics'
+import SentimentFeedback from './pages/SentimentFeedback'
 
 function App() {
   return (
@@ -60,10 +61,7 @@ function App() {
         <Route
           path="/feedback"
           element={
-            <Placeholder
-              title="Sentiment & Feedback"
-              description="Aggregated participant sentiment from QR feedback and live polls."
-            />
+            <SentimentFeedback  />
           }
         />
         <Route
