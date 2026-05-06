@@ -1,5 +1,6 @@
 import DonutChart from "@/components/Doughnut"
 import Rating from "@/components/Rating"
+import SentimentChart from "@/components/SentimentChart"
 import { CircleArrowUp } from "lucide-react"
 
 const kpis = [
@@ -95,6 +96,8 @@ function SentimentFeedback() {
           </div>
         ))}
       </div>
+
+      <SentimentChart/>
 
       <section className="grid grid-cols-12 gap-5">
         <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-7 '>
