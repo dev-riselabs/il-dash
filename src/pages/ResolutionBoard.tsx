@@ -63,16 +63,16 @@ function ResolutionBoard() {
 
       <section className='border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-12'>
         <div className='overflow-hidden flex flex-col gap-7.5 overflow-x-auto'>
-            <div className='grid grid-cols-12 gap-4 min-w-360'>
+            <div className='grid grid-cols-12 gap-8 min-w-400'>
                 <div className='text-sm font-lexend font-bold text-slate100 col-span-4'>Resolution / Commitment</div>
-                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Category</div>
-                <div className='text-sm font-lexend font-bold text-slate100 col-span-2'>Sector</div>
-                <div className='text-sm font-lexend font-bold text-slate100 col-span-2'>Committed By</div>
-                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Stage</div>
-                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Impact(EST.)</div>
-                <div className='text-sm font-lexend font-bold text-slate100 col-span-1'>Time Added</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1 text-center'>Category</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-2 text-center'>Sector</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-2 text-center'>Committed By</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1 text-center'>Stage</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1 text-center'>Impact(EST.)</div>
+                <div className='text-sm font-lexend font-bold text-slate100 col-span-1 text-center'>Time Added</div>
             </div>
-            <div className='grid grid-cols-12 gap-4 min-w-360'>
+            <div className='grid grid-cols-12 gap-8 min-w-400'>
                 <div className='flex items-center gap-1.5 col-span-4'>
                     <div className='w-12 h-12 rounded-md bg-green200 shrink-0'></div>
                     <div className='flex flex-col gap-2'>
@@ -80,11 +80,11 @@ function ResolutionBoard() {
                         <p className='text-white font-dmSans text-xs font-light'>Commitment to commence Phase 1 of the Lagos Blue Rail Project by Q1 2026.</p>
                     </div>
                 </div>
-                <div className='bg-slate200 px-6 py-1 rounded-md text-white font-lexend text-xs font-semibold flex items-center justify-center place-items-center col-span-1'>Infrastructure</div>
+                <div className='flex items-center justify-center col-span-1'><div className='bg-slate200 px-6 py-2 rounded-md text-white font-lexend text-sm font-semibold '>Infrastructure</div></div>
                 <div className='text-xs font-lexend text-white flex justify-center items-center col-span-2'>Transport</div>
                 <div className='text-xs font-lexend text-white flex justify-center items-center col-span-2'>Lagos State Government & Private Partners </div>
-                <div className='border-2 border-green rounded-md py-1 px-6 text-green col-span-1'>Commitment</div>
-                <div className='text-green text-sm font-medium'>₦45.5B</div>
+                <div className=' col-span-1 flex items-center justify-center'><div className='border-2 border-green rounded-md py-1 px-6 text-green'>Commitment</div></div>
+                <div className='text-green text-sm font-medium flex items-center justify-center'>₦45.5B</div>
                 <div className='flex items-center justify-between gap-1 text-white font-lexend text-sm'>
                     10:30AM
                     <button><EllipsisVertical className='text-white'/></button>
@@ -129,7 +129,13 @@ function ResolutionBoard() {
       <section className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
         <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6'>
         <h4 className='font-dmSans text-white font-medium text-base uppercase'>RESOLUTIONS BY CATEGORY</h4>
-        <DonutChart/>
+        <DonutChart
+  data={[
+    { label: "Commitments", value: 15, color: "#CB3CFF" },
+    { label: "Keynotes", value: 7, color: "#13A13E" },
+    { label: "Panel Discussion", value: 5, color: "#F66202" },
+  ]}
+/>
         </div>
         <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6'>
         <h4 className='font-dmSans text-white font-medium text-base uppercase'>RESOLUTIONS BY SECTOR</h4>

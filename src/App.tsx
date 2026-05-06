@@ -4,6 +4,7 @@ import Overview from '@/pages/Overview'
 import Placeholder from '@/pages/Placeholder'
 import InvestmentHeatmap from './pages/InvestmentHeatmap'
 import ResolutionBoard from './pages/ResolutionBoard'
+import ParticipationAnalytics from './pages/ParticipationAnalytics'
 
 function App() {
   return (
@@ -53,10 +54,7 @@ function App() {
         <Route
           path="/analytics"
           element={
-            <Placeholder
-              title="Participation Analytics"
-              description="Attendance, engagement, and demographic analytics in real time."
-            />
+            <ParticipationAnalytics/>
           }
         />
         <Route

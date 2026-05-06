@@ -55,7 +55,7 @@ function InvestmentHeatmap() {
        <section className='flex flex-col gap-6'>
             <div className='grid grid-cols-4 gap-4'>
                 <div className='text-sm font-lexend font-medium text-white uppercase'>SECTOR</div>
-                <div className='text-sm font-lexend font-medium text-white uppercase text-center'>SECTOR</div>
+                <div className='text-sm font-lexend font-medium text-white uppercase text-center'>INVESTMENT SIGNALS</div>
                 <div className='text-sm font-lexend font-medium text-white uppercase text-center'>EST. VALUE (N)</div>
                 <div className='text-sm font-lexend font-medium text-white uppercase text-center'>TREND</div>
             </div>
