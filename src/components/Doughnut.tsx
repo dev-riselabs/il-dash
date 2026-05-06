@@ -17,6 +17,7 @@ type ChartItem = {
 
 type DonutChartProps = {
   data: ChartItem[];
+  small? : boolean;
 };
 
 // ✅ Center text plugin (dynamic)
@@ -65,7 +66,7 @@ const innerBorderPlugin: Plugin<"doughnut"> = {
   },
 };
 
-export default function DonutChart({ data }: DonutChartProps) {
+export default function DonutChart({ data, small }: DonutChartProps) {
   const total = data.reduce((sum, item) => sum + item.value, 0);
 
   const chartData = {
@@ -97,7 +98,7 @@ export default function DonutChart({ data }: DonutChartProps) {
 
   return (
     <div className="flex items-center gap-10">
-      <div className="w-50 h-50">
+      <div className={`${small ? 'w-40 h-40' :"w-50 h-50"}`}>
         <Doughnut
           data={chartData}
           options={options}
@@ -116,7 +117,7 @@ export default function DonutChart({ data }: DonutChartProps) {
           return (
             <div key={index} className="flex items-center gap-3">
               <span
-                className="w-4 h-4 rounded-full"
+                className="w-4 h-4 rounded-full shrink-0"
                 style={{ backgroundColor: item.color }}
               ></span>
 

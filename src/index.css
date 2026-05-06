@@ -11,7 +11,7 @@
     --color-green : #34c759;
     --color-red: #ff383c;
     --color-red100: #F6001A;
-    --color-yellow: #ffcc00;
+    --color-yellow: #ffcc00; 
     --color-orange: #ff8d28;
     --color-mint : #00C8B3;
     --color-blue: #0088FF;
@@ -23,8 +23,11 @@
     --color-slate100: #626262;
     --color-green200: #094A32;
     --color-green300: #05C16833;
+    --color-green400 : #06342D;
     --color-slate200: #1A2834;
+    --color-slate300: #D9D9D9;
     --color-neutral100 : #AEB9E1;
+    --color-neutral200: #0B1739;
     --color-surface950: #0a0e14;
     --color-surface900: #0e1420;
     --color-surface800: #141b2d;
