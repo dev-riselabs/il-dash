@@ -7,6 +7,7 @@ import ResolutionBoard from './pages/ResolutionBoard'
 import ParticipationAnalytics from './pages/ParticipationAnalytics'
 import SentimentFeedback from './pages/SentimentFeedback'
 import SocialmediaFeed from './pages/SocialmediaFeed'
+import AlertsUpdates from './pages/AlertsUpdates'
 
 function App() {
   return (
@@ -75,9 +76,7 @@ function App() {
         <Route
           path="/alerts"
           element={
-            <Placeholder
-              title="Alerts & Updates"
-              description="System alerts, schedule changes, and broadcast updates."
+            <AlertsUpdates
             />
           }
         />
