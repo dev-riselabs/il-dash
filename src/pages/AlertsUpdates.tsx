@@ -1,6 +1,6 @@
 import AlertsOverTimeChart from "@/components/AlertChart"
 import DonutChart from "@/components/Doughnut"
-import { CircleArrowUp, CircleCheck } from "lucide-react"
+import { CircleArrowUp, CircleCheck, EllipsisVertical } from "lucide-react"
 
 const kpis = [
   { label: 'Unread Alerts', value: '12', delta: '18% vs Today' },
@@ -13,6 +13,15 @@ const additions = [
     {title : 'Deal Room “Financing Sustainable Cities” activity resumed', time: '09:40 AM'},
     {title : 'Sentiment improved for “Healthcare Investment Outlook”.', time: '09:28 AM'},
     {title : 'Technical issue resolved for Live Stream in Hall C', time: '09:15 AM'},
+]
+
+const alerts = [
+    {name : 'Lagos Tech Hub Expansion', description: '“Agri-Business & Food Security” session in Hall B is delayed by 15 mins.', severity: 'High', source: 'Programme Tracker', time: '10:21 AM'},
+    {name : 'Low Attendance Alert', description: '“Agri-Business & Food Security” session in Hall B is delayed by 15 mins.', severity: 'Medium', source: 'Programme Tracker', time: '10:21 AM'},
+    {name : 'Lagos Tech Hub Expansion', description: '“Agri-Business & Food Security” session in Hall B is delayed by 15 mins.', severity: 'Low', source: 'Programme Tracker', time: '10:21 AM'},
+    {name : 'Lagos Tech Hub Expansion', description: '“Agri-Business & Food Security” session in Hall B is delayed by 15 mins.', severity: 'High', source: 'Programme Tracker', time: '10:21 AM'},
+    {name : 'Lagos Tech Hub Expansion', description: '“Agri-Business & Food Security” session in Hall B is delayed by 15 mins.', severity: 'High', source: 'Programme Tracker', time: '10:21 AM'},
+    {name : 'Lagos Tech Hub Expansion', description: '“Agri-Business & Food Security” session in Hall B is delayed by 15 mins.', severity: 'High', source: 'Programme Tracker', time: '10:21 AM'},
 ]
 
 function AlertsUpdates() {
@@ -47,6 +56,52 @@ function AlertsUpdates() {
           </div>
         ))}
       </div>
+
+      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-4">
+      <div className="grid grid-cols-12 gap-5">
+        <h5 className="lg:col-span-5 text-slate100 font-lexend uppercase text-base">ALERT</h5>
+        <h5 className="lg:col-span-1 text-slate100 font-lexend uppercase text-base text-center">SEVERITY</h5>
+        <h5 className="lg:col-span-4 text-slate100 font-lexend uppercase text-base text-center">SOURCE</h5>
+        <h5 className="lg:col-span-2 text-slate100 font-lexend uppercase text-base">TIME</h5>
+      </div>
+
+      <div className="flex flex-col gap-4 divide-y divide-white/55">
+        <div className="flex flex-col gap-5 pb-6">
+            {
+                alerts.map(({name, description, time, severity, source}, i)=> <div key={i} className="grid  lg:grid-cols-12 gap-5 border-t border-t-white/55 pt-5">
+                    <div className="col-span-5 flex items-center gap-2">
+                        <div className="w-4 h-4 rounded-full bg-white shrink-0"></div>
+                        <div className="w-7.5 h-7.5 bg-white shrink-0"></div>
+                        <div className="flex flex-col gap-1.5">
+                            <h5 className="text-sm font-dmSans text-white font-semibold">{name}</h5>
+                            <p className="text-xs font-dmSans text-white font-light">{description}</p>
+                        </div>
+                    </div>
+
+                    <div className="col-span-1 flex items-center justify-center">
+                        <div className="bg-green500 py-1 px-4 rounded text-white text-xs font-dmSans font-medium">{severity}</div>
+                    </div>
+
+                    <div className="col-span-4 flex items-center gap-2 justify-center">
+                        <div className="w-7.5 h-7.5 bg-white"></div>
+                        <p className="text-sm font-dmSans text-white font-semibold">{source}</p>
+                    </div>
+
+                    <div className="col-span-2 flex items-center justify-between gap-2">
+                        <div className="flex flex-col gap-1">
+                            <p className="text-sm font-dmSans text-white font-semibold">{time}</p>
+                            <p className="text-xs font-dmSans text-white font-light">2m ago</p>
+                        </div>
+                        <button><EllipsisVertical className="text-white"/></button>
+                    </div>
+                </div>)
+            }
+        </div>
+        <button className="border border-white/55 rounded-2xl py-2.5 px-7.5 font-rubik uppercase text-white text-sm">LOAD MORE ALERTS</button>
+      </div>
+
+
+      </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-9 gap-5">
         <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-4'>
