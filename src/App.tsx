@@ -6,6 +6,7 @@ import InvestmentHeatmap from './pages/InvestmentHeatmap'
 import ResolutionBoard from './pages/ResolutionBoard'
 import ParticipationAnalytics from './pages/ParticipationAnalytics'
 import SentimentFeedback from './pages/SentimentFeedback'
+import SocialmediaFeed from './pages/SocialmediaFeed'
 
 function App() {
   return (
@@ -67,9 +68,7 @@ function App() {
         <Route
           path="/social"
           element={
-            <Placeholder
-              title="Social Media Feed"
-              description="Live social media stream filtered by summit hashtags and mentions."
+            <SocialmediaFeed
             />
           }
         />
