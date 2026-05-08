@@ -8,6 +8,7 @@ import ParticipationAnalytics from './pages/ParticipationAnalytics'
 import SentimentFeedback from './pages/SentimentFeedback'
 import SocialmediaFeed from './pages/SocialmediaFeed'
 import AlertsUpdates from './pages/AlertsUpdates'
+import SessionInsight from './pages/SessionInsight'
 
 function App() {
   return (
@@ -26,9 +27,7 @@ function App() {
         <Route
           path="/insights"
           element={
-            <Placeholder
-              title="AI Session Insights"
-              description="Real-time AI-generated summaries, key insights, and featured quotes."
+            <SessionInsight
             />
           }
         />
