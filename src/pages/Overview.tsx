@@ -1,3 +1,4 @@
+import SessionTimeline from '@/components/SessionTimeline'
 import { CircleArrowUp, Sparkles, CircleCheck, Volume2, CircleSmall, ChevronRight, User } from 'lucide-react'
 
 const kpis = [
@@ -57,41 +58,23 @@ export default function Overview() {
           <h2 className="text-base font-light tracking-widest text-white font-lexend uppercase">
             Live Programme Flow
           </h2>
-          <div className="border-l-4 border-l-cyan py-3 px-4">
-            <div className="rounded-xl bg-surface800 border border-red/30 p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] text-slate-500 tracking-wider">CURRENT SESSION</span>
-                <span className="badge-live">● LIVE</span>
-              </div>
-              <div className="text-xs text-slate-500">11:00 AM &mdash; 12:30 PM</div>
-              <div className="text-base font-medium text-white mt-1">
-                Lagos &mdash; Africa's Global Gateway
-              </div>
-              <div className="text-xs text-slate-400 mt-1">Shaping Africa's Digital Future</div>
-            </div>
+          <div className="border-l-4 border-l-cyan py-3 px-3">
+            <SessionTimeline/>
+            
+          </div>
+          <div className='border border-white/35 py-4 px-6'>
+           <div className='flex items-center justify-between gap-4 border border-white/55 rounded-xl p-6'>
+           <div className='flex flex-col gap-3'>
+            <span className='text-white font-lexend font-light text-xs'>1:00 PM - 02:30 PM</span>
+            <h5 className='text-white font-lexend font-semibold text-xs truncate'>Infrastructure & Urban Growth</h5>
+            <span className='text-white font-lexend font-medium text-[10px]'>Building Sustainable Cities</span>
 
-            <div className="rounded-xl bg-surface800 border border-white/5 p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] text-slate-500 tracking-wider">NEXT SESSION</span>
-                <span className="badge-next">UP NEXT</span>
-              </div>
-              <div className="text-xs text-slate-500">1:00 PM &mdash; 2:30 PM</div>
-              <div className="text-base font-medium text-white mt-1">The Future of Technology</div>
-              <div className="text-xs text-slate-400 mt-1">Building Sustainable Cities</div>
-            </div>
-
-            <div className="rounded-xl bg-surface800 border border-white/5 p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] text-slate-500 tracking-wider">UPCOMING</span>
-                <span className="badge-next">UP NEXT</span>
-              </div>
-              <div className="text-xs text-slate-500">3:00 PM &mdash; 4:30 PM</div>
-              <div className="text-base font-medium text-white mt-1">Creative Economy Dialogue</div>
-              <div className="text-xs text-slate-400 mt-1">Unlocking Africa's Creative Potential</div>
-            </div>
+           </div>
+            <p className='text-sm font-bold uppercase font-lexend text-green'>COMPLETED</p>
+           
+           </div>
           </div>
           </div>
-          <div className='border border-white/35 py-4 px-6'></div>
         </section>
 
         {/* Live session intelligence */}
