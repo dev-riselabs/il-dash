@@ -26,6 +26,15 @@ const signals = [
     {signal : 'Medium confidence signals', value: 1},
 ]
 
+const timelines = [
+    {time: '09:30 AM', session: 'Session Started', by: ''},
+    {time: '09:35 AM', session: 'Opening Remarks', by: 'Babajide Sanwo-Olu'},
+    {time: '09:50 AM', session: 'Keynote Address', by: 'Akinwumi Adesina'},
+    {time: '10:10 AM', session: 'Panel Discussion', by: ''},
+    {time: '10:55 AM', session: 'Q&A Session', by: ''},
+    {time: '11:00 AM', session: 'Session Ended', by: ''},
+]
+
 function SessionInsight() {
   return (
     <section className="space-y-6">
@@ -301,6 +310,27 @@ function SessionInsight() {
             { label: "Transport", value: 38, color: "#CB3CFF" },
             { label: "Other", value: 33, color: "#13A13E" }
           ]}/>
+                </div>
+
+                <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6'>
+                <h4 className='font-dmSans text-white font-medium text-base uppercase'>SESSION TIMELINE</h4>
+                <div className="flex flex-col gap-5">
+                    {
+                        timelines.map(({session, by, time}, i)=> <div key={i} className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className={`w-4 h-4 rounded-full ${
+                                    i === timelines.length -1 ? 'bg-red' : 'bg-green100'
+                                }`}></div>
+                                <h5 className="text-white font-inter text-base">{time}</h5>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <h5 className="text-white font-inter text-base">{session}</h5>
+                                <p className="text-white font-inter text-base">{by}</p>
+                            </div>
+                        </div>)
+                    }
+
+                </div>
                 </div>
 
         
