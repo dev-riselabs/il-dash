@@ -10,7 +10,7 @@ import { FaYoutube } from "react-icons/fa";
 const kpis = [
   { label: 'Total Mentions', value: '3,842', delta: '18% vs Today' },
   { label: 'Unique Authors', value: '2,196', delta: '18% vs Today' },
-  { label: 'Total Reach ', value: '1.26M', delta: '6% vs Today' },
+  { label: 'Total Reach', value: '1.26M', delta: '6% vs Today' },
   { label: 'Engagement', value: '28.7K', delta: '6% vs Today' },
   { label: 'Neutral Feedback', value: '78 /100', delta: '3% vs Today' },
 ]

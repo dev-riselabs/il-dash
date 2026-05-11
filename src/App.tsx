@@ -11,6 +11,7 @@ import AlertsUpdates from './pages/AlertsUpdates'
 import SessionInsight from './pages/SessionInsight'
 import Reports from './pages/Reports'
 import NextActionTracker from './pages/NextActionTracker'
+import GlobalInvesorMap from './pages/GlobalInvesorMap'
 
 function App() {
   return (
@@ -94,6 +95,13 @@ function App() {
           path="/reports"
           element={
             <Reports
+            />
+          }
+        />
+        <Route
+          path="/global"
+          element={
+            <GlobalInvesorMap
             />
           }
         />

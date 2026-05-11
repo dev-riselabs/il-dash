@@ -182,8 +182,8 @@ function NextActionTracker() {
 
       </section>
 
-      <section className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-              <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6'>
+      <section className='grid grid-cols-1 lg:grid-cols-12 gap-6'>
+              <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-6'>
               <h4 className='font-dmSans text-white font-medium text-base uppercase'>ACTION STATUS OVERVIEWS</h4>
               <DonutChart
         data={[
@@ -194,7 +194,7 @@ function NextActionTracker() {
         ]}
       />
               </div>
-              <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6'>
+              <div className='border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-6'>
               <div className='flex items-center justify-between gap-3'>
             <h4 className='text-white font-medium uppercase text-base font-lexend'>ACTIONS BY SECTOR</h4>
             <button className='text-cyan font-semibold font-lexend text-base'>View full</button>
