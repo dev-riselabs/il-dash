@@ -9,6 +9,8 @@ import SentimentFeedback from './pages/SentimentFeedback'
 import SocialmediaFeed from './pages/SocialmediaFeed'
 import AlertsUpdates from './pages/AlertsUpdates'
 import SessionInsight from './pages/SessionInsight'
+import Reports from './pages/Reports'
+import NextActionTracker from './pages/NextActionTracker'
 
 function App() {
   return (
@@ -91,9 +93,14 @@ function App() {
         <Route
           path="/reports"
           element={
-            <Placeholder
-              title="Reports"
-              description="End-of-day intelligence reports and post-summit exports."
+            <Reports
+            />
+          }
+        />
+        <Route
+          path="/next-action-tracker"
+          element={
+            <NextActionTracker
             />
           }
         />

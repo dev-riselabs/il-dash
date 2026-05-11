@@ -13,6 +13,7 @@ import {
   FileText,
   ShieldAlert,
   LogOut,
+  SatelliteDish
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -29,6 +30,7 @@ const items = [
   { to: '/alerts', label: 'Alerts & Updates', icon: Bell },
   { to: '/security', label: 'Security', icon: ShieldAlert },
   { to: '/reports', label: 'Reports', icon: FileText },
+  {to : '/next-action-tracker', label: 'Next Action Tracker', icon: SatelliteDish },
   { to: '/settings', label: 'Settings', icon: LogOut },
 ]
 
