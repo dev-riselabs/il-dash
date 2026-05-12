@@ -3,13 +3,18 @@ import {
   ChartNoAxesColumn,
   CircleAlert,
   CircleArrowUp,
+  ClipboardList,
   Download,
   Ellipsis,
   Heart,
+  History,
   MessageCircle,
+  NotepadText,
   Repeat2,
   ShieldCheck,
+  Siren,
   TriangleAlert,
+  Volume1,
 } from "lucide-react";
 
 const kpis = [
@@ -124,6 +129,60 @@ const tweets = [
     retweet: "5,579",
     comments: "1,240",
     impression: "1.1M",
+  },
+];
+
+const incidents = [
+  {
+    name: "Crowd congestion",
+    venue: "Main Entrance",
+    time: "11:00 AM",
+    progress: "Responding",
+  },
+  {
+    name: "Access control issue",
+    venue: "Hall B",
+    time: "11:10 AM",
+    progress: "Responding",
+  },
+  {
+    name: "Medical assistance",
+    venue: "VIP Lounge",
+    time: "10:58 AM",
+    progress: "Resolved",
+  },
+];
+
+const actions = [
+  {
+    name: "Broadcast Announcement",
+    action: "Send message to all attendee",
+    label: "Positive",
+    icon: Volume1,
+  },
+  {
+    name: "Alert Security Team",
+    action: "Send urgent notification",
+    label: "Positive",
+    icon: Siren,
+  },
+  {
+    name: "Update Session Status",
+    action: "Modify session information",
+    label: "Positive",
+    icon: History,
+  },
+  {
+    name: "Add Command Note",
+    action: "Add operational note",
+    label: "Positive",
+    icon: NotepadText,
+  },
+  {
+    name: "Generate Situation Report",
+    action: "Download current report",
+    label: "Positive",
+    icon: ClipboardList,
   },
 ];
 
@@ -410,11 +469,78 @@ function CommandCenter() {
               View all incidents
             </button>
           </div>
+          <div className="flex flex-col gap-7">
+            <div className="border border-white/55 rounded-2xl h-50 "></div>
+            <div className="flex flex-col gap-5 divide divide-white/55">
+              <div className="flex items-center justify-between gap-4">
+                <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                  Session/track
+                </h5>
+                <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                  Venue
+                </h5>
+                <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                  time
+                </h5>
+                <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                  progress
+                </h5>
+              </div>
+              <div className="flex flex-col gap-4">
+                {incidents.map(({ name, venue, time, progress }) => (
+                  <div
+                    key={name}
+                    className="flex items-center gap-4 justify-between"
+                  >
+                    <p className="text-sm font-semibold text-white font-dmSans flex-2">
+                      {name}
+                    </p>
+                    <p className="text-sm font-semibold text-white font-dmSans flex-1">
+                      {venue}
+                    </p>
+                    <p className="text-sm font-semibold text-white font-dmSans flex-1">
+                      {time}
+                    </p>
+                    <div className="flex-1 flex items-center justify-center">
+                      <div
+                        className={`border font-dmSans font-medium text-xs py-1.25 px-3.75 rounded-md ${
+                          progress === "Responding"
+                            ? " border-yellow200 bg-yellow100 text-yellow200"
+                            : "border-green100 text-green100 bg-green550"
+                        }`}
+                      >
+                        {progress}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
           <h4 className="text-white font-medium uppercase text-base font-lexend">
             QUICK ACTIONS
           </h4>
+          <div className="flex flex-col gap-3.5">
+            {
+               actions.map(({name, action, icon: Icon, label}, i) => <div className="px-7.5 py-5 border border-white/55 rounded-2xl flex items-center justify-between gap-2">
+                 <div className="flex items-center gap-4">
+                  <div className={`shrink-0 w-12 h-12 rounded-md ${
+                    i === 0 ? 'bg-blue' : 
+                    i === 1 ? 'bg-purple300' :
+                    i === 2 ? 'bg-orange' :
+                    i === 3 ? 'bg-green100' :
+                    ''
+
+                  }`}><Icon className="text-white w-5"/></div>
+                  <div className="flex flex-col gap-2">
+
+                  </div>
+                 </div>
+                 <div></div>
+               </div>)
+            }</div>
         </div>
       </section>
 
