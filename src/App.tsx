@@ -12,6 +12,8 @@ import SessionInsight from './pages/SessionInsight'
 import Reports from './pages/Reports'
 import NextActionTracker from './pages/NextActionTracker'
 import GlobalInvesorMap from './pages/GlobalInvesorMap'
+import ExecutiveView from './pages/ExecutiveView'
+import CommandCenter from './pages/CommandCenter'
 
 function App() {
   return (
@@ -109,6 +111,20 @@ function App() {
           path="/next-action-tracker"
           element={
             <NextActionTracker
+            />
+          }
+        />
+        <Route
+          path="/executive-view"
+          element={
+            <ExecutiveView
+            />
+          }
+        />
+        <Route
+          path="/command-center"
+          element={
+            <CommandCenter
             />
           }
         />

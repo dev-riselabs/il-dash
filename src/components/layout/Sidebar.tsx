@@ -12,14 +12,17 @@ import {
   Bell,
   FileText,
   ShieldAlert,
-  LogOut,
   SatelliteDish,
-  Globe
+  Globe,
+  Target,
+  Command,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const items = [
   { to: '/', label: 'Overview', icon: LayoutDashboard, end: true },
+  { to: '/executive-view', label: 'Executive View', icon: Target },
+  { to: '/command-center', label: 'Command Center', icon: Command },
   { to: '/programme', label: 'Programme Tracker', icon: CalendarClock },
   { to: '/insights', label: 'Session Insights', icon: Brain },
   { to: '/deals', label: 'Deal Room Tracker', icon: Briefcase },
