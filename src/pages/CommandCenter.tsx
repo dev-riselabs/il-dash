@@ -186,6 +186,17 @@ const actions = [
   },
 ];
 
+const liveFeeds = [
+  { img: "/feed1.jpg", venue: "Main hall", status: "live" },
+  { img: "/feed2.jpg", venue: "Hall A", status: "live" },
+  { img: "/feed3.jpg", venue: "Main hall", status: "live" },
+  { img: "/feed4.jpg", venue: "Main hall", status: "live" },
+  { img: "/feed5.jpg", venue: "Main hall", status: "delayed" },
+  { img: "/feed6.jpg", venue: "Main hall", status: "delayed" },
+  { img: "/feed7.jpg", venue: "Main hall", status: "live" },
+  { img: "/feed8.jpg", venue: "Main hall", status: "delayed" },
+];
+
 function CommandCenter() {
   return (
     <section className="space-y-6">
@@ -523,24 +534,100 @@ function CommandCenter() {
             QUICK ACTIONS
           </h4>
           <div className="flex flex-col gap-3.5">
-            {
-               actions.map(({name, action, icon: Icon, label}, i) => <div className="px-7.5 py-5 border border-white/55 rounded-2xl flex items-center justify-between gap-2">
-                 <div className="flex items-center gap-4">
-                  <div className={`shrink-0 w-12 h-12 rounded-md ${
-                    i === 0 ? 'bg-blue' : 
-                    i === 1 ? 'bg-purple300' :
-                    i === 2 ? 'bg-orange' :
-                    i === 3 ? 'bg-green100' :
-                    ''
-
-                  }`}><Icon className="text-white w-5"/></div>
-                  <div className="flex flex-col gap-2">
-
+            {actions.map(({ name, action, icon: Icon, label }, i) => (
+              <div className="px-7.5 py-5 border border-white/55 rounded-2xl flex items-center justify-between gap-2">
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`shrink-0 w-12 h-12 rounded-md flex items-center justify-center ${
+                      i === 0
+                        ? "bg-blue"
+                        : i === 1
+                          ? "bg-purple300"
+                          : i === 2
+                            ? "bg-orange"
+                            : i === 3
+                              ? "bg-green100"
+                              : i === 4
+                                ? "bg-mint"
+                                : ""
+                    }`}
+                  >
+                    <Icon className="text-white w-5" />
                   </div>
-                 </div>
-                 <div></div>
-               </div>)
-            }</div>
+                  <div className="flex flex-col gap-2">
+                    <h5 className="text-white font-dmSans text-sm font-semibold">
+                      {name}
+                    </h5>
+                    <span className="text-white font-dmSans text-xs font-light">
+                      {action}
+                    </span>
+                  </div>
+                </div>
+                <div className="bg-green500 py-1.25 px-2.5 rounded-md text-white font-dmSans font-medium text-[10px]">
+                  {label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+        <div className="flex items-center justify-between gap-3">
+          <h4 className="text-white font-medium uppercase text-base font-lexend">
+            LIVE FEED
+          </h4>
+          <button className="text-cyan font-semibold font-lexend text-base">
+            View all cameras
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {liveFeeds.map(({ img, status, venue }, i) => (
+              <div className="border border-white overflow-hidden rounded-2xl h-41.5 w-full relative">
+                <img src={img} alt="" className="w-full h-full" />
+                <div className="absolute top-2 left-2 border border-white/15 rounded-md py-1.25 px-2.5 flex items-center justify-center bg-green500/20 text-white text-[10px] font-dmSans font-medium">
+                  {venue}
+                </div>
+                <div
+                  className={`absolute top-2 right-2 uppercase rounded-md py-1.25 px-2.5 flex items-center justify-center text-[10px] font-dmSans font-medium ${
+                    status === "live"
+                      ? "bg-green650 text-green100"
+                      : "bg-brown400 text-yellow600"
+                  }`}
+                >
+                  {status}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col gap-4 lg:gap-10 lg:flex-row lg:justify-center lg:items-center">
+            <div className="flex items-center flex-col gap-5 border border-white/30 rounded-2xl py-5 px-10 max-w-50 w-full">
+              <h6 className="text-white font-dmSans text-sm font-semibold">
+                Total Cameras
+              </h6>
+              <span className="text-white font-dmSans text-3xl font-semibold">
+                24
+              </span>
+            </div>
+            <div className="flex items-center flex-col gap-5 border border-white/30 rounded-2xl py-5 px-10 max-w-50 w-full">
+              <h6 className="text-white font-dmSans text-sm font-semibold">
+                Active
+              </h6>
+              <span className="text-green font-dmSans text-3xl font-semibold">
+                20
+              </span>
+            </div>
+            <div className="flex items-center flex-col gap-5 border border-white/30 rounded-2xl py-5 px-10 max-w-50 w-full">
+              <h6 className="text-white font-dmSans text-sm font-semibold">
+                Offline
+              </h6>
+              <span className="text-red font-dmSans text-3xl font-semibold">
+                4
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
