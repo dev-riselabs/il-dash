@@ -18,7 +18,7 @@ ChartJS.register(
   LineElement,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 );
 
 const pointShadowPlugin = {
@@ -198,11 +198,7 @@ export default function AlertsOverTimeChart() {
       </h4>
 
       <div className="h-70 w-full">
-        <Line
-          data={data}
-          options={options}
-          plugins={[pointShadowPlugin]}
-        />
+        <Line data={data} options={options} plugins={[pointShadowPlugin]} />
       </div>
     </div>
   );

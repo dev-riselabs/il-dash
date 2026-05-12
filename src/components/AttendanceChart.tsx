@@ -17,7 +17,7 @@ ChartJS.register(
   LineElement,
   Tooltip,
   Filler,
-  Legend
+  Legend,
 );
 
 const AttendanceChart = () => {

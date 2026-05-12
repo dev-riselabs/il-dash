@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
   CalendarClock,
@@ -16,27 +16,31 @@ import {
   Globe,
   Target,
   Command,
-} from 'lucide-react'
-import { cn } from '@/lib/utils'
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const items = [
-  { to: '/', label: 'Overview', icon: LayoutDashboard, end: true },
-  { to: '/executive-view', label: 'Executive View', icon: Target },
-  { to: '/command-center', label: 'Command Center', icon: Command },
-  { to: '/programme', label: 'Programme Tracker', icon: CalendarClock },
-  { to: '/insights', label: 'Session Insights', icon: Brain },
-  { to: '/deals', label: 'Deal Room Tracker', icon: Briefcase },
-  { to: '/heatmap', label: 'Investment Heatmap', icon: Map },
-  { to: '/resolutions', label: 'Resolution Board', icon: ListChecks },
-  { to: '/analytics', label: 'Analytics', icon: BarChart3 },
-  { to: '/feedback', label: 'Sentiment & Feedback', icon: Heart },
-  { to: '/social', label: 'Social Media Feed', icon: Megaphone },
-  { to: '/alerts', label: 'Alerts & Updates', icon: Bell },
-  { to: '/security', label: 'Security', icon: ShieldAlert },
-  { to: '/reports', label: 'Reports', icon: FileText },
-  { to: '/global', label: 'Global Investor Map', icon: Globe },
-  {to : '/next-action-tracker', label: 'Next Action Tracker', icon: SatelliteDish },
-]
+  { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
+  { to: "/executive-view", label: "Executive View", icon: Target },
+  { to: "/command-center", label: "Command Center", icon: Command },
+  { to: "/programme", label: "Programme Tracker", icon: CalendarClock },
+  { to: "/insights", label: "Session Insights", icon: Brain },
+  { to: "/deals", label: "Deal Room Tracker", icon: Briefcase },
+  { to: "/heatmap", label: "Investment Heatmap", icon: Map },
+  { to: "/resolutions", label: "Resolution Board", icon: ListChecks },
+  { to: "/analytics", label: "Analytics", icon: BarChart3 },
+  { to: "/feedback", label: "Sentiment & Feedback", icon: Heart },
+  { to: "/social", label: "Social Media Feed", icon: Megaphone },
+  { to: "/alerts", label: "Alerts & Updates", icon: Bell },
+  { to: "/security", label: "Security", icon: ShieldAlert },
+  { to: "/reports", label: "Reports", icon: FileText },
+  { to: "/global", label: "Global Investor Map", icon: Globe },
+  {
+    to: "/next-action-tracker",
+    label: "Next Action Tracker",
+    icon: SatelliteDish,
+  },
+];
 
 export function Sidebar() {
   return (
@@ -57,10 +61,10 @@ export function Sidebar() {
             end={end}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit',
+                "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit",
                 isActive
-                  ? 'bg-cyan/10 text-cyan'
-                  : 'text-white hover:text-slate-200 hover:bg-white/5'
+                  ? "bg-cyan/10 text-cyan"
+                  : "text-white hover:text-slate-200 hover:bg-white/5",
               )
             }
           >
@@ -68,9 +72,8 @@ export function Sidebar() {
             <span className="truncate">{label}</span>
           </NavLink>
         ))}
-        <img src="./logo-b.png" alt="" className='h-30 mt-6 w-full'/>
+        <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
       </nav>
-    
     </aside>
-  )
+  );
 }

@@ -1,9 +1,4 @@
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import type { ChartOptions, Plugin } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 
@@ -17,7 +12,7 @@ type ChartItem = {
 
 type DonutChartProps = {
   data: ChartItem[];
-  small? : boolean;
+  small?: boolean;
 };
 
 // ✅ Center text plugin (dynamic)
@@ -98,14 +93,11 @@ export default function DonutChart({ data, small }: DonutChartProps) {
 
   return (
     <div className="flex items-center gap-10">
-      <div className={`${small ? 'w-40 h-40' :"w-50 h-50"}`}>
+      <div className={`${small ? "w-40 h-40" : "w-50 h-50"}`}>
         <Doughnut
           data={chartData}
           options={options}
-          plugins={[
-            createCenterTextPlugin(total),
-            innerBorderPlugin,
-          ]}
+          plugins={[createCenterTextPlugin(total), innerBorderPlugin]}
         />
       </div>
 
@@ -121,10 +113,10 @@ export default function DonutChart({ data, small }: DonutChartProps) {
                 style={{ backgroundColor: item.color }}
               ></span>
 
-              <p className="text-xs font-lexend">
-                {item.label} 
+              <p className="text-xs font-lexend">{item.label}</p>
+              <p className="text-xs font-lexend flex items-center gap-1">
+                — {item.value} ({percentage}%)
               </p>
-              <p className="text-xs font-lexend flex items-center gap-1">— {item.value} ({percentage}%)</p>
             </div>
           );
         })}

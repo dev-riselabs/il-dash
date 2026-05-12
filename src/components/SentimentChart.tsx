@@ -16,7 +16,7 @@ ChartJS.register(
   LinearScale,
   CategoryScale,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const labels = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00"];
@@ -32,7 +32,7 @@ const data = {
       tension: 0.4,
       pointRadius: 4,
       pointHoverRadius: 6,
-      borderWidth : 1
+      borderWidth: 1,
     },
     {
       label: "Neutral",
@@ -42,7 +42,7 @@ const data = {
       tension: 0.4,
       pointRadius: 4,
       pointHoverRadius: 6,
-      borderWidth : 1
+      borderWidth: 1,
     },
     {
       label: "Negative",
@@ -52,7 +52,7 @@ const data = {
       tension: 0.4,
       pointRadius: 4,
       pointHoverRadius: 6,
-      borderWidth : 1
+      borderWidth: 1,
     },
   ],
 };
@@ -95,7 +95,7 @@ const options: ChartOptions<"line"> = {
       grid: {
         color: "#fff",
         borderDash: [4, 4], // 🔥 dashed vertical grid
-      }  as any,
+      } as any,
       border: {
         display: false,
       },
@@ -111,7 +111,7 @@ const options: ChartOptions<"line"> = {
       grid: {
         color: "#fff",
         borderDash: [4, 4], // 🔥 dashed horizontal grid
-      }  as any,
+      } as any,
       border: {
         display: false,
       },

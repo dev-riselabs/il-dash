@@ -17,6 +17,7 @@
     --color-yellow200: #DC9A06;
     --color-yellow300: #CAA873;
     --color-yellow400: #E9CB38;
+    --color-yellow500: #EACE08;
     --color-orange: #ff8d28;
     --color-orange100: #F66202;
     --color-orange200: #E78B04;
@@ -27,6 +28,8 @@
     --color-blue300: #071E3F;
     --color-blue400: #5FB7E4;
     --color-blue500: #1E2633;
+    --color-blue600: #062C59;
+    --color-blue700: #1765D0;
     --color-indigo : #6155F5;
     --color-purple: #CB3CFF;
     --color-purple100: #4B209E;
@@ -34,6 +37,7 @@
     --color-brown: #B2631C;
     --color-brown100: #392914;
     --color-brown200: #433008;
+    --color-brown300: #362D13;
     --color-green100: #13A13E;
     --color-green150: #0A3622;
     --color-green250: #94CCAE;

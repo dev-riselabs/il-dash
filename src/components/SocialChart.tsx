@@ -15,18 +15,11 @@ ChartJS.register(
   PointElement,
   LineElement,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const data = {
-  labels: [
-    "0:09 AM",
-    "0:09 AM",
-    "0:09 AM",
-    "0:09 AM",
-    "0:09 AM",
-    "0:09 AM",
-  ],
+  labels: ["0:09 AM", "0:09 AM", "0:09 AM", "0:09 AM", "0:09 AM", "0:09 AM"],
 
   datasets: [
     {
@@ -116,7 +109,7 @@ const options = {
 export default function MentionsChart() {
   return (
     <div className="w-full rounded-3xl border border-white/55 p-6 flex gap-6 flex-col">
-      <h4 className='font-dmSans text-white font-medium text-base uppercase'>
+      <h4 className="font-dmSans text-white font-medium text-base uppercase">
         Mentions Over Time
       </h4>
 

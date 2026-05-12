@@ -50,9 +50,7 @@ export default function SessionTimeline() {
               <div className="flex flex-col gap-2">
                 <p className="text-gray-300 text-xs">{sessions[0].time}</p>
 
-                <h3 className="text-sm font-bold">
-                  {sessions[0].title}
-                </h3>
+                <h3 className="text-sm font-bold">{sessions[0].title}</h3>
 
                 <p className="text-gray-400 text-xs">{sessions[0].subtitle}</p>
               </div>
@@ -90,9 +88,7 @@ export default function SessionTimeline() {
                   <div className="flex flex-col gap-2">
                     <p className="text-gray-300 text-xs">{session.time}</p>
 
-                    <h3 className="text-sm font-bold">
-                      {session.title}
-                    </h3>
+                    <h3 className="text-sm font-bold">{session.title}</h3>
 
                     <p className="text-gray-400 text-xs">{session.subtitle}</p>
                   </div>

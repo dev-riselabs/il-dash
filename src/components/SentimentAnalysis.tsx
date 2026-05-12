@@ -1,9 +1,4 @@
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import type { Plugin } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { Users } from "lucide-react";
@@ -112,13 +107,9 @@ const SentimentAnalysis = () => {
 
           {/* Center Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <h3 className="text-white text-3xl font-bold">
-              {total}%
-            </h3>
+            <h3 className="text-white text-3xl font-bold">{total}%</h3>
 
-            <p className="text-white text-base mt-1">
-              Positive
-            </p>
+            <p className="text-white text-base mt-1">Positive</p>
           </div>
         </div>
 

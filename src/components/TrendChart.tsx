@@ -17,7 +17,7 @@ ChartJS.register(
   LineElement,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 );
 
 const SentimentTrendChart = () => {

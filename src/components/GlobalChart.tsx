@@ -1,5 +1,3 @@
-
-
 import {
   Chart as ChartJS,
   Tooltip,
@@ -117,7 +115,7 @@ const InvestmentHeatmap = () => {
         </button>
       </div>
 
-     <img
+      <img
         src="/map-bg.svg"
         alt="world map"
         className="absolute inset-0 h-full w-full object-contain "
@@ -204,8 +202,6 @@ const InvestmentHeatmap = () => {
           </button>
         </div>
       </div>
-
-      
 
       {/* Legend */}
       <div className="absolute bottom-8 left-8 rounded-2xl border border-[#2A2D3E] bg-[#020817]/90 p-4 backdrop-blur-md">
