@@ -288,7 +288,7 @@ export default function Overview() {
                 </div>
               ))}
             </div>
-            <Link to={`/feedback`} className="border cursor-pointer border-white rounded-lg text-white font-medium text-base font-rubik py-2.5 ">
+            <Link to={`/feedback`} className="border cursor-pointer border-white rounded-lg flex justify-center items-center text-white font-medium text-base font-rubik py-2.5 ">
               VIEW ALL FEEDBACK
             </Link>
           </div>
