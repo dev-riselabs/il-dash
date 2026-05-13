@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import Overview from "@/pages/Overview";
-import Placeholder from "@/pages/Placeholder";
 import InvestmentHeatmap from "./pages/InvestmentHeatmap";
 import ResolutionBoard from "./pages/ResolutionBoard";
 import ParticipationAnalytics from "./pages/ParticipationAnalytics";
