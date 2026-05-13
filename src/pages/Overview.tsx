@@ -242,7 +242,7 @@ export default function Overview() {
                   <p className="text-white font-dmSans text-sm col-span-3">
                     {title}
                   </p>
-                  <div className="col-span-7">
+                  <div className="col-span-8">
                     <div
                       className={` h-5
                   ${
@@ -258,7 +258,7 @@ export default function Overview() {
                       style={{ width: `${(score * 100) / 100}%` }}
                     ></div>
                   </div>
-                  <p className="text-white font-dmSans text-sm col-span-2">
+                  <p className="text-white font-dmSans text-sm col-span-1">
                     {score}%
                   </p>
                 </div>

@@ -219,36 +219,54 @@ function ProgrammeTracker() {
                       {description}
                     </p>
                     <div className="flex items-center justify-between gap-4">
-                        <div className={`flex items-center gap-2 divide-x ${
+                      <div
+                        className={`flex items-center gap-2 divide-x ${
+                          status === "upcoming"
+                            ? "divide-slate100/33"
+                            : status === "completed"
+                              ? "divide-cyan"
+                              : "divide-white"
+                        }`}
+                      >
+                        <div
+                          className={`flex items-center gap-2 pr-2 ${
                             status === "upcoming"
-                              ? "divide-slate100/33"
-                              : status === "completed"
-                                ? "divide-cyan"
-                                : "divide-white"
-                        }`}>
-                            <div className={`flex items-center gap-2 pr-2 ${
-                                status === "upcoming"
                               ? "text-slate100/33"
                               : status === "completed"
                                 ? "text-cyan"
                                 : "text-white"
-                            }`}> <Clock className="w-4"/> <span className="text-xs">{time}</span></div>
-                            <div className={`flex items-center gap-2 ${
-                                status === "upcoming"
-                              ? "text-slate100/33"
-                              : status === "completed"
-                                ? "text-cyan"
-                                : "text-white"
-                            }`}> <MapPin className="w-4"/> <span className="text-xs">{venue}</span></div>
+                          }`}
+                        >
+                          {" "}
+                          <Clock className="w-4" />{" "}
+                          <span className="text-xs">{time}</span>
                         </div>
-
-                        <div className={`py-2 px-3 rounded-md text-xs uppercase   ${
+                        <div
+                          className={`flex items-center gap-2 ${
                             status === "upcoming"
-                              ? "bg-slate100 text-white"
+                              ? "text-slate100/33"
                               : status === "completed"
-                                ? "bg-cyan text-white"
-                                : "bg-white text-black"
-                        }`}>{status === 'completed' ? 'view recap' : 'view details'}</div>
+                                ? "text-cyan"
+                                : "text-white"
+                          }`}
+                        >
+                          {" "}
+                          <MapPin className="w-4" />{" "}
+                          <span className="text-xs">{venue}</span>
+                        </div>
+                      </div>
+
+                      <div
+                        className={`py-2 px-3 rounded-md text-xs uppercase   ${
+                          status === "upcoming"
+                            ? "bg-slate100 text-white"
+                            : status === "completed"
+                              ? "bg-cyan text-white"
+                              : "bg-white text-black"
+                        }`}
+                      >
+                        {status === "completed" ? "view recap" : "view details"}
+                      </div>
                     </div>
                   </div>
                 ),

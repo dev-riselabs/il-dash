@@ -15,6 +15,7 @@ import GlobalInvesorMap from "./pages/GlobalInvesorMap";
 import ExecutiveView from "./pages/ExecutiveView";
 import CommandCenter from "./pages/CommandCenter";
 import ProgrammeTracker from "./pages/ProgrammeTracker";
+import DealRoomTracker from "./pages/DealRoomTracker";
 
 function App() {
   return (
@@ -26,9 +27,7 @@ function App() {
         <Route
           path="/deals"
           element={
-            <Placeholder
-              title="Deal Room Tracker"
-              description="Track active investment deals, MoUs, and partnership announcements."
+            <DealRoomTracker
             />
           }
         />
