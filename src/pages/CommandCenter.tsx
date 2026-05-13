@@ -584,7 +584,7 @@ function CommandCenter() {
 
         <div className="flex flex-col gap-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {liveFeeds.map(({ img, status, venue }, i) => (
+            {liveFeeds.map(({ img, status, venue }) => (
               <div className="border border-white overflow-hidden rounded-2xl h-41.5 w-full relative">
                 <img src={img} alt="" className="w-full h-full" />
                 <div className="absolute top-2 left-2 border border-white/15 rounded-md py-1.25 px-2.5 flex items-center justify-center bg-green500/20 text-white text-[10px] font-dmSans font-medium">

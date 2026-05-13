@@ -14,21 +14,14 @@ import NextActionTracker from "./pages/NextActionTracker";
 import GlobalInvesorMap from "./pages/GlobalInvesorMap";
 import ExecutiveView from "./pages/ExecutiveView";
 import CommandCenter from "./pages/CommandCenter";
+import ProgrammeTracker from "./pages/ProgrammeTracker";
 
 function App() {
   return (
     <AppShell>
       <Routes>
         <Route path="/" element={<Overview />} />
-        <Route
-          path="/programme"
-          element={
-            <Placeholder
-              title="Programme Tracker"
-              description="Live programme schedule, current/next sessions, and speaker rotation."
-            />
-          }
-        />
+        <Route path="/programme" element={<ProgrammeTracker />} />
         <Route path="/insights" element={<SessionInsight />} />
         <Route
           path="/deals"
