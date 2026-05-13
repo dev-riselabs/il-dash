@@ -16,6 +16,7 @@ import ExecutiveView from "./pages/ExecutiveView";
 import CommandCenter from "./pages/CommandCenter";
 import ProgrammeTracker from "./pages/ProgrammeTracker";
 import DealRoomTracker from "./pages/DealRoomTracker";
+import SecuritySafety from "./pages/SecuritySafety";
 
 function App() {
   return (
@@ -24,28 +25,14 @@ function App() {
         <Route path="/" element={<Overview />} />
         <Route path="/programme" element={<ProgrammeTracker />} />
         <Route path="/insights" element={<SessionInsight />} />
-        <Route
-          path="/deals"
-          element={
-            <DealRoomTracker
-            />
-          }
-        />
+        <Route path="/deals" element={<DealRoomTracker />} />
         <Route path="/heatmap" element={<InvestmentHeatmap />} />
         <Route path="/resolutions" element={<ResolutionBoard />} />
         <Route path="/analytics" element={<ParticipationAnalytics />} />
         <Route path="/feedback" element={<SentimentFeedback />} />
         <Route path="/social" element={<SocialmediaFeed />} />
         <Route path="/alerts" element={<AlertsUpdates />} />
-        <Route
-          path="/security"
-          element={
-            <Placeholder
-              title="Security Intelligence"
-              description="Safety status, incident reports, and venue security monitoring."
-            />
-          }
-        />
+        <Route path="/security" element={<SecuritySafety />} />
         <Route path="/reports" element={<Reports />} />
         <Route path="/global" element={<GlobalInvesorMap />} />
         <Route path="/next-action-tracker" element={<NextActionTracker />} />
