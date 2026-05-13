@@ -44,7 +44,7 @@ const items = [
 
 export function Sidebar() {
   return (
-    <aside className="w-62 shrink-0 bg-surface900 border-r border-white/5 flex flex-col ">
+    <aside className="w-62 shrink-0 bg-surface900 border-r border-white/5 flex flex-col lg:block hidden">
       <div className="p-6 border-b border-white/5 flex justify-center">
         {/* <div className="text-xs font-semibold tracking-widest text-accent-cyan">
           IL-DASH

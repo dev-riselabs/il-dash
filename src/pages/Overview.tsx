@@ -21,14 +21,14 @@ export default function Overview() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           REAL-TIME INTELLIGENCE DASHBOARD [IL-DASH]
         </h1>
         <p className="text-white font-lexend font-light text-xs">Overview.</p>
       </div>
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* KPI grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-3">
+        <div className="grid grid-cols-2 md:grid-cols-2 gap-x-4 gap-y-3">
           {kpis.map(({ label, value, delta }, idx) => (
             <div
               key={label}
@@ -64,16 +64,16 @@ export default function Overview() {
           ))}
         </div>
         <div className="flex gap-4 items-center border border-white/30 rounded-xl overflow-hidden">
-          <div className="flex flex-col gap-4 justify-center px-5 w-3/5">
-            <p className="text-white font-lexend text-base">
+          <div className="flex flex-col gap-4 justify-center px-5 py-3 w-3/5">
+            <p className="text-white font-lexend text-xs sm:text-base">
               Lagos is not just the future of Africa—it is the blueprint for
               sustainable urbanization globally.
             </p>
             <div className="">
-              <p className="text-white font-lexend text-sm text-right">
+              <p className="text-white font-lexend text-[10px] sm:text-sm text-right">
                 Babajide Olusola Sanwo-Olu
               </p>
-              <p className="text-white font-lexend text-[10px] text-right">
+              <p className="text-white font-lexend text-[8px] sm:text-[10px] text-right">
                 Executive Governor, Lagos State
               </p>
             </div>
@@ -91,7 +91,7 @@ export default function Overview() {
         {/* Live programme flow */}
         <section className="border border-white/55 rounded-2xl p-4 lg:col-span-5 flex flex-col gap-6">
           <div className="flex flex-col gap-2.5">
-            <h2 className="text-base font-light tracking-widest text-white font-lexend uppercase">
+            <h2 className="text-sm sm:text-base font-light tracking-widest text-white font-lexend uppercase">
               Live Programme Flow
             </h2>
             <div className="border-l-4 border-l-cyan py-3 px-3">
@@ -122,13 +122,13 @@ export default function Overview() {
         <section className="flex flex-col gap-10 lg:col-span-7">
           <div className="border border-white/55 rounded-2xl flex flex-col gap-5 p-4 lg:py-5 lg:px-7.5">
             <div className="flex flex-col gap-3 font-lexend">
-              <h2 className="text-sm font-light tracking-widest text-cyan uppercase">
+              <h2 className="text-xs sm:text-sm font-light tracking-widest text-cyan uppercase">
                 Live Session Intelligence
               </h2>
-              <h3 className="text-3xl font-semibold text-white">
+              <h3 className="text-lg sm:text-3xl font-semibold text-white">
                 Plenary: Lagos &mdash; Africa's Global Gateway
               </h3>
-              <div className="text-base text-cyan font-light">
+              <div className="text-sm sm:text-base text-cyan font-light">
                 Keynote &mdash; Governor Sanwo-Olu
               </div>
             </div>
@@ -147,25 +147,25 @@ export default function Overview() {
                   <div className="w-10 h-10 border border-red100 rounded-full flex items-center justify-center shrink-0">
                     <Sparkles color="white" width={"20px"} />
                   </div>
-                  <p className="text-base text-white font-lexend">{insight}</p>
+                  <p className="text-sm sm:text-base text-white font-lexend">{insight}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <blockquote className="border border-white/55 rounded-2xl flex flex-col gap-10 p-4 lg:py-5 lg:px-7.5">
-            <p className="text-lg font-lexend text-white leading-relaxed">
+          <blockquote className="border border-white/55 rounded-2xl flex flex-col gap-5 sm:gap-10 p-4 lg:py-5 lg:px-7.5">
+            <p className="text-sm sm:text-lg font-lexend text-white leading-relaxed">
               "Lagos is not just keeping up with the future, we are building it
               for Africa and the world."
             </p>
-            <footer className="mt-3 text-xs text-white font-dmSans flex flex-col gap-1">
-              <strong className="text-cyan text-base">Dr. Bosun Tijani</strong>{" "}
+            <footer className="text-xs text-white font-dmSans flex flex-col gap-1">
+              <strong className="text-cyan text-sm sm:text-base">Dr. Bosun Tijani</strong>{" "}
               Minister, Communications, Innovation & Digital Economy
             </footer>
           </blockquote>
         </section>
       </section>
-      <section className="border border-white/55 rounded-2xl p-7.5 grid grid-cols-1 lg:grid-cols-4">
+      <section className="border border-white/55 rounded-2xl p-4 sm:p-7.5 grid grid-cols-1 gap-4 lg:grid-cols-4">
         <div className="flex flex-col gap-2 lg:col-span-3 justify-center">
           {[
             "Commitment to establish a Lagos AI innovation Hub by Q1 2026.",
@@ -174,18 +174,18 @@ export default function Overview() {
             "Capacity building program for 500,000 young tech talents.",
           ].map((item) => (
             <div key={item} className="flex items-center gap-2">
-              <CircleCheck color="green" width={"18px"} />
-              <span className="text-white text-sm font-lexend">{item}</span>
+              <CircleCheck color="green" width={"18px"} className="shrink-0" />
+              <span className="text-white text-xs sm:text-sm font-lexend">{item}</span>
             </div>
           ))}
         </div>
         <img
           src="/target.png"
           alt=""
-          className="self-end lg:col-span-1 lg:h-auto"
+          className="self-end lg:col-span-1 h-20 sm:h-auto"
         />
       </section>
-      <section className="grid grid-cols-1 py-5 px-7.5 rounded-4xl border border-white/55 lg:grid-cols-10 gap-2">
+      <section className="grid grid-cols-1 py-5 px-4 sm:px-7.5 rounded-4xl border border-white/55 lg:grid-cols-10 gap-2">
         <p className="text-cyan font-dmSans flex items-center gap-2 uppercase text-xs lg:col-span-2">
           <Volume2 /> LIVE RESOLUTION TICKER
         </p>
@@ -207,12 +207,12 @@ export default function Overview() {
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <User className="w-6 fill-white text-white" />{" "}
-                <span className="font-dmSans font-medium text-lg text-white">
+                <span className="font-dmSans font-medium text-base sm:text-lg text-white">
                   AUDIENCE FEEDBACK
                 </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h5 className="font-dmSans font-medium text-white uppercase text-base">
+                <h5 className="font-dmSans font-medium text-white uppercase text-sm sm:text-base">
                   LIVE POLL
                 </h5>
                 <h6 className="font-dmSans font-medium text-white text-sm">
