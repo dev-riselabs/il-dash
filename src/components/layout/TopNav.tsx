@@ -1,5 +1,6 @@
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { MobileSidebar } from "./MobileSidebar";
 
 function useLiveClock() {
   const [now, setNow] = useState(() => new Date());
@@ -13,13 +14,25 @@ function useLiveClock() {
 export function TopNav() {
   const now = useLiveClock();
 
+  const [showMenu, setShowMenu] = useState(false)
+
+  function handleOpenMenu(){
+    setShowMenu(true)
+  }
+
+  function handleCloseMenu(){
+    setShowMenu(false)
+  }
+
   return (
+    <>
+    <MobileSidebar handleCloseMenu={handleCloseMenu} showMenu={showMenu}/>
     <header className="lg:h-25 bg-surface900 border-b font-lexend border-white/45 py-5 lg:py-0 lg:divide-x divide-white gap-4 lg:gap-0 px-4  lg:px-6 flex flex-col lg:flex-row lg:items-center">
       {/* Logo + brand */}
-      <img src="./logo_il.png" alt=""className="w-30 h-20 px-2" />
+      <img src="./logo_il.png" alt=""className="md:w-30 md:h-20 px-2 w-20 h-15" />
       <div className="flex justify-between items-center gap-3 lg:basis-2/8 lg:px-2">
         <img src="/invest-lagos.png" alt="" className="w-30 lg:w-40"/>
-        <button className="cursor-pointer lg:hidden"><Menu className="w-6 h-6 text-white"/></button>
+        <button onClick={handleOpenMenu} className="cursor-pointer lg:hidden"><Menu className="w-6 h-6 text-white"/></button>
       </div>
 
       {/* Current session */}
@@ -63,5 +76,6 @@ export function TopNav() {
         </div>
       </div>
     </header>
+    </>
   );
 }

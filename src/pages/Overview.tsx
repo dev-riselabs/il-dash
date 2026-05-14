@@ -1,4 +1,4 @@
-import SessionTimeline from "@/components/SessionTimeline";
+
 import {
   CircleArrowUp,
   Sparkles,
