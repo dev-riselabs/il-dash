@@ -94,25 +94,98 @@ export default function Overview() {
             <h2 className="text-sm sm:text-base font-light tracking-widest text-white font-lexend uppercase">
               Live Programme Flow
             </h2>
-            <div className="border-l-4 border-l-cyan py-3 px-3">
-              <SessionTimeline />
+            <div className="border-l-4 border-l-cyan py-6 pr-2 pl-7 flex flex-col gap-4">
+              <h3 className="font-lexend text-base font-medium text-cyan pl-8">
+                CURRENT SESSION
+              </h3>
+              <div className="flex flex-col pl-6 gap-6 border-l-2 border-l-white/55 relative">
+                <div  className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-['1'] after:absolute after:bg-red after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4">
+                  <div className="flex flex-col gap-3">
+                    <span className="font-lexend text-white text-xs font-light">
+                      11:00 AM - 12:30 PM
+                    </span>
+                    <h5 className="font-lexend text-white text-xs font-semibold">
+                      Lagos - Africa’s Global Gateway
+                    </h5>
+                    <p className="font-lexend text-white text-[10px] font-medium">
+                      Shaping Africa’s Digital Future
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 border-red border rounded-md py-1.5 px-2 uppercase text-xs text-red">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red"></div>
+                    live
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-4">
+                  <h3 className="font-lexend text-base font-medium text-yellow pl-4">
+                    NEXT SESSION
+                  </h3>
+                  <div className="flex flex-col gap-2 relative">
+                    {[
+                      {
+                        time: "1:00 PM - 02:30 PM",
+                        title: "The Future of Technology...",
+                        description: "Building Sustainable Cities",
+                      },
+                      {
+                        time: "03:00 PM - 04:30 PM",
+                        title: "Creative Economy Dialogue",
+                        description: "Unlocking Africa’s Creative Potential",
+                      },
+                    ].map(({ time, description, title }, i) => (
+                      <div key={i} style={{ "--step": `"${i + 2}"` } as React.CSSProperties} className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-(--step) after:absolute after:bg-yellow after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-10">
+                        <div className="flex flex-col gap-3">
+                          <span className="font-lexend text-white text-xs font-light">
+                            {time}
+                          </span>
+                          <h5 className="font-lexend text-white text-xs font-semibold">
+                            {title}
+                          </h5>
+                          <p className="font-lexend text-white text-[10px] font-medium">
+                            {description}
+                          </p>
+                        </div>
+                        <div className=" uppercase text-xs text-yellow font-semibold">
+                          up next
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="border border-white/35 py-4 px-6">
-              <div className="flex items-center justify-between gap-4 border border-white/55 rounded-xl p-6">
-                <div className="flex flex-col gap-3">
-                  <span className="text-white font-lexend font-light text-xs">
-                    1:00 PM - 02:30 PM
-                  </span>
-                  <h5 className="text-white font-lexend font-semibold text-xs truncate">
-                    Infrastructure & Urban Growth
-                  </h5>
-                  <span className="text-white font-lexend font-medium text-[10px]">
-                    Building Sustainable Cities
-                  </span>
-                </div>
-                <p className="text-sm font-bold uppercase font-lexend text-green">
-                  COMPLETED
-                </p>
+              <div className="border-l-2 border-l-white/55 pl-5 flex flex-col gap-2 relative">
+              {[
+                      {
+                        time: "1:00 PM - 02:30 PM",
+                        title: "The Future of Technology...",
+                        description: "Building Sustainable Cities",
+                      },
+                      {
+                        time: "03:00 PM - 04:30 PM",
+                        title: "Creative Economy Dialogue",
+                        description: "Unlocking Africa’s Creative Potential",
+                      },
+                    ].map(({ time, description, title }, i) => (
+                      <div key={i} style={{ "--step": `"${i + 1}"` } as React.CSSProperties} className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-(--step) after:absolute after:bg-green after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-5">
+                        <div className="flex flex-col gap-3">
+                          <span className="font-lexend text-white text-xs font-light">
+                            {time}
+                          </span>
+                          <h5 className="font-lexend text-white text-xs font-semibold">
+                            {title}
+                          </h5>
+                          <p className="font-lexend text-white text-[10px] font-medium">
+                            {description}
+                          </p>
+                        </div>
+                        <div className=" uppercase text-xs text-green font-semibold">
+                          completed
+                        </div>
+                      </div>
+                    ))}
               </div>
             </div>
           </div>
@@ -147,7 +220,9 @@ export default function Overview() {
                   <div className="w-10 h-10 border border-red100 rounded-full flex items-center justify-center shrink-0">
                     <Sparkles color="white" width={"20px"} />
                   </div>
-                  <p className="text-sm sm:text-base text-white font-lexend">{insight}</p>
+                  <p className="text-sm sm:text-base text-white font-lexend">
+                    {insight}
+                  </p>
                 </div>
               ))}
             </div>
@@ -159,7 +234,9 @@ export default function Overview() {
               for Africa and the world."
             </p>
             <footer className="text-xs text-white font-dmSans flex flex-col gap-1">
-              <strong className="text-cyan text-sm sm:text-base">Dr. Bosun Tijani</strong>{" "}
+              <strong className="text-cyan text-sm sm:text-base">
+                Dr. Bosun Tijani
+              </strong>{" "}
               Minister, Communications, Innovation & Digital Economy
             </footer>
           </blockquote>
@@ -175,7 +252,9 @@ export default function Overview() {
           ].map((item) => (
             <div key={item} className="flex items-center gap-2">
               <CircleCheck color="green" width={"18px"} className="shrink-0" />
-              <span className="text-white text-xs sm:text-sm font-lexend">{item}</span>
+              <span className="text-white text-xs sm:text-sm font-lexend">
+                {item}
+              </span>
             </div>
           ))}
         </div>
@@ -288,7 +367,10 @@ export default function Overview() {
                 </div>
               ))}
             </div>
-            <Link to={`/feedback`} className="border cursor-pointer border-white rounded-lg flex justify-center items-center text-white font-medium text-base font-rubik py-2.5 ">
+            <Link
+              to={`/feedback`}
+              className="border cursor-pointer border-white rounded-lg flex justify-center items-center text-white font-medium text-base font-rubik py-2.5 "
+            >
               VIEW ALL FEEDBACK
             </Link>
           </div>

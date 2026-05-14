@@ -102,10 +102,10 @@ function ProgrammeTracker() {
         <h2 className="text-white font-lexend font-semibold text-2xl">
           PROGRAMME FLOW
         </h2>
-        <section className="flex gap-2">
-          <div></div>
-          <div className="flex flex-col gap-6 flex-1">
-            <div className="flex items-center justify-between gap-3">
+        <section className="flex">
+          
+          <div className="flex flex-col gap-6 flex-1 border-l-2 border-l-white/55 pl-10 relative">
+            <div className="flex items-center justify-between gap-3 relative after:content-['All'] after:text-white after:border after:border-red after:rounded-lg after:px-3 after:text-xs after:py-2 after:bg-surface950 after:uppercase after:z-3 after:absolute after:top-px after:-left-15">
               <div className="flex  divide-x divide-white/55 border font-lexend border-white/55 rounded-lg">
                 <div className="py-1.5 px-3 flex items-center gap-1">
                   <div className="w-1.5 h-1.5 bg-red rounded-full"></div>
@@ -146,18 +146,19 @@ function ProgrammeTracker() {
                 </button>
               </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 relative">
               {programs.map(
                 ({ title, description, time, venue, status }, i) => (
                   <div
                     key={i}
+                    style={{ "--step": `"${i + 1}"` } as React.CSSProperties}
                     className={`flex border-2 flex-col gap-3 py-5 px-4 lg:px-7.5 rounded-2xl ${
                       status === "live"
-                        ? "border-red"
+                        ? "border-red after:bg-orange300"
                         : status === "next"
-                          ? "border-white/35"
-                          : "border-slate100/33"
-                    }`}
+                          ? "border-white/35 after:bg-yellow"
+                          : status === 'completed' ? 'border-slate100/33 after:bg-cyan' : "border-slate100/33 after:bg-slate100"
+                    } after:content-(--step) after:text-sm after:font-semibold after:text-white after:flex after:justify-center after:items-center after:absolute after:w-10 after:h-10 after:rounded-full after:z-5 after:-left-15`}
                   >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
                       <div className="flex items-center gap-2">
