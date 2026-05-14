@@ -18,6 +18,7 @@ import {
   Command,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 const items = [
   { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
@@ -43,14 +44,20 @@ const items = [
 ];
 
 export function Sidebar() {
+  const [isHovered, setIsHovered] = useState(false)
+
+  function toggleIsHovered(){
+    setIsHovered(prev => !prev)
+  } 
+
   return (
-    <aside className="w-62 shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden">
-      <div className="p-6 border-b border-white/5 flex justify-center">
+    <aside onMouseEnter={toggleIsHovered} onMouseLeave={toggleIsHovered} className={`${isHovered ? 'w-62' : 'w-20'} shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden transition-all `}>
+      <div className={`${isHovered ? 'p-6' : 'py-6 px-4'} border-b border-white/5 flex justify-center`}>
         {/* <div className="text-xs font-semibold tracking-widest text-accent-cyan">
           IL-DASH
         </div>
         <div className="text-[10px] text-slate-500 mt-1">v1.0 · Command Centre</div> */}
-        <img src="./logo_il.png" alt="" />
+        
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto lg:pb-20">
@@ -69,10 +76,10 @@ export function Sidebar() {
             }
           >
             <Icon className="w-5 h-5 shrink-0" strokeWidth={1.5} />
-            <span className="truncate">{label}</span>
+            {isHovered && <span className="truncate">{label}</span>}
           </NavLink>
         ))}
-        <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
+       {isHovered && <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />} 
       </nav>
     </aside>
   );

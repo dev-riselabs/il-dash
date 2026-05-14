@@ -14,10 +14,11 @@ export function TopNav() {
   const now = useLiveClock();
 
   return (
-    <header className="lg:h-33.75 bg-surface900 border-b font-lexend border-white/45 py-5 lg:py-0 lg:divide-x divide-white gap-4 lg:gap-0 px-4  lg:px-6 flex flex-col lg:flex-row lg:items-center">
+    <header className="lg:h-25 bg-surface900 border-b font-lexend border-white/45 py-5 lg:py-0 lg:divide-x divide-white gap-4 lg:gap-0 px-4  lg:px-6 flex flex-col lg:flex-row lg:items-center">
       {/* Logo + brand */}
+      <img src="./logo_il.png" alt=""className="w-30 h-20 px-2" />
       <div className="flex justify-between items-center gap-3 lg:basis-2/8 lg:px-2">
-        <img src="/invest-lagos.png" alt="" className="w-30 lg:w-auto"/>
+        <img src="/invest-lagos.png" alt="" className="w-30 lg:w-40"/>
         <button className="cursor-pointer lg:hidden"><Menu className="w-6 h-6 text-white"/></button>
       </div>
 
@@ -46,7 +47,7 @@ export function TopNav() {
             </div>
           </div>
 
-          <img src="/commonwealth.png" alt="" className="w-30 lg:w-auto"/>
+          <img src="/commonwealth.png" alt="" className="w-30 lg:w-40"/>
         </div>
 
         {/* <div className="text-xs text-slate-500 mt-1">
