@@ -103,7 +103,7 @@ const options: ChartOptions<"line"> = {
 
 export default function AttendanceChart() {
   return (
-    <div className="bg-[#020617] border border-white/55 rounded-2xl space-y-4 p-6 w-full min-h-87.5 lg:col-span-5">
+    <div className=" border border-white/55 rounded-2xl space-y-4 p-6 w-full min-h-87.5 lg:col-span-5">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-4">

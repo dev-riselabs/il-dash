@@ -50,7 +50,7 @@ function ParticipationAnalytics() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           PARTICIPATION ANALYTICS
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -58,7 +58,7 @@ function ParticipationAnalytics() {
         </p>
       </div>
 
-      <div className="flex items-center gap-8 flex-col lg:flex-row">
+      <div className="flex sm:items-center gap-5 sm:gap-8 flex-col lg:flex-row">
         <div className="flex items-center gap-4">
           <h3 className="text-white font-lexend text-xs ">Date Range</h3>
           <div className="border border-white/55 rounded py-1 px-2.5 flex items-center gap-1">
@@ -86,7 +86,7 @@ function ParticipationAnalytics() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -98,7 +98,7 @@ function ParticipationAnalytics() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -128,8 +128,8 @@ function ParticipationAnalytics() {
 
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-12">
         <AttendanceChart />
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-7 ">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-7 ">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             ATTENDANCE BY TRACK
           </h4>
           <DonutChart
@@ -147,20 +147,20 @@ function ParticipationAnalytics() {
       </section>
 
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-12">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-7">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-7">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             RESOLUTIONS BY SECTOR
           </h4>
 
           <div className="flex flex-col gap-4">
             {sectors.map(({ title, percent }) => (
               <div key={title} className="grid grid-cols-12">
-                <p className="col-span-4 text-white font-dmSans text-sm align-middle">
+                <p className="col-span-4 text-white font-dmSans text-xs sm:text-sm align-middle">
                   {title}
                 </p>
                 <div className="col-span-7 flex items-center">
                   <div
-                    className={`rounded-full h-2.5 ${
+                    className={`rounded-full h-2 sm:h-2.5 ${
                       title === "Unlocking Africa’s Infra Future"
                         ? "bg-green"
                         : title === "Lagos Tech & Innovation Hub"
@@ -170,7 +170,7 @@ function ParticipationAnalytics() {
                     style={{ width: `${(percent * 100) / 100}%` }}
                   ></div>
                 </div>
-                <p className="col-span-1 text-white font-dmSans text-sm flex items-center">
+                <p className="col-span-1 text-white font-dmSans text-xs sm:text-sm flex items-center">
                   {percent}
                 </p>
               </div>
@@ -178,8 +178,8 @@ function ParticipationAnalytics() {
           </div>
         </div>
 
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-5">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-5">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             SESSION PERFORMANCE (BY AVG. RATING)
           </h4>
 
@@ -190,10 +190,10 @@ function ParticipationAnalytics() {
                   key={title}
                   className="flex items-center gap-2 justify-between"
                 >
-                  <p className="font-dmSans text-white text-sm">{title}</p>
+                  <p className="font-dmSans text-white text-xs sm:text-sm">{title}</p>
                   <div className="flex items-center gap-2">
                     <Rating rate={rate} />
-                    <p className="font-dmSans text-white text-sm">{rate}</p>
+                    <p className="font-dmSans text-white text-xs sm:text-sm">{rate}</p>
                   </div>
                 </div>
               ))}
@@ -206,13 +206,14 @@ function ParticipationAnalytics() {
         </div>
       </section>
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-7">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 w-full flex flex-col gap-6 lg:col-span-7">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             TOP SPEAKERS BY ENGAGEMENT
           </h4>
 
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-8">
+            <div className="overflow-x-auto">
+            <div className="flex flex-col gap-8 min-w-120">
               <div className="grid grid-cols-12 gap-5">
                 <h4 className="font-lexend text-sm text-white col-span-5 font-bold">
                   Speaker
@@ -228,7 +229,7 @@ function ParticipationAnalytics() {
                 {speakers.map(({ speaker, session, score }) => (
                   <div key={speaker} className="grid grid-cols-12 gap-5">
                     <div className="col-span-5 flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-full bg-white"></div>
+                      <div className="w-10 h-10 rounded-full bg-white shrink-0"></div>
                       <p className="text-white font-lexend text-sm">
                         {speaker}
                       </p>
@@ -249,6 +250,7 @@ function ParticipationAnalytics() {
                 ))}
               </div>
             </div>
+            </div>
 
             <button className="border border-white/55 rounded-2xl py-2.5 px-7.5 font-rubik uppercase text-white text-sm">
               VIEW ALL SPEAKERS
@@ -256,9 +258,9 @@ function ParticipationAnalytics() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 col-span-5">
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-            <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="flex flex-col gap-6 lg:col-span-5">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+            <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
               ATTENDANCE BY TRACK
             </h4>
             <DonutChart
@@ -273,8 +275,8 @@ function ParticipationAnalytics() {
             />
           </div>
 
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-            <h4 className="font-dmSans text-white font-medium text-base uppercase">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+            <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
               BY REGION
             </h4>
 
@@ -305,9 +307,9 @@ function ParticipationAnalytics() {
         </div>
       </section>
 
-      <section className="grid grid-cols-12 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-7">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+      <section className="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 md:col-span-7">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             BY GENDER
           </h4>
           <DonutChart
@@ -319,8 +321,8 @@ function ParticipationAnalytics() {
           />
         </div>
 
-        <div className="flex flex-col gap-5 col-span-5">
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex gap-4 items-center">
+        <div className="flex flex-col gap-5 md:col-span-5">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex gap-4 items-center">
             <div className="w-13.5 h-13.5 rounded-md bg-green400 shrink-0"></div>
             <div className="flex flex-col gap-2">
               <p className="text-white uppercase font-lexend text-sm">
@@ -333,7 +335,7 @@ function ParticipationAnalytics() {
             </div>
           </div>
 
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex gap-4 items-center">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex gap-4 items-center">
             <div className="w-13.5 h-13.5 rounded-md bg-green400 shrink-0"></div>
             <div className="flex flex-col gap-2">
               <p className="text-white uppercase font-lexend text-sm">

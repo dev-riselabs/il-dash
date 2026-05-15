@@ -73,7 +73,7 @@ function SentimentFeedback() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           SENTIMENT & FEEDBACK
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -81,7 +81,7 @@ function SentimentFeedback() {
         </p>
       </div>
 
-      <div className="flex items-center gap-8 flex-col lg:flex-row">
+      <div className="flex flex-row sm:items-center gap-3 lg:flex-row">
         <div className="border border-white/55 rounded py-2.5 px-2.5 flex items-center gap-1">
           <select name="" id="" className="text-white font-lexend text-xs">
             <option value="">All Sessions</option>
@@ -106,7 +106,7 @@ function SentimentFeedback() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -118,7 +118,7 @@ function SentimentFeedback() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -148,9 +148,9 @@ function SentimentFeedback() {
 
       <SentimentChart />
 
-      <section className="grid grid-cols-12 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-7 ">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+      <section className="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 md:col-span-7 ">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             ATTENDANCE BY TRACK
           </h4>
           <DonutChart
@@ -166,8 +166,8 @@ function SentimentFeedback() {
           />
         </div>
 
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-5 ">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 md:col-span-5 ">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             FEEDBACK CHANNELS
           </h4>
           <DonutChart
@@ -181,9 +181,9 @@ function SentimentFeedback() {
           />
         </div>
       </section>
-      <section className="grid grid-cols-12 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-7">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+      <section className="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 md:col-span-7">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             SESSION SENTIMENT SCORES
           </h4>
 
@@ -213,7 +213,7 @@ function SentimentFeedback() {
           </div>
         </div>
 
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-5">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 md:col-span-5">
           <h4 className="font-dmSans text-white font-medium text-base uppercase">
             RESOLUTIONS BY SECTOR
           </h4>
@@ -239,12 +239,12 @@ function SentimentFeedback() {
         </div>
       </section>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
         <div className="flex items-center gap-4 justify-between">
-          <h4 className="text-base font-lexend text-white font-medium uppercase">
+          <h4 className="text-sm sm:text-base font-lexend text-white font-medium uppercase">
             LATEST ADDITIONS
           </h4>
-          <button className="text-base font-lexend text-cyan font-semibold">
+          <button className="text-sm sm:text-base font-lexend text-cyan font-semibold">
             View All
           </button>
         </div>
@@ -257,7 +257,7 @@ function SentimentFeedback() {
                 className="border-b border-b-white pb-7.5 flex items-center justify-between"
               >
                 <div className="flex items-start gap-2.5">
-                  <div className="bg-white h-12.5 w-12.5 rounded-full"></div>
+                  <div className="bg-white h-12.5 w-12.5 rounded-full shrink-0"></div>
                   <div className="flex flex-col gap-1">
                     <p className="text-white font-bold font-dmSans text-sm">
                       {name}

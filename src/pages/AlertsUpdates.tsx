@@ -79,7 +79,7 @@ function AlertsUpdates() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           ALERTS & UPDATES
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -89,7 +89,7 @@ function AlertsUpdates() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -101,7 +101,7 @@ function AlertsUpdates() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -129,18 +129,20 @@ function AlertsUpdates() {
         ))}
       </div>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-4">
-        <div className="grid grid-cols-12 gap-5">
-          <h5 className="lg:col-span-5 text-slate100 font-lexend uppercase text-base">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-4">
+      <div className="overflow-x-auto">
+      <div className="flex flex-col gap-6 min-w-200">
+        <div className="grid grid-cols-12 gap-5 w-full">
+          <h5 className="col-span-5 text-slate100 font-lexend uppercase text-base">
             ALERT
           </h5>
-          <h5 className="lg:col-span-1 text-slate100 font-lexend uppercase text-base text-center">
+          <h5 className="col-span-1 text-slate100 font-lexend uppercase text-base text-center">
             SEVERITY
           </h5>
-          <h5 className="lg:col-span-4 text-slate100 font-lexend uppercase text-base text-center">
+          <h5 className="col-span-4 text-slate100 font-lexend uppercase text-base text-center">
             SOURCE
           </h5>
-          <h5 className="lg:col-span-2 text-slate100 font-lexend uppercase text-base">
+          <h5 className="col-span-2 text-slate100 font-lexend uppercase text-base">
             TIME
           </h5>
         </div>
@@ -150,7 +152,7 @@ function AlertsUpdates() {
             {alerts.map(({ name, description, time, severity, source }, i) => (
               <div
                 key={i}
-                className="grid  lg:grid-cols-12 gap-5 border-t border-t-white/55 pt-5"
+                className="grid grid-cols-12 gap-5 border-t border-t-white/55 pt-5"
               >
                 <div className="col-span-5 flex items-center gap-2">
                   <div className="w-4 h-4 rounded-full bg-white shrink-0"></div>
@@ -194,15 +196,18 @@ function AlertsUpdates() {
               </div>
             ))}
           </div>
-          <button className="border border-white/55 rounded-2xl py-2.5 px-7.5 font-rubik uppercase text-white text-sm">
+          </div>
+          </div>
+          
+        </div>
+        <button className="border border-white/55 rounded-2xl py-2.5 px-7.5 font-rubik uppercase text-white text-sm">
             LOAD MORE ALERTS
           </button>
-        </div>
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-9 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-4">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-4">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             FEEDBACK CHANNELS
           </h4>
           <DonutChart
@@ -215,12 +220,12 @@ function AlertsUpdates() {
           />
         </div>
 
-        <div className="border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-7.5 lg:col-span-5">
+        <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-2.5 flex flex-col gap-7.5 lg:col-span-5">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white/55 font-medium uppercase text-base font-lexend">
+            <h4 className="text-white/55 font-medium uppercase text-sm sm:text-base font-lexend">
               RECENTLY RESOLVED
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all
             </button>
           </div>
@@ -230,10 +235,10 @@ function AlertsUpdates() {
                 key={title}
                 className="flex items-center justify-between gap-3"
               >
-                <div className="flex items-center text-white/55 font-lexend text-sm">
+                <div className="flex items-center text-white/55 font-lexend text-xs sm:text-sm">
                   <CircleCheck className="fill-green text-black " /> {title}
                 </div>
-                <div className="text-white/55 font-lexend text-sm">{time}</div>
+                <div className="text-white/55 font-lexend text-xs sm:text-sm">{time}</div>
               </div>
             ))}
           </div>

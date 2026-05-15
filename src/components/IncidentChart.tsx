@@ -141,7 +141,7 @@ export default function IncidentTrendChart() {
   return (
     <div className="w-full rounded-2xl border border-white/55 flex flex-col gap-6 p-6">
       <div className="">
-        <h4 className="text-white font-medium uppercase text-base font-lexend">
+        <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             INCIDENT TREND
           </h4>
       </div>

@@ -130,7 +130,7 @@ function DealRoomTracker() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           DEAL ROOM TRACKER
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -139,7 +139,7 @@ function DealRoomTracker() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -151,7 +151,7 @@ function DealRoomTracker() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -179,8 +179,8 @@ function DealRoomTracker() {
         ))}
       </div>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-        <menu className="flex items-center gap-3 justify-between">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+        <menu className="flex items-center gap-3 justify-between overflow-x-auto">
           <button className="border-b-2 border-b-orange px-3 py-1 text-orange text-sm font-lexend font-medium rounded-lg flex-1">
             ALL DEALS
           </button>
@@ -337,18 +337,18 @@ function DealRoomTracker() {
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             DEALS BY SECTOR
           </h4>
           <div className="flex flex-col gap-4">
             {
                 sectors.map(({ title, score }) => (
-                <div key={title} className="grid grid-cols-12">
+                <div key={title} className="grid grid-cols-12 gap-4">
                   <p className="text-white font-dmSans text-sm col-span-3">
                     {title}
                   </p>
-                  <div className="col-span-8 ">
+                  <div className="col-span-7 sm:col-span-8">
                     <div
                       className={` h-5
                   ${
@@ -372,8 +372,8 @@ function DealRoomTracker() {
           </div>
         </div>
 
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             DEALS BY SECTOR
           </h4>
           <div className="flex flex-col gap-4">

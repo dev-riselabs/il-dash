@@ -41,7 +41,7 @@ function ResolutionBoard() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           RESOLUTION BOARD (LIVE)
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -51,7 +51,7 @@ function ResolutionBoard() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -63,7 +63,7 @@ function ResolutionBoard() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -91,7 +91,7 @@ function ResolutionBoard() {
         ))}
       </div>
 
-      <section className="border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-12">
+      <section className="border border-white rounded-2xl px-5 sm:px-7.5 py-2.5 flex flex-col gap-12">
         <div className="overflow-hidden flex flex-col gap-7.5 overflow-x-auto">
           <div className="grid grid-cols-12 gap-8 min-w-400">
             <div className="text-sm font-lexend font-bold text-slate100 col-span-4">
@@ -175,12 +175,12 @@ function ResolutionBoard() {
         </div>
       </section>
 
-      <section className="border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-3">
+      <section className="border border-white rounded-2xl px-5 sm:px-7.5 py-2.5 flex flex-col gap-3">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             LATEST ADDITIONS
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View All
           </button>
         </div>
@@ -190,18 +190,18 @@ function ResolutionBoard() {
               key={title}
               className="flex items-center justify-between gap-3"
             >
-              <div className="flex items-center text-white font-lexend text-sm">
+              <div className="flex items-center text-white font-lexend text-xs sm:text-sm">
                 <CircleCheck className="fill-green text-black " /> {title}
               </div>
-              <div className="text-white font-lexend text-sm">{time}</div>
+              <div className="text-white font-lexend text-xs sm:text-sm">{time}</div>
             </div>
           ))}
         </div>
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             RESOLUTIONS BY CATEGORY
           </h4>
           <DonutChart
@@ -212,8 +212,8 @@ function ResolutionBoard() {
             ]}
           />
         </div>
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             RESOLUTIONS BY SECTOR
           </h4>
 

@@ -49,7 +49,7 @@ function ProgrammeTracker() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           LIVE PROGRAMME TRACKER
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -58,7 +58,7 @@ function ProgrammeTracker() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -70,7 +70,7 @@ function ProgrammeTracker() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -99,33 +99,33 @@ function ProgrammeTracker() {
       </div>
 
       <section className="flex flex-col gap-6">
-        <h2 className="text-white font-lexend font-semibold text-2xl">
+        <h2 className="text-white font-lexend font-semibold text-xl sm:text-2xl">
           PROGRAMME FLOW
         </h2>
         <section className="flex">
           
-          <div className="flex flex-col gap-6 flex-1 border-l-2 border-l-white/55 pl-10 relative">
-            <div className="flex items-center justify-between gap-3 relative after:content-['All'] after:text-white after:border after:border-red after:rounded-lg after:px-3 after:text-xs after:py-2 after:bg-surface950 after:uppercase after:z-3 after:absolute after:top-px after:-left-15">
-              <div className="flex  divide-x divide-white/55 border font-lexend border-white/55 rounded-lg">
-                <div className="py-1.5 px-3 flex items-center gap-1">
+          <div className="flex flex-col gap-6 flex-1 border-l-2 border-l-white/55 pl-5 sm:pl-10 relative">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 relative after:content-['All'] after:text-white after:border after:border-red after:rounded-lg after:px-2 after:sm:px-3 after:text-[10px] after:sm:text-xs after:py-2 after:bg-surface950 after:uppercase after:z-3 after:absolute after:top-px after:-left-9 after:sm:-left-15">
+              <div className="flex  divide-x divide-white/55 border font-lexend border-white/55 rounded-lg self-start">
+                <div className="py-1.5 px-1.5 sm:px-3 flex items-center gap-1">
                   <div className="w-1.5 h-1.5 bg-red rounded-full"></div>
-                  <span className="text-xs uppercase text-slate100">Live</span>
+                  <span className="text-[10px] sm:text-xs uppercase text-slate100">Live</span>
                 </div>
-                <div className="py-1.5 px-3 flex items-center gap-1">
+                <div className="py-1.5 px-1.5 sm:px-3 flex items-center gap-1">
                   <div className="w-1.5 h-1.5 bg-yellow rounded-full"></div>
-                  <span className="text-xs uppercase text-slate100">
+                  <span className="text-[10px] sm:text-xs uppercase text-slate100">
                     up next
                   </span>
                 </div>
-                <div className="py-1.5 px-3 flex items-center gap-1">
+                <div className="py-1.5 px-1.5 sm:px-3 flex items-center gap-1">
                   <div className="w-1.5 h-1.5 bg-slate100 rounded-full"></div>
-                  <span className="text-xs uppercase text-slate100">
+                  <span className="text-[10px] sm:text-xs uppercase text-slate100">
                     upcoming
                   </span>
                 </div>
-                <div className="py-1.5 px-3 flex items-center gap-1">
+                <div className="py-1.5 px-1.5 sm:px-3 flex items-center gap-1">
                   <div className="w-1.5 h-1.5 bg-cyan rounded-full"></div>
-                  <span className="text-xs uppercase text-slate100">
+                  <span className="text-[10px] sm:text-xs uppercase text-slate100">
                     completed
                   </span>
                 </div>
@@ -158,12 +158,12 @@ function ProgrammeTracker() {
                         : status === "next"
                           ? "border-white/35 after:bg-yellow"
                           : status === 'completed' ? 'border-slate100/33 after:bg-cyan' : "border-slate100/33 after:bg-slate100"
-                    } after:content-(--step) after:text-sm after:font-semibold after:text-white after:flex after:justify-center after:items-center after:absolute after:w-10 after:h-10 after:rounded-full after:z-5 after:-left-15`}
+                    } after:content-(--step) after:text-sm after:font-semibold after:text-white after:flex after:justify-center after:items-center after:absolute after:w-8 after:sm:w-10 after:h-8 after:sm:h-10  after:rounded-full after:z-5 after:-left-9 after:sm:-left-15`}
                   >
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                         <div
-                          className={`border-2 rounded-md py-1.5 px-2.5 uppercase text-xs ${
+                          className={`border-2 rounded-md py-1.5 px-1.5 sm:px-2.5 uppercase text-[8px] sm:text-xs shrink-0 ${
                             status === "live"
                               ? "border-red text-red"
                               : status === "next"
@@ -188,28 +188,28 @@ function ProgrammeTracker() {
                               : status === "completed"
                                 ? "text-cyan"
                                 : "text-white"
-                          } font-lexend text-base font-semibold lg:text-xl`}
+                          } font-lexend text-sm sm:text-base font-semibold lg:text-xl`}
                         >
                           {title}
                         </h5>
                       </div>
                       {status === "live" && (
-                        <div className="flex items-center gap-2 justify-center py-2 px-4 rounded-md border border-green100">
+                        <div className="flex self-start items-center gap-2 justify-center py-2 px-4 rounded-md border border-green100">
                           <div className="w-1.5 h-1.5 rounded-full bg-green100"></div>
-                          <span className="text-green100 uppercase text-xs font-lexend">
+                          <span className="text-green100 uppercase text-[8px] sm:text-xs font-lexend">
                             live
                           </span>
                         </div>
                       )}
                       {status === "next" && (
-                        <div className="flex flex-col gap-px border border-yellow text-xs uppercase text-yellow font-lexend rounded-md items-center justify-center px-3 py-1">
+                        <div className="flex self-start flex-col gap-px border border-yellow text-[8px] sm:text-xs uppercase text-yellow font-lexend rounded-md items-center justify-center px-3 py-1">
                           <span>starts in</span>
                           <span>01:17:23</span>
                         </div>
                       )}
                     </div>
                     <p
-                      className={`text-sm lg:text-base font-lexend font-semibold ${
+                      className={`text-xs sm:text-sm lg:text-base font-lexend font-semibold ${
                         status === "upcoming"
                           ? "text-slate100/33"
                           : status === "completed"
@@ -219,7 +219,7 @@ function ProgrammeTracker() {
                     >
                       {description}
                     </p>
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4">
                       <div
                         className={`flex items-center gap-2 divide-x ${
                           status === "upcoming"
@@ -258,7 +258,7 @@ function ProgrammeTracker() {
                       </div>
 
                       <div
-                        className={`py-2 px-3 rounded-md text-xs uppercase   ${
+                        className={`py-2 px-3 self-start rounded-md text-xs uppercase   ${
                           status === "upcoming"
                             ? "bg-slate100 text-white"
                             : status === "completed"

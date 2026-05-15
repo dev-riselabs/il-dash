@@ -28,7 +28,7 @@ function InvestmentHeatmap() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           INVESTMENT HEATMAP
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -37,7 +37,7 @@ function InvestmentHeatmap() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -49,7 +49,7 @@ function InvestmentHeatmap() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -75,17 +75,19 @@ function InvestmentHeatmap() {
 
       <section className="border border-white/55 rounded-2xl py-5 px-5 lg:px-7.5 flex flex-col gap-5">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-dmSans font-medium text-base uppercase">
+          <h4 className="text-white font-dmSans font-medium text-sm sm:text-base uppercase">
             TOP SECTORS BY INVESTMENT INTEREST
           </h4>
-          <button className="bg-white rounded px-7.5 py-2.5 font-rubik text-black text-sm">
+          <button className="bg-white rounded font-medium px-2 sm:px-7.5 py-2.5 font-rubik shrink-0 text-black text-[8px] sm:text-sm">
             VIEW ALL SECTORS
           </button>
         </div>
 
-        <section className="flex flex-col gap-6">
-          <div className="grid grid-cols-4 gap-4">
-            <div className="text-sm font-lexend font-medium text-white uppercase">
+<div className="overflow-x-auto">
+        <section className="flex flex-col gap-6 min-w-180">
+          
+          <div className="grid grid-cols-5 gap-4">
+            <div className="text-sm font-lexend font-medium text-white uppercase col-span-2">
               SECTOR
             </div>
             <div className="text-sm font-lexend font-medium text-white uppercase text-center">
@@ -101,8 +103,8 @@ function InvestmentHeatmap() {
 
           <div className="flex flex-col gap-5">
             {sectors.map(({ title, value, percent, trend }) => (
-              <div key={title} className="grid grid-cols-4 gap-4">
-                <div className="flex items-center gap-2 text-white font-lexend text-sm">
+              <div key={title} className="grid grid-cols-5 gap-4">
+                <div className="flex items-center gap-2 text-white font-lexend text-sm col-span-2">
                   {" "}
                   <div
                     className={`w-7.5 h-7.5 rounded
@@ -138,6 +140,7 @@ function InvestmentHeatmap() {
             ))}
           </div>
         </section>
+        </div>
       </section>
     </section>
   );

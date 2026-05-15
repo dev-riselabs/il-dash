@@ -64,7 +64,7 @@ function SessionInsight() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           SESSION INSIGHTS
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -72,7 +72,7 @@ function SessionInsight() {
         </p>
       </div>
 
-      <div className="flex items-center gap-8 flex-col lg:flex-row">
+      <div className="flex md:items-center gap-5 md:gap-8 flex-col md:flex-row">
         <div className="flex items-center gap-4">
           <h3 className="text-white font-lexend text-xs ">Select Session:</h3>
           <div className="border border-white/55 rounded py-2.5 px-2.5 flex items-center gap-1">
@@ -83,13 +83,13 @@ function SessionInsight() {
           </div>
         </div>
 
-        <div className="border border-white/55 rounded py-1 px-2.5 flex items-center gap-1 text-white font-lexend text-xs">
+        <div className="border self-start border-white/55 rounded py-1 px-2.5 flex items-center gap-1 text-white font-lexend text-xs">
           <Download className="w-4 text-white" />
           Download Full Report
         </div>
       </div>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4">
           <img src="/insight.jpg" alt="" className="rounded-2xl h-full" />
         </div>
@@ -98,35 +98,35 @@ function SessionInsight() {
           <h5 className="text-xs font-light text-cyan font-lexend">
             PLENARY SESSION
           </h5>
-          <h4 className="text-2xl font-lexend text-white font-bold">
+          <h4 className="text-xl sm:text-2xl font-lexend text-white font-bold">
             Unlocking Africa’s Infrastructure Future
           </h4>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1.5 text-white font-lexend text-xs">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-1.5 text-white font-lexend text-[10px] sm:text-xs">
               <CalendarDays className="w-4 text-white" />
               May 8, 2026
             </div>
-            <div className="flex items-center gap-1.5 text-white font-lexend text-xs">
+            <div className="flex items-center gap-1.5 text-white font-lexend text-[10px] sm:text-xs">
               <Clock className="w-4 text-white" />
               09:30 AM - 11:00 AM
             </div>
-            <div className="flex items-center gap-1.5 text-white font-lexend text-xs">
+            <div className="flex items-center gap-1.5 text-white font-lexend text-[10px] sm:text-xs">
               <MapPin className="w-4 text-white" />
               Main Hall
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="text-white bg-green600 font-medium py-2 px-5 rounded-md font-lexend text-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <div className="text-white bg-green600 text-center font-medium py-2 px-5 rounded-md font-lexend text-sm">
               Infrastructure
             </div>
-            <div className="text-white bg-green600 font-medium py-2 px-5 rounded-md font-lexend text-sm">
+            <div className="text-white bg-green600 text-center font-medium py-2 px-5 rounded-md font-lexend text-sm">
               Policy & Regulation
             </div>
-            <div className="text-white bg-green600 font-medium py-2 px-5 rounded-md font-lexend text-sm">
+            <div className="text-white bg-green600 text-center font-medium py-2 px-5 rounded-md font-lexend text-sm">
               Public-Private Partnership
             </div>
           </div>
-          <div className="flex items-center gap-10">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-10">
             <div className="flex flex-col gap-3">
               <h5 className="text-white font-lexend text-base">
                 Session Status
@@ -161,7 +161,7 @@ function SessionInsight() {
         </div>
       </section>
 
-      <menu className="flex items-center gap-3 justify-between">
+      <menu className="flex items-center gap-3 justify-between overflow-x-auto">
         <button className="border-b-2 border-b-orange px-3 py-1 text-orange text-sm font-lexend font-medium rounded-lg">
           OVERVIEW
         </button>
@@ -187,12 +187,12 @@ function SessionInsight() {
 
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div className="lg:col-span-6 flex flex-col gap-5">
-          <div className="border border-white rounded-2xl px-7.5 py-5 flex flex-col gap-7.5">
+          <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-5 flex flex-col gap-7.5">
             <div className="flex items-center justify-between gap-3">
-              <h4 className="text-white font-medium uppercase text-base font-lexend">
+              <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
                 KEY INSIGHTS (AI)
               </h4>
-              <button className="text-cyan font-semibold font-lexend text-base">
+              <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
                 View All
               </button>
             </div>
@@ -203,21 +203,21 @@ function SessionInsight() {
               "Digital infrastructure and smart city solutions are emerging as high-impact priority areas for investors.",
               "Local capacity building and job creation must be integrated into all major infrastructure projects.",
             ].map((insight, i) => (
-              <div key={i} className="flex items-center gap-3">
+              <div key={i} className="flex items-start sm:items-center gap-3">
                 <div className="w-10 h-10 border border-red100 rounded-full flex items-center justify-center shrink-0">
                   <Sparkles color="white" width={"20px"} />
                 </div>
-                <p className="text-base text-white font-lexend">{insight}</p>
+                <p className="text-sm sm:text-base text-white font-lexend">{insight}</p>
               </div>
             ))}
           </div>
 
-          <div className="border border-white rounded-2xl px-7.5 py-5 flex flex-col gap-7.5">
+          <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-5 flex flex-col gap-7.5">
             <div className="flex items-center justify-between gap-3">
-              <h4 className="text-white font-medium uppercase text-base font-lexend">
+              <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
                 RESOLUTIONS & COMMITMENTS
               </h4>
-              <button className="text-cyan font-semibold font-lexend text-base">
+              <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
                 View All
               </button>
             </div>
@@ -243,12 +243,12 @@ function SessionInsight() {
                 commitment: "Commitment by All Stakeholders",
               },
             ].map(({ insight, commitment }, i) => (
-              <div key={i} className="flex items-center gap-3">
+              <div key={i} className="flex items-start sm:items-center gap-3">
                 <div className="w-10 h-10 border border-red100 rounded-full flex items-center justify-center shrink-0">
                   <Sparkles color="white" width={"20px"} />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-base text-white font-lexend">{insight}</p>
+                  <p className="text-sm sm:text-base text-white font-lexend">{insight}</p>
                   <span className="text-xs text-white/55 font-lexend">
                     {commitment}
                   </span>
@@ -257,12 +257,12 @@ function SessionInsight() {
             ))}
           </div>
 
-          <div className="border border-white rounded-2xl px-7.5 py-5 flex flex-col gap-7.5">
+          <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-5 flex flex-col gap-7.5">
             <div className="flex items-center justify-between gap-3">
-              <h4 className="text-white font-medium uppercase text-base font-lexend">
+              <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
                 RESOLUTIONS & COMMITMENTS
               </h4>
-              <button className="text-cyan font-semibold font-lexend text-base">
+              <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
                 View All
               </button>
             </div>
@@ -299,13 +299,13 @@ function SessionInsight() {
             </div>
           </div>
 
-          <div className="border border-white rounded-2xl px-7.5 py-5 flex flex-col gap-7.5">
-            <h4 className="font-dmSans text-white font-medium text-base uppercase">
+          <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-5 flex flex-col gap-7.5">
+            <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
               LIVE FEEDBACK SUMMARY
             </h4>
             <div className="flex flex-col gap-1">
               <div className="flex items-end gap-1 font-lexend font-semibold text-white">
-                <span className="text-3xl">4.6 </span>
+                <span className="text-2xl sm:text-3xl">4.6 </span>
                 <span className="text-base">/5</span>
               </div>
               <span className="text-white font-dmSans text-base">
@@ -338,8 +338,8 @@ function SessionInsight() {
             </div>
           </div>
 
-          <div className="border border-white rounded-2xl px-7.5 py-5 flex flex-col gap-7.5">
-            <h4 className="font-dmSans text-white font-medium text-base uppercase">
+          <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-5 flex flex-col gap-7.5">
+            <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
               SESSION RESOURCES
             </h4>
             <div className="flex flex-col gap-8">
@@ -349,31 +349,31 @@ function SessionInsight() {
                   className="flex items-center justify-between border border-white rounded-xl px-4 py-5"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-4 h-4 rounded-full bg-green100"></div>
-                    <h6 className="text-white text-base font-inter">
+                    <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green100"></div>
+                    <h6 className="text-white text-sm sm:text-base font-inter">
                       {resource}
                     </h6>
                   </div>
-                  <p className="text-white text-base font-inter">{type}</p>
+                  <p className="text-white text-sm sm:text-base font-inter">{type}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
         <div className="lg:col-span-6 flex flex-col gap-5">
-          <div className="border border-white rounded-2xl px-7.5 py-5 flex flex-col gap-7.5">
+          <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-5 flex flex-col gap-7.5">
             <div className="flex items-center justify-between gap-3">
-              <h4 className="text-white font-medium uppercase text-base font-lexend">
+              <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
                 KEY QUOTES
               </h4>
-              <button className="text-cyan font-semibold font-lexend text-base">
+              <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
                 View all quotes
               </button>
             </div>
             <div className="flex flex-col gap-7 divide-y divide-white">
               {quotes.map(({ quote, img, name, state }, i) => (
                 <div key={i} className="pb-6 flex flex-col gap-4">
-                  <p className="text-white font-lexend text-base">{quote}</p>
+                  <p className="text-white font-lexend text-sm sm:text-base">{quote}</p>
                   <div className="flex items-center gap-2">
                     <img
                       src={img}
@@ -381,10 +381,10 @@ function SessionInsight() {
                       className="w-12.5 h-12.5 rounded-full object-fill"
                     />
                     <div className="flex flex-col gap-2">
-                      <h5 className="font-dmSans text-base text-white font-bold">
+                      <h5 className="font-dmSans text-sm sm:text-base text-white font-bold">
                         {name}
                       </h5>
-                      <p className="font-dmSans text-sm text-white font-medium">
+                      <p className="font-dmSans text-xs sm:text-sm text-white font-medium">
                         {state}
                       </p>
                     </div>
@@ -394,12 +394,12 @@ function SessionInsight() {
             </div>
           </div>
 
-          <div className="border border-white rounded-2xl px-7.5 py-5 flex flex-col gap-7.5">
+          <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-5 flex flex-col gap-7.5">
             <div className="flex items-center justify-between gap-3">
-              <h4 className="text-white font-medium uppercase text-base font-lexend">
+              <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
                 INVESTMENT SIGNALS
               </h4>
-              <button className="text-cyan font-semibold font-lexend text-base">
+              <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
                 3
               </button>
             </div>
@@ -443,8 +443,8 @@ function SessionInsight() {
             </div>
           </div>
 
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-            <h4 className="font-dmSans text-white font-medium text-base uppercase">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+            <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
               TOP SECTORS MENTIONED
             </h4>
             <DonutChart
@@ -459,8 +459,8 @@ function SessionInsight() {
             />
           </div>
 
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-            <h4 className="font-dmSans text-white font-medium text-base uppercase">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+            <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
               SESSION TIMELINE
             </h4>
             <div className="flex flex-col gap-5">
@@ -468,17 +468,17 @@ function SessionInsight() {
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`w-4 h-4 rounded-full ${
+                      className={`w-3 sm:w-4 h-3 sm:h-4 rounded-full ${
                         i === timelines.length - 1 ? "bg-red" : "bg-green100"
                       }`}
                     ></div>
-                    <h5 className="text-white font-inter text-base">{time}</h5>
+                    <h5 className="text-white font-inter text-sm sm:text-base">{time}</h5>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <h5 className="text-white font-inter text-base">
+                    <h5 className="text-white font-inter text-sm sm:text-base text-right">
                       {session}
                     </h5>
-                    <p className="text-white font-inter text-base">{by}</p>
+                    <p className="text-white font-inter text-sm sm:text-base text-right">{by}</p>
                   </div>
                 </div>
               ))}

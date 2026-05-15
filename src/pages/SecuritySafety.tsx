@@ -113,7 +113,7 @@ function SecuritySafety() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           SECURITY & SAFETY SURVEILLANCE SYSTEM
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -123,7 +123,7 @@ function SecuritySafety() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -135,7 +135,7 @@ function SecuritySafety() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -163,24 +163,26 @@ function SecuritySafety() {
         ))}
       </div>
 
-      <section className="grid grid-cols-1 sm:grid-cols-12 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-9">
+      <section className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-9">
           <div className="flex items-center justify-between">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               INCIDENT HEATMAP
             </h4>
             <div className="border border-white/55 rounded-md flex overflow-hidden">
-              <div className="p-3 bg-white text-black text-xs font-lexend">
+              <div className="p-2 sm:p-3 bg-white text-black text-xs font-lexend">
                 Heatmap
               </div>
-              <div className="p-3 text-white text-xs font-lexend">Cluster</div>
+              <div className="p-2 sm:p-3 text-white text-xs font-lexend">
+                Cluster
+              </div>
             </div>
           </div>
           <div className="border border-white rounded-2xl min-h-20 h-full"></div>
         </div>
-        <div className="col-span-3 flex flex-col gap-4 ">
+        <div className="lg:col-span-3 flex flex-col gap-4 ">
           <div className="border border-white/55 rounded-2xl py-5 px-4 flex flex-col gap-5">
-            <h4 className="text-white font-medium uppercase text-sm font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               INCIDENTS BY SEVERITY
             </h4>
             <div className="flex flex-col gap-4">
@@ -231,56 +233,58 @@ function SecuritySafety() {
 
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="border border-white/55 rounded-2xl py-5 px-4 flex flex-col gap-5">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             LIVE INCIDENT FEED
           </h4>
-          <div className="flex flex-col gap-4 border border-white rounded-2xl p-4">
-            <div className="flex flex-col gap-5">
-              {feeds.map(({ title, venue, range, label, time }, i) => (
-                <div
-                  key={i}
-                  className=" flex items-center gap-4 justify-between pb-8 border-b border-b-white/55"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-7.5 h-7.5 bg-white"></div>
-                    <div className="flex flex-col gap-1.5">
-                      <h6 className="text-white font-dmSans font-semibold text-sm">
-                        {title}
-                      </h6>
-                      <span className="text-white font-dmSans font-light text-xs">
-                        {venue}
-                      </span>
-                    </div>
-                  </div>
+          <div className="flex flex-col gap-4 border border-white rounded-2xl p-4 ">
+            <div className="overflow-x-auto">
+              <div className="flex flex-col gap-5 min-w-100">
+                {feeds.map(({ title, venue, range, label, time }, i) => (
                   <div
-                    className={`py-1.5 px-3 rounded-md text-[10px] font-dmSans font-medium ${
-                      range === "High"
-                        ? "bg-red200 text-red"
-                        : range === "Medium"
-                          ? "bg-brown500 text-orange"
-                          : "bg-blue900 text-blue200"
-                    }`}
+                    key={i}
+                    className=" flex items-center gap-4 justify-between pb-8 border-b border-b-white/55"
                   >
-                    {range}
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <span className="text-sm font-dmSans text-white font-semibold">
-                      {time}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-7.5 h-7.5 bg-white"></div>
+                      <div className="flex flex-col gap-1.5">
+                        <h6 className="text-white font-dmSans font-semibold text-sm">
+                          {title}
+                        </h6>
+                        <span className="text-white font-dmSans font-light text-xs">
+                          {venue}
+                        </span>
+                      </div>
+                    </div>
                     <div
-                      className={`py-1 px-2 min-w-20 w-full text-[10px] flex justify-center font-dmSans font-medium rounded-md ${
-                        label === "Responding"
-                          ? "bg-blue900 text-blue200"
-                          : label === "Acknowledged"
-                            ? "text-orange bg-brown500"
-                            : "bg-green850 text-green100"
-                      } `}
+                      className={`py-1.5 px-3 rounded-md text-[10px] font-dmSans font-medium ${
+                        range === "High"
+                          ? "bg-red200 text-red"
+                          : range === "Medium"
+                            ? "bg-brown500 text-orange"
+                            : "bg-blue900 text-blue200"
+                      }`}
                     >
-                      {label}
+                      {range}
+                    </div>
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-sm font-dmSans text-white font-semibold">
+                        {time}
+                      </span>
+                      <div
+                        className={`py-1 px-2 min-w-20 w-full text-[10px] flex justify-center font-dmSans font-medium rounded-md ${
+                          label === "Responding"
+                            ? "bg-blue900 text-blue200"
+                            : label === "Acknowledged"
+                              ? "text-orange bg-brown500"
+                              : "bg-green850 text-green100"
+                        } `}
+                      >
+                        {label}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             <button className="border border-white/55 rounded-2xl py-2.5 px-7.5 font-rubik uppercase text-white text-sm">
               VIEW ALL INCIDENTS
@@ -289,8 +293,8 @@ function SecuritySafety() {
         </div>
 
         <div className="flex flex-col gap-5">
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               DEALS BY SECTOR
             </h4>
             <div className="flex flex-col gap-4">
@@ -301,7 +305,7 @@ function SecuritySafety() {
                 >
                   <div className="flex items-center gap-3">
                     <div
-                      className={`rounded-full w-7.5 h-7.5 text-sm font-light font-dmSans flex items-center justify-center ${
+                      className={`rounded-full w-6.5 sm:w-7.5 h-6.5 sm:h-7.5 text-sm font-light font-dmSans flex items-center justify-center ${
                         i === 0
                           ? "bg-yellow text-black"
                           : i === 1
@@ -329,8 +333,8 @@ function SecuritySafety() {
             </div>
           </div>
 
-          <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 ">
-            <h4 className="font-dmSans text-white font-medium text-base uppercase">
+          <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
+            <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
               INCIDENT STATUS OVERVIIEW
             </h4>
             <DonutChart
@@ -345,55 +349,57 @@ function SecuritySafety() {
         </div>
       </section>
 
-      <IncidentTrendChart/>
+      <IncidentTrendChart />
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 ">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             ACTIVE ALERTS
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View all alerts
           </button>
         </div>
 
-        <div className="flex flex-col gap-2">
-          {alerts.map(({ title, description, status, time }, i) => (
-            <div
-              key={i}
-              className={`px-7.5 py-5 flex items-center justify-between rounded-2xl gap-4 ${
-                i % 2 === 0 ? "bg-violet" : "bg-brown600"
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <div className="w-7.5 h-7.5 bg-white"></div>
-                <div className="flex flex-col gap-1.5">
-                  <h6 className="text-white font-dmSans font-semibold text-sm">
-                    {title}
-                  </h6>
-                  <span className="text-white font-dmSans font-light text-xs max-w-70">
-                    {description}
+        <div className="overflow-x-auto">
+          <div className="flex flex-col gap-2 min-w-100">
+            {alerts.map(({ title, description, status, time }, i) => (
+              <div
+                key={i}
+                className={`px-7.5 py-5 flex items-center justify-between rounded-2xl gap-4 ${
+                  i % 2 === 0 ? "bg-violet" : "bg-brown600"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-7.5 h-7.5 bg-white shrink-0"></div>
+                  <div className="flex flex-col gap-1.5">
+                    <h6 className="text-white font-dmSans font-semibold text-sm">
+                      {title}
+                    </h6>
+                    <span className="text-white font-dmSans font-light text-xs max-w-70">
+                      {description}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2.5">
+                  <span className="text-white font-dmSans font-semibold text-sm">
+                    {time}
                   </span>
+                  <div
+                    className={`py-1.5 px-3 rounded-md text-[10px] font-dmSans font-medium flex items-center justify-center ${
+                      status === "High"
+                        ? "bg-red200 text-red"
+                        : status === "Medium"
+                          ? "bg-brown500 text-orange"
+                          : "bg-blue900 text-blue200"
+                    }`}
+                  >
+                    {status}
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2.5">
-                <span className="text-white font-dmSans font-semibold text-sm">
-                  {time}
-                </span>
-                <div
-                  className={`py-1.5 px-3 rounded-md text-[10px] font-dmSans font-medium flex items-center justify-center ${
-                    status === "High"
-                      ? "bg-red200 text-red"
-                      : status === "Medium"
-                        ? "bg-brown500 text-orange"
-                        : "bg-blue900 text-blue200"
-                  }`}
-                >
-                  {status}
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
     </section>

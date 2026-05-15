@@ -102,9 +102,9 @@ const AttendanceChart = () => {
   };
 
   return (
-    <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+    <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 w-full">
       <div className="flex items-center justify-between">
-        <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
           Attendance Over Time
         </h4>
 

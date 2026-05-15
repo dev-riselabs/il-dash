@@ -92,7 +92,7 @@ export default function DonutChart({ data, small }: DonutChartProps) {
   };
 
   return (
-    <div className="flex items-center gap-10">
+    <div className="flex flex-col sm:flex-row items-center gap-10">
       <div className={`${small ? "w-40 h-40" : "w-50 h-50"}`}>
         <Doughnut
           data={chartData}

@@ -40,7 +40,7 @@ export default function Overview() {
                     {label}
                   </div>
                   <div
-                    className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                    className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                       idx === 0
                         ? "text-cyan"
                         : idx === 1

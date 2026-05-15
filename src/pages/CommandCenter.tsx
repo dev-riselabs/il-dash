@@ -201,7 +201,7 @@ function CommandCenter() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           COMMAND CENTRE
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -210,7 +210,7 @@ function CommandCenter() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -222,7 +222,7 @@ function CommandCenter() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -250,106 +250,108 @@ function CommandCenter() {
         ))}
       </div>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 ">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             SESSION TRACKER
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View all schedule
           </button>
         </div>
-        <div className="flex flex-col gap-6">
-          <div className="flex items-center justify-between gap-4">
-            <h5 className="text-white font-semibold text-base font-dmSans flex-2">
-              SESSION / TRACK
-            </h5>
-            <h5 className="text-white font-semibold text-base font-dmSans flex-1">
-              VENUE
-            </h5>
-            <h5 className="text-white font-semibold text-base font-dmSans flex-1">
-              STATUS
-            </h5>
-            <h5 className="text-white font-semibold text-base font-dmSans flex-1">
-              TIME
-            </h5>
-            <h5 className="text-white font-semibold text-base font-dmSans flex-1">
-              PROGRESS
-            </h5>
-          </div>
+        <div className="overflow-x-auto">
+          <div className="flex flex-col gap-6 min-w-150">
+            <div className="flex items-center justify-between gap-4">
+              <h5 className="text-white font-semibold text-base font-dmSans flex-2">
+                SESSION / TRACK
+              </h5>
+              <h5 className="text-white font-semibold text-base font-dmSans flex-1">
+                VENUE
+              </h5>
+              <h5 className="text-white font-semibold text-base font-dmSans flex-1">
+                STATUS
+              </h5>
+              <h5 className="text-white font-semibold text-base font-dmSans flex-1">
+                TIME
+              </h5>
+              <h5 className="text-white font-semibold text-base font-dmSans flex-1">
+                PROGRESS
+              </h5>
+            </div>
 
-          <div className="flex flex-col gap-4">
-            {seesionTracker.map(
-              ({ title, sector, time, venue, status, progress }, i) => (
-                <div
-                  key={title}
-                  className={`
+            <div className="flex flex-col gap-4">
+              {seesionTracker.map(
+                ({ title, sector, time, venue, status, progress }, i) => (
+                  <div
+                    key={title}
+                    className={`
                 py-2 px-5 flex items-center justify-between ${
                   i % 2 === 0 ? "border border-white/55 rounded-2xl" : ""
                 }
                 `}
-                >
-                  <div className="flex flex-col gap-1.5 flex-2">
-                    <h6 className="text-white font-semibold text-sm font-dmSans">
-                      {title}
-                    </h6>
-                    <span className="text-white font-light text-xs font-dmSans">
-                      {sector}
-                    </span>
+                  >
+                    <div className="flex flex-col gap-1.5 flex-2">
+                      <h6 className="text-white font-semibold text-sm font-dmSans">
+                        {title}
+                      </h6>
+                      <span className="text-white font-light text-xs font-dmSans">
+                        {sector}
+                      </span>
+                    </div>
+                    <p className="text-white font-semibold text-sm font-dmSans flex-1">
+                      {venue}
+                    </p>
+                    <div className="flex items-center gap-1 flex-1">
+                      <div
+                        className={`w-2.5 h-2.5 rounded-full ${
+                          status === "LIVE"
+                            ? "bg-green100"
+                            : status === "DELAYED"
+                              ? "bg-yellow500"
+                              : status === "UPCOMING"
+                                ? "bg-white"
+                                : status === "CANCELLED"
+                                  ? "bg-red"
+                                  : ""
+                        }`}
+                      ></div>
+                      <span
+                        className={`text-[10px] font-dmSans ${
+                          status === "LIVE"
+                            ? "text-green100"
+                            : status === "DELAYED"
+                              ? "text-yellow500"
+                              : status === "UPCOMING"
+                                ? "text-white"
+                                : status === "CANCELLED"
+                                  ? "text-red"
+                                  : ""
+                        }`}
+                      >
+                        {status}
+                      </span>
+                    </div>
+                    <p className="text-white font-semibold text-sm font-dmSans flex-1">
+                      {time}
+                    </p>
+                    <p className="text-white font-semibold text-sm font-dmSans flex-1 text-center">
+                      {progress}
+                    </p>
                   </div>
-                  <p className="text-white font-semibold text-sm font-dmSans flex-1">
-                    {venue}
-                  </p>
-                  <div className="flex items-center gap-1 flex-1">
-                    <div
-                      className={`w-2.5 h-2.5 rounded-full ${
-                        status === "LIVE"
-                          ? "bg-green100"
-                          : status === "DELAYED"
-                            ? "bg-yellow500"
-                            : status === "UPCOMING"
-                              ? "bg-white"
-                              : status === "CANCELLED"
-                                ? "bg-red"
-                                : ""
-                      }`}
-                    ></div>
-                    <span
-                      className={`text-[10px] font-dmSans ${
-                        status === "LIVE"
-                          ? "text-green100"
-                          : status === "DELAYED"
-                            ? "text-yellow500"
-                            : status === "UPCOMING"
-                              ? "text-white"
-                              : status === "CANCELLED"
-                                ? "text-red"
-                                : ""
-                      }`}
-                    >
-                      {status}
-                    </span>
-                  </div>
-                  <p className="text-white font-semibold text-sm font-dmSans flex-1">
-                    {time}
-                  </p>
-                  <p className="text-white font-semibold text-sm font-dmSans flex-1 text-center">
-                    {progress}
-                  </p>
-                </div>
-              ),
-            )}
+                ),
+              )}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-11 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-5">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-5">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               ALERTS & NOTIFICATIONS
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all alerts
             </button>
           </div>
@@ -407,8 +409,8 @@ function CommandCenter() {
             ))}
           </div>
         </div>
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-6">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             SECURITY OVERVIEW
           </h4>
           <div className="flex flex-col gap-10">
@@ -434,7 +436,7 @@ function CommandCenter() {
                   <span className="text-white font-light font-lexend text-sm">
                     SECURITY PERSONNEL
                   </span>
-                  <span className="text-green font-semibold font-lexend text-2xl">
+                  <span className="text-green font-semibold font-lexend text-xl sm:text-2xl">
                     128
                   </span>
                   <span className="text-white font-light font-lexend text-sm">
@@ -445,7 +447,7 @@ function CommandCenter() {
                   <span className="text-white font-light font-lexend text-sm">
                     INCIDENTS TODAY
                   </span>
-                  <span className="text-green font-semibold font-lexend text-2xl">
+                  <span className="text-green font-semibold font-lexend text-xl sm:text-2xl">
                     2
                   </span>
                   <span className="text-white font-light font-lexend text-sm">
@@ -456,7 +458,7 @@ function CommandCenter() {
                   <span className="text-white font-light font-lexend text-sm">
                     RESPONSE TIME
                   </span>
-                  <span className="text-green font-semibold font-lexend text-2xl">
+                  <span className="text-green font-semibold font-lexend text-xl sm:text-2xl">
                     2m 15s
                   </span>
                   <span className="text-white font-light font-lexend text-sm">
@@ -471,71 +473,73 @@ function CommandCenter() {
       </section>
 
       <section className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               SECURITY INCIDENTS (LIVE)
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all incidents
             </button>
           </div>
           <div className="flex flex-col gap-7">
             <div className="border border-white/55 rounded-2xl h-50 "></div>
-            <div className="flex flex-col gap-5 divide divide-white/55">
-              <div className="flex items-center justify-between gap-4">
-                <h5 className="text-base font-semibold text-white font-lexend uppercase">
-                  Session/track
-                </h5>
-                <h5 className="text-base font-semibold text-white font-lexend uppercase">
-                  Venue
-                </h5>
-                <h5 className="text-base font-semibold text-white font-lexend uppercase">
-                  time
-                </h5>
-                <h5 className="text-base font-semibold text-white font-lexend uppercase">
-                  progress
-                </h5>
-              </div>
-              <div className="flex flex-col gap-4">
-                {incidents.map(({ name, venue, time, progress }) => (
-                  <div
-                    key={name}
-                    className="flex items-center gap-4 justify-between"
-                  >
-                    <p className="text-sm font-semibold text-white font-dmSans flex-2">
-                      {name}
-                    </p>
-                    <p className="text-sm font-semibold text-white font-dmSans flex-1">
-                      {venue}
-                    </p>
-                    <p className="text-sm font-semibold text-white font-dmSans flex-1">
-                      {time}
-                    </p>
-                    <div className="flex-1 flex items-center justify-center">
-                      <div
-                        className={`border font-dmSans font-medium text-xs py-1.25 px-3.75 rounded-md ${
-                          progress === "Responding"
-                            ? " border-yellow200 bg-yellow100 text-yellow200"
-                            : "border-green100 text-green100 bg-green550"
-                        }`}
-                      >
-                        {progress}
+            <div className="overflow-x-auto">
+              <div className="flex flex-col gap-5 divide-y pb-5 divide-white/55 min-w-150">
+                <div className="flex items-center justify-between gap-4">
+                  <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                    Session/track
+                  </h5>
+                  <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                    Venue
+                  </h5>
+                  <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                    time
+                  </h5>
+                  <h5 className="text-base font-semibold text-white font-lexend uppercase">
+                    progress
+                  </h5>
+                </div>
+                <div className="flex flex-col gap-4">
+                  {incidents.map(({ name, venue, time, progress }) => (
+                    <div
+                      key={name}
+                      className="flex items-center gap-4 justify-between"
+                    >
+                      <p className="text-sm font-semibold text-white font-dmSans flex-2">
+                        {name}
+                      </p>
+                      <p className="text-sm font-semibold text-white font-dmSans flex-1">
+                        {venue}
+                      </p>
+                      <p className="text-sm font-semibold text-white font-dmSans flex-1">
+                        {time}
+                      </p>
+                      <div className="flex-1 flex items-center justify-center">
+                        <div
+                          className={`border font-dmSans font-medium text-xs py-1.25 px-3.75 rounded-md ${
+                            progress === "Responding"
+                              ? " border-yellow200 bg-yellow100 text-yellow200"
+                              : "border-green100 text-green100 bg-green550"
+                          }`}
+                        >
+                          {progress}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             QUICK ACTIONS
           </h4>
           <div className="flex flex-col gap-3.5">
             {actions.map(({ name, action, icon: Icon, label }, i) => (
-              <div className="px-7.5 py-5 border border-white/55 rounded-2xl flex items-center justify-between gap-2">
+              <div className="px-4 sm:px-7.5 py-5 border border-white/55 rounded-2xl flex items-center justify-between gap-2">
                 <div className="flex items-center gap-4">
                   <div
                     className={`shrink-0 w-12 h-12 rounded-md flex items-center justify-center ${
@@ -572,12 +576,12 @@ function CommandCenter() {
         </div>
       </section>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             LIVE FEED
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View all cameras
           </button>
         </div>
@@ -602,7 +606,7 @@ function CommandCenter() {
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-4 lg:gap-10 lg:flex-row lg:justify-center lg:items-center">
+          <div className="flex flex-col items-center gap-4 lg:gap-10 lg:flex-row lg:justify-center lg:items-center">
             <div className="flex items-center flex-col gap-5 border border-white/30 rounded-2xl py-5 px-10 max-w-50 w-full">
               <h6 className="text-white font-dmSans text-sm font-semibold">
                 Total Cameras
@@ -631,12 +635,12 @@ function CommandCenter() {
         </div>
       </section>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 ">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             SOCIAL MEDIA LIVE FEED
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View all
           </button>
         </div>
@@ -657,7 +661,7 @@ function CommandCenter() {
             }) => (
               <div
                 key={name}
-                className="border border-white/55 rounded-2xl px-4 py-4 pb-6 flex flex-col gap-4"
+                className="border border-white/55 rounded-2xl px-3 sm:px-4 py-4 pb-6 flex flex-col gap-4"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-4">
@@ -696,32 +700,32 @@ function CommandCenter() {
                   </span>
                 </div>
                 <div className="w-full h-px bg-white/70"></div>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-3 sm:gap-5">
                   <div className="flex items-center gap-1">
-                    <MessageCircle className="w-4 h-4 text-white" />
-                    <span className="text-white text-sm font-inter">
+                    <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    <span className="text-white text-xs sm:text-sm font-inter">
                       {comments}
                     </span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Repeat2 className="w-4 h-4 text-white" />
-                    <span className="text-white text-sm font-inter">
+                    <Repeat2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    <span className="text-white text-xs sm:text-sm font-inter">
                       {retweet}
                     </span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Heart className="w-4 h-4 text-white" />
-                    <span className="text-white text-sm font-inter">
+                    <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    <span className="text-white text-xs sm:text-sm font-inter">
                       {likes}
                     </span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <ChartNoAxesColumn className="w-4 h-4 text-white" />
-                    <span className="text-white text-sm font-inter">
+                    <ChartNoAxesColumn className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                    <span className="text-white text-xs sm:text-sm font-inter">
                       {impression}
                     </span>
                   </div>
-                  <Download className="w-4 h-4 text-white" />
+                  <Download className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                 </div>
               </div>
             ),

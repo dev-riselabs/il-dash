@@ -43,7 +43,7 @@ function SocialmediaFeed() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           SOCIAL MEDIA FEED
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -53,7 +53,7 @@ function SocialmediaFeed() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -65,7 +65,7 @@ function SocialmediaFeed() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -93,7 +93,7 @@ function SocialmediaFeed() {
         ))}
       </div>
 
-      <div className="flex items-center gap-8 flex-col lg:flex-row">
+      <div className="flex md:items-center gap-4 sm:gap-8 flex-wrap">
         <div className="border border-white/55 rounded py-2.5 px-2.5 flex items-center gap-1">
           <select name="" id="" className="text-white font-lexend text-xs">
             <option value="">All Platforms</option>
@@ -134,9 +134,9 @@ function SocialmediaFeed() {
 
       <MentionsChart />
 
-      <section className="grid grid-cols-12 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-5 ">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+      <section className="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 md:col-span-5 ">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             SENTIMENT BREAKDOWN
           </h4>
           <DonutChart
@@ -149,8 +149,8 @@ function SocialmediaFeed() {
           />
         </div>
 
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-7">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 md:col-span-7">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             SESSION SENTIMENT SCORES
           </h4>
 
@@ -158,12 +158,12 @@ function SocialmediaFeed() {
             {sectorOne.map(({ icon, percent }, i) => (
               <div
                 key={i}
-                className="grid grid-cols-12 gap-10 place-content-between"
+                className="grid grid-cols-12 gap-4 sm:gap-10 place-content-between"
               >
                 <div className="w-6 h-6 rounded-md bg-white flex items-center justify-center col-span-2">
                   {icon}
                 </div>
-                <div className="col-span-7 flex items-center">
+                <div className="col-span-8 flex items-center">
                   <div
                     className={`rounded-full h-2.5 ${
                       sectorOne.length - 1 === i
@@ -175,7 +175,7 @@ function SocialmediaFeed() {
                     style={{ width: `${(percent * 100) / 100}%` }}
                   ></div>
                 </div>
-                <p className="col-span-2 text-white font-dmSans text-sm flex items-center justify-center">
+                <p className="col-span-1 text-white font-dmSans text-sm flex items-center justify-center">
                   {percent}%
                 </p>
               </div>
@@ -185,12 +185,12 @@ function SocialmediaFeed() {
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <div className="border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-7.5 lg:col-span-5">
+        <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-2.5 flex flex-col gap-7.5 lg:col-span-5">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white/55 font-medium uppercase text-base font-lexend">
+            <h4 className="text-white/55 font-medium uppercase text-sm sm:text-base font-lexend">
               LATEST ADDITIONS
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all themes
             </button>
           </div>
@@ -209,12 +209,12 @@ function SocialmediaFeed() {
           </div>
         </div>
 
-        <div className="border border-white rounded-2xl px-7.5 py-2.5 flex flex-col gap-7.5 lg:col-span-7">
+        <div className="border border-white rounded-2xl px-5 sm:px-7.5 py-2.5 flex flex-col gap-7.5 lg:col-span-7">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               TRENDING HASHTAGS
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all hashtags
             </button>
           </div>

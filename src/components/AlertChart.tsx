@@ -192,8 +192,8 @@ const options: any = {
 
 export default function AlertsOverTimeChart() {
   return (
-    <div className="w-full rounded-2xl border border-white/55 flex felx-col gap-5 flex-col p-6">
-      <h4 className="font-dmSans text-white font-medium text-base uppercase">
+    <div className="w-full rounded-2xl border border-white/55 flex flex-col gap-5 p-6">
+      <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
         ALERTS OVER TIME (Last 6 Days)
       </h4>
 

@@ -46,7 +46,7 @@ function GlobalInvesorMap() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           GLOBAL INVESTOR MAP
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -55,7 +55,7 @@ function GlobalInvesorMap() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -67,7 +67,7 @@ function GlobalInvesorMap() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -97,12 +97,12 @@ function GlobalInvesorMap() {
 
       <InvestmentHeatmap />
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             TOP COUNTRIES BY INVESTOR COUNT
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View all
           </button>
         </div>
@@ -146,12 +146,12 @@ function GlobalInvesorMap() {
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-6">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               INVESTOR SUMMARY
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View full report
             </button>
           </div>
@@ -165,12 +165,12 @@ function GlobalInvesorMap() {
             ]}
           />
         </div>
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-6">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               TOP SECTORS OF INTREST
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all
             </button>
           </div>
@@ -202,12 +202,12 @@ function GlobalInvesorMap() {
         </div>
       </section>
       <section className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 ">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               RECENT INVESTORS
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all
             </button>
           </div>
@@ -216,7 +216,7 @@ function GlobalInvesorMap() {
             {investors.map(({ name, sector, time }) => (
               <div key={name} className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                  <div className="w-8 sm:w-10 h-8 sm:h-10 bg-white rounded-full flex items-center justify-center">
                     <FaYelp className="w-5 h-5 text-black" />
                   </div>
                   <div className="flex flex-col gap-2">

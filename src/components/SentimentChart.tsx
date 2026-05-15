@@ -121,8 +121,8 @@ const options: ChartOptions<"line"> = {
 
 export default function SentimentChart() {
   return (
-    <div className=" border border-white/55 rounded-2xl p-6 w-full h-100 flex flex-col gap-6">
-      <h4 className="font-dmSans text-white font-medium text-base uppercase">
+    <div className=" border border-white/55 rounded-2xl py-5 px-5 sm:p-6 w-full h-100 flex flex-col gap-6">
+      <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
         SENTIMENT TREND OVER TIME
       </h4>
 

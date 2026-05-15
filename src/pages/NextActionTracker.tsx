@@ -111,7 +111,7 @@ function NextActionTracker() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           NEXT ACTION TRACKER
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -120,7 +120,7 @@ function NextActionTracker() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -132,7 +132,7 @@ function NextActionTracker() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -160,7 +160,7 @@ function NextActionTracker() {
         ))}
       </div>
 
-      <menu className="flex items-center gap-3">
+      <menu className="flex items-center gap-3 overflow-x-auto">
         <button className="border-b-2 border-b-blue px-10 py-1 text-blue text-sm font-lexend font-medium rounded-lg">
           ALL ACTIONS
         </button>
@@ -178,7 +178,7 @@ function NextActionTracker() {
         </button>
       </menu>
 
-      <div className="flex items-center gap-8 flex-col lg:flex-row">
+      <div className="flex items-center gap-5 flex-wrap">
         <div className="border border-white/55 rounded py-2.5 px-2.5 flex items-center gap-1.5 min-w-80">
           <Search className="w-4 text-white shrink-0" />
           <input
@@ -222,7 +222,8 @@ function NextActionTracker() {
       </div>
 
       <section className="border border-white/55 rounded-2xl px-7.5 py-2.5 flex flex-col gap-12">
-        <div className="flex flex-col gap-6">
+      <div className="overflow-x-auto">
+        <div className="flex flex-col gap-6 min-w-220">
           <div className="flex items-center justify-between border border-white/50 rounded-2xl py-6 px-5">
             <h5 className="text-center font-lexend font-light text-white text-sm">
               ACTION / DESCRIPTION
@@ -324,7 +325,7 @@ function NextActionTracker() {
             )}
           </div>
         </div>
-
+</div>
         <div className="flex items-center gap-3 justify-between">
           <div className="flex items-center gap-4 font-lexend text-white text-sm">
             <p>Showing</p>
@@ -344,8 +345,8 @@ function NextActionTracker() {
       </section>
 
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-6">
-          <h4 className="font-dmSans text-white font-medium text-base uppercase">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6">
+          <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
             ACTION STATUS OVERVIEWS
           </h4>
           <DonutChart
@@ -357,12 +358,12 @@ function NextActionTracker() {
             ]}
           />
         </div>
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 lg:col-span-6">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               ACTIONS BY SECTOR
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View full
             </button>
           </div>
@@ -394,12 +395,12 @@ function NextActionTracker() {
         </div>
       </section>
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             ACTIONS BY SECTOR
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View full
           </button>
         </div>
@@ -408,7 +409,7 @@ function NextActionTracker() {
           {actions.map(({ title, date, status }, i) => (
             <div key={i} className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-md bg-blue100"></div>
+                <div className="w-12 h-12 rounded-md bg-blue100 shrink-0"></div>
                 <div className="flex flex-col gap-2">
                   <h5 className="text-sm font-lexend font-light text-white">
                     {title}

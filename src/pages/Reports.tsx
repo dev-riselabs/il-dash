@@ -93,7 +93,7 @@ function Reports() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-2xl font-semibold font-lexend">
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           REPORTS
         </h1>
         <p className="text-white font-lexend font-light text-xs">
@@ -102,7 +102,7 @@ function Reports() {
       </div>
 
       {/* KPI grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-4 gap-y-3">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3">
         {kpis.map(({ label, value, delta }, idx) => (
           <div
             key={label}
@@ -114,7 +114,7 @@ function Reports() {
                   {label}
                 </div>
                 <div
-                  className={`text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
+                  className={`text-2xl sm:text-3xl font-medium font-dmSans  mt-2 tabular-nums ${
                     idx === 0
                       ? "text-cyan"
                       : idx === 1
@@ -144,12 +144,12 @@ function Reports() {
 
       <AttendanceChart />
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-6 ">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6 ">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               ATTENDEE BREAKDOWN
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View full breakdown
             </button>
           </div>
@@ -166,12 +166,12 @@ function Reports() {
           />
         </div>
 
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 col-span-6 ">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6 ">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               INVESTMENT SIGNALS BY SECTOR
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all report
             </button>
           </div>
@@ -190,91 +190,93 @@ function Reports() {
 
       <SentimentTrendChart />
 
-      <section className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 ">
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
         <div className="flex items-center justify-between gap-3">
-          <h4 className="text-white font-medium uppercase text-base font-lexend">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
             RECENTLY GENERATED REPORTS
           </h4>
-          <button className="text-cyan font-semibold font-lexend text-base">
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
             View all reports
           </button>
         </div>
 
-        <table>
-          <thead className="mb-5">
-            <tr>
-              <th className="text-base font-semibold uppercase font-dmSans text-white text-left pb-6">
-                SESSION
-              </th>
-              <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                ATTENDEES
-              </th>
-              <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                ATTENDEES
-              </th>
-              <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                ATTENDEES
-              </th>
-              <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                ATTENDEES
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {reports.map(
-              ({
-                session,
-                location,
-                attendFour,
-                attendOne,
-                attendThree,
-                attendTwo,
-              }) => (
-                <tr key={session} className="">
-                  <td className="flex flex-col gap-1 pb-4">
-                    <span className="text-sm font-semibold font-dmSans text-white text-left ">
-                      {session}
-                    </span>
-                    <span className="text-xs font-light font-dmSans text-white text-left">
-                      {location}
-                    </span>
-                  </td>
-                  <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                    {attendOne}
-                  </td>
-                  <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                    {attendTwo}
-                  </td>
-                  <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                    {attendThree}
-                  </td>
-                  <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                    {attendFour}
-                  </td>
-                </tr>
-              ),
-            )}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-180">
+            <thead className="mb-5">
+              <tr>
+                <th className="text-base font-semibold uppercase font-dmSans text-white text-left pb-6">
+                  SESSION
+                </th>
+                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                  ATTENDEES
+                </th>
+                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                  ATTENDEES
+                </th>
+                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                  ATTENDEES
+                </th>
+                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                  ATTENDEES
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {reports.map(
+                ({
+                  session,
+                  location,
+                  attendFour,
+                  attendOne,
+                  attendThree,
+                  attendTwo,
+                }) => (
+                  <tr key={session} className="">
+                    <td className="flex flex-col gap-1 pb-4">
+                      <span className="text-sm font-semibold font-dmSans text-white text-left ">
+                        {session}
+                      </span>
+                      <span className="text-xs font-light font-dmSans text-white text-left">
+                        {location}
+                      </span>
+                    </td>
+                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
+                      {attendOne}
+                    </td>
+                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
+                      {attendTwo}
+                    </td>
+                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
+                      {attendThree}
+                    </td>
+                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
+                      {attendFour}
+                    </td>
+                  </tr>
+                ),
+              )}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section className="flex flex-col lg:flex-row gap-5">
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               TOP SESSIONS BY ATTENDANCE
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all sessions
             </button>
           </div>
 
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-3 justify-between">
-              <h5 className="text-base font-semibold uppercase font-dmSans text-white">
+              <h5 className="text-sm sm:text-base font-semibold uppercase font-dmSans text-white">
                 SESSION
               </h5>
-              <h5 className="text-base font-semibold uppercase font-dmSans text-white">
+              <h5 className="text-sm sm:text-base font-semibold uppercase font-dmSans text-white">
                 ATTENDEES
               </h5>
             </div>
@@ -302,12 +304,12 @@ function Reports() {
           </div>
         </div>
 
-        <div className="border border-white/55 rounded-2xl py-5 px-7.5 flex flex-col gap-6 self-start">
+        <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 self-start">
           <div className="flex items-center justify-between gap-3">
-            <h4 className="text-white font-medium uppercase text-base font-lexend">
+            <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               ENGAGEMENT SUMMARY
             </h4>
-            <button className="text-cyan font-semibold font-lexend text-base">
+            <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
               View all engagement report
             </button>
           </div>

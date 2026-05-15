@@ -86,11 +86,11 @@ const SentimentAnalysis = () => {
     <section className="border border-white/55 rounded-2xl p-6 flex flex-col gap-6 w-full lg:col-span-6">
       {/* Header */}
       <div className="flex items-center justify-between gap-3">
-        <h4 className="text-white font-medium uppercase text-base font-lexend">
+        <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
           SENTIMENT ANALYSIS
         </h4>
 
-        <button className="text-cyan font-semibold font-lexend text-base">
+        <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
           View all
         </button>
       </div>
