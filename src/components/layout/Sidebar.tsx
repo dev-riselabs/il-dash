@@ -16,6 +16,13 @@ import {
   Globe,
   Target,
   Command,
+  MessageSquareQuote,
+  ClipboardCheck,
+  Speaker,
+  NotebookTabs,
+  MessageSquareReply,
+  BrainCircuit,
+  ClipboardList,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -41,23 +48,63 @@ const items = [
     label: "Next Action Tracker",
     icon: SatelliteDish,
   },
+  {
+    to: "/intelligence-dashboard",
+    label: "Intelligence Dashboard",
+    icon: BrainCircuit,
+  },
+  {
+    to: "/session-quotes",
+    label: "Session Quotes",
+    icon: MessageSquareQuote,
+  },
+  {
+    to: "/deep-dive",
+    label: "Deep Dive",
+    icon: ClipboardList,
+  },
+  {
+    to: "/attendance",
+    label: "Attendance",
+    icon: ClipboardCheck,
+  },
+  {
+    to: "/speaker",
+    label: "Speaker",
+    icon: Speaker,
+  },
+  {
+    to: "/session",
+    label: "Session",
+    icon: NotebookTabs,
+  },
+  {
+    to: "/audience-feedback",
+    label: "Audience Feedback",
+    icon: MessageSquareReply,
+  },
 ];
 
 export function Sidebar() {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false);
 
-  function toggleIsHovered(){
-    setIsHovered(prev => !prev)
-  } 
+  function toggleIsHovered() {
+    setIsHovered((prev) => !prev);
+  }
 
   return (
-    <aside onMouseEnter={toggleIsHovered} onMouseLeave={toggleIsHovered} className={`${isHovered ? 'w-62' : 'w-20'} shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden transition-all `}>
-      <div className={`${isHovered ? 'p-6' : 'py-6 px-4'} border-b border-white/5 flex justify-center`}>
+    <aside
+      onMouseEnter={toggleIsHovered}
+      onMouseLeave={toggleIsHovered}
+      className={`${isHovered ? "w-62" : "w-20"} shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden transition-all `}
+    >
+      <div
+        className={`${isHovered ? "p-6" : "py-6 px-4"} border-b border-white/5 flex justify-center`}
+      >
         {/* <div className="text-xs font-semibold tracking-widest text-accent-cyan">
           IL-DASH
         </div>
         <div className="text-[10px] text-slate-500 mt-1">v1.0 · Command Centre</div> */}
-        
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto lg:pb-20">
@@ -79,7 +126,9 @@ export function Sidebar() {
             {isHovered && <span className="truncate">{label}</span>}
           </NavLink>
         ))}
-       {isHovered && <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />} 
+        {isHovered && (
+          <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
+        )}
       </nav>
     </aside>
   );

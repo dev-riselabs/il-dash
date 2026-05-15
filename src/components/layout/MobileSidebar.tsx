@@ -17,6 +17,13 @@ import {
   Target,
   Command,
   X,
+  MessageSquareQuote,
+  ClipboardCheck,
+  Speaker,
+  NotebookTabs,
+  MessageSquareReply,
+  BrainCircuit,
+  ClipboardList,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +47,41 @@ const items = [
     to: "/next-action-tracker",
     label: "Next Action Tracker",
     icon: SatelliteDish,
+  },
+  {
+    to: "/intelligence-dashboard",
+    label: "Intelligence Dashboard",
+    icon: BrainCircuit,
+  },
+  {
+    to: "/session-quotes",
+    label: "Session Quotes",
+    icon: MessageSquareQuote,
+  },
+  {
+    to: "/deep-dive",
+    label: "Deep Dive",
+    icon: ClipboardList,
+  },
+  {
+    to: "/attendance",
+    label: "Attendance",
+    icon: ClipboardCheck,
+  },
+  {
+    to: "/speaker",
+    label: "Speaker",
+    icon: Speaker,
+  },
+  {
+    to: "/session",
+    label: "Session",
+    icon: NotebookTabs,
+  },
+  {
+    to: "/audience-feedback",
+    label: "Audience Feedback",
+    icon: MessageSquareReply,
   },
 ];
 

@@ -16,6 +16,13 @@ import CommandCenter from "./pages/CommandCenter";
 import ProgrammeTracker from "./pages/ProgrammeTracker";
 import DealRoomTracker from "./pages/DealRoomTracker";
 import SecuritySafety from "./pages/SecuritySafety";
+import SessionQuotes from "./pages/SessionQuotes";
+import Attendance from "./pages/Attendance";
+import Speaker from "./pages/Speaker";
+import Session from "./pages/Session";
+import AdudienceFeedback from "./pages/AudienceFeedback";
+import IntelligenceDashboard from "./pages/IntelligenceDashboard";
+import DeepDive from "./pages/DeepDive";
 
 function App() {
   return (
@@ -37,6 +44,13 @@ function App() {
         <Route path="/next-action-tracker" element={<NextActionTracker />} />
         <Route path="/executive-view" element={<ExecutiveView />} />
         <Route path="/command-center" element={<CommandCenter />} />
+        <Route path="/session-quotes" element={<SessionQuotes />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/speaker" element={<Speaker/>} />
+        <Route path="/session" element={<Session/>} />
+        <Route path="/audience-feedback" element={<AdudienceFeedback/>} />
+        <Route path="/intelligence-dashboard" element={<IntelligenceDashboard/>} />
+        <Route path="/deep-dive" element={<DeepDive/>} />
       </Routes>
     </AppShell>
   );
