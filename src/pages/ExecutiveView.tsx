@@ -256,7 +256,7 @@ function ExecutiveView() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {insights.map(({ title, sector }, i) => (
+            {insights.map(({ title, sector }) => (
               <div key={title} className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-full bg-cyan"></div>
                 <div className="flex flex-col gap-1.5">

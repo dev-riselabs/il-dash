@@ -524,7 +524,7 @@ function CommandCenter() {
           </h4>
           <div className="flex flex-col gap-3.5">
             {
-               actions.map(({name, action, icon: Icon, label}, i) => <div className="px-7.5 py-5 border border-white/55 rounded-2xl flex items-center justify-between gap-2">
+               actions.map(({icon: Icon}, i) => <div className="px-7.5 py-5 border border-white/55 rounded-2xl flex items-center justify-between gap-2">
                  <div className="flex items-center gap-4">
                   <div className={`shrink-0 w-12 h-12 rounded-md ${
                     i === 0 ? 'bg-blue' : 
