@@ -8,6 +8,7 @@ import {
   ChevronRight,
   User,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const kpis = [
   { label: "Total Attendance", value: "1,200", delta: "+4.5%" },
@@ -242,7 +243,7 @@ export default function Overview() {
                   <p className="text-white font-dmSans text-sm col-span-3">
                     {title}
                   </p>
-                  <div className="col-span-7">
+                  <div className="col-span-8">
                     <div
                       className={` h-5
                   ${
@@ -258,7 +259,7 @@ export default function Overview() {
                       style={{ width: `${(score * 100) / 100}%` }}
                     ></div>
                   </div>
-                  <p className="text-white font-dmSans text-sm col-span-2">
+                  <p className="text-white font-dmSans text-sm col-span-1">
                     {score}%
                   </p>
                 </div>
@@ -287,9 +288,9 @@ export default function Overview() {
                 </div>
               ))}
             </div>
-            <button className="border border-white rounded-lg text-white font-medium text-base font-rubik py-2.5 ">
+            <Link to={`/feedback`} className="border cursor-pointer border-white rounded-lg flex justify-center items-center text-white font-medium text-base font-rubik py-2.5 ">
               VIEW ALL FEEDBACK
-            </button>
+            </Link>
           </div>
         </div>
       </section>

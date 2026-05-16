@@ -42,10 +42,11 @@ function ResolutionBoard() {
     <section className="space-y-6">
       <div className="space-y-2">
         <h1 className="text-white text-2xl font-semibold font-lexend">
-          INVESTMENT HEATMAP
+          RESOLUTION BOARD (LIVE)
         </h1>
         <p className="text-white font-lexend font-light text-xs">
-          Real-time view of investment interest across sectors and locations.
+          Real-time view of outcomes, commitments and next steps from Invest
+          Lagos3.0
         </p>
       </div>
 
