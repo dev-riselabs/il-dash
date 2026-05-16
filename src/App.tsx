@@ -1,4 +1,3 @@
-import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import Overview from "@/pages/Overview";
