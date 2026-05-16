@@ -48,5 +48,16 @@ export default defineConfig({
   server: {
     port: 5173,
     host: 'localhost',
+
+    // ✅ ADDED PROXY (FIX FOR CORS)
+    proxy: {
+      "/api": {
+        target:
+          "https://script.google.com/macros/s/AKfycbyyeH96j37BohMwmg5ZPXdxfIs9TL6GzexLJLDFfrk8L6O7N1kA0bnXFAAsCeI-ctO5/exec",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
 })
