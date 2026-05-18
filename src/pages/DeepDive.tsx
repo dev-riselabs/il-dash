@@ -1,6 +1,12 @@
-import SentimentDivideChart from "@/components/SentimentDivideChart"
-import { EllipsisVertical, Funnel, Search } from "lucide-react"
-
+import SentimentDivideChart from "@/components/SentimentDivideChart";
+import {
+  CalendarDays,
+  ChevronsLeft,
+  ChevronsRight,
+  EllipsisVertical,
+  Funnel,
+  Search,
+} from "lucide-react";
 
 function DeepDive() {
   return (
@@ -11,7 +17,7 @@ function DeepDive() {
             Deep Drive
           </h1>
           <p className="text-white font-lexend font-light text-xs">
-           Browse all session quotes, speakers and key moments from the summit.
+            Browse all session quotes, speakers and key moments from the summit.
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -34,9 +40,81 @@ function DeepDive() {
         </div>
       </section>
 
-      <SentimentDivideChart/>
+      <SentimentDivideChart />
+
+      <section className="border border-white/55 rounded-2xl p-5 md:px-7.5 flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
+          <div className="flex items-center justify-between">
+            <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">SECTOR</h5>
+            <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">KEY QUOTE</h5>
+          </div>
+          <div className="flex flex-col gap-6">
+            {
+              [1,2,3,4].map(i => <div key={i} className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <CalendarDays className="text-white w-4 h-4"/>
+                  <span className="text-white font-dmSans text-sm">Infrastructure</span>
+                </div>
+                <span className="text-white font-dmSans text-sm">We are removing every barrier except excellence.”</span>
+              </div>)
+            }
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
+            <span>Showing</span>
+            <span>1 to 5 of 120</span>
+            <span>deals</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
+              {" "}
+              <ChevronsLeft className="text-white w-4 h-4" />
+            </button>
+            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
+              <ChevronsRight className="text-white w-4 h-4" />
+            </button>
+          </div>
+        </div>
       </section>
-  )
+
+      <section className="border border-white/55 rounded-2xl p-5 md:px-7.5 flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
+          <div className="flex items-center justify-between">
+            <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">SECTOR</h5>
+            <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">RESOLUTION / OUTCOME</h5>
+          </div>
+          <div className="flex flex-col gap-6">
+            {
+              [1,2,3,4].map(i => <div key={i} className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <CalendarDays className="text-white w-4 h-4"/>
+                  <span className="text-white font-dmSans text-sm">Infrastructure</span>
+                </div>
+                <span className="text-white font-dmSans text-sm">Launch portal by September</span>
+              </div>)
+            }
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
+            <span>Showing</span>
+            <span>1 to 5 of 120</span>
+            <span>deals</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
+              {" "}
+              <ChevronsLeft className="text-white w-4 h-4" />
+            </button>
+            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
+              <ChevronsRight className="text-white w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </section>
+    </section>
+  );
 }
 
-export default DeepDive
+export default DeepDive;

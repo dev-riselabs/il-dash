@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import Overview from "@/pages/Overview";
 import InvestmentHeatmap from "./pages/InvestmentHeatmap";
@@ -23,11 +23,31 @@ import Session from "./pages/Session";
 import AdudienceFeedback from "./pages/AudienceFeedback";
 import IntelligenceDashboard from "./pages/IntelligenceDashboard";
 import DeepDive from "./pages/DeepDive";
+import KeyInsight from "./pages/KeyInsight";
+import FeedbackForm from "./pages/FeedbackForm";
+import { FormShell } from "./components/layout/FormShell";
+
+function AppShellLayout() {
+  return (
+    <AppShell>
+      <Outlet />
+    </AppShell>
+  );
+}
+
+function FormShellLayout() {
+  return (
+    <FormShell>
+      <Outlet />
+    </FormShell>
+  );
+}
 
 function App() {
   return (
-    <AppShell>
-      <Routes>
+    <Routes>
+      {/* Dashboard layout */}
+      <Route element={<AppShellLayout />}>
         <Route path="/" element={<Overview />} />
         <Route path="/programme" element={<ProgrammeTracker />} />
         <Route path="/insights" element={<SessionInsight />} />
@@ -44,15 +64,24 @@ function App() {
         <Route path="/next-action-tracker" element={<NextActionTracker />} />
         <Route path="/executive-view" element={<ExecutiveView />} />
         <Route path="/command-center" element={<CommandCenter />} />
-        <Route path="/session-quotes" element={<SessionQuotes />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route path="/speaker" element={<Speaker/>} />
-        <Route path="/session" element={<Session/>} />
-        <Route path="/audience-feedback" element={<AdudienceFeedback/>} />
-        <Route path="/intelligence-dashboard" element={<IntelligenceDashboard/>} />
-        <Route path="/deep-dive" element={<DeepDive/>} />
-      </Routes>
-    </AppShell>
+        <Route path="/session-quotes" element={<SessionQuotes />} />{" "}
+        <Route path="/attendance" element={<Attendance />} />{" "}
+        <Route path="/speaker" element={<Speaker />} />{" "}
+        <Route path="/session" element={<Session />} />{" "}
+        <Route path="/audience-feedback" element={<AdudienceFeedback />} />{" "}
+        <Route
+          path="/intelligence-dashboard"
+          element={<IntelligenceDashboard />}
+        />{" "}
+        <Route path="/deep-dive" element={<DeepDive />} />{" "}
+        <Route path="/key-insight" element={<KeyInsight />} />
+      </Route>
+
+      {/* Form layout */}
+      <Route element={<FormShellLayout />}>
+        <Route path="/feedback-form" element={<FeedbackForm />} />
+      </Route>
+    </Routes>
   );
 }
 
