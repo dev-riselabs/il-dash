@@ -2,13 +2,22 @@ import {
   CalendarDays,
   ChevronsLeft,
   ChevronsRight,
+  Download,
   Ellipsis,
-  EllipsisVertical,
-  Funnel,
+  Pencil,
   Search,
+  Trash,
 } from "lucide-react";
+import { useState } from "react";
 
 function Speaker() {
+
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  
+    function handleActiveDropdown(id: number){
+      setActiveDropdown(prev => prev === id ? null : id)
+    }
+
   return (
     <section className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
@@ -27,15 +36,15 @@ function Speaker() {
               type="search"
               name=""
               id=""
-              placeholder="Search by name, organization, job tittle..."
+              placeholder="Search names of attendees..."
               className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
             />
           </div>
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <Funnel className="w-5 h-5 text-white" />
+            <Download className="w-5 h-5 text-white" />
           </button>
-          <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <EllipsisVertical className="w-5 h-5 text-white" />
+          <button className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+            Create
           </button>
         </div>
       </section>
@@ -71,11 +80,16 @@ function Speaker() {
                 <span className="text-white text-sm col-span-1">
                   All on Investment
                 </span>
-                <div className="flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
+                <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
                   Medical Doctor
-                  <button>
+                  <button onClick={() => handleActiveDropdown(i)} className="cursor-pointer">
                     <Ellipsis className="text-white w-5 h-5" />
                   </button>
+
+                  {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
+                    <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
+                  </div>}
                 </div>
               </div>
             ))}

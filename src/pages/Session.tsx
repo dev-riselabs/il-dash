@@ -2,8 +2,7 @@ import {
   CalendarDays,
   ChevronsLeft,
   ChevronsRight,
-  EllipsisVertical,
-  Funnel,
+  Download,
   Search,
 } from "lucide-react";
 
@@ -26,15 +25,15 @@ function Session() {
               type="search"
               name=""
               id=""
-              placeholder="Search by name, organization, job tittle..."
+              placeholder="Search names of attendees..."
               className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
             />
           </div>
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <Funnel className="w-5 h-5 text-white" />
+            <Download className="w-5 h-5 text-white" />
           </button>
-          <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <EllipsisVertical className="w-5 h-5 text-white" />
+          <button className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+            Create
           </button>
         </div>
       </section>
