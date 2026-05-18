@@ -20,65 +20,54 @@ ChartJS.register(
   Filler
 );
 
-const labels = ["May 10", "May 11", "May 12", "May 13", "May 13", "May 14"];
+export interface IncidentTrendPoint {
+  date: string;
+  count: number;
+}
 
-const data = {
-  labels,
-  datasets: [
-    {
-      label: "High",
-      data: [50, 35, 80, 58, 39, 44],
-      borderColor: "#F6001A",
-      backgroundColor: "#F6001A",
-      borderWidth: 1,
-      tension: 0.45,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      pointBorderWidth: 1,
-      pointBackgroundColor: "#F6001A",
-      pointBorderColor: "#fff",
-    },
-    {
-      label: "Medium",
-      data: [42, 91, 85, 83, 64, 91],
-      borderColor: "#FFAE4C",
-      backgroundColor: "#FFAE4C",
-      borderWidth: 1,
-      tension: 0.45,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      pointBorderWidth: 1,
-      pointBackgroundColor: "#FFAE4C",
-      pointBorderColor: "#fff",
-    },
-    {
-      label: "Low",
-      data: [26, 57, 57, 70, 13, 95],
-      borderColor: "#7086FD",
-      backgroundColor: "#7086FD",
-      borderWidth: 1,
-      tension: 0.45,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      pointBorderWidth: 1,
-      pointBackgroundColor: "#7086FD",
-      pointBorderColor: "#fff",
-    },
-    {
-      label: "Info",
-      data: [56, 11, 37, 47, 87, 15],
-      borderColor: "#07DBFA",
-      backgroundColor: "#07DBFA",
-      borderWidth: 1,
-      tension: 0.45,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      pointBorderWidth: 1,
-      pointBackgroundColor: "#07DBFA",
-      pointBorderColor: "#fff",
-    },
-  ],
-};
+interface IncidentTrendChartProps {
+  points?: IncidentTrendPoint[];
+}
+
+const fallbackLabels = ["May 10", "May 11", "May 12", "May 13", "May 14", "May 15"];
+const fallbackData = [12, 9, 14, 8, 11, 7];
+
+function buildData(points?: IncidentTrendPoint[]) {
+  const sorted = points
+    ? [...points].sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+      )
+    : null;
+  const labels =
+    sorted && sorted.length > 0
+      ? sorted.map((p) =>
+          new Date(p.date).toLocaleDateString("en-GB", {
+            month: "short",
+            day: "2-digit",
+          }),
+        )
+      : fallbackLabels;
+  const values =
+    sorted && sorted.length > 0 ? sorted.map((p) => p.count) : fallbackData;
+  return {
+    labels,
+    datasets: [
+      {
+        label: "Alerts",
+        data: values,
+        borderColor: "#F6001A",
+        backgroundColor: "#F6001A",
+        borderWidth: 1,
+        tension: 0.45,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        pointBorderWidth: 1,
+        pointBackgroundColor: "#F6001A",
+        pointBorderColor: "#fff",
+      },
+    ],
+  };
+}
 
 const options: any = {
   responsive: true,
@@ -107,7 +96,7 @@ const options: any = {
       displayColors: false,
       callbacks: {
         label: (context: any) => {
-          return ` ${context.parsed.y} /100`;
+          return ` ${context.parsed.y}`;
         },
       },
     },
@@ -124,9 +113,7 @@ const options: any = {
     },
     y: {
       min: 0,
-      max: 100,
       ticks: {
-        stepSize: 20,
         color: "#B8C0CC",
       },
       grid: {
@@ -137,7 +124,8 @@ const options: any = {
   },
 };
 
-export default function IncidentTrendChart() {
+export default function IncidentTrendChart({ points }: IncidentTrendChartProps = {}) {
+  const data = buildData(points);
   return (
     <div className="w-full rounded-2xl border border-white/55 flex flex-col gap-6 p-6">
       <div className="">

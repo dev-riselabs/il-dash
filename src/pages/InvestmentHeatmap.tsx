@@ -1,30 +1,62 @@
 import { CircleArrowUp } from "lucide-react";
 
-const kpis = [
-  {
-    label: "Total Investment Signals",
-    value: "215.6B",
-    delta: "15% vs yesterday",
-  },
-  { label: "Numbers of Sector", value: "6", delta: "Live Now" },
-  { label: "Active Investors", value: "12", delta: "20% vs yesterday" },
-];
+import { QueryState } from "@/components/ui/QueryState";
+import {
+  useHeatmapKpis,
+  useHeatmapSectors,
+  useSectors,
+} from "@/lib/api/hooks";
+import { fmtCompact, fmtNaira, fmtNumber } from "@/lib/api/format";
 
-const sectors = [
-  {
-    title: "Technology & Innovation",
-    percent: 96,
-    value: "62.5B",
-    trend: "82%",
-  },
-  { title: "Infrastructure", percent: 96, value: "62.5B", trend: "82%" },
-  { title: "Energy", percent: 96, value: "62.5B", trend: "82%" },
-  { title: "Healthcare", percent: 96, value: "62.5B", trend: "82%" },
-  { title: "Agriculture", percent: 96, value: "62.5B", trend: "82%" },
-  { title: "Creative Economy", percent: 96, value: "62.5B", trend: "82%" },
+const SECTOR_COLORS = [
+  "bg-red",
+  "bg-orange",
+  "bg-green",
+  "bg-mint",
+  "bg-blue",
+  "bg-indigo",
 ];
 
 function InvestmentHeatmap() {
+  const kpisQ = useHeatmapKpis();
+  const sectorsQ = useHeatmapSectors();
+  const lookupQ = useSectors();
+
+  const k = kpisQ.data;
+  const sectorNameById = new Map(
+    (lookupQ.data ?? []).map((s) => [s.id, s.name]),
+  );
+
+  const kpis = [
+    {
+      label: "Total Investment Signals (Value)",
+      value: fmtNaira(k?.total_value_naira ?? 0),
+    },
+    {
+      label: "Tracked Sectors",
+      value: fmtNumber(sectorsQ.data?.length ?? 0),
+    },
+    {
+      label: "High Confidence Signals",
+      value: fmtNumber(k?.high_confidence ?? 0),
+    },
+  ];
+
+  const maxValue = Math.max(
+    1,
+    ...(sectorsQ.data ?? []).map((s) => s.total_value_naira),
+  );
+  const sectors = (sectorsQ.data ?? [])
+    .slice()
+    .sort((a, b) => b.total_value_naira - a.total_value_naira)
+    .map((s, i) => ({
+      title: s.sector?.name ?? sectorNameById.get(s.sector_id) ?? "—",
+      pct: Math.round((s.total_value_naira / maxValue) * 100),
+      signals: s.signals_count,
+      value: fmtNaira(s.total_value_naira),
+      color: SECTOR_COLORS[i % SECTOR_COLORS.length],
+    }));
+
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -36,9 +68,8 @@ function InvestmentHeatmap() {
         </p>
       </div>
 
-      {/* KPI grid */}
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-3">
-        {kpis.map(({ label, value, delta }, idx) => (
+        {kpis.map(({ label, value }, idx) => (
           <div
             key={label}
             className="border border-white/30 rounded-xl p-4 flex flex-col gap-2"
@@ -54,12 +85,10 @@ function InvestmentHeatmap() {
                       ? "text-cyan"
                       : idx === 1
                         ? "text-green"
-                        : idx === 2
-                          ? "text-orange"
-                          : "text-white"
+                        : "text-orange"
                   }`}
                 >
-                  {value}
+                  {kpisQ.isLoading ? "…" : value}
                 </div>
               </div>
               <div className="w-16 h-16">
@@ -67,7 +96,7 @@ function InvestmentHeatmap() {
               </div>
             </div>
             <div className="text-xs text-white font-dmSans flex items-center gap-2 mt-auto">
-              <CircleArrowUp color="white" width={"20px"} /> {delta}
+              <CircleArrowUp color="white" width={"20px"} /> Live
             </div>
           </div>
         ))}
@@ -78,69 +107,55 @@ function InvestmentHeatmap() {
           <h4 className="text-white font-dmSans font-medium text-sm sm:text-base uppercase">
             TOP SECTORS BY INVESTMENT INTEREST
           </h4>
-          <button className="bg-white rounded font-medium px-2 sm:px-7.5 py-2.5 font-rubik shrink-0 text-black text-[8px] sm:text-sm">
-            VIEW ALL SECTORS
-          </button>
         </div>
 
-<div className="overflow-x-auto">
-        <section className="flex flex-col gap-6 min-w-180">
-          
-          <div className="grid grid-cols-5 gap-4">
-            <div className="text-sm font-lexend font-medium text-white uppercase col-span-2">
-              SECTOR
-            </div>
-            <div className="text-sm font-lexend font-medium text-white uppercase text-center">
-              INVESTMENT SIGNALS
-            </div>
-            <div className="text-sm font-lexend font-medium text-white uppercase text-center">
-              EST. VALUE (N)
-            </div>
-            <div className="text-sm font-lexend font-medium text-white uppercase text-center">
-              TREND
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-5">
-            {sectors.map(({ title, value, percent, trend }) => (
-              <div key={title} className="grid grid-cols-5 gap-4">
-                <div className="flex items-center gap-2 text-white font-lexend text-sm col-span-2">
-                  {" "}
-                  <div
-                    className={`w-7.5 h-7.5 rounded
-                        ${
-                          title === "Technology & Innovation"
-                            ? "bg-red"
-                            : title === "Infrastructure"
-                              ? "bg-orange"
-                              : title === "Energy"
-                                ? "bg-green"
-                                : title === "Healthcare"
-                                  ? "bg-mint"
-                                  : title === "Agriculture"
-                                    ? "bg-blue"
-                                    : "bg-indigo"
-                        }
-                        `}
-                  ></div>{" "}
-                  {title}
+        <QueryState
+          isLoading={sectorsQ.isLoading}
+          isError={sectorsQ.isError}
+          error={sectorsQ.error as { message?: string } | null}
+          isEmpty={sectors.length === 0}
+          emptyLabel="No investment signals captured yet."
+        >
+          <div className="overflow-x-auto">
+            <section className="flex flex-col gap-6 min-w-180">
+              <div className="grid grid-cols-5 gap-4">
+                <div className="text-sm font-lexend font-medium text-white uppercase col-span-2">
+                  SECTOR
                 </div>
-                <div className="text-white font-lexend text-sm text-center">
-                  {percent}
+                <div className="text-sm font-lexend font-medium text-white uppercase text-center">
+                  INVESTMENT SIGNALS
                 </div>
-                <div className="text-white font-lexend text-sm text-center">
-                  {value}
+                <div className="text-sm font-lexend font-medium text-white uppercase text-center">
+                  EST. VALUE (₦)
                 </div>
-                <div className="flex items-center gap-2 text-white font-lexend text-sm justify-center">
-                  {" "}
-                  <CircleArrowUp className="w-5 fill-white text-black" />
-                  {trend}
+                <div className="text-sm font-lexend font-medium text-white uppercase text-center">
+                  TREND
                 </div>
               </div>
-            ))}
+
+              <div className="flex flex-col gap-5">
+                {sectors.map(({ title, value, signals, pct, color }) => (
+                  <div key={title} className="grid grid-cols-5 gap-4">
+                    <div className="flex items-center gap-2 text-white font-lexend text-sm col-span-2">
+                      <div className={`w-7.5 h-7.5 rounded ${color}`}></div>
+                      {title}
+                    </div>
+                    <div className="text-white font-lexend text-sm text-center tabular-nums">
+                      {fmtNumber(signals)}
+                    </div>
+                    <div className="text-white font-lexend text-sm text-center tabular-nums">
+                      {value}
+                    </div>
+                    <div className="flex items-center gap-2 text-white font-lexend text-sm justify-center">
+                      <CircleArrowUp className="w-5 fill-white text-black" />
+                      {fmtCompact(pct)}%
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
-        </section>
-        </div>
+        </QueryState>
       </section>
     </section>
   );

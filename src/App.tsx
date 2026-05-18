@@ -1,5 +1,9 @@
+import type { ReactNode } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
+import { AuthGate } from "@/lib/auth/AuthGate";
+import { useAuth } from "@/lib/auth/store";
+import { useRealtimeInvalidations } from "@/lib/realtime/useRealtime";
 import Overview from "@/pages/Overview";
 import InvestmentHeatmap from "./pages/InvestmentHeatmap";
 import ResolutionBoard from "./pages/ResolutionBoard";
@@ -12,8 +16,8 @@ import Reports from "./pages/Reports";
 import NextActionTracker from "./pages/NextActionTracker";
 import GlobalInvesorMap from "./pages/GlobalInvesorMap";
 import ExecutiveView from "./pages/ExecutiveView";
-import CommandCenter from "./pages/CommandCenter";
 import ProgrammeTracker from "./pages/ProgrammeTracker";
+import CommandCenter from "./pages/CommandCenter";
 import DealRoomTracker from "./pages/DealRoomTracker";
 import SecuritySafety from "./pages/SecuritySafety";
 import SessionQuotes from "./pages/SessionQuotes";
@@ -24,10 +28,17 @@ import AdudienceFeedback from "./pages/AudienceFeedback";
 import IntelligenceDashboard from "./pages/IntelligenceDashboard";
 import DeepDive from "./pages/DeepDive";
 
+function AuthedShell({ children }: { children: ReactNode }) {
+  const authed = useAuth((s) => !!s.user);
+  useRealtimeInvalidations(authed);
+  return <AppShell>{children}</AppShell>;
+}
+
 function App() {
   return (
-    <AppShell>
-      <Routes>
+    <AuthGate>
+      <AuthedShell>
+        <Routes>
         <Route path="/" element={<Overview />} />
         <Route path="/programme" element={<ProgrammeTracker />} />
         <Route path="/insights" element={<SessionInsight />} />
@@ -51,9 +62,11 @@ function App() {
         <Route path="/audience-feedback" element={<AdudienceFeedback/>} />
         <Route path="/intelligence-dashboard" element={<IntelligenceDashboard/>} />
         <Route path="/deep-dive" element={<DeepDive/>} />
-      </Routes>
-    </AppShell>
+        </Routes>
+      </AuthedShell>
+    </AuthGate>
   );
 }
 
 export default App;
+ 

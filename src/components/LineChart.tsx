@@ -19,7 +19,14 @@ ChartJS.register(
   Tooltip,
 );
 
-const labels = [
+import type { AttendanceSnapshot } from "@/lib/api/types";
+
+type AttendanceChartProps = {
+  points?: AttendanceSnapshot[];
+  currentTotal?: number;
+};
+
+const fallbackLabels = [
   "12 AM",
   "",
   "",
@@ -33,20 +40,7 @@ const labels = [
   "",
   "11 PM",
 ];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      data: [20, 60, 200, 100, 250, 180, 140, 260, 500, 120, 300, 40],
-      borderColor: "#CB3CFF", // 🔥 purple line
-      backgroundColor: "transparent",
-      tension: 0.4, // smooth curve
-      pointRadius: 0, // remove dots
-      borderWidth: 1,
-    },
-  ],
-};
+const fallbackData = [20, 60, 200, 100, 250, 180, 140, 260, 500, 120, 300, 40];
 
 const options: ChartOptions<"line"> = {
   responsive: true,
@@ -86,9 +80,7 @@ const options: ChartOptions<"line"> = {
 
     y: {
       min: 0,
-      max: 500,
       ticks: {
-        stepSize: 100,
         color: "#AEB9E1",
       },
       grid: {
@@ -101,7 +93,43 @@ const options: ChartOptions<"line"> = {
   },
 };
 
-export default function AttendanceChart() {
+export default function AttendanceChart({ points, currentTotal }: AttendanceChartProps = {}) {
+  const sorted = points
+    ? [...points].sort(
+        (a, b) =>
+          new Date(a.captured_at).getTime() - new Date(b.captured_at).getTime(),
+      )
+    : null;
+  const labels =
+    sorted && sorted.length > 0
+      ? sorted.map((p) =>
+          new Date(p.captured_at).toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        )
+      : fallbackLabels;
+  const values =
+    sorted && sorted.length > 0 ? sorted.map((p) => p.total) : fallbackData;
+  const data = {
+    labels,
+    datasets: [
+      {
+        data: values,
+        borderColor: "#CB3CFF",
+        backgroundColor: "transparent",
+        tension: 0.4,
+        pointRadius: 0,
+        borderWidth: 1,
+      },
+    ],
+  };
+  const headline =
+    currentTotal !== undefined
+      ? currentTotal
+      : sorted && sorted.length > 0
+        ? sorted[sorted.length - 1].total
+        : 400;
   return (
     <div className=" border border-white/55 rounded-2xl space-y-4 p-6 w-full min-h-87.5 lg:col-span-5">
       {/* Header */}
@@ -114,11 +142,11 @@ export default function AttendanceChart() {
 
           <div className="flex items-start gap-3 ">
             <h2 className="text-4xl text-white font-semibold font-lexend">
-              400
+              {headline}
             </h2>
 
             <span className="text-green100 text-xs font-lexend bg-green300 px-2 py-1 rounded-md">
-              Default ↗
+              Live ↗
             </span>
           </div>
         </div>
