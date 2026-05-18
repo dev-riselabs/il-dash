@@ -45,6 +45,8 @@ export default function Overview() {
   const headlineQuote = (liveSessionDetail?.quotes ?? [])[0] ?? null;
   const headlineResolutions = (liveSessionDetail?.resolutions ?? []).slice(0, 4);
 
+console.log(liveSession);
+
   const poll = pollQ.data?.poll ?? null;
   const tally = pollQ.data?.tally ?? {};
   const pollTotal = Object.values(tally).reduce((a, b) => a + (b as number), 0);

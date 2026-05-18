@@ -62,7 +62,6 @@ function App() {
         <AuthedShell>
           <Routes>
             {/* Dashboard layout */}
-            {/* <Route element={<AppShellLayout />}> */}
               <Route path="/" element={<Overview />} />
               <Route path="/programme" element={<ProgrammeTracker />} />
               <Route path="/insights" element={<SessionInsight />} />
@@ -87,7 +86,7 @@ function App() {
               <Route path="/intelligence-dashboard" element={<IntelligenceDashboard />} />{" "}
               <Route path="/deep-dive" element={<DeepDive />} />{" "}
               <Route path="/key-insight" element={<KeyInsight />} />
-            {/* </Route> */}
+         
           </Routes>
         </AuthedShell>
       </AuthGate>
