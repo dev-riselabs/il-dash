@@ -23,6 +23,7 @@ import {
   MessageSquareReply,
   BrainCircuit,
   ClipboardList,
+  Key,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -54,6 +55,11 @@ const items = [
     icon: BrainCircuit,
   },
   {
+    to: "/key-insight",
+    label: "Key Insight",
+    icon: Key,
+  },
+  {
     to: "/session-quotes",
     label: "Session Quotes",
     icon: MessageSquareQuote,
@@ -81,6 +87,11 @@ const items = [
   {
     to: "/audience-feedback",
     label: "Audience Feedback",
+    icon: MessageSquareReply,
+  },
+  {
+    to: "/feedback-form",
+    label: "Feedback",
     icon: MessageSquareReply,
   },
 ];

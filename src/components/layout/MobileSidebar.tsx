@@ -24,6 +24,7 @@ import {
   MessageSquareReply,
   BrainCircuit,
   ClipboardList,
+  Key,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -52,6 +53,11 @@ const items = [
     to: "/intelligence-dashboard",
     label: "Intelligence Dashboard",
     icon: BrainCircuit,
+  },
+  {
+    to: "/key-insight",
+    label: "Key Insight",
+    icon: Key,
   },
   {
     to: "/session-quotes",
