@@ -49,4 +49,34 @@ export default defineConfig({
     port: 5173,
     host: 'localhost',
   },
+  build: {
+    chunkSizeWarningLimit: 300,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return
+          if (id.includes('apexcharts') || id.includes('react-apexcharts')) {
+            return 'vendor-apexcharts'
+          }
+          if (id.includes('chart.js') || id.includes('react-chartjs-2') || id.includes('@kurkle')) {
+            return 'vendor-chartjs'
+          }
+          if (id.includes('react-router')) return 'vendor-router'
+          if (id.includes('react-dom')) return 'vendor-react-dom'
+          if (id.includes('/react/') || id.includes('\\react\\') || id.includes('scheduler')) {
+            return 'vendor-react'
+          }
+          if (id.includes('lucide-react')) return 'vendor-lucide'
+          if (id.includes('react-icons')) return 'vendor-react-icons'
+          if (id.includes('@tanstack')) return 'vendor-tanstack'
+          if (id.includes('laravel-echo') || id.includes('pusher-js')) return 'vendor-realtime'
+          if (id.includes('axios')) return 'vendor-axios'
+          if (id.includes('date-fns')) return 'vendor-date-fns'
+          if (id.includes('zustand')) return 'vendor-zustand'
+          if (id.includes('idb')) return 'vendor-idb'
+          return 'vendor'
+        },
+      },
+    },
+  },
 })
