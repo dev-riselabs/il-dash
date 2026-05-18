@@ -89,11 +89,6 @@ const items = [
     label: "Audience Feedback",
     icon: MessageSquareReply,
   },
-  {
-    to: "/feedback-form",
-    label: "Feedback",
-    icon: MessageSquareReply,
-  },
 ];
 
 export function Sidebar() {

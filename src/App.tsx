@@ -26,6 +26,9 @@ import DeepDive from "./pages/DeepDive";
 import KeyInsight from "./pages/KeyInsight";
 import FeedbackForm from "./pages/FeedbackForm";
 import { FormShell } from "./components/layout/FormShell";
+import SessionForm from "./pages/SessionForm";
+import SpeakerForm from "./pages/SpeakerForm";
+import AttendeeForm from "./pages/AttendeeForm";
 
 function AppShellLayout() {
   return (
@@ -80,6 +83,9 @@ function App() {
       {/* Form layout */}
       <Route element={<FormShellLayout />}>
         <Route path="/feedback-form" element={<FeedbackForm />} />
+        <Route path="/session-form" element={<SessionForm />} />
+        <Route path="/speaker-form" element={<SpeakerForm/>} />
+        <Route path="/attendee-form" element={<AttendeeForm/>} />
       </Route>
     </Routes>
   );
