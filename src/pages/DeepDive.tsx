@@ -4,7 +4,6 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Download,
-  EllipsisVertical,
   Funnel,
   Search,
 } from "lucide-react";
