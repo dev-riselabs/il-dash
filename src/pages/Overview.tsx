@@ -45,7 +45,6 @@ export default function Overview() {
   const headlineQuote = (liveSessionDetail?.quotes ?? [])[0] ?? null;
   const headlineResolutions = (liveSessionDetail?.resolutions ?? []).slice(0, 4);
 
-console.log(liveSession);
 
   const poll = pollQ.data?.poll ?? null;
   const tally = pollQ.data?.tally ?? {};
@@ -210,7 +209,7 @@ console.log(liveSession);
           </div>
           <blockquote className="border border-white/55 rounded-2xl flex flex-col gap-5 sm:gap-10 p-4 lg:py-5 lg:px-7.5">
             <p className="text-sm sm:text-lg font-lexend text-white leading-relaxed">
-              {headlineQuote ? `"${headlineQuote.body}"` : '"Lagos is not just keeping up with the future, we are building it for Africa and the world."'}
+              {headlineQuote ? `"${headlineQuote.quote_text}"` : '"Lagos is not just keeping up with the future, we are building it for Africa and the world."'}
             </p>
             <footer className="text-xs text-white font-dmSans flex flex-col gap-1">
               <strong className="text-cyan text-sm sm:text-base">
