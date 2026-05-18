@@ -9,19 +9,19 @@ export function FormShell({ children }: Props) {
     <div className="flex flex-col lg:h-screen w-screen bg-black100 overflow-hidden">
       {/* MAIN AREA */}
 
-      <div className="flex flex-col flex-1 min-w-0 px-8">
+      <div className="flex flex-col flex-1 gap-8 min-w-0 px-8 min-h-0 overflow-y-auto">
         <div className="flex flex-col border border-white/55 rounded-b-3xl">
-          <div className="flex flex-col gap-2 pt-4">
-            <div className="w-full h-6 bg-neutral500"></div>
-            <div className="w-full h-6 bg-red200"></div>
-            <div className="w-full h-6 bg-orange400"></div>
+          <div className="flex flex-col gap-2 pt-2">
+            <div className="w-full h-4 bg-neutral500"></div>
+            <div className="w-full h-4 bg-red200"></div>
+            <div className="w-full h-4 bg-orange400"></div>
           </div>
-          <div className="flex items-center justify-center py-20">
-            <img src="invest-lagos.png" alt="" className="w-100"/>
+          <div className="flex items-center justify-center py-5">
+            <img src="invest-lagos.png" alt="" className="w-60"/>
           </div>
         </div>
 
-        <main className="flex-1 lg:overflow-y-auto p-4 sm:p-6">{children}</main>
+        <main className="flex-1 ">{children}</main>
       </div>
 
       {/* FULL WIDTH FOOTER */}
