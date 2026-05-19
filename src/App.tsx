@@ -29,6 +29,8 @@ import { FormShell } from "./components/layout/FormShell";
 import SessionForm from "./pages/SessionForm";
 import SpeakerForm from "./pages/SpeakerForm";
 import AttendeeForm from "./pages/AttendeeForm";
+import LandingShell from "./components/layout/LandingShell";
+import Welcome from "./pages/Welcome";
 
 function AppShellLayout() {
   return (
@@ -43,6 +45,14 @@ function FormShellLayout() {
     <FormShell>
       <Outlet />
     </FormShell>
+  );
+}
+
+function LandingShellLayout() {
+  return (
+    <LandingShell>
+      <Outlet />
+    </LandingShell>
   );
 }
 
@@ -86,6 +96,11 @@ function App() {
         <Route path="/session-form" element={<SessionForm />} />
         <Route path="/speaker-form" element={<SpeakerForm/>} />
         <Route path="/attendee-form" element={<AttendeeForm/>} />
+      </Route>
+
+      {/* Landing layout  */}
+      <Route element={<LandingShellLayout />}>
+      <Route path='/welcome' element={<Welcome/>}/>
       </Route>
     </Routes>
   );

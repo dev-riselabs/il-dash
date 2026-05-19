@@ -15,6 +15,7 @@
     --color-red100: #F6001A;
     --color-red200: #FF0A0E80;
     --color-red200: #F3C1C7;
+    --color-pink: #DE1869;
     --color-yellow: #ffcc00; 
     --color-yellow100: #422C05;
     --color-yellow200: #DC9A06;
@@ -31,6 +32,7 @@
     --color-orange500: #F8B233;
     --color-mint : #00C8B3;
     --color-blue: #0088FF;
+    --color-blue50: #0480DE;
     --color-blue100: #003A9F;
     --color-blue200: #0A66C2;
     --color-blue300: #071E3F;
@@ -83,6 +85,7 @@
     --color-neutral400: #1A1F2A;
     --color-neutral500: #11346C80;
     --color-neutral600: #343D42;
+    --color-neutral700: #0A142F;
     --color-violet: #28171E;
     --color-black100: #00030B;
     --color-surface950: #0a0e14;
@@ -91,4 +94,21 @@
     --color-surface700: #1c2440;
     --color-surface600: #2a3358;
     --color-surface500: #3a4470;
+}
+
+/* .bg-oval{
+    border-radius: 0 0 50% 50% / 0 0 90px 90px;
+} */
+
+.bg-oval{
+    background: url('./Shape.png');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: auto;
+}
+
+.bg-hero{
+    background: url('./bg-hero.png');
+    background-repeat: no-repeat;
+    background-size: auto;
 }
