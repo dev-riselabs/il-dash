@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   CalendarDays,
   ChevronsLeft,
@@ -6,12 +7,36 @@ import {
   Ellipsis,
   Pencil,
   Search,
+  Star,
   Trash,
 } from "lucide-react";
-import { useState } from "react";
+
+import { QueryState } from "@/components/ui/QueryState";
+import { useFeedback, useFeedbackKpis } from "@/lib/api/hooks";
+import { fmtDateTime, fmtNumber, fmtPercent } from "@/lib/api/format";
 import { Link } from "react-router-dom";
 
-function AdudienceFeedback() {
+const PER_PAGE = 10;
+const SENTIMENTS = ["", "positive", "neutral", "negative"] as const;
+
+function AudienceFeedback() {
+  const [page, setPage] = useState(1);
+  const [sentiment, setSentiment] = useState<(typeof SENTIMENTS)[number]>("");
+
+  const kpisQ = useFeedbackKpis();
+  const { data, isLoading, isError, error } = useFeedback({
+    page,
+    per_page: PER_PAGE,
+    sentiment_label: sentiment || undefined,
+  });
+
+  const rows = data?.data ?? [];
+  const k = kpisQ.data;
+  const positivePct =
+    k && k.total_submissions > 0
+      ? (k.positive_count / k.total_submissions) * 100
+      : 0;
+
   const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
   
     function handleActiveDropdown(id: number){
@@ -33,12 +58,29 @@ function AdudienceFeedback() {
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
               type="search"
+              placeholder="Search feedback..."
+              className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1 bg-transparent"
               name=""
-              id=""
-              placeholder="Search names of attendees..."
-              className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
+              // id=""
+              // placeholder="Search names of attendees..."
+              // className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
+
             />
           </div>
+          <select
+            value={sentiment}
+            onChange={(e) => {
+              setPage(1);
+              setSentiment(e.target.value as (typeof SENTIMENTS)[number]);
+            }}
+            className="bg-blue950 text-white text-xs font-lexend rounded-xl px-3 h-10"
+          >
+            {SENTIMENTS.map((s) => (
+              <option key={s || "all"} value={s}>
+                {s ? s.toUpperCase() : "ALL"}
+              </option>
+            ))}
+          </select>
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
             <Download className="w-5 h-5 text-white" />
           </button>
@@ -48,6 +90,31 @@ function AdudienceFeedback() {
         </div>
       </section>
 
+      {/* KPI strip */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          { label: "Total Submissions", value: fmtNumber(k?.total_submissions ?? 0) },
+          {
+            label: "Average Rating",
+            value: `${(k?.avg_rating ?? 0).toFixed(1)} / 5`,
+          },
+          { label: "Positive", value: fmtPercent(positivePct, 1) },
+          { label: "Negative", value: fmtNumber(k?.negative_count ?? 0) },
+        ].map((c) => (
+          <div
+            key={c.label}
+            className="border border-white/40 rounded-xl p-4 flex flex-col gap-1"
+          >
+            <span className="text-xs text-white/70 font-dmSans uppercase">
+              {c.label}
+            </span>
+            <span className="text-white text-xl font-semibold font-dmSans">
+              {kpisQ.isLoading ? "…" : c.value}
+            </span>
+          </div>
+        ))}
+      </div>
+
       <section className="flex flex-col gap-10 border border-white rounded-2xl py-6 px-4 lg:p-6">
         <div className="flex flex-col gap-8">
           <div className="grid grid-cols-7 gap-10 font-dmSans">
@@ -55,57 +122,114 @@ function AdudienceFeedback() {
               TIMESTAMP <CalendarDays className="text-white w-3 h-3" />
             </h6>
             <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
-              SESSION NAME
+              SESSION
             </h6>
             <h6 className="text-cyan text-base font-semibold col-span-2 uppercase">
-              Key Takeaway
+              Key Takeaway / Review
             </h6>
             <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
-              Review
+              Sentiment
             </h6>
             <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
-              Star Rating
+              Rating
             </h6>
           </div>
-          <div className="flex flex-col gap-6">
-            {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-              <div key={i} className="grid grid-cols-7 gap-10 font-dmSans">
-                <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
-                  <CalendarDays className="text-white w-3 h-3" />7 May, 2026,
-                  17:08:12
-                </div>
-                <span className="text-white text-sm col-span-1">Session 1</span>
-                <span className="text-white text-sm col-span-2">
-                  It was very good m..
-                </span>
-                <span className="text-white text-sm col-span-1">4</span>
-                <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
-                  4
-                  <button onClick={() => handleActiveDropdown(i)} className="cursor-pointer">
+          <QueryState
+            isLoading={isLoading}
+            isError={isError}
+            error={error as { message?: string } | null}
+            isEmpty={rows.length === 0}
+            emptyLabel="No feedback yet."
+          >
+            <div className="flex flex-col gap-6">
+              {rows.map((f) => (
+                <div
+                  key={f.id}
+                  className="grid grid-cols-7 gap-10 font-dmSans items-center"
+                >
+                  <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
+                    <CalendarDays className="text-white w-3 h-3" />
+                    {fmtDateTime(f.submitted_at)}
+                  </div>
+                  <span className="text-white text-sm col-span-1 truncate">
+                    {f.session?.title ?? "—"}
+                  </span>
+                  <span className="text-white text-sm col-span-2 truncate">
+                    {f.key_takeaway ?? f.review_text ?? "—"}
+                  </span>
+                  <span
+                    className={`text-xs col-span-1 uppercase rounded px-2 py-1 inline-flex justify-center font-medium ${
+                      f.sentiment_label === "positive"
+                        ? "bg-green450 text-green350"
+                        : f.sentiment_label === "negative"
+                          ? "bg-red200 text-red100"
+                          : "bg-blue500 text-white"
+                    }`}
+                  >
+                    {f.sentiment_label ?? "—"}
+                  </span>
+                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
+                    <span className="inline-flex items-center gap-1">
+                      <Star className="w-4 h-4 text-yellow400" />
+                      {f.star_rating}
+                    </span>
+                    <button onClick={() => handleActiveDropdown(f.id)} className="cursor-pointer">
                     <Ellipsis className="text-white w-5 h-5" />
                   </button>
 
-                  {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                    <Link to='/feedback-form' className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</Link>
+                  {activeDropdown === f.id  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
                     <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
                   </div>}
+                  </div>
                 </div>
-              </div>
+
+              //   <span className="text-white text-sm col-span-1">Session 1</span>
+              //   <span className="text-white text-sm col-span-2">
+              //     It was very good m..
+              //   </span>
+              //   <span className="text-white text-sm col-span-1">4</span>
+              //   <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
+              //     4
+              //     <button onClick={() => handleActiveDropdown(i)} className="cursor-pointer">
+              //       <Ellipsis className="text-white w-5 h-5" />
+              //     </button>
+
+              //     {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+              //       <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
+              //       <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
+              //     </div>}
+              //   </div>
+              // </div>
             ))}
           </div>
+          </QueryState>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
             <span>Showing</span>
-            <span>1 to 5 of 120</span>
-            <span>deals</span>
+            <span>
+              {data?.from ?? 0} to {data?.to ?? 0} of {data?.total ?? 0}
+            </span>
+            <span>responses</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
-              {" "}
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page <= 1}
+              className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
+            >
               <ChevronsLeft className="text-white w-4 h-4" />
             </button>
-            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
+            <button
+              onClick={() =>
+                setPage((p) =>
+                  data ? Math.min(data.last_page, p + 1) : p + 1,
+                )
+              }
+              disabled={!data || page >= (data?.last_page ?? 1)}
+              className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
+            >
               <ChevronsRight className="text-white w-4 h-4" />
             </button>
           </div>
@@ -115,4 +239,4 @@ function AdudienceFeedback() {
   );
 }
 
-export default AdudienceFeedback;
+export default AudienceFeedback;

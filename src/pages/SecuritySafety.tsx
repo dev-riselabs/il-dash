@@ -1,115 +1,153 @@
-import DonutChart from "@/components/Doughnut";
-import IncidentTrendChart from "@/components/IncidentChart";
+import { useMemo } from "react";
 import { CircleArrowUp } from "lucide-react";
 
-const kpis = [
-  {
-    label: "Total Reports (Today)",
-    value: "128",
-    delta: "18% vs May 8 - May 9",
-  },
-  { label: "Open Incidents", value: "23", delta: "18% vs Today" },
-  { label: "Avg. Response Time", value: "04:32", delta: "6% vs Today" },
-  { label: "Resolved (Today)", value: "17", delta: "6% vs Today" },
-  { label: "Sentiment Score", value: "78 /100", delta: "3% vs Today" },
-];
+import DonutChart from "@/components/Doughnut";
+import IncidentTrendChart from "@/components/IncidentChart";
+import { QueryState } from "@/components/ui/QueryState";
+import {
+  useAlerts,
+  useAlertsOverTime,
+  useCommandCenterKpis,
+  useIncidents,
+} from "@/lib/api/hooks";
+import { fmtNumber, fmtTime } from "@/lib/api/format";
+import type { Incident } from "@/lib/api/types";
 
-const severity = [
-  { title: "High", value: "12" },
-  { title: "Medium", value: "7" },
-  { title: "Low", value: "4" },
-  { title: "Infor", value: "3" },
-];
+const SEVERITY_COLORS: Record<string, string> = {
+  critical: "bg-red",
+  high: "bg-purple",
+  medium: "bg-orange",
+  low: "bg-blue800",
+  info: "bg-slate100",
+  warning: "bg-orange",
+};
 
-const zones = [
-  { title: "Hall B", value: "11" },
-  { title: "Main Hall", value: "8" },
-  { title: "Expo Area", value: "6" },
-  { title: "Food Court", value: "5" },
-  { title: "Parking", value: "4" },
-  { title: "Hall C", value: "3" },
-  { title: "Other", value: "2" },
-];
+function todayIso() {
+  return new Date().toISOString().slice(0, 10);
+}
 
-const sectorOne = [
-  { title: "Medical Emergency", value: "28 (22%)" },
-  { title: "Crowd Management", value: "26 (20%)" },
-  { title: "Suspicious Activity", value: "24 (19%)" },
-  { title: "Lost & Found", value: "18 (14%)" },
-  { title: "Safety Hazard", value: "12 (9%)" },
-  { title: "Others", value: "20 (16%)" },
-];
+function isToday(iso?: string | null): boolean {
+  if (!iso) return false;
+  return iso.slice(0, 10) === todayIso();
+}
 
-const feeds = [
-  {
-    title: "Medical Emergency",
-    venue: "Near Food Court",
-    range: "High",
-    label: "Responding",
-    time: "10:21 AM",
-  },
-  {
-    title: "Suspicious Activity",
-    venue: "Hall B - Row 5",
-    range: "High",
-    label: "Acknowledged",
-    time: "10:21 AM",
-  },
-  {
-    title: "Crowd Congestion",
-    venue: "Near Food Court",
-    range: "Medium",
-    label: "Responding",
-    time: "10:21 AM",
-  },
-  {
-    title: "Lost Item",
-    venue: "Expo Area - Booth 24",
-    range: "Low",
-    label: "Acknowledged",
-    time: "10:21 AM",
-  },
-  {
-    title: "Spill Hazard",
-    venue: "Food Court Area",
-    range: "Low",
-    label: "Resolved",
-    time: "10:21 AM",
-  },
-];
-
-const alerts = [
-  {
-    title: "High Risk Incident",
-    description:
-      "Suspicious activity reported in Hall B. Security team dispatched.",
-    status: "High",
-    time: "10:21 AM",
-  },
-  {
-    title: "Crowd Build-up Alert",
-    description:
-      "High footfall detected at Main Hall entrance. Monitoring in progress.",
-    status: "Medium",
-    time: "10:21 AM",
-  },
-  {
-    title: "High Risk Incident",
-    description:
-      "Suspicious activity reported in Hall B. Security team dispatched.",
-    status: "High",
-    time: "10:21 AM",
-  },
-  {
-    title: "Crowd Build-up Alert",
-    description:
-      "High footfall detected at Main Hall entrance. Monitoring in progress.",
-    status: "Medium",
-    time: "10:21 AM",
-  },
-];
+function groupBy<T>(arr: T[], key: (t: T) => string): Record<string, number> {
+  return arr.reduce<Record<string, number>>((acc, item) => {
+    const k = key(item) || "Other";
+    acc[k] = (acc[k] ?? 0) + 1;
+    return acc;
+  }, {});
+}
 
 function SecuritySafety() {
+  const ccQ = useCommandCenterKpis();
+  const incidentsQ = useIncidents({ per_page: 200 });
+  const alertsTrendQ = useAlertsOverTime(7);
+  const alertsQ = useAlerts({ per_page: 6 });
+
+  const incidents = (incidentsQ.data?.data ?? []) as Incident[];
+  const totalToday = incidents.filter((i) => isToday(i.occurred_at)).length;
+  const resolvedToday = incidents.filter(
+    (i) => i.status === "resolved" && isToday(i.resolved_at),
+  ).length;
+  const avgResponse = useMemo(() => {
+    const deltas = incidents
+      .filter((i) => i.resolved_at && i.occurred_at)
+      .map(
+        (i) =>
+          new Date(i.resolved_at as string).getTime() -
+          new Date(i.occurred_at).getTime(),
+      )
+      .filter((d) => d > 0);
+    if (deltas.length === 0) return "—";
+    const avgMs = deltas.reduce((s, d) => s + d, 0) / deltas.length;
+    const mins = Math.floor(avgMs / 60000);
+    const secs = Math.floor((avgMs % 60000) / 1000);
+    return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  }, [incidents]);
+
+  const kpis = [
+    {
+      label: "Total Reports (Today)",
+      value: fmtNumber(totalToday),
+      delta: `${incidentsQ.data?.total ?? 0} all-time`,
+    },
+    {
+      label: "Open Incidents",
+      value: fmtNumber(ccQ.data?.incidents_open ?? 0),
+      delta: "Live",
+    },
+    {
+      label: "Avg. Response Time",
+      value: avgResponse,
+      delta: "Resolved sample",
+    },
+    {
+      label: "Resolved (Today)",
+      value: fmtNumber(resolvedToday),
+      delta: "Live",
+    },
+    {
+      label: "Safety Level",
+      value: (ccQ.data?.safety_level ?? "—").toString().toUpperCase(),
+      delta: `${ccQ.data?.personnel_on_duty ?? 0} on duty`,
+    },
+  ];
+
+  const severityCounts = groupBy(incidents, (i) => i.severity);
+  const severity = ["high", "medium", "low", "critical"].map((s) => ({
+    title: s.charAt(0).toUpperCase() + s.slice(1),
+    value: String(severityCounts[s] ?? 0),
+    key: s,
+  }));
+
+  const zoneCounts = groupBy(incidents, (i) => i.venue?.name ?? "Other");
+  const zones = Object.entries(zoneCounts)
+    .map(([title, value]) => ({ title, value: String(value) }))
+    .sort((a, b) => Number(b.value) - Number(a.value))
+    .slice(0, 7);
+
+  const typeCounts = groupBy(incidents, (i) => i.type ?? "Other");
+  const totalTypes = Math.max(1, incidents.length);
+  const sectorOne = Object.entries(typeCounts)
+    .map(([title, count]) => ({
+      title,
+      value: `${count} (${Math.round((count / totalTypes) * 100)}%)`,
+    }))
+    .sort((a, b) => parseInt(b.value) - parseInt(a.value))
+    .slice(0, 6);
+
+  const feeds = incidents.slice(0, 5).map((i) => ({
+    title: i.title,
+    venue: i.venue?.name ?? "—",
+    range: i.severity.charAt(0).toUpperCase() + i.severity.slice(1),
+    label:
+      i.status === "open"
+        ? "Acknowledged"
+        : i.status === "responding"
+          ? "Responding"
+          : "Resolved",
+    time: fmtTime(i.occurred_at),
+  }));
+
+  const statusCounts = groupBy(incidents, (i) => i.status);
+  const statusDonut = [
+    { label: "Open", value: statusCounts.open ?? 0, color: "#CB3CFF" },
+    {
+      label: "Responding",
+      value: statusCounts.responding ?? 0,
+      color: "#F66202",
+    },
+    { label: "Resolved", value: statusCounts.resolved ?? 0, color: "#13A13E" },
+  ];
+
+  const alerts = (alertsQ.data?.data ?? []).map((a) => ({
+    title: a.title,
+    description: a.body ?? "",
+    status: a.severity.charAt(0).toUpperCase() + a.severity.slice(1),
+    time: fmtTime(a.created_at),
+  }));
+
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -185,48 +223,56 @@ function SecuritySafety() {
             <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
               INCIDENTS BY SEVERITY
             </h4>
-            <div className="flex flex-col gap-4">
-              {severity.map(({ title, value }, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between gap-3"
-                >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className={`w-4 h-4 rounded-full ${
-                        title === "High"
-                          ? "bg-purple"
-                          : title === "Medium"
-                            ? "bg-orange"
-                            : title === "Low"
-                              ? "bg-blue800"
-                              : "bg-slate100"
-                      }`}
-                    ></div>
-                    <span className="text-white text-xs font-inter">
-                      {title}
-                    </span>
+            <QueryState
+              isLoading={incidentsQ.isLoading}
+              isError={incidentsQ.isError}
+              error={incidentsQ.error as { message?: string } | null}
+              isEmpty={incidents.length === 0}
+              emptyLabel="No incidents reported."
+            >
+              <div className="flex flex-col gap-4">
+                {severity.map(({ title, value, key }) => (
+                  <div
+                    key={key}
+                    className="flex items-center justify-between gap-3"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div
+                        className={`w-4 h-4 rounded-full ${SEVERITY_COLORS[key] ?? "bg-slate100"}`}
+                      ></div>
+                      <span className="text-white text-xs font-inter">
+                        {title}
+                      </span>
+                    </div>
+                    <span className="text-white text-xs font-inter">{value}</span>
                   </div>
-                  <span className="text-white text-xs font-inter">{value}</span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </QueryState>
           </div>
           <div className="border border-white/55 rounded-2xl py-5 px-4 flex flex-col gap-5">
             <h4 className="text-white font-medium uppercase text-sm font-lexend">
               INCIDENTS BY ZONE
             </h4>
-            <div className="flex flex-col gap-4">
-              {zones.map(({ title, value }) => (
-                <div
-                  key={title}
-                  className="flex items-center gap-2 justify-between"
-                >
-                  <span className="text-white text-xs font-inter">{title}</span>
-                  <span className="text-white text-xs font-inter">{value}</span>
-                </div>
-              ))}
-            </div>
+            <QueryState
+              isLoading={incidentsQ.isLoading}
+              isError={incidentsQ.isError}
+              error={incidentsQ.error as { message?: string } | null}
+              isEmpty={zones.length === 0}
+              emptyLabel="No zone data."
+            >
+              <div className="flex flex-col gap-4">
+                {zones.map(({ title, value }) => (
+                  <div
+                    key={title}
+                    className="flex items-center gap-2 justify-between"
+                  >
+                    <span className="text-white text-xs font-inter">{title}</span>
+                    <span className="text-white text-xs font-inter">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </QueryState>
           </div>
         </div>
       </section>
@@ -237,6 +283,13 @@ function SecuritySafety() {
             LIVE INCIDENT FEED
           </h4>
           <div className="flex flex-col gap-4 border border-white rounded-2xl p-4 ">
+            <QueryState
+              isLoading={incidentsQ.isLoading}
+              isError={incidentsQ.isError}
+              error={incidentsQ.error as { message?: string } | null}
+              isEmpty={feeds.length === 0}
+              emptyLabel="No incidents reported yet."
+            >
             <div className="overflow-x-auto">
               <div className="flex flex-col gap-5 min-w-100">
                 {feeds.map(({ title, venue, range, label, time }, i) => (
@@ -286,6 +339,7 @@ function SecuritySafety() {
                 ))}
               </div>
             </div>
+            </QueryState>
             <button className="border border-white/55 rounded-2xl py-2.5 px-7.5 font-rubik uppercase text-white text-sm">
               VIEW ALL INCIDENTS
             </button>
@@ -295,61 +349,70 @@ function SecuritySafety() {
         <div className="flex flex-col gap-5">
           <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
             <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
-              DEALS BY SECTOR
+              TOP INCIDENT TYPES
             </h4>
-            <div className="flex flex-col gap-4">
-              {sectorOne.map(({ title, value }, i) => (
-                <div
-                  key={i}
-                  className="flex items-center justify-between gap-3"
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`rounded-full w-6.5 sm:w-7.5 h-6.5 sm:h-7.5 text-sm font-light font-dmSans flex items-center justify-center ${
-                        i === 0
-                          ? "bg-yellow text-black"
-                          : i === 1
-                            ? "text-white bg-orange"
-                            : i === 2
-                              ? "text-white bg-red"
-                              : i === 3
-                                ? "text-white bg-purple"
-                                : i === 4
-                                  ? "text-white bg-green"
-                                  : "bg-mint text-black"
-                      }`}
-                    >
-                      {i + 1}
+            <QueryState
+              isLoading={incidentsQ.isLoading}
+              isError={incidentsQ.isError}
+              error={incidentsQ.error as { message?: string } | null}
+              isEmpty={sectorOne.length === 0}
+              emptyLabel="No incidents to group."
+            >
+              <div className="flex flex-col gap-4">
+                {sectorOne.map(({ title, value }, i) => (
+                  <div
+                    key={`${title}-${i}`}
+                    className="flex items-center justify-between gap-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`rounded-full w-6.5 sm:w-7.5 h-6.5 sm:h-7.5 text-sm font-light font-dmSans flex items-center justify-center ${
+                          i === 0
+                            ? "bg-yellow text-black"
+                            : i === 1
+                              ? "text-white bg-orange"
+                              : i === 2
+                                ? "text-white bg-red"
+                                : i === 3
+                                  ? "text-white bg-purple"
+                                  : i === 4
+                                    ? "text-white bg-green"
+                                    : "bg-mint text-black"
+                        }`}
+                      >
+                        {i + 1}
+                      </div>
+                      <span className="text-white font-medium text-sm font-dmSans">
+                        {title}
+                      </span>
                     </div>
                     <span className="text-white font-medium text-sm font-dmSans">
-                      {title}
+                      {value}
                     </span>
                   </div>
-                  <span className="text-white font-medium text-sm font-dmSans">
-                    {value}
-                  </span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </QueryState>
           </div>
 
           <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
             <h4 className="font-dmSans text-white font-medium text-sm sm:text-base uppercase">
-              INCIDENT STATUS OVERVIIEW
+              INCIDENT STATUS OVERVIEW
             </h4>
-            <DonutChart
-              data={[
-                { label: "New", value: 6, color: "#CB3CFF" },
-                { label: "Acknowledged", value: 8, color: "#13A13E" },
-                { label: "Responding", value: 6, color: "#F66202" },
-                { label: "Resolved (Today)", value: 105, color: "#13A13E" },
-              ]}
-            />
+            <QueryState
+              isLoading={incidentsQ.isLoading}
+              isError={incidentsQ.isError}
+              error={incidentsQ.error as { message?: string } | null}
+              isEmpty={incidents.length === 0}
+              emptyLabel="No incidents to chart."
+            >
+              <DonutChart data={statusDonut} />
+            </QueryState>
           </div>
         </div>
       </section>
 
-      <IncidentTrendChart />
+      <IncidentTrendChart points={alertsTrendQ.data} />
 
       <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 ">
         <div className="flex items-center justify-between gap-3">
@@ -361,6 +424,13 @@ function SecuritySafety() {
           </button>
         </div>
 
+        <QueryState
+          isLoading={alertsQ.isLoading}
+          isError={alertsQ.isError}
+          error={alertsQ.error as { message?: string } | null}
+          isEmpty={alerts.length === 0}
+          emptyLabel="No active alerts."
+        >
         <div className="overflow-x-auto">
           <div className="flex flex-col gap-2 min-w-100">
             {alerts.map(({ title, description, status, time }, i) => (
@@ -401,6 +471,7 @@ function SecuritySafety() {
             ))}
           </div>
         </div>
+        </QueryState>
       </section>
     </section>
   );

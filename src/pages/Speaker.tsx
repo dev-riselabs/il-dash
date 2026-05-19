@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   CalendarDays,
   ChevronsLeft,
@@ -8,16 +9,32 @@ import {
   Search,
   Trash,
 } from "lucide-react";
-import { useState } from "react";
+
+import { QueryState } from "@/components/ui/QueryState";
+import { useSpeakers } from "@/lib/api/hooks";
+import { fmtDateTime } from "@/lib/api/format";
 import { Link } from "react-router-dom";
 
+const PER_PAGE = 10;
+
 function Speaker() {
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  const { data, isLoading, isError, error } = useSpeakers({
+    page,
+    per_page: PER_PAGE,
+    search: search.trim() || undefined,
+  });
+
+  const rows = data?.data ?? [];
 
   const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
   
     function handleActiveDropdown(id: number){
       setActiveDropdown(prev => prev === id ? null : id)
     }
+
 
   return (
     <section className="space-y-6">
@@ -35,10 +52,18 @@ function Speaker() {
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
               type="search"
-              name=""
-              id=""
-              placeholder="Search names of attendees..."
-              className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
+
+              value={search}
+              onChange={(e) => {
+                setPage(1);
+                setSearch(e.target.value);
+              }}
+              placeholder="Search by name, organization, job title..."
+              className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1 bg-transparent"
+              // name=""
+              // id=""
+              // placeholder="Search names of attendees..."
+              // className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
             />
           </div>
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
@@ -54,7 +79,7 @@ function Speaker() {
         <div className="flex flex-col gap-8">
           <div className="grid grid-cols-7 gap-10 font-dmSans">
             <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-2 uppercase">
-              TIMESTAMP <CalendarDays className="text-white w-3 h-3" />
+              ADDED <CalendarDays className="text-white w-3 h-3" />
             </h6>
             <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
               FIRST NAME
@@ -69,45 +94,79 @@ function Speaker() {
               JOB TITLE
             </h6>
           </div>
-          <div className="flex flex-col gap-6">
-            {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-              <div key={i} className="grid grid-cols-7 gap-10 font-dmSans">
-                <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
-                  <CalendarDays className="text-white w-3 h-3" />7 May, 2026,
-                  17:08:12
-                </div>
-                <span className="text-white text-sm col-span-1">Nneka</span>
-                <span className="text-white text-sm col-span-1">Eze</span>
-                <span className="text-white text-sm col-span-1">
-                  All on Investment
-                </span>
-                <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
-                  Medical Doctor
-                  <button onClick={() => handleActiveDropdown(i)} className="cursor-pointer">
+          <QueryState
+            isLoading={isLoading}
+            isError={isError}
+            error={error as { message?: string } | null}
+            isEmpty={rows.length === 0}
+            emptyLabel="No speakers match your filters."
+          >
+            <div className="flex flex-col gap-6">
+              {rows.map((s) => (
+                <div
+                  key={s.id}
+                  className="grid grid-cols-7 gap-10 font-dmSans"
+                >
+                  <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
+                    <CalendarDays className="text-white w-3 h-3" />
+                    <span>{fmtDateTime(s.created_at)}</span>
+                  </div>
+                  <span className="text-white text-sm col-span-1">
+                    {s.first_name}
+                  </span>
+                  <span className="text-white text-sm col-span-1">
+                    {s.last_name}
+                  </span>
+                  <span className="text-white text-sm col-span-1 truncate">
+                    {s.organization ?? "—"}
+                  </span>
+                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
+                    <span className="truncate">{s.job_title ?? "—"}</span>
+                    <button>
+                      <Ellipsis className="text-white w-5 h-5" />
+                    </button>
+                    <button onClick={() => handleActiveDropdown(s.id)} className="cursor-pointer">
                     <Ellipsis className="text-white w-5 h-5" />
                   </button>
 
-                  {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                    <Link to='/speaker-form' className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</Link>
+                  {activeDropdown === s.id  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
                     <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
                   </div>}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+
+              ))}
+            </div>
+
+          </QueryState>
+
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
             <span>Showing</span>
-            <span>1 to 5 of 120</span>
-            <span>deals</span>
+            <span>
+              {data?.from ?? 0} to {data?.to ?? 0} of {data?.total ?? 0}
+            </span>
+            <span>speakers</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
-              {" "}
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page <= 1}
+              className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
+            >
               <ChevronsLeft className="text-white w-4 h-4" />
             </button>
-            <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center">
+            <button
+              onClick={() =>
+                setPage((p) =>
+                  data ? Math.min(data.last_page, p + 1) : p + 1,
+                )
+              }
+              disabled={!data || page >= (data?.last_page ?? 1)}
+              className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
+            >
               <ChevronsRight className="text-white w-4 h-4" />
             </button>
           </div>
