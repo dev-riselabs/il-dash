@@ -8,7 +8,7 @@ import {
   CalendarDays,
   ChevronsLeft,
   ChevronsRight,
-  EllipsisVertical,
+  Download,
   Funnel,
   Search,
 } from "lucide-react";
@@ -47,7 +47,7 @@ function DeepDive() {
             <Funnel className="w-5 h-5 text-white" />
           </button>
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <EllipsisVertical className="w-5 h-5 text-white" />
+            <Download className="w-5 h-5 text-white" />
           </button>
         </div>
       </section>

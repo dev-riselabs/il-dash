@@ -121,7 +121,7 @@ function FeedbackForm() {
         </div>
         <div className="flex flex-col gap-4">
           <label htmlFor="feedback" className="text-white font-inter text-sm ">
-            Feedback <span className="text-red">*</span>
+            Key Takeaway <span className="text-red">*</span>
           </label>
           <textarea
             name="feedback"

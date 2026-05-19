@@ -83,39 +83,6 @@ function SessionForm() {
               htmlFor="fullName"
               className="text-white font-inter text-sm "
             >
-              Session Name <span className="text-red">*</span>
-            </label>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder=" Jane Doe"
-              className="text-white font-inter border border-white/55 rounded-xl py-3 px-4 bg-white/10 text-sm outline-none"
-            />
-          </div>
-          <div className="flex flex-col gap-4 flex-1">
-            <label
-              htmlFor="fullName"
-              className="text-white font-inter text-sm "
-            >
-              Speaker Name <span className="text-red">*</span>
-            </label>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder=" Jane Doe"
-              className="text-white font-inter border border-white/55 rounded-xl py-3 px-4 bg-white/10 text-sm outline-none"
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-3">
-          <div className="flex flex-col gap-4 flex-1">
-            <label
-              htmlFor="fullName"
-              className="text-white font-inter text-sm "
-            >
               Start Time
             </label>
             <input

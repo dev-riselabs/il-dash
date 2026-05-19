@@ -3,11 +3,12 @@ import {
   CalendarDays,
   ChevronsLeft,
   ChevronsRight,
+  Download,
   Ellipsis,
-  EllipsisVertical,
-  Funnel,
+  Pencil,
   Search,
   Star,
+  Trash,
 } from "lucide-react";
 
 import { QueryState } from "@/components/ui/QueryState";
@@ -35,6 +36,11 @@ function AudienceFeedback() {
       ? (k.positive_count / k.total_submissions) * 100
       : 0;
 
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  
+    function handleActiveDropdown(id: number){
+      setActiveDropdown(prev => prev === id ? null : id)
+    }
   return (
     <section className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
@@ -53,6 +59,11 @@ function AudienceFeedback() {
               type="search"
               placeholder="Search feedback..."
               className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1 bg-transparent"
+              name=""
+              // id=""
+              // placeholder="Search names of attendees..."
+              // className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
+
             />
           </div>
           <select
@@ -70,10 +81,10 @@ function AudienceFeedback() {
             ))}
           </select>
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <Funnel className="w-5 h-5 text-white" />
+            <Download className="w-5 h-5 text-white" />
           </button>
-          <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <EllipsisVertical className="w-5 h-5 text-white" />
+          <button className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+            Create
           </button>
         </div>
       </section>
@@ -156,18 +167,41 @@ function AudienceFeedback() {
                   >
                     {f.sentiment_label ?? "—"}
                   </span>
-                  <div className="flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
+                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
                     <span className="inline-flex items-center gap-1">
                       <Star className="w-4 h-4 text-yellow400" />
                       {f.star_rating}
                     </span>
-                    <button>
-                      <Ellipsis className="text-white w-5 h-5" />
-                    </button>
+                    <button onClick={() => handleActiveDropdown(f.id)} className="cursor-pointer">
+                    <Ellipsis className="text-white w-5 h-5" />
+                  </button>
+
+                  {activeDropdown === f.id  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
+                    <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
+                  </div>}
                   </div>
                 </div>
-              ))}
-            </div>
+
+              //   <span className="text-white text-sm col-span-1">Session 1</span>
+              //   <span className="text-white text-sm col-span-2">
+              //     It was very good m..
+              //   </span>
+              //   <span className="text-white text-sm col-span-1">4</span>
+              //   <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
+              //     4
+              //     <button onClick={() => handleActiveDropdown(i)} className="cursor-pointer">
+              //       <Ellipsis className="text-white w-5 h-5" />
+              //     </button>
+
+              //     {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+              //       <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
+              //       <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
+              //     </div>}
+              //   </div>
+              // </div>
+            ))}
+          </div>
           </QueryState>
         </div>
         <div className="flex items-center justify-between">

@@ -4,10 +4,11 @@ import {
   CheckCircle2,
   ChevronsLeft,
   ChevronsRight,
+  Download,
   Ellipsis,
-  EllipsisVertical,
-  Funnel,
+  Pencil,
   Search,
+  Trash,
 } from "lucide-react";
 
 import { QueryState } from "@/components/ui/QueryState";
@@ -32,6 +33,11 @@ function Attendance() {
 
   const checkIn = useCheckInAttendee();
   const rows = data?.data ?? [];
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+
+  function handleActiveDropdown(id: number){
+    setActiveDropdown(prev => prev === id ? null : id)
+  }
 
   return (
     <section className="space-y-6">
@@ -76,10 +82,11 @@ function Attendance() {
               checkedInOnly === undefined ? "bg-blue950" : "bg-cyan"
             }`}
           >
-            <Funnel className="w-5 h-5 text-white" />
+            {/* <Funnel className="w-5 h-5 text-white" /> */}
+            <Download className="w-5 h-5 text-white" />
           </button>
-          <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
-            <EllipsisVertical className="w-5 h-5 text-white" />
+          <button className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+            Create
           </button>
         </div>
       </section>
