@@ -27,9 +27,9 @@ export function TopNav() {
   return (
     <>
     <MobileSidebar handleCloseMenu={handleCloseMenu} showMenu={showMenu}/>
-    <header className="lg:h-25 bg-surface900 border-b font-lexend border-white/45 py-5 lg:py-0 lg:divide-x divide-white gap-4 lg:gap-0 px-4  lg:px-6 flex flex-col lg:flex-row lg:items-center">
+    <header className="lg:h-20 bg-surface900 border-b font-lexend border-white/45 py-5 lg:py-0 lg:divide-x divide-white gap-4 lg:gap-0 px-4  lg:px-6 flex flex-col lg:flex-row lg:items-center">
       {/* Logo + brand */}
-      <img src="./logo_il.png" alt=""className="md:w-30 md:h-20 px-2 w-20 h-15" />
+      <img src="./logo_il.png" alt=""className="md:w-25 md:h-15 px-2 w-20 h-15" />
       <div className="flex justify-between items-center gap-3 lg:basis-2/8 lg:px-2">
         <img src="/invest-lagos.png" alt="" className="w-30 lg:w-40"/>
         <button onClick={handleOpenMenu} className="cursor-pointer lg:hidden"><Menu className="w-6 h-6 text-white"/></button>
@@ -40,11 +40,11 @@ export function TopNav() {
         <div className="text-[10px] sm:text-xs font-light tracking-widest text-white uppercase">
           Current Session
         </div>
-        <div className="text-lg sm:text-xl text-cyan font-semibold mt-1 truncate">
+        <div className="text-lg sm:text-xl text-cyan font-semibold mt-0.75 truncate">
           Lagos &mdash; Africa's Global Gateway
         </div>
-        <div className="text-[10px] sm:text-sm text-white font-light mt-1">
-          8&ndash;9 June 2026 | Eko Convention Center, NIGERIA
+        <div className="text-[10px] sm:text-xs text-white font-light mt-0.75">
+          8th to 9th June 2026 | Eko Convention Center, NIGERIA
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export function TopNav() {
             })}
           </div> */}
         <div className="text-[10px] sm:text-xs text-white font-light mt-1">
-          8&ndash;9 June 2026 | Eko Convention Center, NIGERIA
+          8th to 9th June 2026 | Eko Convention Center, NIGERIA
         </div>
       </div>
     </header>

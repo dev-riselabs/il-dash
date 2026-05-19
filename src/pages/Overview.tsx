@@ -264,18 +264,18 @@ export default function Overview() {
           className="self-end lg:col-span-1 h-20 sm:h-auto"
         />
       </section>
-      <section className="grid grid-cols-1 py-5 px-4 sm:px-7.5 rounded-4xl border border-white/55 lg:grid-cols-10 gap-2">
-        <p className="text-cyan font-dmSans flex items-center gap-2 uppercase text-xs lg:col-span-2">
+      <section className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-5 px-4 sm:px-7.5 rounded-4xl border border-white/55  gap-2">
+        <p className="text-cyan font-dmSans flex items-center gap-2 uppercase text-xs">
           <Volume2 /> LIVE RESOLUTION TICKER
         </p>
-        <p className="text-white font-dmSans text-[10px] lg:col-span-3">
+        <p className="text-white font-dmSans text-xs">
           ₦1BN investment interest recorded in Lagos tech ecosystem....
         </p>
-        <p className="text-white flex items-center gap-1 lg:col-span-3 text-[10px]">
+        <p className="text-white flex items-center gap-1 text-xs">
           <CircleSmall className="fill-cyan text-cyan w-3" /> Partnership
           discussion between Flutterwave & Lagos State...
         </p>
-        <p className="text-cyan uppercase text-xs flex items-center gap-1 lg:col-span-2">
+        <p className="text-cyan uppercase text-xs flex items-center gap-1">
           <CircleSmall className="fill-cyan text-cyan w-3" />
           VIEW ALL UPDATES <ChevronRight className="w-4" />
         </p>

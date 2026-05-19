@@ -288,16 +288,15 @@ function ExecutiveView() {
                 <div
                   key={i}
                   className={`flex items-center gap-3 justify-between py-4 px-5 border border-white rounded-2xl border-l-4 ${
-                    signal.toLowerCase() === "high"
-                      ? "border-l-red100"
-                      : "border-l-yellow"
+                    signal.toLowerCase() === "high" ? "border-l-red100" :
+                    signal.toLowerCase() === 'medium' ? 'border-l-orange' : "border-l-yellow" 
                   }`}
                 >
                   <div className="flex flex-col gap-3">
                     <div
                       className={`rounded-md py-1.25 px-3.75 text-[10px] font-dmSans font-mediumn uppercase self-start ${
-                        signal.toLowerCase() === "high"
-                          ? "bg-red200 text-red100"
+                        signal.toLowerCase() === "high" ? "bg-red200 text-red100":
+                        signal.toLowerCase() === 'medium' ? 'bg-brown100 text-yellow'
                           : "bg-brown100 text-yellow300"
                       }`}
                     >

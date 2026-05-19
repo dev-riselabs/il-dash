@@ -191,18 +191,14 @@ const liveFeeds = [
   { img: "/feed2.jpg", venue: "Hall A", status: "live" },
   { img: "/feed3.jpg", venue: "Main hall", status: "live" },
   { img: "/feed4.jpg", venue: "Main hall", status: "live" },
-  { img: "/feed5.jpg", venue: "Main hall", status: "delayed" },
-  { img: "/feed6.jpg", venue: "Main hall", status: "delayed" },
-  { img: "/feed7.jpg", venue: "Main hall", status: "live" },
-  { img: "/feed8.jpg", venue: "Main hall", status: "delayed" },
 ];
 
 function CommandCenter() {
   return (
     <section className="space-y-6">
       <div className="space-y-2">
-        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
-          COMMAND CENTRE
+        <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend uppercase">
+          COMMAND terminal
         </h1>
         <p className="text-white font-lexend font-light text-xs">
           Real-time monitoring and Operational Control{" "}
@@ -587,9 +583,68 @@ function CommandCenter() {
         </div>
 
         <div className="flex flex-col gap-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {liveFeeds.map(({ img, status, venue }) => (
-              <div className="border border-white overflow-hidden rounded-2xl h-41.5 w-full relative">
+          <div className="grid grid-cols-1  md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {liveFeeds.map(({ img, status, venue }, i) => (
+              <div className={`border border-white overflow-hidden rounded-2xl h-41.5 w-full relative ${i === 0 ? 'col-span-3 h-auto' : ''}`}>
+                <img src={img} alt="" className="w-full h-full" />
+                <div className="absolute top-2 left-2 border border-white/15 rounded-md py-1.25 px-2.5 flex items-center justify-center bg-green500/20 text-white text-[10px] font-dmSans font-medium">
+                  {venue}
+                </div>
+                <div
+                  className={`absolute top-2 right-2 uppercase rounded-md py-1.25 px-2.5 flex items-center justify-center text-[10px] font-dmSans font-medium ${
+                    status === "live"
+                      ? "bg-green650 text-green100"
+                      : "bg-brown400 text-yellow600"
+                  }`}
+                >
+                  {status}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col items-center gap-4 lg:gap-10 lg:flex-row lg:justify-center lg:items-center">
+            <div className="flex items-center flex-col gap-5 border border-white/30 rounded-2xl py-5 px-10 max-w-50 w-full">
+              <h6 className="text-white font-dmSans text-sm font-semibold">
+                Total Cameras
+              </h6>
+              <span className="text-white font-dmSans text-3xl font-semibold">
+                24
+              </span>
+            </div>
+            <div className="flex items-center flex-col gap-5 border border-white/30 rounded-2xl py-5 px-10 max-w-50 w-full">
+              <h6 className="text-white font-dmSans text-sm font-semibold">
+                Active
+              </h6>
+              <span className="text-green font-dmSans text-3xl font-semibold">
+                20
+              </span>
+            </div>
+            <div className="flex items-center flex-col gap-5 border border-white/30 rounded-2xl py-5 px-10 max-w-50 w-full">
+              <h6 className="text-white font-dmSans text-sm font-semibold">
+                Offline
+              </h6>
+              <span className="text-red font-dmSans text-3xl font-semibold">
+                4
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6">
+        <div className="flex items-center justify-between gap-3">
+          <h4 className="text-white font-medium uppercase text-sm sm:text-base font-lexend">
+            SECURITY AND SURVEILLANCE
+          </h4>
+          <button className="text-cyan font-semibold font-lexend text-sm sm:text-base">
+            View all cameras
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+            {liveFeeds.map(({ img, status, venue }, i) => (
+              <div className={`border border-white overflow-hidden rounded-2xl h-41.5 w-full relative ${i === 0 ? 'col-span-3 row-span-2 h-full' : ''}`}>
                 <img src={img} alt="" className="w-full h-full" />
                 <div className="absolute top-2 left-2 border border-white/15 rounded-md py-1.25 px-2.5 flex items-center justify-center bg-green500/20 text-white text-[10px] font-dmSans font-medium">
                   {venue}

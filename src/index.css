@@ -8,8 +8,10 @@
     --font-dmSans: "DM Sans", sans-serif;
     --font-rubik: "Rubik", sans-serif;
     --font-inter: "Inter", sans-serif;
+    --font-anek: "Anek Devanagari", sans-serif;
 
     --color-cyan : #00c0e8;
+    --color-cyan50: #80D3ED;
     --color-green : #34c759;
     --color-red: #ff383c;
     --color-red100: #F6001A;
@@ -86,6 +88,8 @@
     --color-neutral500: #11346C80;
     --color-neutral600: #343D42;
     --color-neutral700: #0A142F;
+    --color-neutral800 : #0a255a;
+    --color-neutral900: #041C3E;
     --color-violet: #28171E;
     --color-black100: #00030B;
     --color-surface950: #0a0e14;
@@ -111,4 +115,11 @@
     background: url('./bg-hero.png');
     background-repeat: no-repeat;
     background-size: auto;
+}
+
+.bg-feature{
+    background: url('./feature-bg.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-color: #041C3E;
 }

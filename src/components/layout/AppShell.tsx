@@ -18,11 +18,8 @@ export function AppShell({ children }: Props) {
           
 
           <main className="flex-1 lg:overflow-y-auto p-4 sm:p-6">{children}</main>
-        </div>
-      </div>
-
-      {/* FULL WIDTH FOOTER */}
-      <footer className=" border-t border-white bg-surface900 flex flex-col gap-4 sm:flex-row sm:items-center justify-between px-6 py-2.5">
+          {/* FULL WIDTH FOOTER */}
+      <footer className=" border-t border-white/55 bg-surface900 flex flex-col gap-4 sm:flex-row sm:items-center justify-between px-6 py-2.5">
         <div className="flex items-center justify-between gap-2 text-[10px] sm:text-xs text-white font-lexend">
           Designed and developed by Events Intelligence & Technology Services
           Limited.
@@ -33,6 +30,10 @@ export function AppShell({ children }: Props) {
           <img src="/rise-networks-logo.png" alt="" className="h-10"/>
         </div>
       </footer>
+        </div>
+      </div>
+
+      
     </div>
   );
 }

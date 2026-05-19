@@ -104,14 +104,7 @@ export function Sidebar() {
       onMouseLeave={toggleIsHovered}
       className={`${isHovered ? "w-62" : "w-20"} shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden transition-all `}
     >
-      <div
-        className={`${isHovered ? "p-6" : "py-6 px-4"} border-b border-white/5 flex justify-center`}
-      >
-        {/* <div className="text-xs font-semibold tracking-widest text-accent-cyan">
-          IL-DASH
-        </div>
-        <div className="text-[10px] text-slate-500 mt-1">v1.0 · Command Centre</div> */}
-      </div>
+      
 
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto lg:pb-20">
         {items.map(({ to, label, icon: Icon, end }) => (

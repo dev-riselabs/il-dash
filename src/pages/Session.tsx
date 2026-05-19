@@ -3,10 +3,21 @@ import {
   ChevronsLeft,
   ChevronsRight,
   Download,
+  Ellipsis,
+  Pencil,
   Search,
+  Trash,
 } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Session() {
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  
+    function handleActiveDropdown(id: number){
+      setActiveDropdown(prev => prev === id ? null : id)
+    }
+
   return (
     <section className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
@@ -32,9 +43,9 @@ function Session() {
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
             <Download className="w-5 h-5 text-white" />
           </button>
-          <button className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+          <Link to='/session-form' className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
             Create
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -69,9 +80,17 @@ function Session() {
                   Dr. Musa Obi
                 </span>
                 <span className="text-white text-sm col-span-1">Tech</span>
-                <span className="text-white text-sm col-span-2">
+                <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
                   Program development
-                </span>
+                  <button onClick={() => handleActiveDropdown(i)} className="cursor-pointer">
+                    <Ellipsis className="text-white w-5 h-5" />
+                  </button>
+
+                  {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                    <Link to='/session-form' className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</Link>
+                    <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
+                  </div>}
+                </div> 
               </div>
             ))}
           </div>

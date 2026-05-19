@@ -9,6 +9,7 @@ import {
   Trash,
 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Attendance() {
   const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
@@ -42,9 +43,9 @@ function Attendance() {
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
             <Download className="w-5 h-5 text-white" />
           </button>
-          <button className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+          <Link to='/attendee-form' className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
             Create
-          </button>
+          </Link>
         </div>
       </section>
 
@@ -86,7 +87,7 @@ function Attendance() {
                   </button>
 
                   {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
+                    <Link to='/attendee-form' className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</Link>
                     <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
                   </div>}
                 </div>
