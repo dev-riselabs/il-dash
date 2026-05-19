@@ -149,11 +149,16 @@ function Attendance() {
                   <span className="text-white text-sm col-span-1 truncate">
                     {a.email ?? "—"}
                   </span>
-                  <div className="flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
+                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
                     <span className="truncate">{a.job_title ?? "—"}</span>
-                    <button>
-                      <Ellipsis className="text-white w-5 h-5" />
-                    </button>
+                    <button onClick={() => handleActiveDropdown(a.id)} className="cursor-pointer">
+                    <Ellipsis className="text-white w-5 h-5" />
+                  </button>
+
+                  {activeDropdown === a.id  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
+                    <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
+                  </div>}
                   </div>
                 </div>
               ))}
