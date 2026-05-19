@@ -31,6 +31,7 @@ import SpeakerForm from "./pages/SpeakerForm";
 import AttendeeForm from "./pages/AttendeeForm";
 import LandingShell from "./components/layout/LandingShell";
 import Welcome from "./pages/Welcome";
+import About from "./pages/About";
 
 function AppShellLayout() {
   return (
@@ -61,7 +62,7 @@ function App() {
     <Routes>
       {/* Dashboard layout */}
       <Route element={<AppShellLayout />}>
-        <Route path="/" element={<Overview />} />
+        <Route path="/investlagos" element={<Overview />} />
         <Route path="/programme" element={<ProgrammeTracker />} />
         <Route path="/insights" element={<SessionInsight />} />
         <Route path="/deals" element={<DealRoomTracker />} />
@@ -100,7 +101,8 @@ function App() {
 
       {/* Landing layout  */}
       <Route element={<LandingShellLayout />}>
-      <Route path='/welcome' element={<Welcome/>}/>
+      <Route path='/' element={<Welcome/>}/>
+      <Route path='/about' element={<About/>}/>
       </Route>
     </Routes>
   );

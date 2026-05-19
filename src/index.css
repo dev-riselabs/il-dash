@@ -119,6 +119,11 @@
   background-size: auto;
 }
 
+.bg-about {
+  background: url("./about-bg.png");
+  background-repeat: no-repeat;
+  background-size: auto;
+}
 .bg-feature {
   background: url("./feature-bg.png");
   background-repeat: no-repeat;

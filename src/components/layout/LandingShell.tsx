@@ -16,7 +16,7 @@ function LandingShell({ children }: Props) {
             <img src="/events-intel.png" alt="" />
             <div className="flex items-center justify-between gap-5 flex-1">
                 <ul className="flex items-center gap-8">
-                    <Link to='/welcome' className="font-inter text-sm text-white">Welcome</Link>
+                    <Link to='/' className="font-inter text-sm text-white">Welcome</Link>
                     <Link to='/about' className="font-inter text-sm text-white">About us</Link>
                 </ul>
                 <div className="flex items-center gap-4">
@@ -42,7 +42,7 @@ function LandingShell({ children }: Props) {
             </div>
             <div className="flex flex-col md:flex-row md:justify-between border-b border-b-slate300 pb-8">
                 <ul className="flex items-center gap-8">
-                    <Link to='/welcome' className="text-blue600 text-sm font-inter">Welcome</Link>
+                    <Link to='/' className="text-blue600 text-sm font-inter">Welcome</Link>
                     <Link to='/about' className="text-blue600 text-sm font-inter">About us</Link>
                     <Link to='' className="text-blue600 text-sm font-inter">Contact</Link>
                 </ul>
