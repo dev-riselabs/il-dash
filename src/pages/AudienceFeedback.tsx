@@ -38,10 +38,10 @@ function AudienceFeedback() {
       : 0;
 
   const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
-  
-    function handleActiveDropdown(id: number){
-      setActiveDropdown(prev => prev === id ? null : id)
-    }
+
+  function handleActiveDropdown(id: number) {
+    setActiveDropdown((prev) => (prev === id ? null : id));
+  }
   return (
     <section className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
@@ -64,7 +64,6 @@ function AudienceFeedback() {
               // id=""
               // placeholder="Search names of attendees..."
               // className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
-
             />
           </div>
           <select
@@ -84,7 +83,10 @@ function AudienceFeedback() {
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
             <Download className="w-5 h-5 text-white" />
           </button>
-          <Link to='/feedback-form' className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+          <Link
+            to="/feedback-form"
+            className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0"
+          >
             Create
           </Link>
         </div>
@@ -93,7 +95,10 @@ function AudienceFeedback() {
       {/* KPI strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: "Total Submissions", value: fmtNumber(k?.total_submissions ?? 0) },
+          {
+            label: "Total Submissions",
+            value: fmtNumber(k?.total_submissions ?? 0),
+          },
           {
             label: "Average Rating",
             value: `${(k?.avg_rating ?? 0).toFixed(1)} / 5`,
@@ -173,36 +178,30 @@ function AudienceFeedback() {
                       <Star className="w-4 h-4 text-yellow400" />
                       {f.star_rating}
                     </span>
-                    <button onClick={() => handleActiveDropdown(f.id)} className="cursor-pointer">
-                    <Ellipsis className="text-white w-5 h-5" />
-                  </button>
+                    <button
+                      onClick={() => handleActiveDropdown(f.id)}
+                      className="cursor-pointer"
+                    >
+                      <Ellipsis className="text-white w-5 h-5" />
+                    </button>
 
-                  {activeDropdown === f.id  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
-                    <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
-                  </div>}
+                    {activeDropdown === f.id && (
+                      <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                        <Link
+                          to="/feedback-form"
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                        >
+                          <Pencil className="w-4 h-4 text-black" /> Edit
+                        </Link>
+                        <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
+                          <Trash className="w-4 h-4 text-red" /> Delete
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-
-              //   <span className="text-white text-sm col-span-1">Session 1</span>
-              //   <span className="text-white text-sm col-span-2">
-              //     It was very good m..
-              //   </span>
-              //   <span className="text-white text-sm col-span-1">4</span>
-              //   <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
-              //     4
-              //     <button onClick={() => handleActiveDropdown(i)} className="cursor-pointer">
-              //       <Ellipsis className="text-white w-5 h-5" />
-              //     </button>
-
-              //     {activeDropdown === i  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-              //       <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
-              //       <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
-              //     </div>}
-              //   </div>
-              // </div>
-            ))}
-          </div>
+              ))}
+            </div>
           </QueryState>
         </div>
         <div className="flex items-center justify-between">
@@ -223,9 +222,7 @@ function AudienceFeedback() {
             </button>
             <button
               onClick={() =>
-                setPage((p) =>
-                  data ? Math.min(data.last_page, p + 1) : p + 1,
-                )
+                setPage((p) => (data ? Math.min(data.last_page, p + 1) : p + 1))
               }
               disabled={!data || page >= (data?.last_page ?? 1)}
               className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
