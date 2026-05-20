@@ -8,6 +8,7 @@ export const qk = {
 
   // Lookups
   lookups: {
+    events: ['lookups', 'events'] as const,
     days: ['lookups', 'event-days'] as const,
     tracks: ['lookups', 'tracks'] as const,
     sectors: ['lookups', 'sectors'] as const,

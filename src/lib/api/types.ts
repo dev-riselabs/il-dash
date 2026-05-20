@@ -32,6 +32,17 @@ export interface BriefRef {
 export interface Sector extends BriefRef {}
 export interface Track extends BriefRef {}
 export interface Venue extends BriefRef {}
+
+export interface Event {
+  id: number
+  name: string
+  slug?: string | null
+  description?: string | null
+  starts_at?: string
+  ends_at?: string
+  status?: string | null
+}
+
 export interface EventDay {
   id: number
   event_id: number

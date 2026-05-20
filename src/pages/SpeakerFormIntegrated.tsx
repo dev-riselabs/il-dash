@@ -24,7 +24,6 @@ export default function SpeakerFormIntegrated() {
       await createMutation.mutateAsync(data)
       setSubmitted(true)
       reset()
-      // Auto-reset after 5 seconds
       setTimeout(() => setSubmitted(false), 5000)
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit speaker information')
@@ -39,7 +38,7 @@ export default function SpeakerFormIntegrated() {
             Thank You!
           </h1>
           <p className="text-base font-lexend text-white">
-            Speaker information has been submitted successfully. You will be redirected to the form shortly.
+            Speaker information has been submitted successfully.
           </p>
         </section>
       </section>
@@ -93,10 +92,24 @@ export default function SpeakerFormIntegrated() {
         />
 
         <FormInput
-          label="Title/Position"
-          placeholder="CEO, Founder, etc."
-          {...register('title')}
-          error={errors.title}
+          label="Job Title / Position"
+          placeholder="CEO, Founder, Director, etc."
+          {...register('job_title')}
+          error={errors.job_title}
+        />
+
+        <FormInput
+          label="Organization"
+          placeholder="Company or Institution Name"
+          {...register('organization')}
+          error={errors.organization}
+        />
+
+        <FormInput
+          label="Country"
+          placeholder="Country of Residence"
+          {...register('country')}
+          error={errors.country}
         />
 
         <FormTextarea

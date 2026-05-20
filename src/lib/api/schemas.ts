@@ -30,9 +30,14 @@ export const speakerSchema = z.object({
   email: z.string()
     .min(1, 'Email is required')
     .email('Invalid email address'),
-  title: z.string()
-    .min(1, 'Title is required')
-    .min(2, 'Title must be at least 2 characters'),
+  job_title: z.string()
+    .min(1, 'Job title is required')
+    .min(2, 'Job title must be at least 2 characters'),
+  organization: z.string()
+    .min(1, 'Organization is required')
+    .min(2, 'Organization must be at least 2 characters'),
+  country: z.string()
+    .min(1, 'Country is required'),
   bio: z.string()
     .min(1, 'Bio is required')
     .min(10, 'Bio must be at least 10 characters')
@@ -40,6 +45,8 @@ export const speakerSchema = z.object({
 })
 
 export const sessionSchema = z.object({
+  event_id: z.string()
+    .min(1, 'Event is required'),
   title: z.string()
     .min(1, 'Title is required')
     .min(5, 'Title must be at least 5 characters'),

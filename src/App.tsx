@@ -37,6 +37,7 @@ import AttendeeFormIntegrated from "./pages/AttendeeFormIntegrated";
 import SpeakerFormIntegrated from "./pages/SpeakerFormIntegrated";
 import SessionFormIntegrated from "./pages/SessionFormIntegrated";
 import FeedbackFormIntegrated from "./pages/FeedbackFormIntegrated";
+import AttendanceManagementPage from "./pages/AttendanceManagementPage";
 import About from "./pages/About";
 import DemoForm from "./pages/DemoForm";
 
@@ -99,6 +100,7 @@ function App() {
         <Route path="/command-center" element={<CommandCenter />} />
         <Route path="/session-quotes" element={<SessionQuotes />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendance-management" element={<AttendanceManagementPage />} />
         <Route path="/speaker" element={<Speaker />} />
         <Route path="/session" element={<Session />} />
         <Route path="/audience-feedback" element={<AdudienceFeedback />} />

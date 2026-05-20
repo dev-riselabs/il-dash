@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { sessionSchema, type SessionFormData } from '@/lib/api/schemas'
-import { useCreateSession, useTracks, useVenues } from '@/lib/api/hooks'
+import { useCreateSession, useEvents, useTracks, useVenues } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
@@ -17,9 +17,15 @@ export default function SessionFormIntegrated() {
   })
 
   const createMutation = useCreateSession()
+  const { data: eventsData } = useEvents()
   const { data: tracksData } = useTracks()
   const { data: venuesData } = useVenues()
   const isSubmitting = createMutation.isPending
+
+  const eventOptions = (eventsData || []).map(e => ({
+    value: String(e.id),
+    label: e.name,
+  }))
 
   const trackOptions = (tracksData || []).map(t => ({
     value: String(t.id),
@@ -36,12 +42,12 @@ export default function SessionFormIntegrated() {
     try {
       await createMutation.mutateAsync({
         ...data,
+        event_id: parseInt(data.event_id),
         track_id: parseInt(data.track_id),
         venue_id: parseInt(data.venue_id),
       })
       setSubmitted(true)
       reset()
-      // Auto-reset after 5 seconds
       setTimeout(() => setSubmitted(false), 5000)
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit session')
@@ -82,6 +88,13 @@ export default function SessionFormIntegrated() {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-10">
+        <FormSelect
+          label="Event"
+          {...register('event_id')}
+          options={eventOptions}
+          error={errors.event_id}
+        />
+
         <FormInput
           label="Session Title"
           placeholder="e.g., Building Scalable Systems"
