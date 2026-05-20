@@ -37,19 +37,18 @@ import LandingShell from "./components/layout/LandingShell";
 import Welcome from "./pages/Welcome";
 import About from "./pages/About";
 
-function AuthedShell({ children }: { children: ReactNode }) {
+
+function AuthedShell() {
   const authed = useAuth((s) => !!s.user);
   useRealtimeInvalidations(authed);
-  return <AppShell>{children}</AppShell>;
+
+  return (
+    <AppShell>
+      <Outlet />
+    </AppShell>
+  );
 }
 
-// function AppShellLayout() {
-//   return (
-//     <AppShell>
-//       <Outlet />
-//     </AppShell>
-//   );
-// }
 function FormShellLayout() {
   return (
     <FormShell>
@@ -68,49 +67,46 @@ function LandingShellLayout() {
 
 function App() {
   return (
-    <>
-      <AuthGate>
-        <AuthedShell>
-          <Routes>
-            {/* Dashboard layout */}
-              <Route path="/" element={<Overview />} />
-              <Route path="/programme" element={<ProgrammeTracker />} />
-              <Route path="/insights" element={<SessionInsight />} />
-              <Route path="/deals" element={<DealRoomTracker />} />
-              <Route path="/heatmap" element={<InvestmentHeatmap />} />
-              <Route path="/resolutions" element={<ResolutionBoard />} />
-              <Route path="/analytics" element={<ParticipationAnalytics />} />
-              <Route path="/feedback" element={<SentimentFeedback />} />
-              <Route path="/social" element={<SocialmediaFeed />} />
-              <Route path="/alerts" element={<AlertsUpdates />} />
-              <Route path="/security" element={<SecuritySafety />} />
-              <Route path="/reports" element={<Reports />} />
-              <Route path="/global" element={<GlobalInvesorMap />} />
-              <Route path="/next-action-tracker" element={<NextActionTracker />} />
-              <Route path="/executive-view" element={<ExecutiveView />} />
-              <Route path="/command-center" element={<CommandCenter />} />
-              <Route path="/session-quotes" element={<SessionQuotes />} />{" "}
-              <Route path="/attendance" element={<Attendance />} />{" "}
-              <Route path="/speaker" element={<Speaker />} />{" "}
-              <Route path="/session" element={<Session />} />{" "}
-              <Route path="/audience-feedback" element={<AdudienceFeedback />} />{" "}
-              <Route path="/intelligence-dashboard" element={<IntelligenceDashboard />} />{" "}
-              <Route path="/deep-dive" element={<DeepDive />} />{" "}
-              <Route path="/key-insight" element={<KeyInsight />} />
-         
-          </Routes>
-        </AuthedShell>
-      </AuthGate>
-      {/* Form layout */}
-      <Routes>
-        <Route element={<FormShellLayout />}>
-          <Route path="/feedback-form" element={<FeedbackForm />} />
-          <Route path="/session-form" element={<SessionForm />} />
-          <Route path="/speaker-form" element={<SpeakerForm />} />
-          <Route path="/attendee-form" element={<AttendeeForm />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes> {/* Protected Routes */}
+      <Route element={
+          <AuthGate>
+            <AuthedShell />
+          </AuthGate>
+        } >
+        <Route path="/" element={<Overview />} />
+        <Route path="/programme" element={<ProgrammeTracker />} />
+        <Route path="/insights" element={<SessionInsight />} />
+        <Route path="/deals" element={<DealRoomTracker />} />
+        <Route path="/heatmap" element={<InvestmentHeatmap />} />
+        <Route path="/resolutions" element={<ResolutionBoard />} />
+        <Route path="/analytics" element={<ParticipationAnalytics />} />
+        <Route path="/feedback" element={<SentimentFeedback />} />
+        <Route path="/social" element={<SocialmediaFeed />} />
+        <Route path="/alerts" element={<AlertsUpdates />} />
+        <Route path="/security" element={<SecuritySafety />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/global" element={<GlobalInvesorMap />} />
+        <Route path="/next-action-tracker" element={<NextActionTracker />} />
+        <Route path="/executive-view" element={<ExecutiveView />} />
+        <Route path="/command-center" element={<CommandCenter />} />
+        <Route path="/session-quotes" element={<SessionQuotes />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/speaker" element={<Speaker />} />
+        <Route path="/session" element={<Session />} />
+        <Route path="/audience-feedback" element={<AdudienceFeedback />} />
+        <Route path="/intelligence-dashboard" element={<IntelligenceDashboard />} />
+        <Route path="/deep-dive" element={<DeepDive />} />
+        <Route path="/key-insight" element={<KeyInsight />} />
+      </Route>
+
+      {/* Form Routes */}
+      <Route element={<FormShellLayout />}>
+        <Route path="/feedback-form" element={<FeedbackForm />} />
+        <Route path="/session-form" element={<SessionForm />} />
+        <Route path="/speaker-form" element={<SpeakerForm />} />
+        <Route path="/attendee-form" element={<AttendeeForm />} />
+      </Route>
+    </Routes>
   );
 }
 
