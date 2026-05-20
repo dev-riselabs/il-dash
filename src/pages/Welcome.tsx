@@ -263,7 +263,7 @@ function Welcome() {
         </div>
       </section>
       <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 py-10 md:pl-20 md:pb-0 bg-cyan100">
-        <div className="flex flex-col gap-6 md:pb-15 ">
+        <div className="flex flex-col gap-6 md:pb-15 md:flex-1">
           <h3 className="text-white font-anek font-semibold text-4xl">
             Most Events End in talk. Photos & Videos. Heavy Reports people
             rarely read. then the end. We Delivers Actionable Outcomes.{" "}
@@ -275,7 +275,10 @@ function Welcome() {
             measurable impact.
           </p>
         </div>
-        <img src="/next-action-screenshot.png" alt="" />
+        <div className="mdLflex-1">
+          <img src="/next-action-screenshot.png" alt="" />
+        </div>
+        
       </section>
 
       <section className="bg-blue150 px-20 py-20 flex flex-col md:flex-row md:items-center md:gap-10">
@@ -340,7 +343,7 @@ function Welcome() {
       </section>
 
       <section className="flex flex-col gap-7 md:flex-row md:items-center md:gap-20 py-10 md:pl-20 md:pb-0 bg-cyan100">
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 md:flex-1">
           <h3 className="text-white font-anek font-semibold text-4xl">
             Bring Intelligence to your next event
           </h3>
@@ -356,7 +359,10 @@ function Welcome() {
             </button>
           </div>
         </div>
-        <img src="/security-screenshot.png" alt="" />
+        <div className="md:flex-1">
+          <img src="/security-screenshot.png" alt="" />
+        </div>
+        
       </section>
 
       <section className="flex py-20 px-20 bg-blue150 items-center justify-center">

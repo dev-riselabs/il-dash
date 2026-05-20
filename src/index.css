@@ -33,12 +33,16 @@
   --color-orange400: #f8b23378;
   --color-orange500: #f8b233;
   --color-mint: #00c8b3;
+  --color-mint50 : #2DC593;
+  --color-mint100: #D9E3E0;
   --color-blue: #0088ff;
   --color-blue50: #0480de;
   --color-blue100: #003a9f;
   --color-blue150: #0e1425;
   --color-blue200: #0a66c2;
+  --color-blue250: #1763F9;
   --color-blue300: #071e3f;
+  --color-blue350: #CFDCF4;
   --color-blue400: #5fb7e4;
   --color-blue500: #1e2633;
   --color-blue600: #062c59;
@@ -51,6 +55,8 @@
   --color-purple100: #4b209e;
   --color-purple200: #7a1e9b;
   --color-purple300: #6750a4;
+  --color-purple400: #895BE6;
+  --color-purple500: #D7C7F7;
   --color-brown: #b2631c;
   --color-brown100: #392914;
   --color-brown200: #433008;
@@ -123,6 +129,7 @@
   background: url("./about-bg.png");
   background-repeat: no-repeat;
   background-size: auto;
+  background-color: #041c3e;
 }
 .bg-feature {
   background: url("./feature-bg.png");
