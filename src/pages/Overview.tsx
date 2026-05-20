@@ -98,7 +98,8 @@ export default function Overview() {
               <h3 className="font-lexend text-base font-medium text-cyan pl-8">
                 CURRENT SESSION
               </h3>
-              <div className="flex flex-col pl-6 gap-6 border-l-2 border-l-white/55 relative">
+              <div className="overflow-y-auto h-100 pl-4">
+              <div className="flex flex-col pl-6 gap-6 border-l-2 border-l-white/55 relative ">
                 <div  className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-['1'] after:absolute after:bg-red after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4">
                   <div className="flex flex-col gap-3">
                     <span className="font-lexend text-white text-xs font-light">
@@ -154,14 +155,25 @@ export default function Overview() {
                   </div>
                 </div>
               </div>
+              </div>
             </div>
-            <div className="border border-white/35 py-4 px-6">
+            <div className="border border-white/35 py-4 px-6 overflow-y-auto h-60">
               <div className="border-l-2 border-l-white/55 pl-5 flex flex-col gap-2 relative">
               {[
                       {
                         time: "1:00 PM - 02:30 PM",
                         title: "The Future of Technology...",
                         description: "Building Sustainable Cities",
+                      },
+                      {
+                        time: "03:00 PM - 04:30 PM",
+                        title: "Creative Economy Dialogue",
+                        description: "Unlocking Africa’s Creative Potential",
+                      },
+                      {
+                        time: "03:00 PM - 04:30 PM",
+                        title: "Creative Economy Dialogue",
+                        description: "Unlocking Africa’s Creative Potential",
                       },
                       {
                         time: "03:00 PM - 04:30 PM",
@@ -181,9 +193,14 @@ export default function Overview() {
                             {description}
                           </p>
                         </div>
-                        <div className=" uppercase text-xs text-green font-semibold">
+                        <div className="flex flex-col gap-2">
+                          <div className=" uppercase text-xs text-green font-semibold">
                           completed
                         </div>
+                        <Link to='/feedback-form' className="text-white bg-red100 px-1.5 py-1.5 rounded-md text-xs font-semibold">Give Feedback</Link>
+
+                        </div>
+                        
                       </div>
                     ))}
               </div>
