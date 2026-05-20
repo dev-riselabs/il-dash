@@ -69,10 +69,6 @@ function Session() {
               }}
               placeholder="Search by title, sector..."
               className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1 bg-transparent"
-              // name=""
-              // id=""
-              // placeholder="Search names of attendees..."
-              // className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
             />
           </div>
           <select
