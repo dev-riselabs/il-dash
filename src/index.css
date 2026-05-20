@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -75,6 +75,7 @@
   --color-slate400: #9a9da6;
   --color-slate500: #333333;
   --color-slate600: #808080;
+  --color-slate700 :#C4C4C4;
   --color-green200: #094a32;
   --color-green300: #05c16833;
   --color-green350: #7fdf9f;
@@ -121,6 +122,12 @@
 
 .bg-hero {
   background: url("./bg-hero.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg-demo {
+  background: url("./demo-bg.png");
   background-repeat: no-repeat;
   background-size: auto;
 }

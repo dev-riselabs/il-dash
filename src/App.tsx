@@ -32,6 +32,7 @@ import AttendeeForm from "./pages/AttendeeForm";
 import LandingShell from "./components/layout/LandingShell";
 import Welcome from "./pages/Welcome";
 import About from "./pages/About";
+import DemoForm from "./pages/DemoForm";
 
 function AppShellLayout() {
   return (
@@ -103,6 +104,7 @@ function App() {
       <Route element={<LandingShellLayout />}>
       <Route path='/' element={<Welcome/>}/>
       <Route path='/about' element={<About/>}/>
+      <Route path='/demo-form' element={<DemoForm/>}/>
       </Route>
     </Routes>
   );
