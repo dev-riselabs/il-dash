@@ -30,10 +30,26 @@ export default function Overview() {
   const pollQ = useCurrentLivePoll();
 
   const kpis = [
-    { label: "Total Attendance", value: kpisQ.data?.total_attendance, delta: "Live" },
-    { label: "Number of Speakers", value: kpisQ.data?.speakers_count, delta: "Registered" },
-    { label: "Active Deals", value: kpisQ.data?.active_deals, delta: "In motion" },
-    { label: "Resolutions Today", value: kpisQ.data?.resolutions_today, delta: "Today" },
+    {
+      label: "Total Attendance",
+      value: kpisQ.data?.total_attendance,
+      delta: "Live",
+    },
+    {
+      label: "Number of Speakers",
+      value: kpisQ.data?.speakers_count,
+      delta: "Registered",
+    },
+    {
+      label: "Active Deals",
+      value: kpisQ.data?.active_deals,
+      delta: "In motion",
+    },
+    {
+      label: "Resolutions Today",
+      value: kpisQ.data?.resolutions_today,
+      delta: "Today",
+    },
   ];
 
   const liveSession = flowQ.data?.live?.[0] ?? null;
@@ -43,8 +59,10 @@ export default function Overview() {
   const liveSessionDetail = liveQ.data?.session ?? null;
   const liveInsights = (liveSessionDetail?.insights ?? []).slice(0, 4);
   const headlineQuote = (liveSessionDetail?.quotes ?? [])[0] ?? null;
-  const headlineResolutions = (liveSessionDetail?.resolutions ?? []).slice(0, 4);
-
+  const headlineResolutions = (liveSessionDetail?.resolutions ?? []).slice(
+    0,
+    4,
+  );
 
   const poll = pollQ.data?.poll ?? null;
   const tally = pollQ.data?.tally ?? {};
@@ -61,11 +79,18 @@ export default function Overview() {
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="grid grid-cols-2 md:grid-cols-2 gap-x-4 gap-y-3">
           {kpis.map(({ label, value, delta }, idx) => (
-            <div key={label} className="border border-white/30 rounded-xl p-4 flex flex-col gap-2">
+            <div
+              key={label}
+              className="border border-white/30 rounded-xl p-4 flex flex-col gap-2"
+            >
               <div className="flex items-start justify-between">
                 <div>
-                  <div className="text-xs text-white tracking-wider font-dmSans">{label}</div>
-                  <div className={`text-2xl sm:text-3xl font-medium font-dmSans mt-2 tabular-nums ${KPI_TONE[idx]}`}>
+                  <div className="text-xs text-white tracking-wider font-dmSans">
+                    {label}
+                  </div>
+                  <div
+                    className={`text-2xl sm:text-3xl font-medium font-dmSans mt-2 tabular-nums ${KPI_TONE[idx]}`}
+                  >
                     {kpisQ.isLoading ? "…" : fmtNumber(value ?? null)}
                   </div>
                 </div>
@@ -82,18 +107,25 @@ export default function Overview() {
         <div className="flex gap-4 items-center border border-white/30 rounded-xl overflow-hidden">
           <div className="flex flex-col gap-4 justify-center px-5 py-3 w-3/5">
             <p className="text-white font-lexend text-xs sm:text-base">
-              {headlineQuote?.body ?? "Lagos is not just the future of Africa—it is the blueprint for sustainable urbanization globally."}
+              {headlineQuote?.body ??
+                "Lagos is not just the future of Africa—it is the blueprint for sustainable urbanization globally."}
             </p>
             <div className="">
               <p className="text-white font-lexend text-[10px] sm:text-sm text-right">
-                {fullName(headlineQuote?.speaker) || "Babajide Olusola Sanwo-Olu"}
+                {fullName(headlineQuote?.speaker) ||
+                  "Babajide Olusola Sanwo-Olu"}
               </p>
               <p className="text-white font-lexend text-[8px] sm:text-[10px] text-right">
-                {headlineQuote?.speaker?.job_title ?? "Executive Governor, Lagos State"}
+                {headlineQuote?.speaker?.job_title ??
+                  "Executive Governor, Lagos State"}
               </p>
             </div>
           </div>
-          <img src="/Babajide-Sanwo-olu 2.png" alt="" className="w-2/5 h-full" />
+          <img
+            src="/Babajide-Sanwo-olu 2.png"
+            alt=""
+            className="w-2/5 h-full"
+          />
         </div>
       </section>
 
@@ -106,7 +138,11 @@ export default function Overview() {
             isLoading={flowQ.isLoading}
             isError={flowQ.isError}
             error={flowQ.error}
-            isEmpty={!liveSession && nextSessions.length === 0 && completedSessions.length === 0}
+            isEmpty={
+              !liveSession &&
+              nextSessions.length === 0 &&
+              completedSessions.length === 0
+            }
             emptyLabel="No sessions scheduled yet."
           >
             <div className="border-l-4 border-l-cyan py-6 pr-2 pl-7 flex flex-col gap-4">
@@ -114,73 +150,102 @@ export default function Overview() {
                 CURRENT SESSION
               </h3>
               <div className="overflow-y-auto h-100 pl-4">
-              <div className="flex flex-col pl-6 gap-6 border-l-2 border-l-white/55 relative ">
-              {liveSession ? (
-                <div  className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-['1'] after:absolute after:bg-red after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4">
-                  <div className="flex flex-col gap-3">
-                    <span className="font-lexend text-white text-xs font-light">
-                      {fmtRange(liveSession.starts_at, liveSession.ends_at)}
-                    </span>
-                    <h5 className="font-lexend text-white text-xs font-semibold">{liveSession.title}</h5>
-                    <p className="font-lexend text-white text-[10px] font-medium">
-                      {liveSession.description ?? liveSession.venue?.name ?? ""}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1 border-red border rounded-md py-1.5 px-2 uppercase text-xs text-red">
-                    <div className="w-1.5 h-1.5 rounded-full bg-red" />
-                    live
+                <div className="flex flex-col pl-6 gap-6 border-l-2 border-l-white/55 relative ">
+                  {liveSession ? (
+                    <div className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-['1'] after:absolute after:bg-red after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4">
+                      <div className="flex flex-col gap-3">
+                        <span className="font-lexend text-white text-xs font-light">
+                          {fmtRange(liveSession.starts_at, liveSession.ends_at)}
+                        </span>
+                        <h5 className="font-lexend text-white text-xs font-semibold">
+                          {liveSession.title}
+                        </h5>
+                        <p className="font-lexend text-white text-[10px] font-medium">
+                          {liveSession.description ??
+                            liveSession.venue?.name ??
+                            ""}
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1 border-red border rounded-md py-1.5 px-2 uppercase text-xs text-red">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red" />
+                        live
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-white/60 text-xs font-lexend">
+                      No session is live right now.
+                    </div>
+                  )}
+
+                  <h3 className="font-lexend text-base font-medium text-yellow pl-4 mt-4">
+                    NEXT SESSIONS
+                  </h3>
+                  <div className="flex flex-col gap-2">
+                    {nextSessions.map((s) => (
+                      <div
+                        key={s.id}
+                        className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg"
+                      >
+                        <div className="flex flex-col gap-3">
+                          <span className="font-lexend text-white text-xs font-light">
+                            {fmtRange(s.starts_at, s.ends_at)}
+                          </span>
+                          <h5 className="font-lexend text-white text-xs font-semibold">
+                            {s.title}
+                          </h5>
+                          <p className="font-lexend text-white text-[10px] font-medium">
+                            {s.description ?? s.venue?.name ?? ""}
+                          </p>
+                        </div>
+                        <div className="uppercase text-xs text-yellow font-semibold">
+                          up next
+                        </div>
+                      </div>
+                    ))}
+                    {nextSessions.length === 0 && (
+                      <div className="text-white/60 text-xs font-lexend">
+                        No upcoming sessions queued.
+                      </div>
+                    )}
                   </div>
                 </div>
-              ) : (
-                <div className="text-white/60 text-xs font-lexend">No session is live right now.</div>
-              )}
-
-              <h3 className="font-lexend text-base font-medium text-yellow pl-4 mt-4">NEXT SESSIONS</h3>
-              <div className="flex flex-col gap-2">
-                {nextSessions.map((s) => (
-                  <div key={s.id} className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg">
-                    <div className="flex flex-col gap-3">
-                      <span className="font-lexend text-white text-xs font-light">
-                        {fmtRange(s.starts_at, s.ends_at)}
-                      </span>
-                      <h5 className="font-lexend text-white text-xs font-semibold">{s.title}</h5>
-                      <p className="font-lexend text-white text-[10px] font-medium">
-                        {s.description ?? s.venue?.name ?? ""}
-                      </p>
-                    </div>
-                    <div className="uppercase text-xs text-yellow font-semibold">up next</div>
-                  </div>
-                ))}
-                {nextSessions.length === 0 && (
-                  <div className="text-white/60 text-xs font-lexend">No upcoming sessions queued.</div>
-                )}
-              </div>
               </div>
             </div>
             <div className="border border-white/35 py-4 px-6 mt-2">
               <div className="flex flex-col gap-2">
                 {completedSessions.map((s) => (
-                  <div key={s.id} className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg">
+                  <div
+                    key={s.id}
+                    className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg"
+                  >
                     <div className="flex flex-col gap-3">
                       <span className="font-lexend text-white text-xs font-light">
                         {fmtRange(s.starts_at, s.ends_at)}
                       </span>
-                      <h5 className="font-lexend text-white text-xs font-semibold">{s.title}</h5>
+                      <h5 className="font-lexend text-white text-xs font-semibold">
+                        {s.title}
+                      </h5>
                       <p className="font-lexend text-white text-[10px] font-medium">
                         {s.description ?? s.venue?.name ?? ""}
                       </p>
                     </div>
                     <div className="flex flex-col gap-2">
-                          <div className=" uppercase text-xs text-green font-semibold">
-                          completed
-                        </div>
-                        <Link to='/feedback-form' className="text-white bg-red100 px-1.5 py-1.5 rounded-md text-xs font-semibold">Give Feedback</Link>
-
-                        </div>
-                        </div>
+                      <div className=" uppercase text-xs text-green font-semibold">
+                        completed
+                      </div>
+                      <Link
+                        to="/feedback-form"
+                        className="text-white bg-red100 px-1.5 py-1.5 rounded-md text-xs font-semibold"
+                      >
+                        Give Feedback
+                      </Link>
+                    </div>
+                  </div>
                 ))}
                 {completedSessions.length === 0 && (
-                  <div className="text-white/60 text-xs font-lexend">No completed sessions yet.</div>
+                  <div className="text-white/60 text-xs font-lexend">
+                    No completed sessions yet.
+                  </div>
                 )}
               </div>
             </div>
@@ -190,18 +255,24 @@ export default function Overview() {
         <section className="flex flex-col gap-10 lg:col-span-7">
           <div className="border border-white/55 rounded-2xl flex flex-col gap-5 p-4 lg:py-5 lg:px-7.5">
             <div className="flex flex-col gap-3 font-lexend">
-              <h2 className="text-xs sm:text-sm font-light tracking-widest text-cyan uppercase">Live Session Intelligence</h2>
+              <h2 className="text-xs sm:text-sm font-light tracking-widest text-cyan uppercase">
+                Live Session Intelligence
+              </h2>
               <h3 className="text-lg sm:text-3xl font-semibold text-white">
                 {liveSessionDetail?.title ?? "Awaiting live session"}
               </h3>
               <div className="text-sm sm:text-base text-cyan font-light">
-                {liveSessionDetail?.speakers && liveSessionDetail.speakers.length > 0
+                {liveSessionDetail?.speakers &&
+                liveSessionDetail.speakers.length > 0
                   ? `Keynote — ${fullName(liveSessionDetail.speakers[0])}`
-                  : liveSessionDetail?.description ?? "Stand by — no session is live yet."}
+                  : (liveSessionDetail?.description ??
+                    "Stand by — no session is live yet.")}
               </div>
             </div>
             <div className="mt-6 space-y-3">
-              <div className="text-base font-medium tracking-widest text-green uppercase">Key Insights</div>
+              <div className="text-base font-medium tracking-widest text-green uppercase">
+                Key Insights
+              </div>
               <QueryState
                 isLoading={liveQ.isLoading}
                 isEmpty={liveInsights.length === 0}
@@ -212,7 +283,9 @@ export default function Overview() {
                     <div className="w-10 h-10 border border-red100 rounded-full flex items-center justify-center shrink-0">
                       <Sparkles color="white" width={"20px"} />
                     </div>
-                    <p className="text-sm sm:text-base text-white font-lexend">{insight.body}</p>
+                    <p className="text-sm sm:text-base text-white font-lexend">
+                      {insight.body}
+                    </p>
                   </div>
                 ))}
               </QueryState>
@@ -220,13 +293,16 @@ export default function Overview() {
           </div>
           <blockquote className="border border-white/55 rounded-2xl flex flex-col gap-5 sm:gap-10 p-4 lg:py-5 lg:px-7.5">
             <p className="text-sm sm:text-lg font-lexend text-white leading-relaxed">
-              {headlineQuote ? `"${headlineQuote.quote_text}"` : '"Lagos is not just keeping up with the future, we are building it for Africa and the world."'}
+              {headlineQuote
+                ? `"${headlineQuote.quote_text}"`
+                : '"Lagos is not just keeping up with the future, we are building it for Africa and the world."'}
             </p>
             <footer className="text-xs text-white font-dmSans flex flex-col gap-1">
               <strong className="text-cyan text-sm sm:text-base">
                 {fullName(headlineQuote?.speaker) || "Dr. Bosun Tijani"}
               </strong>{" "}
-              {headlineQuote?.speaker?.job_title ?? "Minister, Communications, Innovation & Digital Economy"}
+              {headlineQuote?.speaker?.job_title ??
+                "Minister, Communications, Innovation & Digital Economy"}
             </footer>
           </blockquote>
         </section>
@@ -241,13 +317,23 @@ export default function Overview() {
           >
             {headlineResolutions.map((r) => (
               <div key={r.id} className="flex items-center gap-2">
-                <CircleCheck color="green" width={"18px"} className="shrink-0" />
-                <span className="text-white text-xs sm:text-sm font-lexend">{r.title}</span>
+                <CircleCheck
+                  color="green"
+                  width={"18px"}
+                  className="shrink-0"
+                />
+                <span className="text-white text-xs sm:text-sm font-lexend">
+                  {r.title}
+                </span>
               </div>
             ))}
           </QueryState>
         </div>
-        <img src="/target.png" alt="" className="self-end lg:col-span-1 h-20 sm:h-auto" />
+        <img
+          src="/target.png"
+          alt=""
+          className="self-end lg:col-span-1 h-20 sm:h-auto"
+        />
       </section>
 
       <section className="grid grid-cols-1 py-5 px-4 sm:px-7.5 rounded-4xl border border-white/55 lg:grid-cols-10 gap-2">
@@ -261,7 +347,10 @@ export default function Overview() {
           <CircleSmall className="fill-cyan text-cyan w-3" />{" "}
           {tickerItems[1]?.title ?? "More updates coming through the day."}
         </p>
-        <Link to="/resolutions" className="text-cyan uppercase text-xs flex items-center gap-1 lg:col-span-2">
+        <Link
+          to="/resolutions"
+          className="text-cyan uppercase text-xs flex items-center gap-1 lg:col-span-2"
+        >
           <CircleSmall className="fill-cyan text-cyan w-3" />
           VIEW ALL UPDATES <ChevronRight className="w-4" />
         </Link>
@@ -273,10 +362,14 @@ export default function Overview() {
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <User className="w-6 fill-white text-white" />{" "}
-                <span className="font-dmSans font-medium text-base sm:text-lg text-white">AUDIENCE FEEDBACK</span>
+                <span className="font-dmSans font-medium text-base sm:text-lg text-white">
+                  AUDIENCE FEEDBACK
+                </span>
               </div>
               <div className="flex flex-col gap-1">
-                <h5 className="font-dmSans font-medium text-white uppercase text-sm sm:text-base">LIVE POLL</h5>
+                <h5 className="font-dmSans font-medium text-white uppercase text-sm sm:text-base">
+                  LIVE POLL
+                </h5>
                 <h6 className="font-dmSans font-medium text-white text-sm">
                   {poll?.question ?? "No live poll is open right now."}
                 </h6>
@@ -286,7 +379,8 @@ export default function Overview() {
               <div className="flex flex-col gap-4">
                 {(poll?.options ?? Object.keys(tally)).map((option) => {
                   const count = (tally[option] as number) ?? 0;
-                  const pct = pollTotal > 0 ? Math.round((count / pollTotal) * 100) : 0;
+                  const pct =
+                    pollTotal > 0 ? Math.round((count / pollTotal) * 100) : 0;
                   const colour = option.toLowerCase().includes("excellent")
                     ? "bg-green"
                     : option.toLowerCase().includes("good")
@@ -296,22 +390,33 @@ export default function Overview() {
                         : "bg-red";
                   return (
                     <div key={option} className="grid grid-cols-12">
-                      <p className="text-white font-dmSans text-sm col-span-3">{option}</p>
+                      <p className="text-white font-dmSans text-sm col-span-3">
+                        {option}
+                      </p>
                       <div className="col-span-8">
-                        <div className={`h-5 ${colour}`} style={{ width: `${pct}%` }} />
+                        <div
+                          className={`h-5 ${colour}`}
+                          style={{ width: `${pct}%` }}
+                        />
                       </div>
-                      <p className="text-white font-dmSans text-sm col-span-1">{pct}%</p>
+                      <p className="text-white font-dmSans text-sm col-span-1">
+                        {pct}%
+                      </p>
                     </div>
                   );
                 })}
               </div>
             </QueryState>
           </div>
-          <p className="text-white font-medium text-base">Total Votes: {fmtNumber(pollTotal)}</p>
+          <p className="text-white font-medium text-base">
+            Total Votes: {fmtNumber(pollTotal)}
+          </p>
         </div>
 
         <div className="lg:col-span-7 border border-white/55 rounded-2xl py-5 px-5 lg:px-7.5 flex flex-col gap-3">
-          <h4 className="text-green font-lexend font-medium text-base">TOP FEEDBACK</h4>
+          <h4 className="text-green font-lexend font-medium text-base">
+            TOP FEEDBACK
+          </h4>
           <div className="flex flex-col gap-7">
             <QueryState
               isLoading={topFeedbackQ.isLoading}
