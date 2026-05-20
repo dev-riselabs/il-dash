@@ -12,6 +12,17 @@ export interface Paginated<T> {
   to: number | null
 }
 
+export interface User {
+  id: number
+  name: string
+  email: string
+  phone: string
+  role: 'super_admin' | 'admin' | 'operator'
+  bio?: string | null
+  created_at: string
+  last_login_at?: string | null
+}
+
 export interface BriefRef {
   id: number
   name: string

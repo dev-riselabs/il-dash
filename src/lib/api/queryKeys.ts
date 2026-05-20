@@ -140,6 +140,11 @@ export const qk = {
     themes: ['social', 'themes'] as const,
     hashtags: ['social', 'hashtags'] as const,
   },
+  users: {
+    list: (params: Record<string, unknown> = {}) =>
+      ['users', 'list', params] as const,
+    detail: (id: number) => ['users', 'detail', id] as const,
+  },
 }
 
 // Root key prefixes for broad invalidation (e.g. realtime events that

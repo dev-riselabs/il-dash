@@ -47,6 +47,7 @@ import type {
   Speaker,
   SpeakerEngagementScore,
   Track,
+  User,
   Venue,
 } from './types'
 
@@ -359,6 +360,115 @@ export function useGenerateReport() {
     mutationFn: (payload: { name: string; kind: string; format?: string }) =>
       post<ReportRecord>('/api/reports/generate', payload),
     onSuccess: () => qc.invalidateQueries({ queryKey: ['reports'] }),
+  })
+}
+
+// ---- Form Submissions -------------------------------------------------------
+export function useCreateAttendee() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<Attendee>('/api/attendees', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['attendees'] })
+      qc.invalidateQueries({ queryKey: ['analytics'] })
+    },
+  })
+}
+
+export function useCreateSpeaker() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<Speaker>('/api/speakers', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['speakers'] })
+    },
+  })
+}
+
+export function useCreateSession() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<EventSession>('/api/sessions', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['sessions'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+// ---- User Management -------------------------------------------------------
+export const useUsers = (params: Record<string, unknown> = {}, o?: Q<Paginated<User>>) =>
+  useQuery({
+    queryKey: qk.users.list(params),
+    queryFn: () => get<Paginated<User>>('/api/users', params),
+    ...o,
+  })
+
+export const useUser = (id: number | null, o?: Q<User>) =>
+  useQuery({
+    queryKey: qk.users.detail(id ?? 0),
+    queryFn: () => get<User>(`/api/users/${id}`),
+    enabled: !!id,
+    ...o,
+  })
+
+export function useSignupAdmin() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<{ user: User; token: string }>('/api/auth/signup-admin', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.users.list() })
+    },
+  })
+}
+
+export function useCreateUser() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<User>('/api/users', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.users.list() })
+    },
+  })
+}
+
+export function useUpdateUser() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<User>(`/api/users/${id}`, payload),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: qk.users.list() })
+      qc.invalidateQueries({ queryKey: qk.users.detail(data.id) })
+    },
+  })
+}
+
+export function useDeleteUser() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del(`/api/users/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.users.list() })
+    },
+  })
+}
+
+export function useChangeUserRole() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, role }: { id: number; role: string }) =>
+      patch<User>(`/api/users/${id}/role`, { role }),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: qk.users.list() })
+      qc.invalidateQueries({ queryKey: qk.users.detail(data.id) })
+    },
   })
 }
 

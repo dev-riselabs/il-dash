@@ -4,6 +4,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { AuthGate } from "@/lib/auth/AuthGate";
 import { useAuth } from "@/lib/auth/store";
 import { useRealtimeInvalidations } from "@/lib/realtime/useRealtime";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Overview from "@/pages/Overview";
 import InvestmentHeatmap from "./pages/InvestmentHeatmap";
 import ResolutionBoard from "./pages/ResolutionBoard";
@@ -28,13 +29,15 @@ import AdudienceFeedback from "./pages/AudienceFeedback";
 import IntelligenceDashboard from "./pages/IntelligenceDashboard";
 import DeepDive from "./pages/DeepDive";
 import KeyInsight from "./pages/KeyInsight";
-import FeedbackForm from "./pages/FeedbackForm";
 import { FormShell } from "./components/layout/FormShell";
-import SessionForm from "./pages/SessionForm";
-import SpeakerForm from "./pages/SpeakerForm";
-import AttendeeForm from "./pages/AttendeeForm";
 import LandingShell from "./components/layout/LandingShell";
 import Welcome from "./pages/Welcome";
+import SignupAdminPage from "./pages/SignupAdminPage";
+import UserManagementPage from "./pages/UserManagementPage";
+import AttendeeFormIntegrated from "./pages/AttendeeFormIntegrated";
+import SpeakerFormIntegrated from "./pages/SpeakerFormIntegrated";
+import SessionFormIntegrated from "./pages/SessionFormIntegrated";
+import FeedbackFormIntegrated from "./pages/FeedbackFormIntegrated";
 
 
 function AuthedShell() {
@@ -96,14 +99,30 @@ function App() {
         <Route path="/intelligence-dashboard" element={<IntelligenceDashboard />} />
         <Route path="/deep-dive" element={<DeepDive />} />
         <Route path="/key-insight" element={<KeyInsight />} />
+        <Route 
+          path="/user-management" 
+          element={
+            <ProtectedRoute requiredRoles={['super_admin', 'admin', 'operator']}>
+              <UserManagementPage />
+            </ProtectedRoute>
+          } 
+        />
       </Route>
 
       {/* Form Routes */}
       <Route element={<FormShellLayout />}>
-        <Route path="/feedback-form" element={<FeedbackForm />} />
-        <Route path="/session-form" element={<SessionForm />} />
-        <Route path="/speaker-form" element={<SpeakerForm />} />
-        <Route path="/attendee-form" element={<AttendeeForm />} />
+        <Route path="/feedback-form" element={<FeedbackFormIntegrated />} />
+        <Route path="/session-form" element={<SessionFormIntegrated />} />
+        <Route path="/speaker-form" element={<SpeakerFormIntegrated />} />
+        <Route path="/attendee-form" element={<AttendeeFormIntegrated />} />
+        <Route 
+          path="/signup-admin" 
+          element={
+            <ProtectedRoute requiredRoles={['super_admin']}>
+              <SignupAdminPage />
+            </ProtectedRoute>
+          } 
+        />
       </Route>
     </Routes>
   );
