@@ -4,6 +4,7 @@ import {
   ChevronsRight,
   Download,
   Ellipsis,
+  MessageCircleReply,
   Pencil,
   Search,
   Trash,
@@ -170,6 +171,12 @@ function Session() {
 
                     {activeDropdown === s.id && (
                       <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                        {s.status === 'completed' && <Link
+                          to="/feedback-form"
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                        >
+                          <MessageCircleReply className="w-4 h-4 text-black" /> Give Feedback
+                        </Link>}
                         <Link
                           to="/session-form"
                           className="flex items-center gap-1.5 text-black font-dmSans text-xs"

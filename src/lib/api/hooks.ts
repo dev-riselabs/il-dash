@@ -16,6 +16,7 @@ import type {
   BriefRef,
   CommandCenterKpis,
   Deal,
+  Event,
   EventDay,
   EventSession,
   ExecutiveKpis,
@@ -57,6 +58,8 @@ const get = async <T,>(url: string, params?: Record<string, unknown>) =>
   (await api.get<T>(url, { params })).data
 
 // ---- Lookups ---------------------------------------------------------------
+export const useEvents = (o?: Q<Event[]>) =>
+  useQuery({ queryKey: qk.lookups.events, queryFn: () => get<Event[]>('/api/lookups/events'), ...o })
 export const useEventDays = (o?: Q<EventDay[]>) =>
   useQuery({ queryKey: qk.lookups.days, queryFn: () => get<EventDay[]>('/api/lookups/event-days'), ...o })
 export const useTracks = (o?: Q<Track[]>) =>
@@ -346,6 +349,18 @@ export function useCheckInAttendee() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (id: number) => post<Attendee>(`/api/attendees/${id}/check-in`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['attendees'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['analytics'] })
+    },
+  })
+}
+
+export function useCheckOutAttendee() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) => post<Attendee>(`/api/attendees/${id}/check-out`),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['attendees'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
