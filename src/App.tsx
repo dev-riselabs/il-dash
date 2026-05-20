@@ -35,6 +35,7 @@ import SpeakerForm from "./pages/SpeakerForm";
 import AttendeeForm from "./pages/AttendeeForm";
 import LandingShell from "./components/layout/LandingShell";
 import Welcome from "./pages/Welcome";
+import About from "./pages/About";
 
 function AuthedShell({ children }: { children: ReactNode }) {
   const authed = useAuth((s) => !!s.user);
