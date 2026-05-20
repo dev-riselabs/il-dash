@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthGate } from "@/lib/auth/AuthGate";
@@ -40,7 +39,6 @@ import SessionFormIntegrated from "./pages/SessionFormIntegrated";
 import FeedbackFormIntegrated from "./pages/FeedbackFormIntegrated";
 import About from "./pages/About";
 
-
 function AuthedShell() {
   const authed = useAuth((s) => !!s.user);
   useRealtimeInvalidations(authed);
@@ -70,13 +68,17 @@ function LandingShellLayout() {
 
 function App() {
   return (
-    <Routes> {/* Protected Routes */}
-      <Route element={
+    <Routes>
+      {" "}
+      {/* Protected Routes */}
+      <Route
+        element={
           <AuthGate>
             <AuthedShell />
           </AuthGate>
-        } >
-        <Route path="/" element={<Overview />} />
+        }
+      >
+        <Route path="/investlagos" element={<Overview />} />
         <Route path="/programme" element={<ProgrammeTracker />} />
         <Route path="/insights" element={<SessionInsight />} />
         <Route path="/deals" element={<DealRoomTracker />} />
@@ -97,33 +99,41 @@ function App() {
         <Route path="/speaker" element={<Speaker />} />
         <Route path="/session" element={<Session />} />
         <Route path="/audience-feedback" element={<AdudienceFeedback />} />
-        <Route path="/intelligence-dashboard" element={<IntelligenceDashboard />} />
+        <Route
+          path="/intelligence-dashboard"
+          element={<IntelligenceDashboard />}
+        />
         <Route path="/deep-dive" element={<DeepDive />} />
         <Route path="/key-insight" element={<KeyInsight />} />
-        <Route 
-          path="/user-management" 
+        <Route
+          path="/user-management"
           element={
-            <ProtectedRoute requiredRoles={['super_admin', 'admin', 'operator']}>
+            <ProtectedRoute
+              requiredRoles={["super_admin", "admin", "operator"]}
+            >
               <UserManagementPage />
             </ProtectedRoute>
-          } 
+          }
         />
       </Route>
-
       {/* Form Routes */}
       <Route element={<FormShellLayout />}>
         <Route path="/feedback-form" element={<FeedbackFormIntegrated />} />
         <Route path="/session-form" element={<SessionFormIntegrated />} />
         <Route path="/speaker-form" element={<SpeakerFormIntegrated />} />
         <Route path="/attendee-form" element={<AttendeeFormIntegrated />} />
-        <Route 
-          path="/signup-admin" 
+        <Route
+          path="/signup-admin"
           element={
-            <ProtectedRoute requiredRoles={['super_admin']}>
+            <ProtectedRoute requiredRoles={["super_admin"]}>
               <SignupAdminPage />
             </ProtectedRoute>
-          } 
+          }
         />
+      </Route>
+      <Route element={<LandingShellLayout />}>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/about" element={<About />} />
       </Route>
     </Routes>
   );

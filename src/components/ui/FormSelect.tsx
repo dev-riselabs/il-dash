@@ -1,5 +1,5 @@
-import { forwardRef, SelectHTMLAttributes } from 'react'
-import { FieldError } from 'react-hook-form'
+import { forwardRef, type SelectHTMLAttributes } from 'react'
+import type { FieldError } from 'react-hook-form'
 import { AlertCircle } from 'lucide-react'
 
 interface FormSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {

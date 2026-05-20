@@ -1,5 +1,5 @@
-import { forwardRef, TextareaHTMLAttributes } from 'react'
-import { FieldError } from 'react-hook-form'
+import { forwardRef, type TextareaHTMLAttributes } from 'react'
+import type { FieldError } from 'react-hook-form'
 import { AlertCircle } from 'lucide-react'
 
 interface FormTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {

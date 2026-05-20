@@ -1,5 +1,5 @@
-import { forwardRef, InputHTMLAttributes } from 'react'
-import { FieldError } from 'react-hook-form'
+import { forwardRef, type InputHTMLAttributes } from 'react'
+import type { FieldError } from 'react-hook-form'
 import { AlertCircle } from 'lucide-react'
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {

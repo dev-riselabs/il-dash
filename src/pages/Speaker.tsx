@@ -30,11 +30,10 @@ function Speaker() {
   const rows = data?.data ?? [];
 
   const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
-  
-    function handleActiveDropdown(id: number){
-      setActiveDropdown(prev => prev === id ? null : id)
-    }
 
+  function handleActiveDropdown(id: number) {
+    setActiveDropdown((prev) => (prev === id ? null : id));
+  }
 
   return (
     <section className="space-y-6">
@@ -52,7 +51,6 @@ function Speaker() {
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
               type="search"
-
               value={search}
               onChange={(e) => {
                 setPage(1);
@@ -69,7 +67,10 @@ function Speaker() {
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
             <Download className="w-5 h-5 text-white" />
           </button>
-          <Link to='/speaker-form' className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+          <Link
+            to="/speaker-form"
+            className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0"
+          >
             Create
           </Link>
         </div>
@@ -103,10 +104,7 @@ function Speaker() {
           >
             <div className="flex flex-col gap-6">
               {rows.map((s) => (
-                <div
-                  key={s.id}
-                  className="grid grid-cols-7 gap-10 font-dmSans"
-                >
+                <div key={s.id} className="grid grid-cols-7 gap-10 font-dmSans">
                   <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
                     <CalendarDays className="text-white w-3 h-3" />
                     <span>{fmtDateTime(s.created_at)}</span>
@@ -122,25 +120,28 @@ function Speaker() {
                   </span>
                   <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
                     <span className="truncate">{s.job_title ?? "—"}</span>
-                    <button>
+                    <button
+                      onClick={() => handleActiveDropdown(s.id)}
+                      className="cursor-pointer"
+                    >
                       <Ellipsis className="text-white w-5 h-5" />
                     </button>
-                    <button onClick={() => handleActiveDropdown(s.id)} className="cursor-pointer">
-                    <Ellipsis className="text-white w-5 h-5" />
-                  </button>
 
-                  {activeDropdown === s.id  && <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                    <button className="flex items-center gap-1.5 text-black font-dmSans text-xs"><Pencil className="w-4 h-4 text-black"/> Edit</button>
-                    <button className="flex items-center gap-1.5 text-red font-dmSans text-xs"><Trash className="w-4 h-4 text-red"/> Delete</button>
-                  </div>}
+                    {activeDropdown === s.id && (
+                      <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                        <button className="flex items-center gap-1.5 text-black font-dmSans text-xs">
+                          <Pencil className="w-4 h-4 text-black" /> Edit
+                        </button>
+                        <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
+                          <Trash className="w-4 h-4 text-red" /> Delete
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
-
               ))}
             </div>
-
           </QueryState>
-
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
@@ -160,9 +161,7 @@ function Speaker() {
             </button>
             <button
               onClick={() =>
-                setPage((p) =>
-                  data ? Math.min(data.last_page, p + 1) : p + 1,
-                )
+                setPage((p) => (data ? Math.min(data.last_page, p + 1) : p + 1))
               }
               disabled={!data || page >= (data?.last_page ?? 1)}
               className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
