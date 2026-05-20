@@ -103,8 +103,8 @@ function Session() {
 
       <section className="flex flex-col gap-10 border border-white rounded-2xl py-6 px-4 lg:p-6">
         <div className="flex flex-col gap-8">
-          <div className="grid grid-cols-7 gap-10 font-dmSans">
-            <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-2 uppercase">
+          <div className="grid grid-cols-6 gap-10 font-dmSans">
+            <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-1 uppercase">
               STARTS AT <CalendarDays className="text-white w-3 h-3" />
             </h6>
             <h6 className="text-cyan text-base font-semibold col-span-2 uppercase">
@@ -131,9 +131,9 @@ function Session() {
               {rows.map((s) => (
                 <div
                   key={s.id}
-                  className="grid grid-cols-7 gap-10 font-dmSans items-center"
+                  className="grid grid-cols-6 gap-10 font-dmSans items-center"
                 >
-                  <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
+                  <div className="flex items-center gap-2 text-white text-sm col-span-1 font-dmSans">
                     <CalendarDays className="text-white w-3 h-3" />
                     <span>{fmtDateTime(s.starts_at)}</span>
                   </div>
