@@ -1,4 +1,3 @@
-
 import {
   CalendarDays,
   ChevronsLeft,
@@ -32,6 +31,7 @@ function Session() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"" | SessionStatus>("");
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
 
   const { data, isLoading, isError, error } = useSessions({
     page,
@@ -39,6 +39,10 @@ function Session() {
     search: search.trim() || undefined,
     status: status || undefined,
   });
+
+  function handleActiveDropdown(id: number) {
+    setActiveDropdown((prev) => (prev === id ? null : id));
+  }
 
   const rows = data?.data ?? [];
 
@@ -88,7 +92,10 @@ function Session() {
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
             <Download className="w-5 h-5 text-white" />
           </button>
-          <Link to='/session-form' className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0">
+          <Link
+            to="/session-form"
+            className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0"
+          >
             Create
           </Link>
         </div>
@@ -142,21 +149,43 @@ function Session() {
                   <span className="text-white text-sm col-span-1 truncate">
                     {s.sector?.name ?? "—"}
                   </span>
+                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
                   <span
-                    className={`text-xs col-span-1 uppercase rounded px-2 py-1 inline-flex justify-center font-medium ${
-                      s.status === "live"
-                        ? "bg-green450 text-green350 border border-green350"
-                        : s.status === "delayed"
-                          ? "bg-brown200 text-yellow400 border border-yellow400"
-                          : s.status === "cancelled"
-                            ? "bg-red200 text-red100 border border-red100"
-                            : s.status === "completed"
-                              ? "bg-blue300 text-blue400 border border-blue400"
-                              : "bg-blue500 text-white border border-slate400"
-                    }`}
-                  >
-                    {s.status}
-                  </span>
+                      className={`text-xs col-span-1 uppercase rounded px-2 py-1 inline-flex justify-center font-medium ${
+                        s.status === "live"
+                          ? "bg-green450 text-green350 border border-green350"
+                          : s.status === "delayed"
+                            ? "bg-brown200 text-yellow400 border border-yellow400"
+                            : s.status === "cancelled"
+                              ? "bg-red200 text-red100 border border-red100"
+                              : s.status === "completed"
+                                ? "bg-blue300 text-blue400 border border-blue400"
+                                : "bg-blue500 text-white border border-slate400"
+                      }`}
+                    >
+                      {s.status}
+                    </span>
+                    <button
+                      onClick={() => handleActiveDropdown(s.id)}
+                      className="cursor-pointer"
+                    >
+                      <Ellipsis className="text-white w-5 h-5" />
+                    </button>
+
+                    {activeDropdown === s.id && (
+                      <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                        <Link
+                          to="/session-form"
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                        >
+                          <Pencil className="w-4 h-4 text-black" /> Edit
+                        </Link>
+                        <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
+                          <Trash className="w-4 h-4 text-red" /> Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -180,9 +209,7 @@ function Session() {
             </button>
             <button
               onClick={() =>
-                setPage((p) =>
-                  data ? Math.min(data.last_page, p + 1) : p + 1,
-                )
+                setPage((p) => (data ? Math.min(data.last_page, p + 1) : p + 1))
               }
               disabled={!data || page >= (data?.last_page ?? 1)}
               className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"

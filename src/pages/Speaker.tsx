@@ -129,9 +129,12 @@ function Speaker() {
 
                     {activeDropdown === s.id && (
                       <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                        <button className="flex items-center gap-1.5 text-black font-dmSans text-xs">
+                        <Link
+                          to="/speaker-form"
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                        >
                           <Pencil className="w-4 h-4 text-black" /> Edit
-                        </button>
+                        </Link>
                         <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
                           <Trash className="w-4 h-4 text-red" /> Delete
                         </button>
