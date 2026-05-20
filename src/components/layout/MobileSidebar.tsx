@@ -29,7 +29,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const items = [
-  { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
+  { to: "/investlagos", label: "Overview", icon: LayoutDashboard, end: true },
   { to: "/executive-view", label: "Executive View", icon: Target },
   { to: "/command-center", label: "Command Center", icon: Command },
   { to: "/programme", label: "Programme Tracker", icon: CalendarClock },

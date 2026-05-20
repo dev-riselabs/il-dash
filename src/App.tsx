@@ -38,6 +38,7 @@ import AttendeeFormIntegrated from "./pages/AttendeeFormIntegrated";
 import SpeakerFormIntegrated from "./pages/SpeakerFormIntegrated";
 import SessionFormIntegrated from "./pages/SessionFormIntegrated";
 import FeedbackFormIntegrated from "./pages/FeedbackFormIntegrated";
+import About from "./pages/About";
 
 
 function AuthedShell() {
