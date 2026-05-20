@@ -110,9 +110,13 @@ export default function Overview() {
             emptyLabel="No sessions scheduled yet."
           >
             <div className="border-l-4 border-l-cyan py-6 pr-2 pl-7 flex flex-col gap-4">
-              <h3 className="font-lexend text-base font-medium text-cyan pl-8">CURRENT SESSION</h3>
+              <h3 className="font-lexend text-base font-medium text-cyan pl-8">
+                CURRENT SESSION
+              </h3>
+              <div className="overflow-y-auto h-100 pl-4">
+              <div className="flex flex-col pl-6 gap-6 border-l-2 border-l-white/55 relative ">
               {liveSession ? (
-                <div className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg">
+                <div  className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-['1'] after:absolute after:bg-red after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4">
                   <div className="flex flex-col gap-3">
                     <span className="font-lexend text-white text-xs font-light">
                       {fmtRange(liveSession.starts_at, liveSession.ends_at)}
@@ -151,6 +155,7 @@ export default function Overview() {
                   <div className="text-white/60 text-xs font-lexend">No upcoming sessions queued.</div>
                 )}
               </div>
+              </div>
             </div>
             <div className="border border-white/35 py-4 px-6 mt-2">
               <div className="flex flex-col gap-2">
@@ -165,8 +170,14 @@ export default function Overview() {
                         {s.description ?? s.venue?.name ?? ""}
                       </p>
                     </div>
-                    <div className="uppercase text-xs text-green font-semibold">completed</div>
-                  </div>
+                    <div className="flex flex-col gap-2">
+                          <div className=" uppercase text-xs text-green font-semibold">
+                          completed
+                        </div>
+                        <Link to='/feedback-form' className="text-white bg-red100 px-1.5 py-1.5 rounded-md text-xs font-semibold">Give Feedback</Link>
+
+                        </div>
+                        </div>
                 ))}
                 {completedSessions.length === 0 && (
                   <div className="text-white/60 text-xs font-lexend">No completed sessions yet.</div>
