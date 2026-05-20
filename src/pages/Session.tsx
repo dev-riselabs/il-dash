@@ -149,7 +149,7 @@ function Session() {
                   <span className="text-white text-sm col-span-1 truncate">
                     {s.sector?.name ?? "—"}
                   </span>
-                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
+                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
                   <span
                       className={`text-xs col-span-1 uppercase rounded px-2 py-1 inline-flex justify-center font-medium ${
                         s.status === "live"
