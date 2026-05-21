@@ -8,12 +8,12 @@ function FeedbackForm() {
     setRating(value);
   }
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 max-w-3xl w-full">
       <section className="border border-white/55 rounded-2xl flex flex-col gap-3 p-5 lg:px-7.5 lg:py-9 border-l-4 border-l-orange500">
-        <h1 className="text-3xl font-semibold font-lexend text-white">
+        <h1 className="text-2xl md:text-3xl font-semibold font-lexend text-white">
           Feedback Form
         </h1>
-        <p className="text-base font-lexend text-white">
+        <p className="text-sm md:text-base font-lexend text-white">
           Here’s for the feedback description
         </p>
       </section>

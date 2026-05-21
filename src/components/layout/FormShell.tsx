@@ -9,7 +9,7 @@ export function FormShell({ children }: Props) {
     <div className="flex flex-col lg:h-screen w-screen bg-black100 overflow-hidden">
       {/* MAIN AREA */}
 
-      <div className="flex flex-col flex-1 gap-8 min-w-0 px-8 min-h-0 overflow-y-auto pb-20">
+      <div className="flex flex-col flex-1 gap-8 min-w-0 px-4 md:px-8 min-h-0 overflow-y-auto pb-20">
         <div className="flex flex-col border border-white/55 rounded-b-3xl">
           <div className="flex flex-col gap-2 pt-2">
             <div className="w-full h-4 bg-neutral500"></div>
@@ -21,7 +21,7 @@ export function FormShell({ children }: Props) {
           </div>
         </div>
 
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 flex justify-center">{children}</main>
       </div>
 
       {/* FULL WIDTH FOOTER */}
@@ -31,7 +31,7 @@ export function FormShell({ children }: Props) {
           Limited.
           <img src="/events-intel.png" alt="" className="h-10" />
         </div>
-        <div className="text-[10px] sm:text-xs text-white font-lexend flex items-center justify-center gap-1.5">
+        <div className="text-[10px] sm:text-xs text-white font-lexend flex items-center justify-between gap-1.5">
           AI Deployment Partner
           <img src="/rise-networks-logo.png" alt="" className="h-10" />
         </div>

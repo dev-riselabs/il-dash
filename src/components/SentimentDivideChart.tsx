@@ -138,17 +138,19 @@ export default function SentimentDivideChart() {
   };
 
   return (
-    <div className="w-full rounded-2xl border border-white/55 p-6 space-y-6">
+    <div className="w-full rounded-2xl border border-white/55 p-4 sm:p-6 space-y-6">
       <h4 className="font-dmSans text-white font-medium text-base uppercase">
         Sentiment Divide
       </h4>
 
-      <div className="h-70">
+<div className="overflow-x-auto">
+      <div className="h-70 min-w-120">
         <Bar
           data={data}
           options={options}
           plugins={[valueLabelsPlugin, coloredDotsPlugin]}
         />
+      </div>
       </div>
     </div>
   );

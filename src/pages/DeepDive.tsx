@@ -21,7 +21,7 @@ function DeepDive() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="border border-white rounded-md p-2 flex items-center gap-2 min-w-70">
+          <div className="border border-white rounded-md p-2 flex items-center gap-2 min-w-50 sm:min-w-70">
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
               type="search"
@@ -43,7 +43,8 @@ function DeepDive() {
       <SentimentDivideChart />
 
       <section className="border border-white/55 rounded-2xl p-5 md:px-7.5 flex flex-col gap-6">
-        <div className="flex flex-col gap-8">
+      <div className="overflow-x-auto">
+        <div className="flex flex-col gap-8 min-w-140">
           <div className="flex items-center justify-between">
             <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">SECTOR</h5>
             <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">KEY QUOTE</h5>
@@ -59,6 +60,7 @@ function DeepDive() {
               </div>)
             }
           </div>
+        </div>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
@@ -79,7 +81,8 @@ function DeepDive() {
       </section>
 
       <section className="border border-white/55 rounded-2xl p-5 md:px-7.5 flex flex-col gap-6">
-        <div className="flex flex-col gap-8">
+      <div className="overflow-x-auto">
+        <div className="flex flex-col gap-8 min-w-120">
           <div className="flex items-center justify-between">
             <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">SECTOR</h5>
             <h5 className="font-dmSans text-cyan text-base uppercase font-semibold">RESOLUTION / OUTCOME</h5>
@@ -95,6 +98,7 @@ function DeepDive() {
               </div>)
             }
           </div>
+        </div>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-lexend text-white">

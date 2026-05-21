@@ -13,7 +13,7 @@ function SessionQuotes() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <div className="border border-white rounded-md p-2 flex items-center gap-2 min-w-70">
+          <div className="border border-white rounded-md p-2 flex items-center gap-2 min-w-60 sm:min-w-70">
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
               type="search"
@@ -33,17 +33,18 @@ function SessionQuotes() {
       </section>
 
       <section className="flex flex-col gap-10 border border-white rounded-2xl py-6 px-4 lg:p-6">
-        <div className="flex flex-col gap-8">
-            <div className="grid grid-cols-5 gap-10 font-dmSans">
-                <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-1">TIMESTAMP <CalendarDays className="text-white w-3 h-3"/></h6>
+        <div className="overflow-x-auto">
+        <div className="flex flex-col gap-8 min-w-240">
+            <div className="grid grid-cols-7 gap-5 font-dmSans">
+                <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-2">TIMESTAMP <CalendarDays className="text-white w-3 h-3"/></h6>
                 <h6 className="text-cyan text-base font-semibold col-span-1">SESSION NAME</h6>
                 <h6 className="text-cyan text-base font-semibold col-span-1">SPEAKER NAME</h6>
-                <h6 className="text-cyan text-base font-semibold col-span-2">KEY QUOTE</h6>
+                <h6 className="text-cyan text-base font-semibold col-span-3">KEY QUOTE</h6>
             </div>
             <div className="flex flex-col gap-6">
                 {
-                    [1,2,3,4,5,6,7].map((i) => <div key={i} className="grid grid-cols-5 gap-10 font-dmSans">
-                        <div className="flex items-center gap-2 text-white text-sm col-span-1 font-dmSans">
+                    [1,2,3,4,5,6,7].map((i) => <div key={i} className="grid grid-cols-7 gap-5 font-dmSans">
+                        <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
                             <CalendarDays className="text-white w-3 h-3"/>
                             7 May, 2026, 17:08:12
                         </div>
@@ -52,10 +53,11 @@ function SessionQuotes() {
                             <CalendarDays className="text-white w-3 h-3"/>
                             Dr. Nneka Eze
                         </div>
-                        <span className="text-white text-sm col-span-2">“We are removing every barrier except excellence.”</span>
+                        <span className="text-white text-sm col-span-3">“We are removing every barrier except excellence.”</span>
                     </div>)
                 }
             </div>
+        </div>
         </div>
         <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
