@@ -1,14 +1,54 @@
 import SectionBySectorChart from "@/components/IntelligenceSectorChart";
 import IntelligenceSentimentTrendChart from "@/components/IntelligenceSentimentChart";
+import { QueryState } from "@/components/ui/QueryState";
 import { CircleArrowUp } from "lucide-react";
 
-const kpis = [
-  { label: "Total Attendance", value: "1200", delta: "4.5%" },
-  { label: "Total Sessions", value: "32", delta: "4.5%" },
-  { label: "Average Sentiment", value: "59.38%", delta: "4.5%" },
-];
+import {
+  useIntelligenceKpis,
+  useSectors,
+  useSentimentBySector,
+  useSentimentTrend,
+} from "@/lib/api/hooks";
+import { fmtNumber, fmtPercent } from "@/lib/api/format";
 
 function IntelligenceDashboard() {
+  const kpisQ = useIntelligenceKpis();
+  const trendQ = useSentimentTrend(14);
+  const bySectorQ = useSentimentBySector();
+  const sectorsQ = useSectors();
+
+  const k = kpisQ.data;
+  const kpis = [
+    {
+      label: "Total Signals",
+      value: fmtNumber(k?.total_signals ?? 0),
+      delta: "Live",
+    },
+    {
+      label: "Positive Sentiment",
+      value: fmtPercent(k?.positive_pct ?? 0, 1),
+      delta: "Today",
+    },
+    {
+      label: "Quotes Captured",
+      value: fmtNumber(k?.quotes_count ?? 0),
+      delta: "Live",
+    },
+  ];
+
+  const sectorNameById = new Map<number, string>();
+  (sectorsQ.data ?? []).forEach((s) => sectorNameById.set(s.id, s.name));
+  const sectorPoints = (bySectorQ.data ?? [])
+    .filter((p) => p.scope === "sector" && p.scope_id != null)
+    .map((p) => ({
+      label:
+        sectorNameById.get(p.scope_id as number) ??
+        `Sector #${p.scope_id}`,
+      value: Math.round(p.positive_pct),
+    }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 8);
+
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -46,7 +86,7 @@ function IntelligenceDashboard() {
                               : "text-white"
                   }`}
                 >
-                  {value}
+                  {kpisQ.isLoading ? "…" : value}
                 </div>
               </div>
               <div className="w-16 h-16">
@@ -60,8 +100,25 @@ function IntelligenceDashboard() {
         ))}
       </div>
 
-      <SectionBySectorChart />
-      <IntelligenceSentimentTrendChart />
+      <QueryState
+        isLoading={bySectorQ.isLoading || sectorsQ.isLoading}
+        isError={bySectorQ.isError}
+        error={bySectorQ.error as { message?: string } | null}
+        isEmpty={sectorPoints.length === 0}
+        emptyLabel="No sector sentiment yet."
+      >
+        <SectionBySectorChart points={sectorPoints} />
+      </QueryState>
+
+      <QueryState
+        isLoading={trendQ.isLoading}
+        isError={trendQ.isError}
+        error={trendQ.error as { message?: string } | null}
+        isEmpty={(trendQ.data ?? []).length === 0}
+        emptyLabel="No sentiment trend yet."
+      >
+        <IntelligenceSentimentTrendChart points={trendQ.data} />
+      </QueryState>
     </section>
   );
 }

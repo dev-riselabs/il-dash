@@ -1,0 +1,36 @@
+import { ReactNode } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useAuth } from '@/lib/auth/store'
+import { Loader } from 'lucide-react'
+
+interface ProtectedRouteProps {
+  children: ReactNode
+  requiredRoles?: Array<'super_admin' | 'admin' | 'operator'>
+}
+
+export function ProtectedRoute({ children, requiredRoles = [] }: ProtectedRouteProps) {
+  const { user, loading } = useAuth((s) => ({
+    user: s.user,
+    loading: s.loading,
+  }))
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader className="w-8 h-8 animate-spin text-cyan-500" />
+      </div>
+    )
+  }
+
+  // Not authenticated at all
+  if (!user) {
+    return <Navigate to="/" replace />
+  }
+
+  // If specific roles are required, check if user has one
+  if (requiredRoles.length > 0 && !requiredRoles.includes(user.role)) {
+    return <Navigate to="/" replace />
+  }
+
+  return <>{children}</>
+}

@@ -1,5 +1,9 @@
 import { Routes, Route, Outlet } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
+import { AuthGate } from "@/lib/auth/AuthGate";
+import { useAuth } from "@/lib/auth/store";
+import { useRealtimeInvalidations } from "@/lib/realtime/useRealtime";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
 import Overview from "@/pages/Overview";
 import InvestmentHeatmap from "./pages/InvestmentHeatmap";
 import ResolutionBoard from "./pages/ResolutionBoard";
@@ -12,8 +16,8 @@ import Reports from "./pages/Reports";
 import NextActionTracker from "./pages/NextActionTracker";
 import GlobalInvesorMap from "./pages/GlobalInvesorMap";
 import ExecutiveView from "./pages/ExecutiveView";
-import CommandCenter from "./pages/CommandCenter";
 import ProgrammeTracker from "./pages/ProgrammeTracker";
+import CommandCenter from "./pages/CommandCenter";
 import DealRoomTracker from "./pages/DealRoomTracker";
 import SecuritySafety from "./pages/SecuritySafety";
 import SessionQuotes from "./pages/SessionQuotes";
@@ -24,17 +28,25 @@ import AdudienceFeedback from "./pages/AudienceFeedback";
 import IntelligenceDashboard from "./pages/IntelligenceDashboard";
 import DeepDive from "./pages/DeepDive";
 import KeyInsight from "./pages/KeyInsight";
-import FeedbackForm from "./pages/FeedbackForm";
 import { FormShell } from "./components/layout/FormShell";
-import SessionForm from "./pages/SessionForm";
-import SpeakerForm from "./pages/SpeakerForm";
-import AttendeeForm from "./pages/AttendeeForm";
 import LandingShell from "./components/layout/LandingShell";
 import Welcome from "./pages/Welcome";
+import SignupAdminPage from "./pages/SignupAdminPage";
+import UserManagementPage from "./pages/UserManagementPage";
+import AttendeeFormIntegrated from "./pages/AttendeeFormIntegrated";
+import SpeakerFormIntegrated from "./pages/SpeakerFormIntegrated";
+import SessionFormIntegrated from "./pages/SessionFormIntegrated";
+import FeedbackFormIntegrated from "./pages/FeedbackFormIntegrated";
+import AttendanceManagementPage from "./pages/AttendanceManagementPage";
 import About from "./pages/About";
 import DemoForm from "./pages/DemoForm";
 
-function AppShellLayout() {
+
+
+function AuthedShell() {
+  const authed = useAuth((s) => !!s.user);
+  useRealtimeInvalidations(authed);
+
   return (
     <AppShell>
       <Outlet />
@@ -61,8 +73,15 @@ function LandingShellLayout() {
 function App() {
   return (
     <Routes>
-      {/* Dashboard layout */}
-      <Route element={<AppShellLayout />}>
+      {" "}
+      {/* Protected Routes */}
+      <Route
+        element={
+          <AuthGate>
+            <AuthedShell />
+          </AuthGate>
+        }
+      >
         <Route path="/investlagos" element={<Overview />} />
         <Route path="/programme" element={<ProgrammeTracker />} />
         <Route path="/insights" element={<SessionInsight />} />
@@ -79,32 +98,47 @@ function App() {
         <Route path="/next-action-tracker" element={<NextActionTracker />} />
         <Route path="/executive-view" element={<ExecutiveView />} />
         <Route path="/command-center" element={<CommandCenter />} />
-        <Route path="/session-quotes" element={<SessionQuotes />} />{" "}
-        <Route path="/attendance" element={<Attendance />} />{" "}
-        <Route path="/speaker" element={<Speaker />} />{" "}
-        <Route path="/session" element={<Session />} />{" "}
-        <Route path="/audience-feedback" element={<AdudienceFeedback />} />{" "}
+        <Route path="/session-quotes" element={<SessionQuotes />} />
+        <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendance-management" element={<AttendanceManagementPage />} />
+        <Route path="/speaker" element={<Speaker />} />
+        <Route path="/session" element={<Session />} />
+        <Route path="/audience-feedback" element={<AdudienceFeedback />} />
         <Route
           path="/intelligence-dashboard"
           element={<IntelligenceDashboard />}
-        />{" "}
-        <Route path="/deep-dive" element={<DeepDive />} />{" "}
+        />
+        <Route path="/deep-dive" element={<DeepDive />} />
         <Route path="/key-insight" element={<KeyInsight />} />
+        <Route
+          path="/user-management"
+          element={
+            <ProtectedRoute
+              requiredRoles={["super_admin", "admin", "operator"]}
+            >
+              <UserManagementPage />
+            </ProtectedRoute>
+          }
+        />
       </Route>
-
-      {/* Form layout */}
+      {/* Form Routes */}
       <Route element={<FormShellLayout />}>
-        <Route path="/feedback-form" element={<FeedbackForm />} />
-        <Route path="/session-form" element={<SessionForm />} />
-        <Route path="/speaker-form" element={<SpeakerForm/>} />
-        <Route path="/attendee-form" element={<AttendeeForm/>} />
+        <Route path="/feedback-form" element={<FeedbackFormIntegrated />} />
+        <Route path="/session-form" element={<SessionFormIntegrated />} />
+        <Route path="/speaker-form" element={<SpeakerFormIntegrated />} />
+        <Route path="/attendee-form" element={<AttendeeFormIntegrated />} />
+        <Route
+          path="/signup-admin"
+          element={
+            <ProtectedRoute requiredRoles={["super_admin"]}>
+              <SignupAdminPage />
+            </ProtectedRoute>
+          }
+        />
       </Route>
-
-      {/* Landing layout  */}
       <Route element={<LandingShellLayout />}>
-      <Route path='/' element={<Welcome/>}/>
-      <Route path='/about' element={<About/>}/>
-      <Route path='/demo-form' element={<DemoForm/>}/>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/about" element={<About />} />
       </Route>
     </Routes>
   );

@@ -12,9 +12,24 @@ import { Bar } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-export default function SentimentDivideChart() {
+interface DivideProps {
+  positive?: number;
+  neutral?: number;
+  negative?: number;
+}
+
+export default function SentimentDivideChart({
+  positive,
+  neutral,
+  negative,
+}: DivideProps = {}) {
   const labels = ["Positive", "Neutral", "Negative"];
-  const values = [18, 18, 2];
+  const values = [
+    Math.round(positive ?? 18),
+    Math.round(neutral ?? 18),
+    Math.round(negative ?? 2),
+  ];
+  const max = Math.max(35, ...values) + 5;
 
   const dotColors = [
     "#72CC88", // Green
@@ -59,7 +74,7 @@ export default function SentimentDivideChart() {
     scales: {
       x: {
         min: 0,
-        max: 35,
+        max,
         grid: {
           color: "rgba(255,255,255,0.08)",
           tickBorderDash: [2, 4], // Use this instead of borderDash

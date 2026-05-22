@@ -1,6 +1,31 @@
-import { CalendarDays, ChevronsLeft, ChevronsRight, Download, Funnel, Search } from "lucide-react";
+import { useState } from "react";
+import {
+  CalendarDays,
+  ChevronsLeft,
+  ChevronsRight,
+  Download,
+  Funnel,
+  Search,
+} from "lucide-react";
+
+import { QueryState } from "@/components/ui/QueryState";
+import { useQuotes } from "@/lib/api/hooks";
+import { fmtDateTime, fullName } from "@/lib/api/format";
+
+const PER_PAGE = 10;
 
 function SessionQuotes() {
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  const { data, isLoading, isError, error } = useQuotes({
+    page,
+    per_page: PER_PAGE,
+    search: search.trim() || undefined,
+  });
+
+  const rows = data?.data ?? [];
+
   return (
     <section className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
@@ -17,10 +42,13 @@ function SessionQuotes() {
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
               type="search"
-              name=""
-              id=""
-              placeholder="Search sessions, speakers or quotes...."
-              className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
+              value={search}
+              onChange={(e) => {
+                setPage(1);
+                setSearch(e.target.value);
+              }}
+              placeholder="Search sessions, speakers or quotes..."
+              className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1 bg-transparent"
             />
           </div>
           <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
@@ -34,41 +62,80 @@ function SessionQuotes() {
 
       <section className="flex flex-col gap-10 border border-white rounded-2xl py-6 px-4 lg:p-6">
         <div className="overflow-x-auto">
-        <div className="flex flex-col gap-8 min-w-240">
-            <div className="grid grid-cols-7 gap-5 font-dmSans">
-                <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-2">TIMESTAMP <CalendarDays className="text-white w-3 h-3"/></h6>
-                <h6 className="text-cyan text-base font-semibold col-span-1">SESSION NAME</h6>
-                <h6 className="text-cyan text-base font-semibold col-span-1">SPEAKER NAME</h6>
-                <h6 className="text-cyan text-base font-semibold col-span-3">KEY QUOTE</h6>
+          <div className="flex flex-col gap-8 min-w-240">
+            <div className="grid grid-cols-5 gap-10 font-dmSans">
+              <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-1">
+                RECORDED <CalendarDays className="text-white w-3 h-3" />
+              </h6>
+              <h6 className="text-cyan text-base font-semibold col-span-1">
+                SESSION NAME
+              </h6>
+              <h6 className="text-cyan text-base font-semibold col-span-1">
+                SPEAKER NAME
+              </h6>
+              <h6 className="text-cyan text-base font-semibold col-span-2">
+                KEY QUOTE
+              </h6>
             </div>
-            <div className="flex flex-col gap-6">
-                {
-                    [1,2,3,4,5,6,7].map((i) => <div key={i} className="grid grid-cols-7 gap-5 font-dmSans">
-                        <div className="flex items-center gap-2 text-white text-sm col-span-2 font-dmSans">
-                            <CalendarDays className="text-white w-3 h-3"/>
-                            7 May, 2026, 17:08:12
-                        </div>
-                        <span className="text-white text-sm col-span-1">Opening Keynote</span>
-                        <div className="flex items-center gap-2 text-white text-sm col-span-1 font-dmSans">
-                            <CalendarDays className="text-white w-3 h-3"/>
-                            Dr. Nneka Eze
-                        </div>
-                        <span className="text-white text-sm col-span-3">“We are removing every barrier except excellence.”</span>
-                    </div>)
-                }
-            </div>
-        </div>
+
+            <QueryState
+              isLoading={isLoading}
+              isError={isError}
+              error={error as { message?: string } | null}
+              isEmpty={rows.length === 0}
+              emptyLabel="No quotes captured yet."
+            >
+              <div className="flex flex-col gap-6">
+                {rows.map((q) => (
+                  <div
+                    key={q.id}
+                    className="grid grid-cols-5 gap-10 font-dmSans items-start"
+                  >
+                    <div className="flex items-center gap-2 text-white text-sm col-span-1 font-dmSans">
+                      <CalendarDays className="text-white w-3 h-3" />
+                      {fmtDateTime(q.recorded_at)}
+                    </div>
+                    <span className="text-white text-sm col-span-1 truncate">
+                      {q.session?.title ?? "—"}
+                    </span>
+                    <div className="flex items-center gap-2 text-white text-sm col-span-1 font-dmSans truncate">
+                      {q.speaker ? fullName(q.speaker) : "—"}
+                    </div>
+                    <span className="text-white text-sm col-span-2 italic">
+                      “{q.body}”
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </QueryState>
+          </div>
         </div>
         <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
-                <span>Showing</span>
-                <span>1 to 5 of 120</span>
-                <span>deals</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-                <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center"> <ChevronsLeft className="text-white w-4 h-4"/></button>
-                <button className="w-6 h-6 border border-white rounded-lg flex items-center justify-center"><ChevronsRight className="text-white w-4 h-4"/></button>
-            </div>
+          <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
+            <span>Showing</span>
+            <span>
+              {data?.from ?? 0} to {data?.to ?? 0} of {data?.total ?? 0}
+            </span>
+            <span>quotes</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page <= 1}
+              className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
+            >
+              <ChevronsLeft className="text-white w-4 h-4" />
+            </button>
+            <button
+              onClick={() =>
+                setPage((p) => (data ? Math.min(data.last_page, p + 1) : p + 1))
+              }
+              disabled={!data || page >= (data?.last_page ?? 1)}
+              className="w-6 h-6 border border-white rounded-lg flex items-center justify-center disabled:opacity-40"
+            >
+              <ChevronsRight className="text-white w-4 h-4" />
+            </button>
+          </div>
         </div>
       </section>
     </section>

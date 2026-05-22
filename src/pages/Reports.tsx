@@ -1,95 +1,79 @@
 import AttendanceChart from "@/components/AttendanceChart";
 import DonutChart from "@/components/Doughnut";
 import SentimentTrendChart from "@/components/TrendChart";
+import { QueryState } from "@/components/ui/QueryState";
 import { CircleArrowUp } from "lucide-react";
 
-const kpis = [
-  { label: "Sessions", value: "28", delta: "18% vs May 8 - May 9" },
-  { label: "Attendees", value: "1,248", delta: "18% vs Today" },
-  { label: "Investment Signals", value: "68", delta: "6% vs Today" },
-  { label: "Resolutions", value: "17", delta: "6% vs Today" },
-  { label: "Sentiment Score", value: "78 /100", delta: "3% vs Today" },
-];
+import {
+  useAnalyticsByCategory,
+  useExecutiveKpis,
+  useFeedbackKpis,
+  useHeatmapSectors,
+  useIntelligenceKpis,
+  useReportKpis,
+  useReports as useReportList,
+  useSessionRatings,
+  useSocialKpis,
+} from "@/lib/api/hooks";
+import { fmtCompact, fmtDateTime, fmtNumber, fmtPercent } from "@/lib/api/format";
 
-const reports = [
-  {
-    session: "Executive Summary Report (May 8 - 10)",
-    location: "Main Hall",
-    attendOne: "Standard",
-    attendTwo: "May",
-    attendThree: "562",
-    attendFour: "562",
-  },
-  {
-    session: "Lagos Tech & Innovation Hub",
-    location: "Hall B",
-    attendOne: "Standard",
-    attendTwo: "May",
-    attendThree: "562",
-    attendFour: "562",
-  },
-  {
-    session: "Energy Transition Dialogue",
-    location: "Hall B",
-    attendOne: "Standard",
-    attendTwo: "May",
-    attendThree: "562",
-    attendFour: "562",
-  },
-  {
-    session: "Healthcare Investment Outlook",
-    location: "Hall A",
-    attendOne: "Standard",
-    attendTwo: "May",
-    attendThree: "562",
-    attendFour: "562",
-  },
-  {
-    session: "Financing Sustainable Cities",
-    location: "Hall C",
-    attendOne: "Standard",
-    attendTwo: "May",
-    attendThree: "562",
-    attendFour: "562",
-  },
-];
-
-const attendance = [
-  {
-    session: "Unlocking Africa’s Infrastructure Future",
-    location: "Main Hall",
-    attendee: "532",
-  },
-  {
-    session: "Lagos Tech & Innovation Hub",
-    location: "Main Hall",
-    attendee: "532",
-  },
-  {
-    session: "Energy Transition Dialogue",
-    location: "Main Hall",
-    attendee: "532",
-  },
-  {
-    session: "Healthcare Investment Outlook",
-    location: "Main Hall",
-    attendee: "532",
-  },
-  {
-    session: "Financing Sustainable Cities",
-    location: "Main Hall",
-    attendee: "532",
-  },
-];
-
-const engagements = [
-  { title: "Social Media Mentions", value: "3,842" },
-  { title: "Unique Authors", value: "2,198" },
-  { title: "Total Reach", value: "1.26M" },
-  { title: "Engagements", value: "28.7K" },
-];
+const DONUT_COLORS = ["#CB3CFF", "#13A13E", "#F66202", "#0088FF", "#FFCC00", "#9747FF", "#9A9DA6"];
 
 function Reports() {
+  const execQ = useExecutiveKpis();
+  const intelQ = useIntelligenceKpis();
+  const reportKpisQ = useReportKpis();
+  const byCategoryQ = useAnalyticsByCategory();
+  const heatmapSectorsQ = useHeatmapSectors();
+  const ratingsQ = useSessionRatings();
+  const socialKpisQ = useSocialKpis();
+  const feedbackKpisQ = useFeedbackKpis();
+  const reportsQ = useReportList({ per_page: 5 });
+
+  const e = execQ.data;
+  const intel = intelQ.data;
+  const r = reportKpisQ.data;
+  const f = feedbackKpisQ.data;
+  const s = socialKpisQ.data;
+
+  const sessionsTotal = (e?.sessions_completed ?? 0) + (e?.sessions_live ?? 0);
+  const kpis = [
+    { label: "Sessions", value: fmtNumber(sessionsTotal), delta: "Completed + Live" },
+    { label: "Attendees", value: fmtNumber(e?.attendance ?? 0), delta: "Checked in" },
+    { label: "Investment Signals", value: fmtNumber(intel?.total_signals ?? 0), delta: "Live" },
+    { label: "Reports", value: `${fmtNumber(r?.ready ?? 0)} / ${fmtNumber(r?.total ?? 0)}`, delta: "Ready" },
+    { label: "Avg Rating", value: f?.avg_rating != null ? `${f.avg_rating.toFixed(1)} /5` : "—", delta: "Feedback" },
+  ];
+
+  const categoryDonut = (byCategoryQ.data ?? []).map((row, i) => ({
+    label: row.category ?? "Other",
+    value: row.count,
+    color: DONUT_COLORS[i % DONUT_COLORS.length],
+  }));
+
+  const sectorDonut = (heatmapSectorsQ.data ?? [])
+    .slice()
+    .sort((a, b) => b.signals_count - a.signals_count)
+    .slice(0, 6)
+    .map((row, i) => ({
+      label: row.sector?.name ?? `Sector #${row.sector_id}`,
+      value: row.signals_count,
+      color: DONUT_COLORS[i % DONUT_COLORS.length],
+    }));
+
+  const topRatings = (ratingsQ.data ?? [])
+    .slice()
+    .sort((a, b) => b.average_rating_x10 - a.average_rating_x10)
+    .slice(0, 5);
+
+  const engagements = [
+    { title: "Social Media Mentions", value: fmtNumber(s?.total_mentions ?? 0) },
+    { title: "Positive Sentiment", value: fmtPercent(s?.positive_pct ?? 0, 1) },
+    { title: "Total Reach", value: fmtCompact(s?.total_reach ?? 0) },
+    { title: "Impressions", value: fmtCompact(s?.total_impressions ?? 0) },
+  ];
+
+  const reports = reportsQ.data?.data ?? [];
   return (
     <section className="space-y-6">
       <div className="space-y-2">
@@ -153,17 +137,15 @@ function Reports() {
               View full breakdown
             </button>
           </div>
-          <DonutChart
-            data={[
-              { label: "Investors", value: 474, color: "#CB3CFF" },
-              { label: "Government", value: 225, color: "#13A13E" },
-              { label: "Private Sector", value: 200, color: "#F66202" },
-              { label: "Development Partners", value: 137, color: "#CB3CFF" },
-              { label: "Academics", value: 87, color: "#13A13E" },
-              { label: "Media", value: 66, color: "#F66202" },
-              { label: "Other", value: 62, color: "#CB3CFF" },
-            ]}
-          />
+          <QueryState
+            isLoading={byCategoryQ.isLoading}
+            isError={byCategoryQ.isError}
+            error={byCategoryQ.error as { message?: string } | null}
+            isEmpty={categoryDonut.length === 0}
+            emptyLabel="No attendee categories yet."
+          >
+            <DonutChart data={categoryDonut} />
+          </QueryState>
         </div>
 
         <div className="border border-white/55 rounded-2xl py-5 px-5 sm:px-7.5 flex flex-col gap-6 lg:col-span-6 ">
@@ -175,16 +157,15 @@ function Reports() {
               View all report
             </button>
           </div>
-          <DonutChart
-            data={[
-              { label: "Infrastructure", value: 26, color: "#CB3CFF" },
-              { label: "Technology", value: 15, color: "#13A13E" },
-              { label: "Energy", value: 10, color: "#F66202" },
-              { label: "Healthcare", value: 8, color: "#CB3CFF" },
-              { label: "Transportation", value: 5, color: "#13A13E" },
-              { label: "Other", value: 4, color: "#F66202" },
-            ]}
-          />
+          <QueryState
+            isLoading={heatmapSectorsQ.isLoading}
+            isError={heatmapSectorsQ.isError}
+            error={heatmapSectorsQ.error as { message?: string } | null}
+            isEmpty={sectorDonut.length === 0}
+            emptyLabel="No sector signals yet."
+          >
+            <DonutChart data={sectorDonut} />
+          </QueryState>
         </div>
       </section>
 
@@ -200,64 +181,63 @@ function Reports() {
           </button>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-180">
-            <thead className="mb-5">
-              <tr>
-                <th className="text-base font-semibold uppercase font-dmSans text-white text-left pb-6">
-                  SESSION
-                </th>
-                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                  ATTENDEES
-                </th>
-                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                  ATTENDEES
-                </th>
-                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                  ATTENDEES
-                </th>
-                <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
-                  ATTENDEES
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {reports.map(
-                ({
-                  session,
-                  location,
-                  attendFour,
-                  attendOne,
-                  attendThree,
-                  attendTwo,
-                }) => (
-                  <tr key={session} className="">
+        <QueryState
+          isLoading={reportsQ.isLoading}
+          isError={reportsQ.isError}
+          error={reportsQ.error as { message?: string } | null}
+          isEmpty={reports.length === 0}
+          emptyLabel="No reports generated yet."
+        >
+          <div className="overflow-x-auto">
+            <table className="min-w-180 w-full">
+              <thead className="mb-5">
+                <tr>
+                  <th className="text-base font-semibold uppercase font-dmSans text-white text-left pb-6">
+                    REPORT
+                  </th>
+                  <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                    KIND
+                  </th>
+                  <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                    STATUS
+                  </th>
+                  <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                    FORMAT
+                  </th>
+                  <th className="text-base font-semibold uppercase font-dmSans text-white text-center pb-6">
+                    CREATED
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {reports.map((rep) => (
+                  <tr key={rep.id}>
                     <td className="flex flex-col gap-1 pb-4">
                       <span className="text-sm font-semibold font-dmSans text-white text-left ">
-                        {session}
+                        {rep.name}
                       </span>
                       <span className="text-xs font-light font-dmSans text-white text-left">
-                        {location}
+                        {rep.file_url ? "Available" : "Processing"}
                       </span>
                     </td>
-                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                      {attendOne}
+                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4 capitalize">
+                      {rep.kind}
+                    </td>
+                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4 capitalize">
+                      {rep.status}
+                    </td>
+                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4 uppercase">
+                      {rep.format ?? "—"}
                     </td>
                     <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                      {attendTwo}
-                    </td>
-                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                      {attendThree}
-                    </td>
-                    <td className="text-sm font-semibold font-dmSans text-white text-center pb-4">
-                      {attendFour}
+                      {fmtDateTime(rep.created_at)}
                     </td>
                   </tr>
-                ),
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </QueryState>
       </section>
 
       <section className="flex flex-col lg:flex-row gap-5">
@@ -277,30 +257,35 @@ function Reports() {
                 SESSION
               </h5>
               <h5 className="text-sm sm:text-base font-semibold uppercase font-dmSans text-white">
-                ATTENDEES
+                RATING
               </h5>
             </div>
 
-            <div className="flex flex-col gap-4">
-              {attendance.map(({ session, location, attendee }) => (
-                <div
-                  key={session}
-                  className="flex items-center justify-between"
-                >
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm font-semibold font-dmSans text-white text-left ">
-                      {session}
-                    </span>
-                    <span className="text-xs font-light font-dmSans text-white text-left">
-                      {location}
+            <QueryState
+              isLoading={ratingsQ.isLoading}
+              isError={ratingsQ.isError}
+              error={ratingsQ.error as { message?: string } | null}
+              isEmpty={topRatings.length === 0}
+              emptyLabel="No session ratings yet."
+            >
+              <div className="flex flex-col gap-4">
+                {topRatings.map((row) => (
+                  <div
+                    key={row.id}
+                    className="flex items-center justify-between"
+                  >
+                    <div className="flex flex-col gap-1">
+                      <span className="text-sm font-semibold font-dmSans text-white text-left ">
+                        {row.title}
+                      </span>
+                    </div>
+                    <span className="text-sm font-semibold font-dmSans text-white text-center tabular-nums">
+                      {(row.average_rating_x10 / 10).toFixed(1)} / 5
                     </span>
                   </div>
-                  <span className="text-sm font-semibold font-dmSans text-white text-center">
-                    {attendee}
-                  </span>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            </QueryState>
           </div>
         </div>
 
