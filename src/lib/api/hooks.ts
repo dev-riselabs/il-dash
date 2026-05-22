@@ -312,7 +312,11 @@ export function useUpdateActionStatus() {
   return useMutation({
     mutationFn: ({ id, status }: { id: number; status: string }) =>
       patch<ActionItem>(`/api/actions/${id}/status`, { status }),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['actions'] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['actions'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['next-action-tracker'] })
+    },
   })
 }
 
@@ -320,7 +324,11 @@ export function useResolveAlert() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (id: number) => post<Alert>(`/api/alerts/${id}/resolve`),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['alerts'] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['alerts'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['command-center'] })
+    },
   })
 }
 
@@ -328,7 +336,10 @@ export function useMarkAlertRead() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (id: number) => post<Alert>(`/api/alerts/${id}/read`),
-    onSuccess: () => qc.invalidateQueries({ queryKey: ['alerts'] }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['alerts'] })
+      qc.invalidateQueries({ queryKey: ['command-center'] })
+    },
   })
 }
 
@@ -369,6 +380,58 @@ export function useCheckOutAttendee() {
   })
 }
 
+export function useUpdateAttendee() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<Attendee>(`/api/attendees/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['attendees'] })
+      qc.invalidateQueries({ queryKey: ['analytics'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useDeleteAttendee() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/attendees/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['attendees'] })
+      qc.invalidateQueries({ queryKey: ['analytics'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useUpdateFeedback() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<FeedbackSubmission>(`/api/feedback/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['feedback'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['sentiment'] })
+    },
+  })
+}
+
+export function useDeleteFeedback() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/feedback/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['feedback'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['sentiment'] })
+    },
+  })
+}
+
 export function useGenerateReport() {
   const qc = useQueryClient()
   return useMutation({
@@ -387,6 +450,7 @@ export function useCreateAttendee() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['attendees'] })
       qc.invalidateQueries({ queryKey: ['analytics'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -398,6 +462,31 @@ export function useCreateSpeaker() {
       post<Speaker>('/api/speakers', payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['speakers'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useUpdateSpeaker() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<Speaker>(`/api/speakers/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['speakers'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useDeleteSpeaker() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/speakers/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['speakers'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -407,6 +496,30 @@ export function useCreateSession() {
   return useMutation({
     mutationFn: (payload: Record<string, unknown>) =>
       post<EventSession>('/api/sessions', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['sessions'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useUpdateSession() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<EventSession>(`/api/sessions/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['sessions'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useDeleteSession() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/sessions/${id}`),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['sessions'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
@@ -437,6 +550,7 @@ export function useSignupAdmin() {
       post<{ user: User; token: string }>('/api/auth/signup-admin', payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: qk.users.list() })
+      qc.invalidateQueries({ queryKey: ['auth'] })
     },
   })
 }
@@ -448,6 +562,7 @@ export function useCreateUser() {
       post<User>('/api/users', payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: qk.users.list() })
+      qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -460,6 +575,7 @@ export function useUpdateUser() {
     onSuccess: (data) => {
       qc.invalidateQueries({ queryKey: qk.users.list() })
       qc.invalidateQueries({ queryKey: qk.users.detail(data.id) })
+      qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
 }

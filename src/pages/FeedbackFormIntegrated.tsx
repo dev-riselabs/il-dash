@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { feedbackSchema, type FeedbackFormData } from '@/lib/api/schemas'
 import { useCreateFeedback, useSessions } from '@/lib/api/hooks'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
-import { AlertCircle, Loader, Star } from 'lucide-react'
+import { AlertCircle, Loader, Star, ArrowRight } from 'lucide-react'
 
 export default function FeedbackFormIntegrated() {
+  const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   
@@ -38,8 +40,6 @@ export default function FeedbackFormIntegrated() {
       })
       setSubmitted(true)
       reset()
-      // Auto-reset after 5 seconds
-      setTimeout(() => setSubmitted(false), 5000)
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit feedback')
     }
@@ -55,6 +55,13 @@ export default function FeedbackFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Your feedback has been submitted successfully. We appreciate your input!
           </p>
+          <button
+            onClick={() => navigate('/overview')}
+            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
+          >
+            Go to Dashboard
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </section>
       </section>
     )

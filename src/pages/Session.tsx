@@ -13,9 +13,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { QueryState } from "@/components/ui/QueryState";
-import { useSessions } from "@/lib/api/hooks";
+import { useSessions, useDeleteSession } from "@/lib/api/hooks";
 import { fmtDateTime, fullName } from "@/lib/api/format";
-import type { SessionStatus } from "@/lib/api/types";
+import { DownloadModal } from "@/components/ui/DownloadModal";
+import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
+import { SessionEditModal } from "@/components/ui/SessionEditModal";
+import { exportSessionsToExcel, exportSessionsToPDF } from "@/lib/api/export";
+import type { SessionStatus, EventSession } from "@/lib/api/types";
 
 const PER_PAGE = 10;
 const STATUSES: ("" | SessionStatus)[] = [
@@ -28,11 +32,15 @@ const STATUSES: ("" | SessionStatus)[] = [
   "cancelled",
 ];
 
-function Session() {
+function SessionPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState<"" | SessionStatus>("");
   const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  const [downloadOpen, setDownloadOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [selectedSession, setSelectedSession] = useState<EventSession | null>(null);
 
   const { data, isLoading, isError, error } = useSessions({
     page,
@@ -41,9 +49,39 @@ function Session() {
     status: status || undefined,
   });
 
+  const deleteMutation = useDeleteSession();
+
   function handleActiveDropdown(id: number) {
     setActiveDropdown((prev) => (prev === id ? null : id));
   }
+
+  const handleDeleteClick = (session: EventSession) => {
+    setSelectedSession(session);
+    setDeleteOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleEditClick = (session: EventSession) => {
+    setSelectedSession(session);
+    setEditOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (selectedSession) {
+      await deleteMutation.mutateAsync(selectedSession.id);
+      setDeleteOpen(false);
+      setSelectedSession(null);
+    }
+  };
+
+  const handleDownload = async (format: 'excel' | 'pdf') => {
+    if (format === 'excel') {
+      await exportSessionsToExcel(rows);
+    } else if (format === 'pdf') {
+      await exportSessionsToPDF(rows);
+    }
+  };
 
   const rows = data?.data ?? [];
 
@@ -86,7 +124,10 @@ function Session() {
               </option>
             ))}
           </select>
-          <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
+          <button 
+            onClick={() => setDownloadOpen(true)}
+            className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 hover:bg-blue-900 transition-colors"
+          >
             <Download className="w-5 h-5 text-white" />
           </button>
           <Link
@@ -177,13 +218,16 @@ function Session() {
                         >
                           <MessageCircleReply className="w-4 h-4 text-black" /> Give Feedback
                         </Link>}
-                        <Link
-                          to="/session-form"
-                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                        <button
+                          onClick={() => handleEditClick(s)}
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
                         >
                           <Pencil className="w-4 h-4 text-black" /> Edit
-                        </Link>
-                        <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteClick(s)}
+                          className="flex items-center gap-1.5 text-red font-dmSans text-xs hover:opacity-70"
+                        >
                           <Trash className="w-4 h-4 text-red" /> Delete
                         </button>
                       </div>
@@ -222,8 +266,35 @@ function Session() {
           </div>
         </div>
       </section>
+
+      <DownloadModal
+        isOpen={downloadOpen}
+        onClose={() => setDownloadOpen(false)}
+        title="Sessions"
+        onDownload={handleDownload}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        title="Delete Session"
+        message={`Are you sure you want to delete "${selectedSession?.title}"? This action cannot be undone.`}
+        onConfirm={handleDeleteConfirm}
+        isLoading={deleteMutation.isPending}
+      />
+
+      {selectedSession && (
+        <SessionEditModal
+          isOpen={editOpen}
+          onClose={() => {
+            setEditOpen(false);
+            setSelectedSession(null);
+          }}
+          session={selectedSession}
+        />
+      )}
     </section>
   );
 }
 
-export default Session;
+export default SessionPage;

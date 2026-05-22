@@ -54,21 +54,21 @@ const items = [
     label: "Intelligence Dashboard",
     icon: BrainCircuit,
   },
-  {
-    to: "/key-insight",
-    label: "Key Insight",
-    icon: Key,
-  },
-  {
-    to: "/session-quotes",
-    label: "Session Quotes",
-    icon: MessageSquareQuote,
-  },
-  {
-    to: "/deep-dive",
-    label: "Deep Dive",
-    icon: ClipboardList,
-  },
+  // {
+  //   to: "/key-insight",
+  //   label: "Key Insight",
+  //   icon: Key,
+  // },
+  // {
+  //   to: "/session-quotes",
+  //   label: "Session Quotes",
+  //   icon: MessageSquareQuote,
+  // },
+  // {
+  //   to: "/deep-dive",
+  //   label: "Deep Dive",
+  //   icon: ClipboardList,
+  // },
   {
     to: "/attendance",
     label: "Attendance",

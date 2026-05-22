@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { speakerSchema, type SpeakerFormData } from '@/lib/api/schemas'
-import { useCreateSpeaker } from '@/lib/api/hooks'
+import { useCreateSpeaker, useSessionOptions } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
+import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
-import { AlertCircle, Loader } from 'lucide-react'
+import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
 
 export default function SpeakerFormIntegrated() {
+  const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   
@@ -16,15 +19,30 @@ export default function SpeakerFormIntegrated() {
   })
 
   const createMutation = useCreateSpeaker()
+  const { data: sessionsData } = useSessionOptions()
   const isSubmitting = createMutation.isPending
+
+  const sessionOptions = (sessionsData || []).map(s => ({
+    value: String(s.id),
+    label: s.title,
+  }))
+
+  const roleOptions = [
+    { value: 'keynote', label: 'Keynote' },
+    { value: 'panelist', label: 'Panelist' },
+    { value: 'moderator', label: 'Moderator' },
+  ]
 
   const onSubmit = async (data: SpeakerFormData) => {
     setApiError('')
     try {
-      await createMutation.mutateAsync(data)
+      const payload = {
+        ...data,
+        ...(data.session_id && { session_id: parseInt(data.session_id) }),
+      }
+      await createMutation.mutateAsync(payload)
       setSubmitted(true)
       reset()
-      setTimeout(() => setSubmitted(false), 5000)
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit speaker information')
     }
@@ -40,6 +58,13 @@ export default function SpeakerFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Speaker information has been submitted successfully.
           </p>
+          <button
+            onClick={() => navigate('/overview')}
+            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
+          >
+            Go to Dashboard
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </section>
       </section>
     )
@@ -120,6 +145,25 @@ export default function SpeakerFormIntegrated() {
           maxLength={500}
         />
 
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <FormSelect
+              label="Session (Optional)"
+              {...register('session_id')}
+              options={sessionOptions}
+              error={errors.session_id}
+            />
+          </div>
+          <div className="flex-1">
+            <FormSelect
+              label="Speaker Role (Optional)"
+              {...register('role')}
+              options={roleOptions}
+              error={errors.role}
+            />
+          </div>
+        </div>
+
         <button 
           type="submit"
           disabled={isSubmitting}
@@ -138,3 +182,5 @@ export default function SpeakerFormIntegrated() {
     </section>
   )
 }
+
+

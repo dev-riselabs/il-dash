@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { sessionSchema, type SessionFormData } from '@/lib/api/schemas'
-import { useCreateSession, useEvents, useTracks, useVenues } from '@/lib/api/hooks'
+import { useCreateSession, useEvents, useTracks, useSectors, useVenues } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
-import { AlertCircle, Loader } from 'lucide-react'
+import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
 
 export default function SessionFormIntegrated() {
+  const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   
@@ -19,6 +21,7 @@ export default function SessionFormIntegrated() {
   const createMutation = useCreateSession()
   const { data: eventsData } = useEvents()
   const { data: tracksData } = useTracks()
+  const { data: sectorsData } = useSectors()
   const { data: venuesData } = useVenues()
   const isSubmitting = createMutation.isPending
 
@@ -30,6 +33,11 @@ export default function SessionFormIntegrated() {
   const trackOptions = (tracksData || []).map(t => ({
     value: String(t.id),
     label: t.name,
+  }))
+
+  const sectorOptions = (sectorsData || []).map(s => ({
+    value: String(s.id),
+    label: s.name,
   }))
 
   const venueOptions = (venuesData || []).map(v => ({
@@ -44,11 +52,11 @@ export default function SessionFormIntegrated() {
         ...data,
         event_id: parseInt(data.event_id),
         track_id: parseInt(data.track_id),
+        ...(data.sector_id && { sector_id: parseInt(data.sector_id) }),
         venue_id: parseInt(data.venue_id),
       })
       setSubmitted(true)
       reset()
-      setTimeout(() => setSubmitted(false), 5000)
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit session')
     }
@@ -64,6 +72,13 @@ export default function SessionFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Session information has been submitted successfully.
           </p>
+          <button
+            onClick={() => navigate('/overview')}
+            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
+          >
+            Go to Dashboard
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </section>
       </section>
     )
@@ -119,6 +134,17 @@ export default function SessionFormIntegrated() {
               error={errors.track_id}
             />
           </div>
+          <div className="flex-1">
+            <FormSelect
+              label="Sector (Optional)"
+              {...register('sector_id')}
+              options={sectorOptions}
+              error={errors.sector_id}
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-3">
           <div className="flex-1">
             <FormSelect
               label="Venue"

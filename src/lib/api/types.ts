@@ -418,9 +418,16 @@ export interface Attendee {
   region?: string | null
   gender?: string | null
   category?: string | null
+  event_id?: number | null
+  track_id?: number | null
+  sector_id?: number | null
   checked_in_at?: string | null
+  checked_out_at?: string | null
   is_new_today?: boolean
   created_at?: string
+  event?: { id: number; name: string } | null
+  track?: { id: number; name: string } | null
+  sector?: { id: number; name: string } | null
 }
 
 // ---- Analytics ------------------------------------------------------------
@@ -436,12 +443,12 @@ export interface AttendanceSnapshot {
 
 export interface SentimentScore {
   id: number
-  scope: 'overall' | 'sector' | 'session'
-  scope_ref_id?: number | null
+  scope: 'overall' | 'sector' | 'session' | 'track'
+  scope_id?: number | null
   positive_pct: number
   neutral_pct: number
   negative_pct: number
-  net_score: number
+  score_0_100: number
   captured_at: string
 }
 

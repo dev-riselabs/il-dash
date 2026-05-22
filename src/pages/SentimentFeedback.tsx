@@ -61,7 +61,9 @@ function SentimentFeedback() {
   const overallScore = useMemo(() => {
     const t = trendQ.data;
     if (!t || t.length === 0) return null;
-    return Math.round(t[t.length - 1].net_score);
+    const lastScore = t[t.length - 1].score_0_100;
+    if (typeof lastScore !== 'number' || isNaN(lastScore)) return null;
+    return Math.round(lastScore);
   }, [trendQ.data]);
   const positivePct =
     k && k.total_submissions > 0
@@ -118,7 +120,7 @@ function SentimentFeedback() {
 
   const sectorRows = (sentimentBySectorQ.data ?? [])
     .map((s) => ({
-      title: s.scope_ref_id ? (sectorById.get(s.scope_ref_id) ?? `Sector #${s.scope_ref_id}`) : "Overall",
+      title: s.scope_id ? (sectorById.get(s.scope_id) ?? `Sector #${s.scope_id}`) : "Overall",
       percent: Math.round(Number(s.positive_pct ?? 0)),
     }))
     .sort((a, b) => b.percent - a.percent)

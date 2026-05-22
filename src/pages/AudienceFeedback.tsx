@@ -12,9 +12,14 @@ import {
 } from "lucide-react";
 
 import { QueryState } from "@/components/ui/QueryState";
-import { useFeedback, useFeedbackKpis } from "@/lib/api/hooks";
+import { useFeedback, useFeedbackKpis, useDeleteFeedback } from "@/lib/api/hooks";
 import { fmtDateTime, fmtNumber, fmtPercent } from "@/lib/api/format";
 import { Link } from "react-router-dom";
+import { DownloadModal } from "@/components/ui/DownloadModal";
+import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
+import { FeedbackEditModal } from "@/components/ui/FeedbackEditModal";
+import { exportFeedbackToExcel, exportFeedbackToPDF } from "@/lib/api/export";
+import type { FeedbackSubmission } from "@/lib/api/types";
 
 const PER_PAGE = 10;
 const SENTIMENTS = ["", "positive", "neutral", "negative"] as const;
@@ -22,6 +27,11 @@ const SENTIMENTS = ["", "positive", "neutral", "negative"] as const;
 function AudienceFeedback() {
   const [page, setPage] = useState(1);
   const [sentiment, setSentiment] = useState<(typeof SENTIMENTS)[number]>("");
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  const [downloadOpen, setDownloadOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [selectedFeedback, setSelectedFeedback] = useState<FeedbackSubmission | null>(null);
 
   const kpisQ = useFeedbackKpis();
   const { data, isLoading, isError, error } = useFeedback({
@@ -29,6 +39,7 @@ function AudienceFeedback() {
     per_page: PER_PAGE,
     sentiment_label: sentiment || undefined,
   });
+  const deleteMutation = useDeleteFeedback();
 
   const rows = data?.data ?? [];
   const k = kpisQ.data;
@@ -37,11 +48,37 @@ function AudienceFeedback() {
       ? (k.positive_count / k.total_submissions) * 100
       : 0;
 
-  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
-
   function handleActiveDropdown(id: number) {
     setActiveDropdown((prev) => (prev === id ? null : id));
   }
+
+  const handleDeleteClick = (feedback: FeedbackSubmission) => {
+    setSelectedFeedback(feedback);
+    setDeleteOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleEditClick = (feedback: FeedbackSubmission) => {
+    setSelectedFeedback(feedback);
+    setEditOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (selectedFeedback) {
+      await deleteMutation.mutateAsync(selectedFeedback.id);
+      setDeleteOpen(false);
+      setSelectedFeedback(null);
+    }
+  };
+
+  const handleDownload = async (format: 'excel' | 'pdf') => {
+    if (format === 'excel') {
+      await exportFeedbackToExcel(rows);
+    } else if (format === 'pdf') {
+      await exportFeedbackToPDF(rows);
+    }
+  };
   return (
     <section className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
@@ -80,7 +117,10 @@ function AudienceFeedback() {
               </option>
             ))}
           </select>
-          <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
+          <button 
+            onClick={() => setDownloadOpen(true)}
+            className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 hover:bg-blue-900 transition-colors"
+          >
             <Download className="w-5 h-5 text-white" />
           </button>
           <Link
@@ -187,13 +227,16 @@ function AudienceFeedback() {
 
                     {activeDropdown === f.id && (
                       <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                        <Link
-                          to="/feedback-form"
-                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                        <button
+                          onClick={() => handleEditClick(f)}
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
                         >
                           <Pencil className="w-4 h-4 text-black" /> Edit
-                        </Link>
-                        <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteClick(f)}
+                          className="flex items-center gap-1.5 text-red font-dmSans text-xs hover:opacity-70"
+                        >
                           <Trash className="w-4 h-4 text-red" /> Delete
                         </button>
                       </div>
@@ -232,6 +275,33 @@ function AudienceFeedback() {
           </div>
         </div>
       </section>
+
+      <DownloadModal
+        isOpen={downloadOpen}
+        onClose={() => setDownloadOpen(false)}
+        title="Feedback"
+        onDownload={handleDownload}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        title="Delete Feedback"
+        message={`Are you sure you want to delete this feedback? This action cannot be undone.`}
+        onConfirm={handleDeleteConfirm}
+        isLoading={deleteMutation.isPending}
+      />
+
+      {selectedFeedback && (
+        <FeedbackEditModal
+          isOpen={editOpen}
+          onClose={() => {
+            setEditOpen(false);
+            setSelectedFeedback(null);
+          }}
+          feedback={selectedFeedback}
+        />
+      )}
     </section>
   );
 }

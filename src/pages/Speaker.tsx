@@ -11,15 +11,25 @@ import {
 } from "lucide-react";
 
 import { QueryState } from "@/components/ui/QueryState";
-import { useSpeakers } from "@/lib/api/hooks";
+import { useSpeakers, useDeleteSpeaker } from "@/lib/api/hooks";
 import { fmtDateTime } from "@/lib/api/format";
 import { Link } from "react-router-dom";
+import { DownloadModal } from "@/components/ui/DownloadModal";
+import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
+import { SpeakerEditModal } from "@/components/ui/SpeakerEditModal";
+import { exportSpeakersToExcel, exportSpeakersToPDF } from "@/lib/api/export";
+import type { Speaker } from "@/lib/api/types";
 
 const PER_PAGE = 10;
 
-function Speaker() {
+function SpeakerPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  const [downloadOpen, setDownloadOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [selectedSpeaker, setSelectedSpeaker] = useState<Speaker | null>(null);
 
   const { data, isLoading, isError, error } = useSpeakers({
     page,
@@ -27,13 +37,41 @@ function Speaker() {
     search: search.trim() || undefined,
   });
 
-  const rows = data?.data ?? [];
+  const deleteMutation = useDeleteSpeaker();
 
-  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  const rows = data?.data ?? [];
 
   function handleActiveDropdown(id: number) {
     setActiveDropdown((prev) => (prev === id ? null : id));
   }
+
+  const handleDeleteClick = (speaker: Speaker) => {
+    setSelectedSpeaker(speaker);
+    setDeleteOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleEditClick = (speaker: Speaker) => {
+    setSelectedSpeaker(speaker);
+    setEditOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (selectedSpeaker) {
+      await deleteMutation.mutateAsync(selectedSpeaker.id);
+      setDeleteOpen(false);
+      setSelectedSpeaker(null);
+    }
+  };
+
+  const handleDownload = async (format: 'excel' | 'pdf') => {
+    if (format === 'excel') {
+      await exportSpeakersToExcel(rows);
+    } else if (format === 'pdf') {
+      await exportSpeakersToPDF(rows);
+    }
+  };
 
   return (
     <section className="space-y-6">
@@ -58,18 +96,17 @@ function Speaker() {
               }}
               placeholder="Search by name, organization, job title..."
               className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1 bg-transparent"
-              // name=""
-              // id=""
-              // placeholder="Search names of attendees..."
-              // className="text-white placeholder:text-white/70 text-xs font-lexend outline-none flex-1"
             />
           </div>
-          <button className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0">
+          <button 
+            onClick={() => setDownloadOpen(true)}
+            className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 hover:bg-blue-900 transition-colors"
+          >
             <Download className="w-5 h-5 text-white" />
           </button>
           <Link
             to="/speaker-form"
-            className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0"
+            className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0 hover:bg-gray-100 transition-colors"
           >
             Create
           </Link>
@@ -128,15 +165,18 @@ function Speaker() {
                     </button>
 
                     {activeDropdown === s.id && (
-                      <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                        <Link
-                          to="/speaker-form"
-                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                      <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md shadow-lg">
+                        <button
+                          onClick={() => handleEditClick(s)}
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:text-blue-600 transition-colors"
                         >
-                          <Pencil className="w-4 h-4 text-black" /> Edit
-                        </Link>
-                        <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
-                          <Trash className="w-4 h-4 text-red" /> Delete
+                          <Pencil className="w-4 h-4" /> Edit
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteClick(s)}
+                          className="flex items-center gap-1.5 text-red font-dmSans text-xs hover:text-red-700 transition-colors"
+                        >
+                          <Trash className="w-4 h-4" /> Delete
                         </button>
                       </div>
                     )}
@@ -174,8 +214,35 @@ function Speaker() {
           </div>
         </div>
       </section>
+
+      <DownloadModal
+        isOpen={downloadOpen}
+        onClose={() => setDownloadOpen(false)}
+        title="Speakers"
+        onDownload={handleDownload}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        title="Delete Speaker"
+        message={`Are you sure you want to delete ${selectedSpeaker?.first_name} ${selectedSpeaker?.last_name}? This action cannot be undone.`}
+        onConfirm={handleDeleteConfirm}
+        isLoading={deleteMutation.isPending}
+      />
+
+      {selectedSpeaker && (
+        <SpeakerEditModal
+          isOpen={editOpen}
+          onClose={() => {
+            setEditOpen(false);
+            setSelectedSpeaker(null);
+          }}
+          speaker={selectedSpeaker}
+        />
+      )}
     </section>
   );
 }
 
-export default Speaker;
+export default SpeakerPage;

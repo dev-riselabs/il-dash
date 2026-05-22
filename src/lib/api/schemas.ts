@@ -10,14 +10,15 @@ export const attendeeSchema = z.object({
   email: z.string()
     .min(1, 'Email is required')
     .email('Invalid email address'),
-  phone: z.string()
-    .min(1, 'Phone is required')
-    .min(10, 'Phone must be at least 10 digits'),
-  nationality: z.string()
-    .min(1, 'Nationality is required'),
-  category: z.string()
-    .min(1, 'Category is required'),
-  date_of_birth: z.string().optional(),
+  job_title: z.string().optional(),
+  organization: z.string().optional(),
+  country: z.string().optional(),
+  region: z.string().optional(),
+  gender: z.enum(['male', 'female', 'other']).optional(),
+  category: z.string().optional(),
+  event_id: z.string().optional(),
+  track_id: z.string().optional(),
+  sector_id: z.string().optional(),
 })
 
 export const speakerSchema = z.object({
@@ -42,6 +43,8 @@ export const speakerSchema = z.object({
     .min(1, 'Bio is required')
     .min(10, 'Bio must be at least 10 characters')
     .max(500, 'Bio must be less than 500 characters'),
+  session_id: z.string().optional(),
+  role: z.enum(['keynote', 'panelist', 'moderator']).optional(),
 })
 
 export const sessionSchema = z.object({
@@ -55,6 +58,7 @@ export const sessionSchema = z.object({
     .min(20, 'Description must be at least 20 characters'),
   track_id: z.string()
     .min(1, 'Track is required'),
+  sector_id: z.string().optional(),
   venue_id: z.string()
     .min(1, 'Venue is required'),
   starts_at: z.string()
@@ -76,10 +80,23 @@ export const feedbackSchema = z.object({
   star_rating: z.number()
     .min(1, 'Rating must be at least 1')
     .max(5, 'Rating cannot exceed 5'),
-  comment: z.string()
-    .min(1, 'Comment is required')
-    .min(10, 'Comment must be at least 10 characters')
-    .max(500, 'Comment cannot exceed 500 characters'),
+  review_text: z.string()
+    .min(1, 'Review is required')
+    .min(10, 'Review must be at least 10 characters')
+    .max(500, 'Review cannot exceed 500 characters'),
+  key_takeaway: z.string().optional(),
+  sentiment_label: z.enum(['positive', 'neutral', 'negative']).optional(),
+})
+
+export const feedbackEditSchema = z.object({
+  star_rating: z.union([z.number(), z.string()])
+    .refine(val => {
+      const num = typeof val === 'string' ? parseInt(val) : val
+      return num >= 1 && num <= 5
+    }, 'Rating must be between 1 and 5'),
+  review_text: z.string().optional(),
+  key_takeaway: z.string().optional(),
+  sentiment_label: z.enum(['positive', 'neutral', 'negative']).optional(),
 })
 
 export const adminSignupSchema = z.object({

@@ -12,9 +12,14 @@ import {
 } from "lucide-react";
 
 import { QueryState } from "@/components/ui/QueryState";
-import { useAttendees, useCheckInAttendee } from "@/lib/api/hooks";
+import { useAttendees, useCheckInAttendee, useDeleteAttendee } from "@/lib/api/hooks";
 import { fmtDateTime } from "@/lib/api/format";
 import { Link } from "react-router-dom";
+import { DownloadModal } from "@/components/ui/DownloadModal";
+import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
+import { AttendeeEditModal } from "@/components/ui/AttendeeEditModal";
+import { exportAttendeesToExcel, exportAttendeesToPDF } from "@/lib/api/export";
+import type { Attendee } from "@/lib/api/types";
 
 const PER_PAGE = 10;
 
@@ -24,6 +29,11 @@ function Attendance() {
   const [checkedInOnly, setCheckedInOnly] = useState<boolean | undefined>(
     undefined,
   );
+  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
+  const [downloadOpen, setDownloadOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [selectedAttendee, setSelectedAttendee] = useState<Attendee | null>(null);
 
   const { data, isLoading, isError, error } = useAttendees({
     page,
@@ -33,12 +43,40 @@ function Attendance() {
   });
 
   const checkIn = useCheckInAttendee();
+  const deleteMutation = useDeleteAttendee();
   const rows = data?.data ?? [];
-  const [activeDropdown, setActiveDropdown] = useState<null | number>(null);
 
   function handleActiveDropdown(id: number) {
     setActiveDropdown((prev) => (prev === id ? null : id));
   }
+
+  const handleDeleteClick = (attendee: Attendee) => {
+    setSelectedAttendee(attendee);
+    setDeleteOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleEditClick = (attendee: Attendee) => {
+    setSelectedAttendee(attendee);
+    setEditOpen(true);
+    setActiveDropdown(null);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (selectedAttendee) {
+      await deleteMutation.mutateAsync(selectedAttendee.id);
+      setDeleteOpen(false);
+      setSelectedAttendee(null);
+    }
+  };
+
+  const handleDownload = async (format: 'excel' | 'pdf') => {
+    if (format === 'excel') {
+      await exportAttendeesToExcel(rows);
+    } else if (format === 'pdf') {
+      await exportAttendeesToPDF(rows);
+    }
+  };
 
   return (
     <section className="space-y-6">
@@ -83,7 +121,12 @@ function Attendance() {
               checkedInOnly === undefined ? "bg-blue950" : "bg-cyan"
             }`}
           >
-            {/* <Funnel className="w-5 h-5 text-white" /> */}
+            <CheckCircle2 className="w-5 h-5 text-white" />
+          </button>
+          <button 
+            onClick={() => setDownloadOpen(true)}
+            className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 hover:bg-blue-900 transition-colors"
+          >
             <Download className="w-5 h-5 text-white" />
           </button>
           <Link
@@ -161,13 +204,16 @@ function Attendance() {
 
                     {activeDropdown === a.id && (
                       <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                        <Link
-                          to="/attendance"
-                          className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                        <button
+                          onClick={() => handleEditClick(a)}
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
                         >
                           <Pencil className="w-4 h-4 text-black" /> Edit
-                        </Link>
-                        <button className="flex items-center gap-1.5 text-red font-dmSans text-xs">
+                        </button>
+                        <button 
+                          onClick={() => handleDeleteClick(a)}
+                          className="flex items-center gap-1.5 text-red font-dmSans text-xs hover:opacity-70"
+                        >
                           <Trash className="w-4 h-4 text-red" /> Delete
                         </button>
                       </div>
@@ -206,6 +252,33 @@ function Attendance() {
           </div>
         </div>
       </section>
+
+      <DownloadModal
+        isOpen={downloadOpen}
+        onClose={() => setDownloadOpen(false)}
+        title="Attendees"
+        onDownload={handleDownload}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        title="Delete Attendee"
+        message={`Are you sure you want to delete ${selectedAttendee?.first_name} ${selectedAttendee?.last_name}? This action cannot be undone.`}
+        onConfirm={handleDeleteConfirm}
+        isLoading={deleteMutation.isPending}
+      />
+
+      {selectedAttendee && (
+        <AttendeeEditModal
+          isOpen={editOpen}
+          onClose={() => {
+            setEditOpen(false);
+            setSelectedAttendee(null);
+          }}
+          attendee={selectedAttendee}
+        />
+      )}
     </section>
   );
 }

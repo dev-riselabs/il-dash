@@ -1,24 +1,44 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { attendeeSchema, type AttendeeFormData } from '@/lib/api/schemas'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
-import { AlertCircle, Loader } from 'lucide-react'
+import { useCreateAttendee, useEvents, useTracks, useSectors } from '@/lib/api/hooks'
+import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
 
 export default function AttendeeFormIntegrated() {
+  const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   
-  const { register, handleSubmit, formState: { errors } } = useForm<AttendeeFormData>({
+  const createMutation = useCreateAttendee()
+  const eventsQ = useEvents()
+  const tracksQ = useTracks()
+  const sectorsQ = useSectors()
+  
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<AttendeeFormData>({
     resolver: zodResolver(attendeeSchema),
   })
 
   const onSubmit = async (data: AttendeeFormData) => {
     setApiError('')
     try {
-      // TODO: Add useCreateAttendee mutation hook
-      console.log('Attendee form data:', data)
+      await createMutation.mutateAsync({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        job_title: data.job_title,
+        organization: data.organization,
+        country: data.country,
+        region: data.region,
+        gender: data.gender,
+        category: data.category,
+        event_id: data.event_id ? parseInt(data.event_id) : undefined,
+        track_id: data.track_id ? parseInt(data.track_id) : undefined,
+        sector_id: data.sector_id ? parseInt(data.sector_id) : undefined,
+      })
       setSubmitted(true)
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit form')
@@ -35,6 +55,13 @@ export default function AttendeeFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Your attendee information has been submitted successfully
           </p>
+          <button
+            onClick={() => navigate('/overview')}
+            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
+          >
+            Go to Dashboard
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </section>
       </section>
     )
@@ -86,55 +113,129 @@ export default function AttendeeFormIntegrated() {
           error={errors.email}
         />
 
-        <FormInput
-          label="Phone"
-          type="tel"
-          placeholder="+234 800 000 0000"
-          {...register('phone')}
-          error={errors.phone}
-        />
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <FormInput
+              label="Job Title (optional)"
+              placeholder="Software Engineer"
+              {...register('job_title')}
+              error={errors.job_title}
+            />
+          </div>
+          <div className="flex-1">
+            <FormInput
+              label="Organization (optional)"
+              placeholder="Tech Corp"
+              {...register('organization')}
+              error={errors.organization}
+            />
+          </div>
+        </div>
 
-        <FormSelect
-          label="Nationality"
-          {...register('nationality')}
-          options={[
-            { value: 'Nigeria', label: 'Nigeria' },
-            { value: 'Ghana', label: 'Ghana' },
-            { value: 'Kenya', label: 'Kenya' },
-            { value: 'South Africa', label: 'South Africa' },
-            { value: 'United States', label: 'United States' },
-            { value: 'United Kingdom', label: 'United Kingdom' },
-            { value: 'Other', label: 'Other' },
-          ]}
-          error={errors.nationality}
-        />
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <FormInput
+              label="Country (optional)"
+              placeholder="Nigeria"
+              {...register('country')}
+              error={errors.country}
+            />
+          </div>
+          <div className="flex-1">
+            <FormInput
+              label="Region (optional)"
+              placeholder="Lagos"
+              {...register('region')}
+              error={errors.region}
+            />
+          </div>
+        </div>
 
-        <FormSelect
-          label="Attendee Category"
-          {...register('category')}
-          options={[
-            { value: 'Entrepreneur', label: 'Entrepreneur' },
-            { value: 'Investor', label: 'Investor' },
-            { value: 'Corporate', label: 'Corporate' },
-            { value: 'Media', label: 'Media' },
-            { value: 'Student', label: 'Student' },
-            { value: 'Other', label: 'Other' },
-          ]}
-          error={errors.category}
-        />
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <FormSelect
+              label="Gender (optional)"
+              {...register('gender')}
+              options={[
+                { value: '', label: 'Select gender' },
+                { value: 'male', label: 'Male' },
+                { value: 'female', label: 'Female' },
+                { value: 'other', label: 'Other' },
+              ]}
+              error={errors.gender}
+            />
+          </div>
+          <div className="flex-1">
+            <FormSelect
+              label="Category (optional)"
+              {...register('category')}
+              options={[
+                { value: '', label: 'Select category' },
+                { value: 'Entrepreneur', label: 'Entrepreneur' },
+                { value: 'Investor', label: 'Investor' },
+                { value: 'Corporate', label: 'Corporate' },
+                { value: 'Media', label: 'Media' },
+                { value: 'Student', label: 'Student' },
+                { value: 'Government', label: 'Government' },
+                { value: 'Other', label: 'Other' },
+              ]}
+              error={errors.category}
+            />
+          </div>
+        </div>
 
-        <FormInput
-          label="Date of Birth (optional)"
-          type="date"
-          {...register('date_of_birth')}
-          error={errors.date_of_birth}
-        />
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <FormSelect
+              label="Event (optional)"
+              {...register('event_id')}
+              options={[
+                { value: '', label: 'Select event' },
+                ...(eventsQ.data ?? []).map(e => ({ value: String(e.id), label: e.name }))
+              ]}
+              error={errors.event_id}
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-3">
+          <div className="flex-1">
+            <FormSelect
+              label="Track (optional)"
+              {...register('track_id')}
+              options={[
+                { value: '', label: 'Select track' },
+                ...(tracksQ.data ?? []).map(t => ({ value: String(t.id), label: t.name }))
+              ]}
+              error={errors.track_id}
+            />
+          </div>
+          <div className="flex-1">
+            <FormSelect
+              label="Sector (optional)"
+              {...register('sector_id')}
+              options={[
+                { value: '', label: 'Select sector' },
+                ...(sectorsQ.data ?? []).map(s => ({ value: String(s.id), label: s.name }))
+              ]}
+              error={errors.sector_id}
+            />
+          </div>
+        </div>
 
         <button 
           type="submit"
-          className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors"
+          disabled={isSubmitting || createMutation.isPending}
+          className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          Submit
+          {isSubmitting || createMutation.isPending ? (
+            <>
+              <Loader className="w-4 h-4 animate-spin" />
+              Submitting...
+            </>
+          ) : (
+            'Submit'
+          )}
         </button>
       </form>
     </section>

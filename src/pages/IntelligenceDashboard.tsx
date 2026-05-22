@@ -39,11 +39,11 @@ function IntelligenceDashboard() {
   const sectorNameById = new Map<number, string>();
   (sectorsQ.data ?? []).forEach((s) => sectorNameById.set(s.id, s.name));
   const sectorPoints = (bySectorQ.data ?? [])
-    .filter((p) => p.scope === "sector" && p.scope_ref_id != null)
+    .filter((p) => p.scope === "sector" && p.scope_id != null)
     .map((p) => ({
       label:
-        sectorNameById.get(p.scope_ref_id as number) ??
-        `Sector #${p.scope_ref_id}`,
+        sectorNameById.get(p.scope_id as number) ??
+        `Sector #${p.scope_id}`,
       value: Math.round(p.positive_pct),
     }))
     .sort((a, b) => b.value - a.value)
