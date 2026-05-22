@@ -45,13 +45,13 @@ export function AuthGate({ children }: Props) {
   }
 
   return (
-    <div className="min-h-screen w-full flex flex-col gap-10 justify-center items-center bg-black px-4 auth-bg">
+    <div className="min-h-screen w-full flex flex-col gap-10 justify-center items-center bg-black px-4 signup-bg">
       <div className="flex flex-col gap-1 items-center">
           <h1 className="text-white font-lexend text-2xl font-semibold">
-            Welcome back, IL-DASH!
+            Welcome to, IL-DASH!
           </h1>
           <p className="text-white/60 font-lexend text-xs">
-            Sign in with your control room credentials.
+            Sign up with your control room credentials.
           </p>
         </div>
       <form
@@ -93,7 +93,7 @@ export function AuthGate({ children }: Props) {
           disabled={loading}
           className="bg-linear-to-r from-purple600 to-purple700 text-white font-lexend text-sm font-semibold py-2.5 rounded disabled:opacity-60"
         >
-          {loading ? 'Signing in…' : 'Sign in'}
+          {loading ? 'Signing up…' : 'Sign up'}
         </button>
       </form>
     </div>

@@ -139,6 +139,7 @@ function App() {
       <Route element={<LandingShellLayout />}>
         <Route path="/" element={<Welcome />} />
         <Route path="/about" element={<About />} />
+        <Route path="/demo-form" element={<DemoForm />} />
       </Route>
     </Routes>
   );
