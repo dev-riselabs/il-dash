@@ -160,3 +160,9 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.signup-bg{
+  background: url('/bg-signup.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
