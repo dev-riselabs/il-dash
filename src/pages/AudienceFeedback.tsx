@@ -85,7 +85,7 @@ function AudienceFeedback() {
     }
   };
   return (
-    <section className="space-y-6">
+    <section onClick={() => handleActiveDropdown(null)} className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
         <div className="space-y-2">
           <h1 className="text-white text-2xl font-semibold font-lexend">
@@ -219,7 +219,7 @@ function AudienceFeedback() {
                     {f.sentiment_label ?? "—"}
                   </span>
                   <div
-                    onClick={() => handleActiveDropdown(null)}
+                    
                     className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans"
                   >
                     <span className="inline-flex items-center gap-1">

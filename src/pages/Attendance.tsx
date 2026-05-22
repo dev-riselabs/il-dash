@@ -79,7 +79,7 @@ function Attendance() {
   };
 
   return (
-    <section className="space-y-6">
+    <section onClick={() => handleActiveDropdown(null)}  className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
         <div className="space-y-2">
           <h1 className="text-white text-2xl font-semibold font-lexend">
@@ -193,7 +193,7 @@ function Attendance() {
                   <span className="text-white text-sm col-span-1 truncate">
                     {a.email ?? "—"}
                   </span>
-                  <div onClick={() => handleActiveDropdown(null)} className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
+                  <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-2 font-dmSans">
                     <span className="truncate">{a.job_title ?? "—"}</span>
                     <button
                       onClick={(e) => {  e.stopPropagation(); handleActiveDropdown(a.id)}}
