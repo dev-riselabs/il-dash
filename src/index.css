@@ -166,3 +166,15 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+html{
+  scrollbar-color: #00c0e8 #0a0e14;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0e14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00c0e8;
+}
