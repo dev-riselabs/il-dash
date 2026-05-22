@@ -91,7 +91,7 @@ export function AuthGate({ children }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="bg-linear-to-r from-purple600 to-purple700 text-white font-lexend text-sm font-semibold py-2.5 rounded disabled:opacity-60"
+          className="bg-cyan text-white font-lexend text-sm font-semibold py-2.5 rounded disabled:opacity-60"
         >
           {loading ? 'Signing up…' : 'Sign up'}
         </button>

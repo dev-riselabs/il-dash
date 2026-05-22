@@ -181,10 +181,11 @@ export default function Overview() {
                     NEXT SESSIONS
                   </h3>
                   <div className="flex flex-col gap-2">
-                    {nextSessions.map((s) => (
+                    {nextSessions.map((s, i) => (
                       <div
                         key={s.id}
-                        className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg"
+                        style={{'--step' : `"${i + 2}"`} as React.CSSProperties}
+                        className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-(--step) after:absolute after:bg-yellow after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4"
                       >
                         <div className="flex flex-col gap-3">
                           <span className="font-lexend text-white text-xs font-light">
@@ -211,12 +212,14 @@ export default function Overview() {
                 </div>
               </div>
             </div>
-            <div className="border border-white/35 py-4 px-6 mt-2">
-              <div className="flex flex-col gap-2">
-                {completedSessions.map((s) => (
+            <div className="border border-white/35 py-4 px-3 mt-2">
+            <div className="overflow-y-auto h-50 pl-4">
+              <div className="flex flex-col gap-2 relative border-l border-l-white/55 pl-6 ">
+                {completedSessions.map((s, i) => (
                   <div
                     key={s.id}
-                    className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg"
+                    style={{'--step' : `"${i + 1}"`} as React.CSSProperties}
+                    className={`flex justify-between items-center gap-2 p-4 border border-white/31 rounded-lg after:content-(--step) after:absolute after:bg-green after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4`}
                   >
                     <div className="flex flex-col gap-3">
                       <span className="font-lexend text-white text-xs font-light">
@@ -235,7 +238,7 @@ export default function Overview() {
                       </div>
                       <Link
                         to="/feedback-form"
-                        className="text-white bg-red100 px-1.5 py-1.5 rounded-md text-xs font-semibold"
+                        className="text-red100 uppercase  rounded-md text-xs font-semibold"
                       >
                         Give Feedback
                       </Link>
@@ -247,6 +250,7 @@ export default function Overview() {
                     No completed sessions yet.
                   </div>
                 )}
+              </div>
               </div>
             </div>
           </QueryState>
