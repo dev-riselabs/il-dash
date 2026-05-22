@@ -45,19 +45,20 @@ export function AuthGate({ children }: Props) {
   }
 
   return (
-    <div className="min-h-screen w-full grid place-items-center bg-black px-4">
-      <form
-        onSubmit={onSubmit}
-        className="w-full max-w-sm border border-white/15 rounded-2xl p-7 flex flex-col gap-5 bg-white/5 backdrop-blur"
-      >
-        <div className="flex flex-col gap-1">
-          <h1 className="text-white font-lexend text-xl font-semibold">
-            iLagos Dashboard
+    <div className="min-h-screen w-full flex flex-col gap-10 justify-center items-center bg-black px-4 auth-bg">
+      <div className="flex flex-col gap-1 items-center">
+          <h1 className="text-white font-lexend text-2xl font-semibold">
+            Welcome back, IL-DASH!
           </h1>
           <p className="text-white/60 font-lexend text-xs">
             Sign in with your control room credentials.
           </p>
         </div>
+      <form
+        onSubmit={onSubmit}
+        className="w-full max-w-sm border border-white/15 rounded-2xl p-7 flex flex-col gap-5 bg-white/5 backdrop-blur"
+      >
+        
 
         <label className="flex flex-col gap-2">
           <span className="text-white/80 font-lexend text-xs">Email</span>
@@ -90,7 +91,7 @@ export function AuthGate({ children }: Props) {
         <button
           type="submit"
           disabled={loading}
-          className="bg-green text-black font-lexend text-sm font-semibold py-2.5 rounded disabled:opacity-60"
+          className="bg-linear-to-r from-purple600 to-purple700 text-white font-lexend text-sm font-semibold py-2.5 rounded disabled:opacity-60"
         >
           {loading ? 'Signing in…' : 'Sign in'}
         </button>
