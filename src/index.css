@@ -116,39 +116,39 @@
 } */
 
 .bg-oval {
-  background: url("./Shape.png");
+  background: url("/Shape.png");
   background-repeat: no-repeat;
   background-position: top;
   background-size: auto;
 }
 
 .bg-hero {
-  background: url("./bg-hero.png");
+  background: url("/bg-hero.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .bg-demo {
-  background: url("./demo-bg.png");
+  background: url("/demo-bg.png");
   background-repeat: no-repeat;
   background-size: auto;
 }
 
 .bg-about {
-  background: url("./about-bg.png");
+  background: url("/about-bg.png");
   background-repeat: no-repeat;
   background-size: auto;
   background-color: #041c3e;
 }
 .bg-feature {
-  background: url("./feature-bg.png");
+  background: url("/feature-bg.png");
   background-repeat: no-repeat;
   background-size: auto;
   background-color: #041c3e;
 }
 
 .bg-cta {
-  background: url("./form-shape.png");
+  background: url("/form-shape.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom right;
