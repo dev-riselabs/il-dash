@@ -48,11 +48,11 @@ const publicItems = [
     label: "Next Action Tracker",
     icon: SatelliteDish,
   },
-  {
-    to: "/intelligence-dashboard",
-    label: "Intelligence Dashboard",
-    icon: BrainCircuit,
-  },
+  // {
+  //   to: "/intelligence-dashboard",
+  //   label: "Intelligence Dashboard",
+  //   icon: BrainCircuit,
+  // },
 ];
 
 const adminItems = [
