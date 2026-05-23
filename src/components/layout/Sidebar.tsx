@@ -20,7 +20,6 @@ import {
   Speaker,
   NotebookTabs,
   MessageSquareReply,
-  BrainCircuit,
   LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
