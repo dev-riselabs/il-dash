@@ -17,6 +17,8 @@ export default function FeedbackFormIntegrated() {
     resolver: zodResolver(feedbackSchema),
     defaultValues: {
       star_rating: 0,
+      session_id: '',
+      review_text: '',
     },
   })
 
@@ -33,11 +35,13 @@ export default function FeedbackFormIntegrated() {
   const onSubmit = async (data: FeedbackFormData) => {
     setApiError('')
     try {
-      await createMutation.mutateAsync({
-        ...data,
-        session_id: parseInt(data.session_id),
+      const { session_id, ...rest } = data
+      const payload = {
+        ...rest,
         star_rating: Number(data.star_rating),
-      })
+      } as any
+      payload.session_id = parseInt(session_id)
+      await createMutation.mutateAsync(payload)
       setSubmitted(true)
       reset()
     } catch (error: any) {
@@ -133,10 +137,18 @@ export default function FeedbackFormIntegrated() {
         </div>
 
         <FormTextarea
-          label="Comments"
-          placeholder="Share your feedback and key takeaways..."
-          {...register('comment')}
-          error={errors.comment}
+          label="Review"
+          placeholder="Share your feedback..."
+          {...register('review_text')}
+          error={errors.review_text}
+          maxLength={500}
+        />
+
+        <FormTextarea
+          label="Key Takeaway"
+          placeholder="Share key takeaways (optional)..."
+          {...register('key_takeaway')}
+          error={errors.key_takeaway}
           maxLength={500}
         />
 

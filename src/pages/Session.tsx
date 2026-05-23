@@ -18,7 +18,7 @@ import { fmtDateTime, fullName } from "@/lib/api/format";
 import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { SessionEditModal } from "@/components/ui/SessionEditModal";
-import { exportSessionsToExcel, exportSessionsToPDF } from "@/lib/api/export";
+import { exportSessionsToExcel } from "@/lib/api/export";
 import type { SessionStatus, EventSession } from "@/lib/api/types";
 
 const PER_PAGE = 10;
@@ -77,11 +77,9 @@ function SessionPage() {
     }
   };
 
-  const handleDownload = async (format: "excel" | "pdf") => {
+  const handleDownload = async (format: "excel") => {
     if (format === "excel") {
       await exportSessionsToExcel(rows);
-    } else if (format === "pdf") {
-      await exportSessionsToPDF(rows);
     }
   };
 

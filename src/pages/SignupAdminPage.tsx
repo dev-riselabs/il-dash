@@ -11,7 +11,7 @@ import { AlertCircle, Loader } from 'lucide-react'
 export default function SignupAdminPage() {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
-  const { register, handleSubmit, formState: { errors }, watch } = useForm<AdminSignupFormData>({
+  const { register, handleSubmit, formState: { errors } } = useForm<AdminSignupFormData>({
     resolver: zodResolver(adminSignupSchema),
   })
 

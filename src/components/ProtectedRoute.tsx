@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '@/lib/auth/store'
 import { Loader } from 'lucide-react'
@@ -28,7 +28,7 @@ export function ProtectedRoute({ children, requiredRoles = [] }: ProtectedRouteP
   }
 
   // If specific roles are required, check if user has one
-  if (requiredRoles.length > 0 && !requiredRoles.includes(user.role)) {
+  if (requiredRoles.length > 0 && !(user.roles || []).some(r => requiredRoles.includes(r as any))) {
     return <Navigate to="/" replace />
   }
 

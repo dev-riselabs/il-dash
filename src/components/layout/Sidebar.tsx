@@ -16,19 +16,18 @@ import {
   Globe,
   Target,
   Command,
-  MessageSquareQuote,
   ClipboardCheck,
   Speaker,
   NotebookTabs,
   MessageSquareReply,
   BrainCircuit,
-  ClipboardList,
-  Key,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useAuth } from "@/lib/auth/store";
 
-const items = [
+const publicItems = [
   { to: "/investlagos", label: "Overview", icon: LayoutDashboard, end: true },
   { to: "/executive-view", label: "Executive View", icon: Target },
   { to: "/command-center", label: "Command Center", icon: Command },
@@ -54,55 +53,54 @@ const items = [
     label: "Intelligence Dashboard",
     icon: BrainCircuit,
   },
-  // {
-  //   to: "/key-insight",
-  //   label: "Key Insight",
-  //   icon: Key,
-  // },
-  // {
-  //   to: "/session-quotes",
-  //   label: "Session Quotes",
-  //   icon: MessageSquareQuote,
-  // },
-  // {
-  //   to: "/deep-dive",
-  //   label: "Deep Dive",
-  //   icon: ClipboardList,
-  // },
+];
+
+const adminItems = [
   {
     to: "/attendance",
     label: "Attendance",
     icon: ClipboardCheck,
+    end: false,
   },
   {
     to: "/speaker",
     label: "Speaker",
     icon: Speaker,
+    end: false,
   },
   {
     to: "/session",
     label: "Session",
     icon: NotebookTabs,
+    end: false,
   },
   {
     to: "/audience-feedback",
     label: "Audience Feedback",
     icon: MessageSquareReply,
+    end: false,
   },
 ];
 
 export function Sidebar() {
   const [isHovered, setIsHovered] = useState(false);
+  const { user, logout } = useAuth();
 
   function toggleIsHovered() {
     setIsHovered((prev) => !prev);
   }
 
+  const items = user ? [...publicItems, ...adminItems] : publicItems;
+
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <aside
       onMouseEnter={toggleIsHovered}
       onMouseLeave={toggleIsHovered}
-      className={`${isHovered ? "w-62" : "w-20"} shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden transition-all `}
+      className={`${isHovered ? "w-62" : "w-20"} shrink-0 bg-surface900 border-r border-white/5 flex flex-col lg:flex hidden transition-all `}
     >
       
 
@@ -111,7 +109,7 @@ export function Sidebar() {
           <NavLink
             key={to}
             to={to}
-            end={end}
+            end={end ?? false}
             className={({ isActive }) =>
               cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit",
@@ -129,6 +127,22 @@ export function Sidebar() {
           <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
         )}
       </nav>
+
+      {/* Admin Logout Button */}
+      {user && (
+        <div className="px-3 py-4 border-t border-white/5">
+          <button
+            onClick={handleLogout}
+            className={cn(
+              "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit w-full",
+              "text-white hover:text-slate-200 hover:bg-white/5"
+            )}
+          >
+            <LogOut className="w-5 h-5 shrink-0" strokeWidth={1.5} />
+            {isHovered && <span className="truncate">Logout</span>}
+          </button>
+        </div>
+      )}
     </aside>
   );
 }

@@ -1,18 +1,18 @@
 import { useState } from 'react'
-import { Download, X, FileSpreadsheet, File } from 'lucide-react'
+import { Download, X, FileSpreadsheet } from 'lucide-react'
 
 interface DownloadModalProps {
   isOpen: boolean
   onClose: () => void
   title: string
-  onDownload: (format: 'excel' | 'pdf') => Promise<void>
+  onDownload: (format: 'excel') => Promise<void>
 }
 
 export function DownloadModal({ isOpen, onClose, title, onDownload }: DownloadModalProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleDownload = async (format: 'excel' | 'pdf') => {
+  const handleDownload = async (format: 'excel') => {
     setIsLoading(true)
     setError(null)
     try {
@@ -59,7 +59,6 @@ export function DownloadModal({ isOpen, onClose, title, onDownload }: DownloadMo
             Select a format to download the data:
           </p>
 
-          {/* Excel Option */}
           <button
             onClick={() => handleDownload('excel')}
             disabled={isLoading}
@@ -67,21 +66,8 @@ export function DownloadModal({ isOpen, onClose, title, onDownload }: DownloadMo
           >
             <FileSpreadsheet className="w-6 h-6 text-green-500" />
             <div className="text-left flex-1">
-              <p className="font-medium text-white">Excel (.xlsx)</p>
+              <p className="font-medium text-white">Download CSV (.csv)</p>
               <p className="text-xs text-slate-400">Spreadsheet format</p>
-            </div>
-          </button>
-
-          {/* PDF Option */}
-          <button
-            onClick={() => handleDownload('pdf')}
-            disabled={isLoading}
-            className="w-full flex items-center gap-3 p-4 rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed border border-slate-700 hover:border-slate-600"
-          >
-            <File className="w-6 h-6 text-red-500" />
-            <div className="text-left flex-1">
-              <p className="font-medium text-white">PDF (.pdf)</p>
-              <p className="text-xs text-slate-400">Portable format</p>
             </div>
           </button>
         </div>

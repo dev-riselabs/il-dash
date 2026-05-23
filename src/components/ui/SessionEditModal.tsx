@@ -93,21 +93,21 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
               ...(events ?? []).map(e => ({ value: e.id.toString(), label: e.name }))
             ]}
             {...register('event_id')}
-            error={errors.event_id?.message}
+            error={errors.event_id}
           />
 
           <FormInput
             label="Title"
             placeholder="Enter session title"
             {...register('title')}
-            error={errors.title?.message}
+            error={errors.title}
           />
 
           <FormTextarea
             label="Description"
             placeholder="Enter session description"
             {...register('description')}
-            error={errors.description?.message}
+            error={errors.description}
           />
 
           <FormSelect
@@ -117,7 +117,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
               ...(tracks ?? []).map(t => ({ value: t.id.toString(), label: t.name }))
             ]}
             {...register('track_id')}
-            error={errors.track_id?.message}
+            error={errors.track_id}
           />
 
           <FormSelect
@@ -127,7 +127,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
               ...(sectors ?? []).map(s => ({ value: s.id.toString(), label: s.name }))
             ]}
             {...register('sector_id')}
-            error={errors.sector_id?.message}
+            error={errors.sector_id}
           />
 
           <FormSelect
@@ -137,21 +137,21 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
               ...(venues ?? []).map(v => ({ value: v.id.toString(), label: v.name }))
             ]}
             {...register('venue_id')}
-            error={errors.venue_id?.message}
+            error={errors.venue_id}
           />
 
           <FormInput
             label="Start Time"
             type="datetime-local"
             {...register('starts_at')}
-            error={errors.starts_at?.message}
+            error={errors.starts_at}
           />
 
           <FormInput
             label="End Time"
             type="datetime-local"
             {...register('ends_at')}
-            error={errors.ends_at?.message}
+            error={errors.ends_at}
           />
 
           <div className="flex gap-3 pt-4 border-t border-slate-700 mt-6">

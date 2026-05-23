@@ -1,45 +1,57 @@
+import { Suspense, lazy } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthGate } from "@/lib/auth/AuthGate";
 import { useAuth } from "@/lib/auth/store";
 import { useRealtimeInvalidations } from "@/lib/realtime/useRealtime";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import Overview from "@/pages/Overview";
-import InvestmentHeatmap from "./pages/InvestmentHeatmap";
-import ResolutionBoard from "./pages/ResolutionBoard";
-import ParticipationAnalytics from "./pages/ParticipationAnalytics";
-import SentimentFeedback from "./pages/SentimentFeedback";
-import SocialmediaFeed from "./pages/SocialmediaFeed";
-import AlertsUpdates from "./pages/AlertsUpdates";
-import SessionInsight from "./pages/SessionInsight";
-import Reports from "./pages/Reports";
-import NextActionTracker from "./pages/NextActionTracker";
-import GlobalInvesorMap from "./pages/GlobalInvesorMap";
-import ExecutiveView from "./pages/ExecutiveView";
-import ProgrammeTracker from "./pages/ProgrammeTracker";
-import CommandCenter from "./pages/CommandCenter";
-import DealRoomTracker from "./pages/DealRoomTracker";
-import SecuritySafety from "./pages/SecuritySafety";
-import SessionQuotes from "./pages/SessionQuotes";
-import Attendance from "./pages/Attendance";
-import Speaker from "./pages/Speaker";
-import Session from "./pages/Session";
-import AdudienceFeedback from "./pages/AudienceFeedback";
-import IntelligenceDashboard from "./pages/IntelligenceDashboard";
-import DeepDive from "./pages/DeepDive";
-import KeyInsight from "./pages/KeyInsight";
+
+// Lazy load all pages
+const Overview = lazy(() => import("@/pages/Overview"));
+const InvestmentHeatmap = lazy(() => import("./pages/InvestmentHeatmap"));
+const ResolutionBoard = lazy(() => import("./pages/ResolutionBoard"));
+const ParticipationAnalytics = lazy(() => import("./pages/ParticipationAnalytics"));
+const SentimentFeedback = lazy(() => import("./pages/SentimentFeedback"));
+const SocialmediaFeed = lazy(() => import("./pages/SocialmediaFeed"));
+const AlertsUpdates = lazy(() => import("./pages/AlertsUpdates"));
+const SessionInsight = lazy(() => import("./pages/SessionInsight"));
+const Reports = lazy(() => import("./pages/Reports"));
+const NextActionTracker = lazy(() => import("./pages/NextActionTracker"));
+const GlobalInvesorMap = lazy(() => import("./pages/GlobalInvesorMap"));
+const ExecutiveView = lazy(() => import("./pages/ExecutiveView"));
+const ProgrammeTracker = lazy(() => import("./pages/ProgrammeTracker"));
+const CommandCenter = lazy(() => import("./pages/CommandCenter"));
+const DealRoomTracker = lazy(() => import("./pages/DealRoomTracker"));
+const SecuritySafety = lazy(() => import("./pages/SecuritySafety"));
+const SessionQuotes = lazy(() => import("./pages/SessionQuotes"));
+const Attendance = lazy(() => import("./pages/Attendance"));
+const Speaker = lazy(() => import("./pages/Speaker"));
+const Session = lazy(() => import("./pages/Session"));
+const AdudienceFeedback = lazy(() => import("./pages/AudienceFeedback"));
+const IntelligenceDashboard = lazy(() => import("./pages/IntelligenceDashboard"));
+const DeepDive = lazy(() => import("./pages/DeepDive"));
+const KeyInsight = lazy(() => import("./pages/KeyInsight"));
+const Welcome = lazy(() => import("./pages/Welcome"));
+const SignupAdminPage = lazy(() => import("./pages/SignupAdminPage"));
+const UserManagementPage = lazy(() => import("./pages/UserManagementPage"));
+const AttendeeFormIntegrated = lazy(() => import("./pages/AttendeeFormIntegrated"));
+const SpeakerFormIntegrated = lazy(() => import("./pages/SpeakerFormIntegrated"));
+const SessionFormIntegrated = lazy(() => import("./pages/SessionFormIntegrated"));
+const FeedbackFormIntegrated = lazy(() => import("./pages/FeedbackFormIntegrated"));
+const AttendanceManagementPage = lazy(() => import("./pages/AttendanceManagementPage"));
+const About = lazy(() => import("./pages/About"));
+const DemoForm = lazy(() => import("./pages/DemoForm"));
 import { FormShell } from "./components/layout/FormShell";
 import LandingShell from "./components/layout/LandingShell";
-import Welcome from "./pages/Welcome";
-import SignupAdminPage from "./pages/SignupAdminPage";
-import UserManagementPage from "./pages/UserManagementPage";
-import AttendeeFormIntegrated from "./pages/AttendeeFormIntegrated";
-import SpeakerFormIntegrated from "./pages/SpeakerFormIntegrated";
-import SessionFormIntegrated from "./pages/SessionFormIntegrated";
-import FeedbackFormIntegrated from "./pages/FeedbackFormIntegrated";
-import AttendanceManagementPage from "./pages/AttendanceManagementPage";
-import About from "./pages/About";
-import DemoForm from "./pages/DemoForm";
+
+// Simple loading fallback
+function PageLoader() {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
+    </div>
+  );
+}
 
 
 
@@ -73,8 +85,32 @@ function LandingShellLayout() {
 function App() {
   return (
     <Routes>
-      {" "}
-      {/* Protected Routes */}
+      {/* Public Routes - No Authentication Required */}
+      <Route element={<AppShell><Outlet /></AppShell>}>
+        <Route path="/investlagos" element={<Suspense fallback={<PageLoader />}><Overview /></Suspense>} />
+        <Route path="/programme" element={<Suspense fallback={<PageLoader />}><ProgrammeTracker /></Suspense>} />
+        <Route path="/insights" element={<Suspense fallback={<PageLoader />}><SessionInsight /></Suspense>} />
+        <Route path="/deals" element={<Suspense fallback={<PageLoader />}><DealRoomTracker /></Suspense>} />
+        <Route path="/heatmap" element={<Suspense fallback={<PageLoader />}><InvestmentHeatmap /></Suspense>} />
+        <Route path="/resolutions" element={<Suspense fallback={<PageLoader />}><ResolutionBoard /></Suspense>} />
+        <Route path="/analytics" element={<Suspense fallback={<PageLoader />}><ParticipationAnalytics /></Suspense>} />
+        <Route path="/feedback" element={<Suspense fallback={<PageLoader />}><SentimentFeedback /></Suspense>} />
+        <Route path="/social" element={<Suspense fallback={<PageLoader />}><SocialmediaFeed /></Suspense>} />
+        <Route path="/alerts" element={<Suspense fallback={<PageLoader />}><AlertsUpdates /></Suspense>} />
+        <Route path="/security" element={<Suspense fallback={<PageLoader />}><SecuritySafety /></Suspense>} />
+        <Route path="/reports" element={<Suspense fallback={<PageLoader />}><Reports /></Suspense>} />
+        <Route path="/global" element={<Suspense fallback={<PageLoader />}><GlobalInvesorMap /></Suspense>} />
+        <Route path="/next-action-tracker" element={<Suspense fallback={<PageLoader />}><NextActionTracker /></Suspense>} />
+        <Route path="/executive-view" element={<Suspense fallback={<PageLoader />}><ExecutiveView /></Suspense>} />
+        <Route path="/command-center" element={<Suspense fallback={<PageLoader />}><CommandCenter /></Suspense>} />
+        <Route path="/session-quotes" element={<Suspense fallback={<PageLoader />}><SessionQuotes /></Suspense>} />
+        <Route path="/attendance-management" element={<Suspense fallback={<PageLoader />}><AttendanceManagementPage /></Suspense>} />
+        <Route path="/intelligence-dashboard" element={<Suspense fallback={<PageLoader />}><IntelligenceDashboard /></Suspense>} />
+        <Route path="/deep-dive" element={<Suspense fallback={<PageLoader />}><DeepDive /></Suspense>} />
+        <Route path="/key-insight" element={<Suspense fallback={<PageLoader />}><KeyInsight /></Suspense>} />
+      </Route>
+
+      {/* Admin-Only Routes - Requires Authentication */}
       <Route
         element={
           <AuthGate>
@@ -82,64 +118,42 @@ function App() {
           </AuthGate>
         }
       >
-        <Route path="/investlagos" element={<Overview />} />
-        <Route path="/programme" element={<ProgrammeTracker />} />
-        <Route path="/insights" element={<SessionInsight />} />
-        <Route path="/deals" element={<DealRoomTracker />} />
-        <Route path="/heatmap" element={<InvestmentHeatmap />} />
-        <Route path="/resolutions" element={<ResolutionBoard />} />
-        <Route path="/analytics" element={<ParticipationAnalytics />} />
-        <Route path="/feedback" element={<SentimentFeedback />} />
-        <Route path="/social" element={<SocialmediaFeed />} />
-        <Route path="/alerts" element={<AlertsUpdates />} />
-        <Route path="/security" element={<SecuritySafety />} />
-        <Route path="/reports" element={<Reports />} />
-        <Route path="/global" element={<GlobalInvesorMap />} />
-        <Route path="/next-action-tracker" element={<NextActionTracker />} />
-        <Route path="/executive-view" element={<ExecutiveView />} />
-        <Route path="/command-center" element={<CommandCenter />} />
-        <Route path="/session-quotes" element={<SessionQuotes />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route path="/attendance-management" element={<AttendanceManagementPage />} />
-        <Route path="/speaker" element={<Speaker />} />
-        <Route path="/session" element={<Session />} />
-        <Route path="/audience-feedback" element={<AdudienceFeedback />} />
-        <Route
-          path="/intelligence-dashboard"
-          element={<IntelligenceDashboard />}
-        />
-        <Route path="/deep-dive" element={<DeepDive />} />
-        <Route path="/key-insight" element={<KeyInsight />} />
+        <Route path="/session" element={<Suspense fallback={<PageLoader />}><Session /></Suspense>} />
+        <Route path="/speaker" element={<Suspense fallback={<PageLoader />}><Speaker /></Suspense>} />
+        <Route path="/audience-feedback" element={<Suspense fallback={<PageLoader />}><AdudienceFeedback /></Suspense>} />
+        <Route path="/attendance" element={<Suspense fallback={<PageLoader />}><Attendance /></Suspense>} />
         <Route
           path="/user-management"
           element={
-            <ProtectedRoute
-              requiredRoles={["super_admin", "admin", "operator"]}
-            >
-              <UserManagementPage />
-            </ProtectedRoute>
+            <Suspense fallback={<PageLoader />}>
+              <ProtectedRoute requiredRoles={["super_admin", "admin", "operator"]}>
+                <UserManagementPage />
+              </ProtectedRoute>
+            </Suspense>
           }
         />
       </Route>
       {/* Form Routes */}
       <Route element={<FormShellLayout />}>
-        <Route path="/feedback-form" element={<FeedbackFormIntegrated />} />
-        <Route path="/session-form" element={<SessionFormIntegrated />} />
-        <Route path="/speaker-form" element={<SpeakerFormIntegrated />} />
-        <Route path="/attendee-form" element={<AttendeeFormIntegrated />} />
+        <Route path="/feedback-form" element={<Suspense fallback={<PageLoader />}><FeedbackFormIntegrated /></Suspense>} />
+        <Route path="/session-form" element={<Suspense fallback={<PageLoader />}><SessionFormIntegrated /></Suspense>} />
+        <Route path="/speaker-form" element={<Suspense fallback={<PageLoader />}><SpeakerFormIntegrated /></Suspense>} />
+        <Route path="/attendee-form" element={<Suspense fallback={<PageLoader />}><AttendeeFormIntegrated /></Suspense>} />
         <Route
           path="/signup-admin"
           element={
-            <ProtectedRoute requiredRoles={["super_admin"]}>
-              <SignupAdminPage />
-            </ProtectedRoute>
+            <Suspense fallback={<PageLoader />}>
+              <ProtectedRoute requiredRoles={["super_admin"]}>
+                <SignupAdminPage />
+              </ProtectedRoute>
+            </Suspense>
           }
         />
       </Route>
       <Route element={<LandingShellLayout />}>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/demo-form" element={<DemoForm />} />
+        <Route path="/" element={<Suspense fallback={<PageLoader />}><Welcome /></Suspense>} />
+        <Route path="/about" element={<Suspense fallback={<PageLoader />}><About /></Suspense>} />
+        <Route path="/demo-form" element={<Suspense fallback={<PageLoader />}><DemoForm /></Suspense>} />
       </Route>
     </Routes>
   );

@@ -75,21 +75,21 @@ export function FeedbackEditModal({ isOpen, onClose, feedback }: FeedbackEditMod
             min="1"
             max="5"
             {...register('star_rating')}
-            error={errors.star_rating?.message}
+            error={errors.star_rating}
           />
 
           <FormTextarea
             label="Review"
             placeholder="Enter review text"
             {...register('review_text')}
-            error={errors.review_text?.message}
+            error={errors.review_text}
           />
 
           <FormTextarea
             label="Key Takeaway"
             placeholder="Enter key takeaway"
             {...register('key_takeaway')}
-            error={errors.key_takeaway?.message}
+            error={errors.key_takeaway}
           />
 
           <div>

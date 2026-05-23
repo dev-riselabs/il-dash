@@ -12,13 +12,6 @@ import { Search, Plus, Edit2, Trash2, Shield, AlertCircle, Loader, X } from 'luc
 
 type ModalMode = null | 'create' | 'edit' | 'delete' | 'change-role'
 
-interface EditingUser {
-  id: number
-  name: string
-  phone: string
-  bio?: string | null
-}
-
 export default function UserManagementPage() {
   const navigate = useNavigate()
   const { user: currentUser } = useAuth()
@@ -141,7 +134,7 @@ export default function UserManagementPage() {
     editForm.reset()
   }
 
-  const canManageUsers = currentUser?.role === 'super_admin'
+  const canManageUsers = (currentUser?.roles || []).includes('super_admin')
 
   return (
     <div className="min-h-screen bg-slate-950 p-6">

@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { AttendeeEditModal } from "@/components/ui/AttendeeEditModal";
-import { exportAttendeesToExcel, exportAttendeesToPDF } from "@/lib/api/export";
+import { exportAttendeesToExcel } from "@/lib/api/export";
 import type { Attendee } from "@/lib/api/types";
 
 const PER_PAGE = 10;
@@ -70,11 +70,9 @@ function Attendance() {
     }
   };
 
-  const handleDownload = async (format: 'excel' | 'pdf') => {
-    if (format === 'excel') {
+  const handleDownload = async (format: "excel") => {
+    if (format === "excel") {
       await exportAttendeesToExcel(rows);
-    } else if (format === 'pdf') {
-      await exportAttendeesToPDF(rows);
     }
   };
 

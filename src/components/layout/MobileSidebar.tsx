@@ -17,18 +17,17 @@ import {
   Target,
   Command,
   X,
-  MessageSquareQuote,
   ClipboardCheck,
   Speaker,
   NotebookTabs,
   MessageSquareReply,
   BrainCircuit,
-  ClipboardList,
-  Key,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/auth/store";
 
-const items = [
+const publicItems = [
   { to: "/investlagos", label: "Overview", icon: LayoutDashboard, end: true },
   { to: "/executive-view", label: "Executive View", icon: Target },
   { to: "/command-center", label: "Command Center", icon: Command },
@@ -54,40 +53,32 @@ const items = [
     label: "Intelligence Dashboard",
     icon: BrainCircuit,
   },
-  // {
-  //   to: "/key-insight",
-  //   label: "Key Insight",
-  //   icon: Key,
-  // },
-  // {
-  //   to: "/session-quotes",
-  //   label: "Session Quotes",
-  //   icon: MessageSquareQuote,
-  // },
-  // {
-  //   to: "/deep-dive",
-  //   label: "Deep Dive",
-  //   icon: ClipboardList,
-  // },
+];
+
+const adminItems = [
   {
     to: "/attendance",
     label: "Attendance",
     icon: ClipboardCheck,
+    end: false,
   },
   {
     to: "/speaker",
     label: "Speaker",
     icon: Speaker,
+    end: false,
   },
   {
     to: "/session",
     label: "Session",
     icon: NotebookTabs,
+    end: false,
   },
   {
     to: "/audience-feedback",
     label: "Audience Feedback",
     icon: MessageSquareReply,
+    end: false,
   },
 ];
 
@@ -97,6 +88,14 @@ type SidebarProps = {
 };
 
 export function MobileSidebar({ handleCloseMenu, showMenu }: SidebarProps) {
+  const { user, logout } = useAuth();
+  const items = user ? [...publicItems, ...adminItems] : publicItems;
+
+  const handleLogout = async () => {
+    await logout();
+    handleCloseMenu();
+  };
+
   return (
     <aside
       className={`${showMenu ? "fixed" : "hidden"} w-full bg-surface900/50 backdrop-blur-xs z-20  top-0 left-0 h-screen lg:hidden`}
@@ -105,26 +104,44 @@ export function MobileSidebar({ handleCloseMenu, showMenu }: SidebarProps) {
         <X className="w-6 h-6 absolute top-4 right-4 text-white" />
       </button>
 
-      <nav className="flex-1 px-3 space-y-1 overflow-y-auto lg:pb-20 w-2/3 md:w-1/3 bg-surface950 h-screen py-10 -mt-6">
-        {items.map(({ to, label, icon: Icon, end }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={end}
-            className={({ isActive }) =>
-              cn(
-                "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit",
-                isActive
-                  ? "bg-cyan/10 text-cyan"
-                  : "text-white hover:text-slate-200 hover:bg-white/5",
-              )
-            }
-          >
-            <Icon className="w-5 h-5 shrink-0" strokeWidth={1.5} />
-            <span className="truncate">{label}</span>
-          </NavLink>
-        ))}
-        <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
+      <nav className="flex-1 px-3 space-y-1 overflow-y-auto lg:pb-20 w-2/3 md:w-1/3 bg-surface950 h-screen py-10 -mt-6 flex flex-col">
+        <div className="flex-1">
+          {items.map(({ to, label, icon: Icon, end }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end ?? false}
+              className={({ isActive }) =>
+                cn(
+                  "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit",
+                  isActive
+                    ? "bg-cyan/10 text-cyan"
+                    : "text-white hover:text-slate-200 hover:bg-white/5",
+                )
+              }
+            >
+              <Icon className="w-5 h-5 shrink-0" strokeWidth={1.5} />
+              <span className="truncate">{label}</span>
+            </NavLink>
+          ))}
+          <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
+        </div>
+
+        {/* Admin Logout Button */}
+        {user && (
+          <div className="border-t border-white/5 pt-4">
+            <button
+              onClick={handleLogout}
+              className={cn(
+                "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit w-full",
+                "text-white hover:text-slate-200 hover:bg-white/5"
+              )}
+            >
+              <LogOut className="w-5 h-5 shrink-0" strokeWidth={1.5} />
+              <span className="truncate">Logout</span>
+            </button>
+          </div>
+        )}
       </nav>
     </aside>
   );

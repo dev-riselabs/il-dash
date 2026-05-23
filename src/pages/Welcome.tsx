@@ -202,7 +202,7 @@ function Welcome() {
           time and track outcomes beyond the event itself.
         </p>
         <div className="border-4 border-blue50 rounded-2xl w-full h-125">
-          <video src=""></video>
+          <video></video>
         </div>
       </section>
 
@@ -231,7 +231,7 @@ function Welcome() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10">
           <div className="flex flex-col gap-7 md:gap-18">
             {resultOne.map(({ img, title, description }) => (
-              <div className="flex flex-col gap-6">
+              <div key={title} className="flex flex-col gap-6">
                 <img src={img} alt="" className="w-10 h-10 md:w-17.5 md:h-17.5" />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">
@@ -247,7 +247,7 @@ function Welcome() {
           <img src="/result-img.png" alt="" className="h-full" />
           <div className="flex flex-col gap-7 md:gap-18">
             {resultTwo.map(({ img, title, description }) => (
-              <div className="flex flex-col gap-6">
+              <div key={title} className="flex flex-col gap-6">
                 <img src={img} alt="" className="w-10 h-10 md:w-17.5 md:h-17.5" />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">

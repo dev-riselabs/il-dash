@@ -1,6 +1,6 @@
-// Bootstraps the authenticated user on mount and gates the dashboard behind
-// a minimal Sanctum SPA login form. While unauthenticated, the rest of the
-// app is hidden; once a session is established, children render normally.
+// Bootstraps the authenticated user on mount and gates specific admin pages
+// behind a login form. Users accessing public pages don't see this gate.
+// Once authenticated, the admin pages render normally.
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { useAuth } from './store'
@@ -11,8 +11,8 @@ interface Props {
 
 export function AuthGate({ children }: Props) {
   const { user, loading, initialized, fetchMe, login } = useAuth()
-  const [email, setEmail] = useState('admin@risenetworks.org')
-  const [password, setPassword] = useState('Password123!')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -47,13 +47,9 @@ export function AuthGate({ children }: Props) {
   return (
     <div className="min-h-screen w-full flex flex-col gap-10 justify-center items-center bg-black px-4 auth-bg">
       <div className="flex flex-col gap-1 items-center">
-          <h1 className="text-white font-lexend text-2xl font-semibold">
-            Welcome back, IL-DASH!
-          </h1>
-          <p className="text-white/60 font-lexend text-xs">
-            Sign in with your control room credentials.
-          </p>
-        </div>
+          <h1 className="text-white font-lexend text-2xl font-semibold">Admin Access Required</h1>
+          <p className="text-white/50 text-sm">Sign in with your admin credentials to continue</p>
+      </div>
       <form
         onSubmit={onSubmit}
         className="w-full max-w-sm border border-white/15 rounded-2xl p-7 flex flex-col gap-5 bg-white/5 backdrop-blur"

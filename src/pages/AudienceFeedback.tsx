@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { FeedbackEditModal } from "@/components/ui/FeedbackEditModal";
-import { exportFeedbackToExcel, exportFeedbackToPDF } from "@/lib/api/export";
+import { exportFeedbackToExcel } from "@/lib/api/export";
 import type { FeedbackSubmission } from "@/lib/api/types";
 
 const PER_PAGE = 10;
@@ -77,11 +77,9 @@ function AudienceFeedback() {
     }
   };
 
-  const handleDownload = async (format: "excel" | "pdf") => {
+  const handleDownload = async (format: "excel") => {
     if (format === "excel") {
       await exportFeedbackToExcel(rows);
-    } else if (format === "pdf") {
-      await exportFeedbackToPDF(rows);
     }
   };
   return (

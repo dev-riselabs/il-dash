@@ -83,13 +83,13 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
               label="First Name"
               placeholder="Enter first name"
               {...register('first_name')}
-              error={errors.first_name?.message}
+              error={errors.first_name}
             />
             <FormInput
               label="Last Name"
               placeholder="Enter last name"
               {...register('last_name')}
-              error={errors.last_name?.message}
+              error={errors.last_name}
             />
           </div>
 
@@ -98,35 +98,35 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
             type="email"
             placeholder="Enter email address"
             {...register('email')}
-            error={errors.email?.message}
+            error={errors.email}
           />
 
           <FormInput
             label="Job Title"
             placeholder="Enter job title"
             {...register('job_title')}
-            error={errors.job_title?.message}
+            error={errors.job_title}
           />
 
           <FormInput
             label="Organization"
             placeholder="Enter organization"
             {...register('organization')}
-            error={errors.organization?.message}
+            error={errors.organization}
           />
 
           <FormInput
             label="Country"
             placeholder="Enter country"
             {...register('country')}
-            error={errors.country?.message}
+            error={errors.country}
           />
 
           <FormTextarea
             label="Bio"
             placeholder="Enter speaker bio"
             {...register('bio')}
-            error={errors.bio?.message}
+            error={errors.bio}
           />
 
           <div className="flex gap-3 pt-4 border-t border-slate-700 mt-6">

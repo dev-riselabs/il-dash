@@ -101,13 +101,13 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
               label="First Name"
               placeholder="Enter first name"
               {...register('first_name')}
-              error={errors.first_name?.message}
+              error={errors.first_name}
             />
             <FormInput
               label="Last Name"
               placeholder="Enter last name"
               {...register('last_name')}
-              error={errors.last_name?.message}
+              error={errors.last_name}
             />
           </div>
 
@@ -116,7 +116,7 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
             type="email"
             placeholder="Enter email address"
             {...register('email')}
-            error={errors.email?.message}
+            error={errors.email}
           />
 
           <div className="grid grid-cols-2 gap-4">
@@ -124,13 +124,13 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
               label="Job Title"
               placeholder="Enter job title"
               {...register('job_title')}
-              error={errors.job_title?.message}
+              error={errors.job_title}
             />
             <FormInput
               label="Organization"
               placeholder="Enter organization"
               {...register('organization')}
-              error={errors.organization?.message}
+              error={errors.organization}
             />
           </div>
 
@@ -139,13 +139,13 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
               label="Country"
               placeholder="Enter country"
               {...register('country')}
-              error={errors.country?.message}
+              error={errors.country}
             />
             <FormInput
               label="Region"
               placeholder="Enter region"
               {...register('region')}
-              error={errors.region?.message}
+              error={errors.region}
             />
           </div>
 
@@ -159,7 +159,7 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
                 { value: 'female', label: 'Female' },
                 { value: 'other', label: 'Other' },
               ]}
-              error={errors.gender?.message}
+              error={errors.gender}
             />
             <FormSelect
               label="Category"
@@ -174,7 +174,7 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
                 { value: 'Government', label: 'Government' },
                 { value: 'Other', label: 'Other' },
               ]}
-              error={errors.category?.message}
+              error={errors.category}
             />
           </div>
 
@@ -186,7 +186,7 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
                 { value: '', label: 'Select event' },
                 ...(eventsQ.data ?? []).map(e => ({ value: String(e.id), label: e.name }))
               ]}
-              error={errors.event_id?.message}
+              error={errors.event_id}
             />
             <FormSelect
               label="Track"
@@ -195,7 +195,7 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
                 { value: '', label: 'Select track' },
                 ...(tracksQ.data ?? []).map(t => ({ value: String(t.id), label: t.name }))
               ]}
-              error={errors.track_id?.message}
+              error={errors.track_id}
             />
           </div>
 
@@ -206,7 +206,7 @@ export function AttendeeEditModal({ isOpen, onClose, attendee }: AttendeeEditMod
               { value: '', label: 'Select sector' },
               ...(sectorsQ.data ?? []).map(s => ({ value: String(s.id), label: s.name }))
             ]}
-            error={errors.sector_id?.message}
+            error={errors.sector_id}
           />
 
           <div className="flex gap-3 pt-4 border-t border-slate-700 mt-6">

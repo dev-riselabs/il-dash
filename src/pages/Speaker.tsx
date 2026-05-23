@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { SpeakerEditModal } from "@/components/ui/SpeakerEditModal";
-import { exportSpeakersToExcel, exportSpeakersToPDF } from "@/lib/api/export";
+import { exportSpeakersToExcel } from "@/lib/api/export";
 import type { Speaker } from "@/lib/api/types";
 
 const PER_PAGE = 10;
@@ -65,11 +65,9 @@ function SpeakerPage() {
     }
   };
 
-  const handleDownload = async (format: "excel" | "pdf") => {
+  const handleDownload = async (format: "excel") => {
     if (format === "excel") {
       await exportSpeakersToExcel(rows);
-    } else if (format === "pdf") {
-      await exportSpeakersToPDF(rows);
     }
   };
 
