@@ -1,4 +1,5 @@
 import { FaRegTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -115,12 +116,12 @@ function Welcome() {
             />
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-5">
-            <button className="rounded-lg bg-white text-blue600 px-10 py-3 text-sm font-inter">
+            <a href="#how-it-works" className="rounded-lg bg-white text-blue600 px-10 py-3 text-sm font-inter hover:bg-white/95 transition-all">
               See How It Works
-            </button>
-            <button className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter">
+            </a>
+            <Link to='/demo-form' className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter hover:bg-pink/90 transition-all">
               Request a Demo
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -306,7 +307,7 @@ function Welcome() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
+      <section id='how-it-works' className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
         <div className="relative py-5 px-10 flex flex-col gap-2 items-center max-w-3xl">
           <p className="text-sm md;text-lg text-pink font-inter font-bold text-center uppercase">
             HOW IT WORKS
@@ -354,9 +355,9 @@ function Welcome() {
             <button className="rounded-lg bg-white text-blue600 px-6 md:px-3 lg:px-10 py-3 text-sm font-inter">
               Deploy EventsIntel
             </button>
-            <button className="rounded-lg bg-pink text-white px-6 md:px-3 lg:px-10 py-3 text-sm font-inter">
+            <Link to='/demo-form' className="rounded-lg bg-pink text-white px-6 md:px-3 lg:px-10 py-3 text-sm font-inter cursor-pointer hover:bg-pink/90 transition-all">
               Request a Demo
-            </button>
+            </Link>
           </div>
         </div>
         <div className="md:flex-1 pl-4 md:pl-0">
@@ -367,7 +368,7 @@ function Welcome() {
 
       <section className="flex flex-col gap-9 py-20 px-4 md:px-10 lg:px-20 bg-blue150 items-center justify-center">
         <h5 className="font-anek text-xl md:text-2xl font-semibold text-pink">Our main priorities for our Clients are to execute your unique event deployment brilliantly, make your reporting unforgettable, help you demonstrate measurable operational value to your stakeholders and convert your event into recurring institutional results that are useful for future decision making.</h5>
-        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-5 md:pb-30 bg-cta">
+        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-5 md:pl-25 md:pb-30 bg-cta">
             <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] md:flex-1 md:pb-40">We’re ready to help you. Contact us now.</h4>
             <form action="" className="flex flex-col gap-5 border border-white/50 rounded-2xl bg-neutral900 p-6 md:flex-1">
             <div className="flex flex-col gap-3 ">

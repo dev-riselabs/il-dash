@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -33,16 +33,16 @@
   --color-orange400: #f8b23378;
   --color-orange500: #f8b233;
   --color-mint: #00c8b3;
-  --color-mint50 : #2DC593;
-  --color-mint100: #D9E3E0;
+  --color-mint50: #2dc593;
+  --color-mint100: #d9e3e0;
   --color-blue: #0088ff;
   --color-blue50: #0480de;
   --color-blue100: #003a9f;
   --color-blue150: #0e1425;
   --color-blue200: #0a66c2;
-  --color-blue250: #1763F9;
+  --color-blue250: #1763f9;
   --color-blue300: #071e3f;
-  --color-blue350: #CFDCF4;
+  --color-blue350: #cfdcf4;
   --color-blue400: #5fb7e4;
   --color-blue500: #1e2633;
   --color-blue600: #062c59;
@@ -55,10 +55,10 @@
   --color-purple100: #4b209e;
   --color-purple200: #7a1e9b;
   --color-purple300: #6750a4;
-  --color-purple400: #895BE6;
-  --color-purple500: #D7C7F7;
-  --color-purple600: #F6B8FD;
-  --color-purple700: #316AD7;
+  --color-purple400: #895be6;
+  --color-purple500: #d7c7f7;
+  --color-purple600: #f6b8fd;
+  --color-purple700: #316ad7;
   --color-brown: #b2631c;
   --color-brown100: #392914;
   --color-brown200: #433008;
@@ -77,7 +77,7 @@
   --color-slate400: #9a9da6;
   --color-slate500: #333333;
   --color-slate600: #808080;
-  --color-slate700 :#C4C4C4;
+  --color-slate700: #c4c4c4;
   --color-green200: #094a32;
   --color-green300: #05c16833;
   --color-green350: #7fdf9f;
@@ -155,22 +155,22 @@
   width: 100%;
 }
 
-.auth-bg{
-  background: url('/login-bg.png');
+.auth-bg {
+  background: url("/login-bg.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.signup-bg{
-  background: url('/bg-signup.png');
+.signup-bg {
+  background: url("/bg-signup.png");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-html{
+html {
   scrollbar-color: #00c0e8 #0a0e14;
   scrollbar-width: thin;
-
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar-track {

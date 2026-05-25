@@ -99,10 +99,8 @@ export function Sidebar() {
     <aside
       onMouseEnter={toggleIsHovered}
       onMouseLeave={toggleIsHovered}
-      className={`${isHovered ? "w-62" : "w-20"} shrink-0 bg-surface900 border-r border-white/5 flex flex-col lg:flex hidden transition-all `}
+      className={`${isHovered ? "w-62" : "w-20"} shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden transition-all `}
     >
-      
-
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto lg:pb-20">
         {items.map(({ to, label, icon: Icon, end }) => (
           <NavLink
@@ -122,10 +120,12 @@ export function Sidebar() {
             {isHovered && <span className="truncate">{label}</span>}
           </NavLink>
         ))}
-        {isHovered && (
-          <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
-        )}
+
+        
       </nav>
+      <img src="./logo-b.png" alt="" className={`p-2 ${
+          isHovered ? 'w-30 pl-6' : ''
+        }`} />
 
       {/* Admin Logout Button */}
       {user && (
@@ -134,7 +134,7 @@ export function Sidebar() {
             onClick={handleLogout}
             className={cn(
               "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit w-full",
-              "text-white hover:text-slate-200 hover:bg-white/5"
+              "text-white hover:text-slate-200 hover:bg-white/5",
             )}
           >
             <LogOut className="w-5 h-5 shrink-0" strokeWidth={1.5} />
