@@ -3,17 +3,25 @@
 // Once authenticated, the admin pages render normally.
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from './store'
+import { Eye, EyeClosed } from 'lucide-react'
 
 interface Props {
   children: ReactNode
 }
 
 export function AuthGate({ children }: Props) {
+  const navigate = useNavigate()
   const { user, loading, initialized, fetchMe, login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [showPassword, setShowPassword] = useState(false)
+
+  function toggleShowPassword() {
+    setShowPassword(prev => !prev)
+  }
 
   useEffect(() => {
     if (!initialized) void fetchMe()
@@ -70,14 +78,19 @@ export function AuthGate({ children }: Props) {
 
         <label className="flex flex-col gap-2">
           <span className="text-white/80 font-lexend text-xs">Password</span>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="current-password"
-            required
-            className="bg-black/40 border border-white/20 rounded px-3 py-2 text-white font-lexend text-sm outline-none focus:border-white/50"
-          />
+          <div className='bg-black/40 border border-white/20 focus:border-white/50 rounded px-3 py-2 flex gap-2 items-center'>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password"
+              required
+              className="bg-transparent text-white font-lexend text-sm outline-none flex-1"
+            />
+            <button type="button" onClick={toggleShowPassword} className='cursor-pointer shrink-0'>
+              {showPassword ? <EyeClosed className='text-white/60 w-5 h-5'/> : <Eye className='text-white/60 w-5 h-5'/>}
+            </button>
+          </div>
         </label>
 
         {error ? (
@@ -91,6 +104,17 @@ export function AuthGate({ children }: Props) {
         >
           {loading ? 'Signing in…' : 'Sign in'}
         </button>
+
+        <div className="flex gap-1 justify-center text-white/60 font-lexend text-xs">
+          <span>Don't have an account?</span>
+          <button
+            type="button"
+            onClick={() => navigate('/signup')}
+            className="text-cyan hover:text-cyan/80 cursor-pointer"
+          >
+            Sign Up
+          </button>
+        </div>
       </form>
     </div>
   )

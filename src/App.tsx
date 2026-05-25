@@ -113,9 +113,9 @@ function App() {
         <Route path="/key-insight" element={<Suspense fallback={<PageLoader />}><KeyInsight /></Suspense>} />
       </Route>
 
-      {/* Public Auth Pages - Accessible Routes for Login/Signup */}
-      <Route path="/signin" element={<Suspense fallback={<PageLoader />}><AuthGate><AuthedShell /></AuthGate></Suspense>} />
+      {/* Public Auth Pages - Separate Signup and Signin */}
       <Route path="/signup" element={<Suspense fallback={<PageLoader />}><SignUp><AuthedShell /></SignUp></Suspense>} />
+      <Route path="/signin" element={<Suspense fallback={<PageLoader />}><AuthGate><AuthedShell /></AuthGate></Suspense>} />
 
       {/* Admin-Only Routes - Requires Authentication */}
       <Route element={<AuthGate><AuthedShell /></AuthGate>}>

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   CalendarClock,
@@ -82,6 +82,7 @@ const adminItems = [
 ];
 
 export function Sidebar() {
+  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const { user, logout } = useAuth();
 
@@ -93,6 +94,7 @@ export function Sidebar() {
 
   const handleLogout = async () => {
     await logout();
+    navigate('/signin');
   };
 
   return (
