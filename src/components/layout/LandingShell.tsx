@@ -18,10 +18,10 @@ function LandingShell({ children }: Props) {
     }
   return (
     <div>
-        <header className="flex justify-between gap-30 items-center py-4 px-4 md:px-20 bg-[linear-gradient(90deg,#082250_0%,#0B2760_15%,#001C4A_45%,#052044_65%,#234F72_100%)]">
+        <header className="flex justify-between gap-30 items-center py-4 px-4 md:px-10 lg:px-20 bg-[linear-gradient(90deg,#082250_0%,#0B2760_15%,#001C4A_45%,#052044_65%,#234F72_100%)]">
             <img src="/events-intel.png" alt="" className="w-20"/>
-            <button onClick={toggleShowMenu} className="cursor-pointer md:hidden"><Menu className="text-white w-7 h-7"/></button>
-            <div className="md:flex items-center justify-between gap-5 flex-1 hidden">
+            <button onClick={toggleShowMenu} className="cursor-pointer lg:hidden"><Menu className="text-white w-7 h-7"/></button>
+            <div className="lg:flex items-center justify-between gap-5 flex-1 hidden">
                 <ul className="flex items-center gap-8">
                     <Link to='/' className="font-inter text-sm text-white">Welcome</Link>
                     <Link to='/about' className="font-inter text-sm text-white">About us</Link>
@@ -38,7 +38,7 @@ function LandingShell({ children }: Props) {
                 </div>
             </div>
 
-            <div className={`flex flex-col px-6 gap-16 w-3/4 z-10 bg-black/50 backdrop-blur-sm md:hidden py-16  ${
+            <div className={`flex flex-col px-6 gap-16 w-3/4 z-10 bg-black/50 backdrop-blur-sm lg:hidden py-16  ${
                 showMenu ? 'fixed top-0 h-screen right-0' : 'hidden'
             }`}>
                 <button onClick={toggleShowMenu} className="absolute top-3 right-4 cursor-pointer">
@@ -61,12 +61,12 @@ function LandingShell({ children }: Props) {
             </div>
         </header>
         <main>{children}</main>
-        <footer className="bg-oval px-4 md:px-20 pt-20 bg-white flex flex-col gap-12 pb-7">
-            <div className="bg-white rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-10 px-5 md:px-20 py-5 md:py-10 shadow" >
-                <h5 className="text-xl md:text-3xl text-pink font-inter font-semibold md:max-w-[20ch] leading-8 md:leading-12">Become an Insider. Join our Newsletter.</h5>
-                <form action="" className="border-2 rounded-md flex gap-3 md:gap-5 flex-1 py-1 px-1.5 md:px-4 border-slate300 ">
-                    <input type="email" name="" id="" className="outline-none flex-1" placeholder="Enter your email"/>
-                    <button className="px-2 font-medium md:px-10 rounded-md bg-pink text-xs md:text-base text-white font-inter py-2 md:py-3 cursor-pointer">Subscribe Now</button>
+        <footer className="bg-oval px-4 md:px-10 lg:px-20 pt-20 bg-white flex flex-col gap-12 pb-7">
+            <div className="bg-white rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-10 px-5 lg:px-20 py-5 md:py-10 shadow" >
+                <h5 className="text-xl md:text-3xl text-pink font-inter font-semibold md:max-w-[20ch] leading-8 md:leading-12 flex-1">Become an Insider. Join our Newsletter.</h5>
+                <form action="" className="border-2 rounded-md flex gap-3 md:gap-5 flex-1 py-1 px-1.5 lg:px-4 border-slate300">
+                    <input type="email" name="" id="" className="outline-none flex-2" placeholder="Enter your email"/>
+                    <button className="px-2 font-medium md:px-2 lg:px-10 rounded-md bg-pink text-xs sm:text-[10px] lg:text-base text-white font-inter py-2 md:py-3 cursor-pointer shrink-0">Subscribe Now</button>
                 </form>
             </div>
             <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between border-b border-b-slate300 pb-8">
