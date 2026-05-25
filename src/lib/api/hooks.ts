@@ -612,5 +612,13 @@ export function useChangeUserRole() {
   })
 }
 
+// Demo Request - Public submission
+export function useSubmitDemoRequest() {
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      publicApi.post<{ success: boolean; message: string }>('/api/demo-request', payload).then(res => res.data),
+  })
+}
+
 // Re-export delete helper for future use elsewhere
 export { del as deleteRequest }
