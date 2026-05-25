@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { TopNav } from "./TopNav";
+import { Link } from "react-router-dom";
 
 interface Props {
   children: ReactNode;
@@ -23,7 +24,7 @@ export function AppShell({ children }: Props) {
         <div className="flex items-center justify-between gap-2 text-[10px] sm:text-xs text-white font-lexend">
           Designed and developed by Events Intelligence & Technology Services
           Limited.
-          <img src="/events-intel.png" alt="" className="h-10" />
+          <Link to='/' ><img src="/events-intel.png" alt="" className="h-10" /></Link>
         </div>
         <div className="text-[10px] sm:text-xs text-white font-lexend flex items-center justify-center gap-1.5">
           AI Deployment Partner
