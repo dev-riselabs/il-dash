@@ -131,19 +131,19 @@
 .bg-demo {
   background: url("/demo-bg.png");
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
 }
 
 .bg-about {
   background: url("/about-bg.png");
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   background-color: #041c3e;
 }
 .bg-feature {
   background: url("/feature-bg.png");
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: cover;
   background-color: #041c3e;
 }
 
@@ -169,6 +169,8 @@
 
 html{
   scrollbar-color: #00c0e8 #0a0e14;
+  scrollbar-width: thin;
+
 }
 
 ::-webkit-scrollbar-track {

@@ -146,11 +146,11 @@ export default function Overview() {
             }
             emptyLabel="No sessions scheduled yet."
           >
-            <div className="border-l-4 border-l-cyan py-6 pr-2 pl-7 flex flex-col gap-4">
+            <div className="border-l-4 border-l-cyan py-6 pr-2 pl-3 flex flex-col gap-4">
               <h3 className="font-lexend text-base font-medium text-cyan pl-8">
                 CURRENT SESSION
               </h3>
-              <div className="overflow-y-auto h-100 pl-4">
+              <div className="overflow-y-auto h-80 pl-4">
                 <div className="flex flex-col pl-6 gap-6 border-l-2 border-l-white/55 relative ">
                   {liveSession ? (
                     <div className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-['1'] after:absolute after:bg-red after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4">
@@ -185,7 +185,9 @@ export default function Overview() {
                     {nextSessions.map((s, i) => (
                       <div
                         key={s.id}
-                        style={{'--step' : `"${i + 2}"`} as React.CSSProperties}
+                        style={
+                          { "--step": `"${i + 2}"` } as React.CSSProperties
+                        }
                         className="flex justify-between items-center gap-3 p-4 border border-white/31 rounded-lg after:content-(--step) after:absolute after:bg-yellow after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4"
                       >
                         <div className="flex flex-col gap-3">
@@ -214,44 +216,44 @@ export default function Overview() {
               </div>
             </div>
             <div className="border border-white/35 py-4 px-3 mt-2">
-            <div className="overflow-y-auto h-50 pl-4">
-              <div className="flex flex-col gap-2 relative border-l border-l-white/55 pl-6 ">
-                {completedSessions.map((s, i) => (
-                  <div
-                    key={s.id}
-                    style={{'--step' : `"${i + 1}"`} as React.CSSProperties}
-                    className={`flex justify-between items-center gap-2 p-4 border border-white/31 rounded-lg after:content-(--step) after:absolute after:bg-green after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4`}
-                  >
-                    <div className="flex flex-col gap-3">
-                      <span className="font-lexend text-white text-xs font-light">
-                        {fmtRange(s.starts_at, s.ends_at)}
-                      </span>
-                      <h5 className="font-lexend text-white text-xs font-semibold">
-                        {s.title}
-                      </h5>
-                      <p className="font-lexend text-white text-[10px] font-medium">
-                        {s.description ?? s.venue?.name ?? ""}
-                      </p>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <div className=" uppercase text-xs text-green font-semibold">
-                        completed
+              <div className="overflow-y-auto h-50 pl-4">
+                <div className="flex flex-col gap-2 relative border-l border-l-white/55 pl-6 ">
+                  {completedSessions.map((s, i) => (
+                    <div
+                      key={s.id}
+                      style={{ "--step": `"${i + 1}"` } as React.CSSProperties}
+                      className={`flex justify-between items-center gap-2 p-4 border border-white/31 rounded-lg after:content-(--step) after:absolute after:bg-green after:text-sm after:flex after:justify-center after:items-center after:w-8.5 after:h-8.5 after:rounded-full after:text-white after:z-5 after:-left-4`}
+                    >
+                      <div className="flex flex-col gap-3">
+                        <span className="font-lexend text-white text-xs font-light">
+                          {fmtRange(s.starts_at, s.ends_at)}
+                        </span>
+                        <h5 className="font-lexend text-white text-xs font-semibold">
+                          {s.title}
+                        </h5>
+                        <p className="font-lexend text-white text-[10px] font-medium">
+                          {s.description ?? s.venue?.name ?? ""}
+                        </p>
                       </div>
-                      <Link
-                        to="/feedback-form"
-                        className="text-red100 uppercase  rounded-md text-xs font-semibold"
-                      >
-                        Give Feedback
-                      </Link>
+                      <div className="flex flex-col gap-2">
+                        <div className=" uppercase text-xs text-green font-semibold">
+                          completed
+                        </div>
+                        <Link
+                          to="/feedback-form"
+                          className="text-red100 uppercase  rounded-md text-xs font-semibold"
+                        >
+                          Give Feedback
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                ))}
-                {completedSessions.length === 0 && (
-                  <div className="text-white/60 text-xs font-lexend">
-                    No completed sessions yet.
-                  </div>
-                )}
-              </div>
+                  ))}
+                  {completedSessions.length === 0 && (
+                    <div className="text-white/60 text-xs font-lexend">
+                      No completed sessions yet.
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </QueryState>

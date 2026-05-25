@@ -4,6 +4,7 @@
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { useAuth } from './store'
+import { Eye, EyeClosed } from 'lucide-react'
 
 interface Props {
   children: ReactNode
@@ -11,9 +12,15 @@ interface Props {
 
 export function AuthGate({ children }: Props) {
   const { user, loading, initialized, fetchMe, login } = useAuth()
-  const [email, setEmail] = useState('admin@risenetworks.org')
-  const [password, setPassword] = useState('Password123!')
+  const [email, setEmail] = useState('')
+  const [fullName, setFullName] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [showPassword, setShowPassword] = useState(false)
+
+  function toggleShowPassword(){
+    setShowPassword(prev => !prev)
+  }
 
   useEffect(() => {
     if (!initialized) void fetchMe()
@@ -58,6 +65,17 @@ export function AuthGate({ children }: Props) {
         onSubmit={onSubmit}
         className="w-full max-w-sm border border-white/15 rounded-2xl p-7 flex flex-col gap-5 bg-white/5 backdrop-blur"
       >
+
+        <label className="flex flex-col gap-2">
+          <span className="text-white/80 font-lexend text-xs">Full name</span>
+          <input
+            type="text"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+            className="bg-black/40 border border-white/20 rounded px-3 py-2 text-white font-lexend text-sm outline-none focus:border-white/50"
+          />
+        </label>
         
 
         <label className="flex flex-col gap-2">
@@ -74,14 +92,20 @@ export function AuthGate({ children }: Props) {
 
         <label className="flex flex-col gap-2">
           <span className="text-white/80 font-lexend text-xs">Password</span>
-          <input
-            type="password"
+          <div className='bg-black/40 border border-white/20 focus:border-white/50 rounded px-3 py-2 flex gap-2 items-center'>
+            <input
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
             required
-            className="bg-black/40 border border-white/20 rounded px-3 py-2 text-white font-lexend text-sm outline-none focus:border-white/50"
+            className="text-white font-lexend text-sm outline-none flex-1"
           />
+          <button onClick={toggleShowPassword} className='cursor-pointer shrink-0'>
+            { showPassword ? <EyeClosed className='text-white/60 w-5 h-5'/> : <Eye className='text-white/60 w-5 h-5'/>}
+          </button>
+          </div>
+          
         </label>
 
         {error ? (
