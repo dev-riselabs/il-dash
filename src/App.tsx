@@ -2,7 +2,7 @@ import { Suspense, lazy } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthGate } from "@/lib/auth/AuthGate";
-import { AuthGate as SignUp } from "@/lib/auth/SignUp";
+import { SignUp } from "@/lib/auth/SignUp";
 import { useAuth } from "@/lib/auth/store";
 import { useRealtimeInvalidations } from "@/lib/realtime/useRealtime";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -114,7 +114,7 @@ function App() {
       </Route>
 
       {/* Public Auth Pages - Separate Signup and Signin */}
-      <Route path="/signup" element={<Suspense fallback={<PageLoader />}><SignUp><AuthedShell /></SignUp></Suspense>} />
+      <Route path="/signup" element={<Suspense fallback={<PageLoader />}><SignUp /></Suspense>} />
       <Route path="/signin" element={<Suspense fallback={<PageLoader />}><AuthGate><AuthedShell /></AuthGate></Suspense>} />
 
       {/* Admin-Only Routes - Requires Authentication */}

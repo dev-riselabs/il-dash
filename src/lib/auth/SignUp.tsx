@@ -2,16 +2,12 @@
 // a minimal Sanctum SPA signup/login form. While unauthenticated, the rest of the
 // app is hidden; once a session is established, children render normally.
 
-import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from './store'
 import { Eye, EyeClosed } from 'lucide-react'
 
-interface Props {
-  children: ReactNode
-}
-
-export function AuthGate({ children }: Props) {
+export function SignUp() {
   const navigate = useNavigate()
   const { user, loading, initialized, fetchMe, signup } = useAuth()
   const [fullName, setFullName] = useState('')
