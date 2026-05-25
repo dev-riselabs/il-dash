@@ -40,8 +40,8 @@ const pillars = [
 function About() {
   return (
     <div>
-      <section className="bg-about px-4 md:px-20 py-10 md:py-20 flex flex-col md:flex-row md:items-center gap-10">
-        <img src="/about-img.png" alt="" className="" />
+      <section className="bg-about px-4 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center gap-10">
+        <img src="/about-img.png" alt="" className="h-100" />
         <div className="flex flex-col gap-5">
           <h1 className="text-white font-bold font-anek text-2xl md:text-3xl">
             About the Service
@@ -72,12 +72,12 @@ function About() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 pt-10 md:py-10 md:pl-20 md:pb-0 bg-cyan100">
-        <div className="flex flex-col gap-6 px-4 md:px-0 md:pb-15 md:flex-1">
+      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
+        <div className="flex flex-col gap-4 px-4 md:px-0 md:pb-8 lg:pb-15 md:flex-1">
           <h3 className="text-white font-anek font-semibold text-2xl md:text-4xl">
             CORE VALUE PROPOSITION
           </h3>
-          <p className="text-white/80 font-inter text-sm md:text-base">
+          <p className="text-white/80 font-inter text-sm lg:text-base">
             We don’t just help you run events. We help you track outcomes,
             capture data and intelligence and convert conversations into
             measurable impact. This is a standard operating system for how
@@ -89,8 +89,8 @@ function About() {
         </div>
       </section>
 
-      <section className="bg-about px-4 md:px-20 py-10 md:py-20 flex flex-col md:flex-row md:items-center gap-10">
-        <img src="/about-img.png" alt="" className="" />
+      <section className="bg-about px-4 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center gap-10">
+        <img src="/about-img.png" alt="" className="h-100" />
         <div className="flex flex-col gap-5">
           <h2 className="text-white font-bold font-anek text-2xl md:text-3xl">
             The platform scope includes:
@@ -127,7 +127,7 @@ function About() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-10 py-10 md:py-20 px-4 md:px-20 bg-blue150 items-center justify-center">
+      <section className="flex flex-col gap-10 py-10 md:py-20 px-4 md:px-10 lg:px-20 bg-blue150 items-center justify-center">
         <div className="relative py-5 px-10 flex flex-col gap-2 items-center max-w-3xl">
           <p className="text-sm m:text-lg text-white font-inter font-bold text-center uppercase">
             OUR 3 KEY PILLARS
@@ -215,12 +215,12 @@ function About() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 pt-10 md:py-10 md:pl-20 md:pb-0 bg-cyan100">
-        <div className="flex flex-col gap-6 md:pb-15 md:flex-1 px-4 md:px-0">
-          <h3 className="text-white font-anek font-semibold text-2xl md:text-4xl">
+      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
+        <div className="flex flex-col gap-4 md:pb-8 lg:pb-15 md:flex-1 px-4 md:px-0">
+          <h3 className="text-white font-anek font-semibold text-2xl md:text-3xl lg:text-4xl">
             What to expect when you use our Platform
           </h3>
-          <ul className="flex flex-col gap-3 list-disc pl-4">
+          <ul className="flex flex-col gap-2 lg:gap-3 list-disc pl-4">
             <li className="text-white font-inter text-sm md:text-base">
               Proprietary event intelligence datasets
             </li>

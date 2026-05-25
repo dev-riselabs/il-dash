@@ -232,7 +232,7 @@ function Welcome() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-7 md:gap-18">
             {resultOne.map(({ img, title, description }) => (
               <div key={title} className="flex flex-col gap-6">
-                <img src={img} alt="" className="w-10 h-10 md:w-17.5 md:h-17.5" />
+                <img src={img} alt="" className="w-10 h-10 lg:w-17.5 lg:h-17.5" />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">
                     {title}
@@ -248,7 +248,7 @@ function Welcome() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-7 md:gap-18">
             {resultTwo.map(({ img, title, description }) => (
               <div key={title} className="flex flex-col gap-6">
-                <img src={img} alt="" className="w-10 h-10 md:w-17.5 md:h-17.5" />
+                <img src={img} alt="" className="w-10 h-10 lg:w-17.5 lg:h-17.5" />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">
                     {title}
@@ -262,9 +262,9 @@ function Welcome() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col gap-7 md:flex-row md:items-center md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
-        <div className="flex flex-col gap-6 md:pb-15 md:flex-1 px-4 md:px-0">
-          <h3 className="text-white font-anek font-semibold text-3xl md:text-4xl">
+      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
+        <div className="flex flex-col gap-6 md:pb-10 md:flex-1 px-4 md:px-0">
+          <h3 className="text-white font-anek font-semibold text-3xl lg:text-4xl">
             Most Events End in talk. Photos & Videos. Heavy Reports people
             rarely read. then the end. We Delivers Actionable Outcomes.{" "}
           </h3>
@@ -275,8 +275,8 @@ function Welcome() {
             measurable impact.
           </p>
         </div>
-        <div className="md:flex-1 pl-4 md:pl-0">
-          <img src="/next-action-screenshot.png" alt="" className="w-full"/>
+        <div className="md:flex-1 pl-4 md:pl-0 ">
+          <img src="/next-action-screenshot.png" alt="" className="w-full h-full"/>
         </div>
         
       </section>
@@ -367,9 +367,9 @@ function Welcome() {
 
       <section className="flex flex-col gap-9 py-20 px-4 md:px-10 lg:px-20 bg-blue150 items-center justify-center">
         <h5 className="font-anek text-xl md:text-2xl font-semibold text-pink">Our main priorities for our Clients are to execute your unique event deployment brilliantly, make your reporting unforgettable, help you demonstrate measurable operational value to your stakeholders and convert your event into recurring institutional results that are useful for future decision making.</h5>
-        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-30 md:pb-30 bg-cta">
-            <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] basis-1/2 md:pb-40">We’re ready to help you. Contact us now.</h4>
-            <form action="" className="flex flex-col gap-5 border border-white/50 rounded-2xl bg-neutral900 p-6 basis-1/2">
+        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-5 md:pb-30 bg-cta">
+            <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] md:flex-1 md:pb-40">We’re ready to help you. Contact us now.</h4>
+            <form action="" className="flex flex-col gap-5 border border-white/50 rounded-2xl bg-neutral900 p-6 md:flex-1">
             <div className="flex flex-col gap-3 ">
                 <label htmlFor="" className="text-white font-inter text-sm"> Full Name <span className="text-red">*</span></label>
                 <input type="text" name="" id="" placeholder="Jane Doe" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>

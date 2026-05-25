@@ -62,11 +62,11 @@ function LandingShell({ children }: Props) {
         </header>
         <main>{children}</main>
         <footer className="bg-oval px-4 md:px-10 lg:px-20 pt-20 bg-white flex flex-col gap-12 pb-7">
-            <div className="bg-white rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-10 px-5 lg:px-20 py-5 md:py-10 shadow" >
+            <div className="bg-white rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-5 md:gap-10 px-5 lg:px-10 py-5 md:py-10 shadow" >
                 <h5 className="text-xl md:text-3xl text-pink font-inter font-semibold md:max-w-[20ch] leading-8 md:leading-12 flex-1">Become an Insider. Join our Newsletter.</h5>
-                <form action="" className="border-2 rounded-md flex gap-3 md:gap-5 flex-1 py-1 px-1.5 lg:px-4 border-slate300">
-                    <input type="email" name="" id="" className="outline-none flex-2" placeholder="Enter your email"/>
-                    <button className="px-2 font-medium md:px-2 lg:px-10 rounded-md bg-pink text-xs sm:text-[10px] lg:text-base text-white font-inter py-2 md:py-3 cursor-pointer shrink-0">Subscribe Now</button>
+                <form action="" className="border-2 rounded-md flex gap-2 md:gap-5 flex-1 py-1 px-1 lg:px-4 border-slate300">
+                    <input type="email" name="" id="" className="outline-none w-full" placeholder="Enter your email"/>
+                    <button className="px-1 font-medium md:px-2 lg:px-7 rounded-md bg-pink text-xs sm:text-[10px] lg:text-base text-white font-inter py-2 md:py-3 cursor-pointer shrink-0">Subscribe <span className="hidden md:inline">Now</span></button>
                 </form>
             </div>
             <div className="flex flex-col items-center gap-4 md:flex-row md:justify-between border-b border-b-slate300 pb-8">

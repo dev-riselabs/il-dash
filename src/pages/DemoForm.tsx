@@ -8,16 +8,16 @@ function DemoForm() {
   }
   return (
     <div>
-      <section className="flex flex-col gap-5 px-4 md:flex-row md:justify-between md:gap-10 md:items-end py-10 md:px-20 bg-demo">
+      <section className="flex flex-col gap-5 px-4 md:flex-row md:justify-between md:gap-10 md:items-end py-10 md:px-10 lg:px-20 bg-demo">
         <div className="flex flex-col gap-5">
           <div className="border border-pink rounded-full text-white px-6 py-2 font-inter font-bold text-xs md:text-base self-start">
             EventsIntel™
           </div>
           <h1 className="font-anek text-3xl md:text-4xl text-white">REQUEST A DEMO FORM</h1>
         </div>
-        <img src="/demo-img.png" alt="" className="h-55 md:h-70 w-full md:basis-1/2" />
+        <img src="/demo-img.png" alt="" className="h-55 md:h-80 w-full md:basis-1/2" />
       </section>
-      <section className=" py-15 px-4 md:px-20 bg-neutral900">
+      <section className=" py-15 px-4 md:px-10 lg:px-20 bg-neutral900">
         <form action="" className="flex flex-col gap-10">
           {step === 1 && (
             <div className="flex flex-col gap-8">
