@@ -15,6 +15,7 @@ interface AuthState {
   initialized: boolean
   fetchMe: () => Promise<void>
   login: (email: string, password: string) => Promise<void>
+  signup: (name: string, email: string, password: string) => Promise<void>
   logout: () => Promise<void>
   hasRole: (role: string) => boolean
   hasPermission: (permission: string) => boolean
@@ -50,6 +51,17 @@ export const useAuth = create<AuthState>((set, get) => ({
       await getCsrfCookie()
       await api.post('/api/auth/login', { email, password })
       await get().fetchMe()
+    } finally {
+      set({ loading: false })
+    }
+  },
+
+  signup: async (name, email, password) => {
+    set({ loading: true })
+    try {
+      await getCsrfCookie()
+      await api.post('/api/auth/signup', { name, email, password, password_confirmation: password })
+      // Don't auto-authenticate after signup - user must login separately
     } finally {
       set({ loading: false })
     }

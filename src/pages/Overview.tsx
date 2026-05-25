@@ -68,6 +68,7 @@ export default function Overview() {
   const tally = pollQ.data?.tally ?? {};
   const pollTotal = Object.values(tally).reduce((a, b) => a + (b as number), 0);
 
+
   return (
     <div className="space-y-6">
       <div className="space-y-2">
@@ -108,7 +109,7 @@ export default function Overview() {
           <div className="flex flex-col gap-4 justify-center px-5 py-3 w-3/5">
             <p className="text-white font-lexend text-xs sm:text-base">
               {headlineQuote
-                ? `"${headlineQuote.body}"`
+                ? `"${headlineQuote.quote_text}"`
                 : "Lagos is not just the future of Africa—it is the blueprint for sustainable urbanization globally."}
             </p>
             <div className="">
@@ -301,7 +302,7 @@ export default function Overview() {
           <blockquote className="border border-white/55 rounded-2xl flex flex-col gap-5 sm:gap-10 p-4 lg:py-5 lg:px-7.5">
             <p className="text-sm sm:text-lg font-lexend text-white leading-relaxed">
               {headlineQuote
-                ? `"${headlineQuote.body}"`
+                ? `"${headlineQuote.quote_text}"`
                 : '"Lagos is not just keeping up with the future, we are building it for Africa and the world."'}
             </p>
             <footer className="text-xs text-white font-dmSans flex flex-col gap-1">

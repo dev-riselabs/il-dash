@@ -167,3 +167,50 @@ export type FeedbackFormData = z.infer<typeof feedbackSchema>
 export type AdminSignupFormData = z.infer<typeof adminSignupSchema>
 export type UserCreateFormData = z.infer<typeof userCreateSchema>
 export type UserEditFormData = z.infer<typeof userEditSchema>
+
+// Demo Request Schema
+export const demoRequestSchema = z.object({
+  // Section A: Basic Details
+  full_name: z.string()
+    .min(1, 'Full name is required')
+    .min(2, 'Full name must be at least 2 characters')
+    .max(255, 'Full name must be less than 255 characters'),
+  email: z.string()
+    .min(1, 'Email is required')
+    .email('Invalid email address'),
+  organization: z.string()
+    .min(1, 'Organization is required')
+    .min(2, 'Organization must be at least 2 characters'),
+  job_title: z.string()
+    .min(1, 'Job title is required')
+    .min(2, 'Job title must be at least 2 characters'),
+  phone_number: z.string()
+    .min(1, 'Phone number is required')
+    .min(10, 'Phone number must be at least 10 characters'),
+  country: z.string()
+    .min(1, 'Country is required'),
+
+  // Section B: Event Details
+  event_type: z.string()
+    .min(1, 'Event type is required'),
+  event_name: z.string().optional(),
+  event_date: z.string()
+    .min(1, 'Event date is required'),
+  event_location: z.string()
+    .min(1, 'Event location is required'),
+  estimated_attendees: z.string()
+    .min(1, 'Estimated attendees is required'),
+
+  // Section C: Needs & Intent
+  primary_objectives: z.array(z.string()).optional(),
+  deployment_timeline: z.array(z.string()).optional(),
+
+  // Section D: Budget
+  budget_range: z.string().optional(),
+
+  // Section E: Additional Notes
+  additional_notes: z.string().optional(),
+})
+
+export type DemoRequestFormData = z.infer<typeof demoRequestSchema>
+
