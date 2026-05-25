@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthGate } from "@/lib/auth/AuthGate";
+import { AuthGate as SignUp } from "@/lib/auth/SignUp";
 import { useAuth } from "@/lib/auth/store";
 import { useRealtimeInvalidations } from "@/lib/realtime/useRealtime";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -110,14 +111,12 @@ function App() {
         <Route path="/key-insight" element={<Suspense fallback={<PageLoader />}><KeyInsight /></Suspense>} />
       </Route>
 
+      {/* Public Auth Pages - Accessible Routes for Login/Signup */}
+      <Route path="/signin" element={<Suspense fallback={<PageLoader />}><AuthGate><AuthedShell /></AuthGate></Suspense>} />
+      <Route path="/signup" element={<Suspense fallback={<PageLoader />}><SignUp><AuthedShell /></SignUp></Suspense>} />
+
       {/* Admin-Only Routes - Requires Authentication */}
-      <Route
-        element={
-          <AuthGate>
-            <AuthedShell />
-          </AuthGate>
-        }
-      >
+      <Route element={<AuthGate><AuthedShell /></AuthGate>}>
         <Route path="/session" element={<Suspense fallback={<PageLoader />}><Session /></Suspense>} />
         <Route path="/speaker" element={<Suspense fallback={<PageLoader />}><Speaker /></Suspense>} />
         <Route path="/audience-feedback" element={<Suspense fallback={<PageLoader />}><AdudienceFeedback /></Suspense>} />
@@ -133,6 +132,7 @@ function App() {
           }
         />
       </Route>
+
       {/* Form Routes */}
       <Route element={<FormShellLayout />}>
         <Route path="/feedback-form" element={<Suspense fallback={<PageLoader />}><FeedbackFormIntegrated /></Suspense>} />
