@@ -41,8 +41,8 @@ function About() {
   return (
     <div>
       <section className="bg-about px-4 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center gap-10">
-        <img src="/about-img.png" alt="" className="h-100" />
-        <div className="flex flex-col gap-5">
+        <img src="/about-img.png" alt="" className="h-100 lg:flex-1" />
+        <div className="flex flex-col gap-5 lg:flex-1">
           <h1 className="text-white font-bold font-anek text-2xl md:text-3xl">
             About the Service
           </h1>
@@ -90,8 +90,8 @@ function About() {
       </section>
 
       <section className="bg-about px-4 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center gap-10">
-        <img src="/about-img.png" alt="" className="h-100" />
-        <div className="flex flex-col gap-5">
+        <img src="/about-img.png" alt="" className="h-100 lg:flex-1" />
+        <div className="flex flex-col gap-5 lg:flex-1">
           <h2 className="text-white font-bold font-anek text-2xl md:text-3xl">
             The platform scope includes:
           </h2>
@@ -216,7 +216,7 @@ function About() {
       </section>
 
       <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
-        <div className="flex flex-col gap-4 md:pb-8 lg:pb-15 md:flex-1 px-4 md:px-0">
+        <div className="flex flex-col gap-4 md:pb-8 lg:pb-15 lg:flex-1 px-4 md:px-0">
           <h3 className="text-white font-anek font-semibold text-2xl md:text-3xl lg:text-4xl">
             What to expect when you use our Platform
           </h3>
@@ -239,7 +239,7 @@ function About() {
           </ul>
         </div>
         <div className="md:flex-1 pl-4 md:pl-0">
-          <img src="/next-action-screenshot.png" alt="" className="w-full" />
+          <img src="/next-action-screenshot.png" alt="" className="w-full lg:flex-1" />
         </div>
       </section>
     </div>
