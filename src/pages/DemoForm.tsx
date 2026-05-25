@@ -16,6 +16,7 @@ function DemoForm() {
     formState: { errors },
     watch,
     reset,
+    setValue,
   } = useForm<DemoRequestFormData>({
     resolver: zodResolver(demoRequestSchema),
     mode: "onBlur",
@@ -58,13 +59,9 @@ function DemoForm() {
 
     const currentObjectives = watchedObjectives || [];
     if (isChecked) {
-      register("primary_objectives").onChange({
-        target: { value: [...currentObjectives, value] },
-      });
+      setValue("primary_objectives", [...currentObjectives, value]);
     } else {
-      register("primary_objectives").onChange({
-        target: { value: currentObjectives.filter((item) => item !== value) },
-      });
+      setValue("primary_objectives", currentObjectives.filter((item) => item !== value));
     }
   };
 
@@ -74,13 +71,9 @@ function DemoForm() {
 
     const currentTimeline = watchedTimeline || [];
     if (isChecked) {
-      register("deployment_timeline").onChange({
-        target: { value: [...currentTimeline, value] },
-      });
+      setValue("deployment_timeline", [...currentTimeline, value]);
     } else {
-      register("deployment_timeline").onChange({
-        target: { value: currentTimeline.filter((item) => item !== value) },
-      });
+      setValue("deployment_timeline", currentTimeline.filter((item) => item !== value));
     }
   };
 
