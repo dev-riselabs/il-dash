@@ -1,4 +1,5 @@
 import { FaRegTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -88,7 +89,7 @@ const works= [
 function Welcome() {
   return (
     <div>
-      <section className="bg-hero px-4 md:px-20 pt-15 flex flex-col gap-10">
+      <section className="bg-hero px-4 mdpx-10 lg:px-20 pt-15 flex flex-col gap-10">
         <div className="flex flex-col gap-6 items-center">
           <div className="border border-pink text-white uppercase text-[10px] md:text-sm font-inter rounded-full py-2 px-4 font-medium">
             Real-Time Tracking Platform for High-Level Events
@@ -114,20 +115,20 @@ function Welcome() {
               className="absolute bottom-0 -right-4 md:right-0"
             />
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-5">
-            <button className="rounded-lg bg-white text-blue600 px-10 py-3 text-sm font-inter">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-5">
+            <a href="#how-it-works" className="rounded-lg bg-white text-blue600 px-10 py-3 text-sm font-inter hover:bg-white/95 transition-all">
               See How It Works
-            </button>
-            <button className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter">
+            </a>
+            <Link to='/demo-form' className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter hover:bg-pink/90 transition-all">
               Request a Demo
-            </button>
+            </Link>
           </div>
         </div>
 
         <img src="/screenshot-hero.png" alt="" className="" />
       </section>
 
-      <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-20 bg-feature bg-neutral800">
+      <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature bg-neutral800">
         <div className="relative py-5">
           <h2 className="font-anek font-semibold text-white text-3xl text-center">
             A New World Class Standard for High-Level Events
@@ -169,7 +170,7 @@ function Welcome() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-10 md:gap-16 py-15 md:py-30 px-4 md:px-20 bg-feature items-center">
+      <section className="flex flex-col gap-10 md:gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
         <div className="relative py-5 flex flex-col gap-5 items-center md:max-w-xl">
           <h2 className="font-anek font-semibold text-white text-2xl md:text-3xl text-center">
             Live Use Case
@@ -206,7 +207,7 @@ function Welcome() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-20 bg-feature items-center">
+      <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
         <div className="relative py-5 px-10 flex flex-col gap-4 md:gap-5 items-center max-w-2xl">
           <div className="border border-white/30 text-white uppercase text-xs md:text-sm font-inter rounded-full py-2 px-4 font-medium">
             CORE FEATURES
@@ -228,11 +229,11 @@ function Welcome() {
             className="absolute bottom-0 right-0 w-40"
           />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-10">
-          <div className="flex flex-col gap-7 md:gap-18">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-7 md:gap-18">
             {resultOne.map(({ img, title, description }) => (
               <div key={title} className="flex flex-col gap-6">
-                <img src={img} alt="" className="w-10 h-10 md:w-17.5 md:h-17.5" />
+                <img src={img} alt="" className="w-10 h-10 lg:w-17.5 lg:h-17.5" />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">
                     {title}
@@ -244,11 +245,11 @@ function Welcome() {
               </div>
             ))}
           </div>
-          <img src="/result-img.png" alt="" className="h-full" />
-          <div className="flex flex-col gap-7 md:gap-18">
+          <img src="/result-img.png" alt="" className="h-full w-full" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-7 md:gap-18">
             {resultTwo.map(({ img, title, description }) => (
               <div key={title} className="flex flex-col gap-6">
-                <img src={img} alt="" className="w-10 h-10 md:w-17.5 md:h-17.5" />
+                <img src={img} alt="" className="w-10 h-10 lg:w-17.5 lg:h-17.5" />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">
                     {title}
@@ -262,9 +263,9 @@ function Welcome() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 pt-10 md:py-10 md:pl-20 md:pb-0 bg-cyan100">
-        <div className="flex flex-col gap-6 md:pb-15 md:flex-1 px-4 md:px-0">
-          <h3 className="text-white font-anek font-semibold text-3xl md:text-4xl">
+      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
+        <div className="flex flex-col gap-6 md:pb-10 md:flex-1 px-4 md:px-0">
+          <h3 className="text-white font-anek font-semibold text-3xl lg:text-4xl">
             Most Events End in talk. Photos & Videos. Heavy Reports people
             rarely read. then the end. We Delivers Actionable Outcomes.{" "}
           </h3>
@@ -275,13 +276,13 @@ function Welcome() {
             measurable impact.
           </p>
         </div>
-        <div className="mdLflex-1 pl-4 md:pl-0">
-          <img src="/next-action-screenshot.png" alt="" />
+        <div className="md:flex-1 pl-4 md:pl-0 ">
+          <img src="/next-action-screenshot.png" alt="" className="w-full h-full"/>
         </div>
         
       </section>
 
-      <section className="bg-blue150 px-4 gap-6 md:px-20 py-10 md:py-20 flex flex-col md:flex-row md:items-center md:gap-10">
+      <section className="bg-blue150 px-4 gap-6 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center lg:gap-10">
         <img src="/built-img.png" alt="" className="max-h-150" />
         <div className="flex flex-col gap-6">
           <h5 className="uppercase font-inter text-base md:text-lg font-semibold text-pink">
@@ -306,7 +307,7 @@ function Welcome() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-20 bg-feature items-center">
+      <section id='how-it-works' className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
         <div className="relative py-5 px-10 flex flex-col gap-2 items-center max-w-3xl">
           <p className="text-sm md;text-lg text-pink font-inter font-bold text-center uppercase">
             HOW IT WORKS
@@ -326,7 +327,7 @@ function Welcome() {
             className="absolute bottom-0 right-0 w-40"
           />
         </div>
-        <div className="flex flex-col gap-7 md:gap-5 md:flex-row md:items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {
                 works.map((work,i) => <div key={work} className={`border border-white/30 rounded-2xl py-8 md:py-12.5 px-7.5 flex flex-col gap-7 md:gap-10 self-stretch ${
                     i === 0 ? 'bg-cyan' :
@@ -342,7 +343,7 @@ function Welcome() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-7 md:flex-row md:items-center md:gap-20 pt-10 md:py-10 md:pl-20 md:pb-0 bg-cyan100">
+      <section className="flex flex-col gap-7 md:flex-row md:items-center md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
         <div className="flex flex-col gap-4 md:gap-6 md:flex-1 px-4 md:px-0">
           <h3 className="text-white font-anek font-semibold text-3xl md:text-4xl">
             Bring Intelligence to your next event
@@ -350,13 +351,13 @@ function Welcome() {
           <p className="text-white/80 font-inter text-sm md:text-base">
             Let’s help you move from conversations to measurable outcomes.
           </p>
-          <div className="flex items-center justify-center md:justify-start gap-5 ">
-            <button className="rounded-lg bg-white text-blue600 px-6 md:px-10 py-3 text-sm font-inter">
+          <div className="flex items-center gap-3 ">
+            <button className="rounded-lg bg-white text-blue600 px-6 md:px-3 lg:px-10 py-3 text-sm font-inter">
               Deploy EventsIntel
             </button>
-            <button className="rounded-lg bg-pink text-white px-6 md:px-10 py-3 text-sm font-inter">
+            <Link to='/demo-form' className="rounded-lg bg-pink text-white px-6 md:px-3 lg:px-10 py-3 text-sm font-inter cursor-pointer hover:bg-pink/90 transition-all">
               Request a Demo
-            </button>
+            </Link>
           </div>
         </div>
         <div className="md:flex-1 pl-4 md:pl-0">
@@ -365,11 +366,11 @@ function Welcome() {
         
       </section>
 
-      <section className="flex flex-col gap-9 py-20 px-4 md:px-20 bg-blue150 items-center justify-center">
+      <section className="flex flex-col gap-9 py-20 px-4 md:px-10 lg:px-20 bg-blue150 items-center justify-center">
         <h5 className="font-anek text-xl md:text-2xl font-semibold text-pink">Our main priorities for our Clients are to execute your unique event deployment brilliantly, make your reporting unforgettable, help you demonstrate measurable operational value to your stakeholders and convert your event into recurring institutional results that are useful for future decision making.</h5>
-        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-30 md:pb-30 bg-cta">
-            <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] basis-1/2 md:pb-40">We’re ready to help you. Contact us now.</h4>
-            <form action="" className="flex flex-col gap-5 border border-white/50 rounded-2xl bg-neutral900 p-6 basis-1/2">
+        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-5 md:pl-25 md:pb-30 bg-cta">
+            <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] md:flex-1 md:pb-40">We’re ready to help you. Contact us now.</h4>
+            <form action="" className="flex flex-col gap-5 border border-white/50 rounded-2xl bg-neutral900 p-6 md:flex-1">
             <div className="flex flex-col gap-3 ">
                 <label htmlFor="" className="text-white font-inter text-sm"> Full Name <span className="text-red">*</span></label>
                 <input type="text" name="" id="" placeholder="Jane Doe" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>

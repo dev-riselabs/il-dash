@@ -79,7 +79,7 @@ function DemoForm() {
 
   return (
     <div>
-      <section className="flex flex-col gap-5 px-4 md:flex-row md:justify-between md:gap-10 md:items-end py-10 md:px-20 bg-demo">
+      <section className="flex flex-col gap-5 px-4 md:flex-row md:justify-between md:gap-10 md:items-end py-10 md:px-10 lg:px-20 bg-demo">
         <div className="flex flex-col gap-5">
           <div className="border border-pink rounded-full text-white px-6 py-2 font-inter font-bold text-xs md:text-base self-start">
             EventsIntel™
@@ -98,14 +98,14 @@ function DemoForm() {
       <section className="py-15 px-4 md:px-20 bg-neutral900">
         {successMessage && (
           <div className="mb-6 p-4 bg-green-900/20 border border-green-800 rounded-lg flex gap-3">
-            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+            <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
             <p className="text-green-200 text-sm">{successMessage}</p>
           </div>
         )}
 
         {apiError && (
           <div className="mb-6 p-4 bg-red-900/20 border border-red-800 rounded-lg flex gap-3">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
             <p className="text-red-200 text-sm">{apiError}</p>
           </div>
         )}
