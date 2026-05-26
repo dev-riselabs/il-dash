@@ -1,28 +1,49 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { dealSchema, type DealFormData } from '@/lib/api/schemas'
-import { useCreateDeal, useSectorOptions, useInvestorOptions, useOwners } from '@/lib/api/hooks'
+import { useCreateDeal, useUpdateDeal, useSectorOptions, useInvestorOptions, useOwners, useDeals } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
 
 function DealRoomForm() {
   const navigate = useNavigate()
+  const { id } = useParams<{ id?: string }>()
+  const isEditing = !!id
+  
   const [apiError, setApiError] = useState('')
   const [submitted, setSubmitted] = useState(false)
   
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<DealFormData>({
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<DealFormData>({
     resolver: zodResolver(dealSchema),
   })
 
+  // Fetch deal data when editing
+  const { data: dealsData, isLoading: dealsLoading } = useDeals({ per_page: 100 }, { enabled: isEditing })
+  const dealToEdit = isEditing ? dealsData?.data?.find(d => d.id === parseInt(id!)) : null
+
   const createMutation = useCreateDeal()
+  const updateMutation = useUpdateDeal()
   const { data: sectorsData } = useSectorOptions()
   const { data: investorsData } = useInvestorOptions()
   const { data: ownersData } = useOwners()
-  const isSubmitting = createMutation.isPending
+  
+  const isSubmitting = isEditing ? updateMutation.isPending : createMutation.isPending
+
+  // Populate form with deal data when editing
+  useEffect(() => {
+    if (isEditing && dealToEdit) {
+      setValue('title', dealToEdit.title)
+      if (dealToEdit.sector_id) setValue('sector_id', String(dealToEdit.sector_id))
+      if (dealToEdit.investor_id) setValue('investor_id', String(dealToEdit.investor_id))
+      if (dealToEdit.owner_id) setValue('owner_id', String(dealToEdit.owner_id))
+      if (dealToEdit.stage) setValue('stage', dealToEdit.stage)
+      if (dealToEdit.value_naira) setValue('value_naira', dealToEdit.value_naira)
+    }
+  }, [dealToEdit, isEditing, setValue])
 
   const sectorOptions = (sectorsData || []).map(s => ({
     value: String(s.id),
@@ -58,12 +79,25 @@ function DealRoomForm() {
         ...(data.stage && { stage: data.stage }),
         ...(data.value_naira !== null && { value_naira: data.value_naira }),
       }
-      await createMutation.mutateAsync(payload)
+      
+      if (isEditing && id) {
+        await updateMutation.mutateAsync({ id: parseInt(id), ...payload })
+      } else {
+        await createMutation.mutateAsync(payload)
+      }
       setSubmitted(true)
       reset()
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit deal information')
     }
+  }
+
+  if (isEditing && dealsLoading) {
+    return (
+      <section className="flex items-center justify-center min-h-screen">
+        <Loader className="w-8 h-8 animate-spin text-white" />
+      </section>
+    )
   }
 
   if (submitted) {
@@ -74,10 +108,10 @@ function DealRoomForm() {
             Thank You!
           </h1>
           <p className="text-base font-lexend text-white">
-            Deal information has been submitted successfully.
+            Deal information has been {isEditing ? 'updated' : 'submitted'} successfully.
           </p>
           <button
-            onClick={() => navigate('/deal-room')}
+            onClick={() => navigate('/dealroom')}
             className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
           >
             Go to Deals
@@ -92,10 +126,10 @@ function DealRoomForm() {
     <section className="space-y-6 max-w-3xl w-full mx-auto">
       <section className="border border-white/55 rounded-2xl flex flex-col gap-3 p-5 lg:px-7.5 lg:py-9 border-l-4 border-l-orange500">
         <h1 className="text-3xl font-semibold font-lexend text-white">
-          Deal Room Form
+          {isEditing ? 'Edit Deal' : 'Deal Room Form'}
         </h1>
         <p className="text-base font-lexend text-white">
-          Create and manage deal room records
+          {isEditing ? 'Update deal information' : 'Create and manage deal room records'}
         </p>
       </section>
 
@@ -177,10 +211,10 @@ function DealRoomForm() {
           {isSubmitting ? (
             <>
               <Loader className="w-4 h-4 animate-spin" />
-              Submitting...
+              {isEditing ? 'Updating...' : 'Submitting...'}
             </>
           ) : (
-            'Submit'
+            isEditing ? 'Update Deal' : 'Submit'
           )}
         </button>
       </form>

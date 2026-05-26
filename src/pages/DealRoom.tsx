@@ -204,7 +204,7 @@ function DealRoom() {
                       {activeDropdown === deal.id && (
                         <div className="flex flex-col gap-3 bg-white z-10 absolute top-6 right-0 p-2 rounded-md min-w-max">
                           <Link
-                            to={`/deal-room/${deal.id}`}
+                            to={`/dealroom/${deal.id}`}
                             onClick={() => handleActiveDropdown(null)}
                             className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70 px-2 py-1"
                           >
