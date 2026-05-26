@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSubmitDemoRequest } from "@/lib/api/hooks";
 import { demoRequestSchema, type DemoRequestFormData } from "@/lib/api/schemas";
 import { AlertCircle, CheckCircle, Loader } from "lucide-react";
-import { motion } from "motion/react";
 
 function DemoForm() {
   const [step, setStep] = useState(1);

@@ -1,4 +1,4 @@
-import { motion, type Variants } from "framer-motion";
+import {  type Variants } from "framer-motion";
 
 const smoothEase: [number, number, number, number] = [
   0.22,

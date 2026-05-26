@@ -4,7 +4,6 @@ import { AiFillInstagram } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
-import { staggerContainer } from "@/animations";
 
 interface Props {
   children: ReactNode;
