@@ -5,6 +5,7 @@ import { BsCalendar4Event } from "react-icons/bs";
 import { LuChartNoAxesCombined } from "react-icons/lu";
 import { PiPresentationChartBold } from "react-icons/pi";
 import { IoMdCheckboxOutline } from "react-icons/io";
+import { motion } from "motion/react";
 
 const pillars = [
   {
@@ -37,52 +38,77 @@ const pillars = [
   },
 ];
 
+const services = [
+  "EventsIntel is a real-time intelligence and command system that captures conversations, tracks decisions and converts them into structured data, insights and measurable outcomes. This is not a pure tech or pure events management platform. It’s a Bridge.",
+  "Most High-level events have a recurring problem. They host high-level conversations but cannot track outcomes in real time or after the event and that’s our entry point. We’re not offering you a dashboard or just data visualisation tools, we’re providing you control rooms, evidence of impact, post-event accountability and investor conversion tracking. We deploy a full intelligence team + system for your event.",
+  "For every client, we offer customized pre-event setup, Live event intelligence, post-event tracking (30–90 days), outcomes, decision-making, accountability powered by sophisticated modern technology and those are the core of our product.",
+];
+
 function About() {
   return (
     <div>
       <section className="bg-about px-4 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center gap-10">
         <img src="/about-img.png" alt="" className="h-100 lg:flex-1" />
         <div className="flex flex-col gap-5 lg:flex-1">
-          <h1 className="text-white font-bold font-anek text-2xl md:text-3xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+            }}
+            className="text-white font-bold font-anek text-2xl md:text-3xl"
+          >
             About the Service
-          </h1>
+          </motion.h1>
           <div className="flex flex-col gap-3">
-            <p className="text-white/80 text-sm md:text-base font-inter">
-              EventsIntel is a real-time intelligence and command system that
-              captures conversations, tracks decisions and converts them into
-              structured data, insights and measurable outcomes. This is not a
-              pure tech or pure events management platform. It’s a Bridge.{" "}
-            </p>
-            <p className="text-white/80 text-sm md:text-base font-inter">
-              Most High-level events have a recurring problem. They host
-              high-level conversations but cannot track outcomes in real time or
-              after the event and that’s our entry point. We’re not offering you
-              a dashboard or just data visualisation tools, we’re providing you
-              control rooms, evidence of impact, post-event accountability and
-              investor conversion tracking. We deploy a full intelligence team +
-              system for your event.{" "}
-            </p>
-            <p className="text-white/80 text-sm md:text-base font-inter">
-              For every client, we offer customized pre-event setup, Live event
-              intelligence, post-event tracking (30–90 days), outcomes,
-              decision-making, accountability powered by sophisticated modern
-              technology and those are the core of our product.
-            </p>
+            {services.map((service, i) => (
+              <motion.p
+                initial={{
+                  opacity: 0,
+                  x: 50,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                transition={{
+                  delay: i * 0.55,
+                }}
+                key={service}
+                className="text-white/80 text-sm md:text-base font-inter"
+              >
+                {service}
+              </motion.p>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
         <div className="flex flex-col gap-4 px-4 md:px-0 md:pb-8 lg:pb-15 md:flex-1">
-          <h3 className="text-white font-anek font-semibold text-2xl md:text-4xl">
+          <motion.h3
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.8,
+            }}
+            className="text-white font-anek font-semibold text-2xl md:text-4xl"
+          >
             CORE VALUE PROPOSITION
-          </h3>
-          <p className="text-white/80 font-inter text-sm lg:text-base">
+          </motion.h3>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              delay: 0.4,
+            }}
+            className="text-white/80 font-inter text-sm lg:text-base"
+          >
             We don’t just help you run events. We help you track outcomes,
             capture data and intelligence and convert conversations into
             measurable impact. This is a standard operating system for how
             high-level events are run across Africa.
-          </p>
+          </motion.p>
         </div>
         <div className="pl-4 md:pl-0 md:flex-1">
           <img src="/ev-screenshot.png" alt="" className="w-full" />
@@ -90,7 +116,16 @@ function About() {
       </section>
 
       <section className="bg-about px-4 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center gap-10">
-        <img src="/about-img.png" alt="" className="h-100 lg:flex-1" />
+        <motion.img
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            delay: 0.4,
+          }}
+          src="/about-img.png"
+          alt=""
+          className="h-100 lg:flex-1"
+        />
         <div className="flex flex-col gap-5 lg:flex-1">
           <h2 className="text-white font-bold font-anek text-2xl md:text-3xl">
             The platform scope includes:
@@ -135,21 +170,50 @@ function About() {
           <h2 className="font-anek font-semibold text-white text-2xl md:text-3xl text-center leading-10 md:leading-14 capitalize">
             Intelligence. Control. Accountability.
           </h2>
-          <img
+          <motion.img
             src="./line-left.png"
             alt=""
             className="absolute top-0 left-0 w-40"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
           />
-          <img
+          <motion.img
             src="./line-right.png"
             alt=""
             className="absolute bottom-0 right-0 w-40"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
           />
         </div>
 
         <div className="flex flex-col gap-6">
           {pillars.map((pillar, i) => (
-            <div
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 50,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: i * 0.55,
+              }}
               key={pillar.title}
               className="grid grid-cols-1 md:grid-cols-3 gap-8"
             >
@@ -210,7 +274,7 @@ function About() {
                 </div>
               </div>
               <img src="/chart-img.png" alt="" className="h-full" />
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -239,7 +303,11 @@ function About() {
           </ul>
         </div>
         <div className="md:flex-1 pl-4 md:pl-0">
-          <img src="/next-action-screenshot.png" alt="" className="w-full lg:flex-1" />
+          <img
+            src="/next-action-screenshot.png"
+            alt=""
+            className="w-full lg:flex-1"
+          />
         </div>
       </section>
     </div>

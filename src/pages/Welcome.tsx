@@ -1,5 +1,7 @@
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { motion, useScroll, useTransform } from "motion/react";
+import { staggerContainer, fadeUp } from "@/animations";
 
 const features = [
   {
@@ -79,14 +81,22 @@ const designs = [
   "Corporate AGMs, Stock Exchanges, Development Sector Conferences, Pan-African & International Institutional Convenings",
 ];
 
-const works= [
-    'Deploy (Captures audio, video, registrations, APIs and live feeds)',
-    'Intelligence (AI summaries, signals, alerts, analytics and insights)',
-    'Validation (Human approvals, monitoring teams, escalations and verification)',
-    'Outcome (Reports commitments, accountability tracking and measurable results)'
-]
+const works = [
+  "Deploy (Captures audio, video, registrations, APIs and live feeds)",
+  "Intelligence (AI summaries, signals, alerts, analytics and insights)",
+  "Validation (Human approvals, monitoring teams, escalations and verification)",
+  "Outcome (Reports commitments, accountability tracking and measurable results)",
+];
 
 function Welcome() {
+  const { scrollYProgress } = useScroll();
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, -150]);
+
+  const rotate = useTransform(scrollYProgress, [0, 0.5], [-8, 0]);
+
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+
   return (
     <div>
       <section className="bg-hero px-4 mdpx-10 lg:px-20 pt-15 flex flex-col gap-10">
@@ -95,15 +105,29 @@ function Welcome() {
             Real-Time Tracking Platform for High-Level Events
           </div>
           <div className="flex flex-col gap-5 items-center relative py-5">
-            <h1 className="font-anek font-semibold text-white max-w-[30ch] text-3xl md:text-5xl text-center leading-10 md:leading-15">
+            <motion.h1
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+              }}
+              className="font-anek font-semibold text-white max-w-[30ch] text-3xl md:text-5xl text-center leading-10 md:leading-15"
+            >
               Turn Your Event Conversations into Measurable Outcomes | In Real
               Time
-            </h1>
-            <p className="font-inter text-white text-base md:text-lg text-center max-w-[70ch]">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                delay: 0.4,
+              }}
+              className="font-inter text-white text-base md:text-lg text-center max-w-[70ch]"
+            >
               EventsIntel captures live discussions, extracts key insights,
               tracks investments and discussions signals, and ensures that every
               high-level engagement delivers tangible results.
-            </p>
+            </motion.p>
             <img
               src="./line-left.png"
               alt=""
@@ -115,17 +139,55 @@ function Welcome() {
               className="absolute bottom-0 -right-4 md:right-0"
             />
           </div>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-5">
-            <a href="#how-it-works" className="rounded-lg bg-white text-blue600 px-10 py-3 text-sm font-inter hover:bg-white/95 transition-all">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              delay: 0.7,
+              staggerChildren: 0.2,
+            }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-5"
+          >
+            <motion.a
+              whileHover={{
+                scale: 1.05,
+                y: -3,
+              }}
+              whileTap={{
+                scale: 0.96,
+              }}
+              href="#how-it-works"
+              className="rounded-lg bg-white text-blue600 px-10 py-3 text-sm font-inter hover:bg-white/95 transition-all"
+            >
               See How It Works
-            </a>
-            <Link to='/demo-form' className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter hover:bg-pink/90 transition-all">
+            </motion.a>
+            <Link
+              to="/demo-form"
+              className="rounded-lg bg-pink text-white px-10 py-4 text-sm font-inter hover:bg-pink/90 hover:scale-105 transition-all"
+            >
               Request a Demo
             </Link>
-          </div>
+          </motion.div>
         </div>
 
-        <img src="/screenshot-hero.png" alt="" className="" />
+        <motion.img
+          initial={{
+            opacity: 0,
+            scale: 0.85,
+            y: 80,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 1.2,
+          }}
+          src="/screenshot-hero.png"
+          alt=""
+          className=""
+        />
       </section>
 
       <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature bg-neutral800">
@@ -133,20 +195,51 @@ function Welcome() {
           <h2 className="font-anek font-semibold text-white text-3xl text-center">
             A New World Class Standard for High-Level Events
           </h2>
-          <img
+          <motion.img
             src="./line-left.png"
             alt=""
             className="absolute top-0 -left-2 md:left-0 w-30"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
           />
-          <img
+          <motion.img
             src="./line-right.png"
             alt=""
             className="absolute bottom-0 -right-3 md:right-0 w-30"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
           />
         </div>
-        <div className="flex flex-col md:flex-row gap-5">
+        <motion.div
+          variants={staggerContainer}
+          className="flex flex-col md:flex-row gap-5"
+        >
           {features.map(({ title, description }, i) => (
-            <div
+            <motion.div
+              variants={fadeUp}
+              whileHover={{
+                y: -10,
+                scale: 1.03,
+                boxShadow: "0px 0px 10px rgba(255,0,128,.35)",
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 250,
+              }}
               key={title}
               className={`flex flex-col w-full border border-white/10 rounded-3xl py-12.5 px-5 md:px-7.5 gap-10 ${
                 i === 1 ? "bg-pink" : "bg-neutral900"
@@ -165,9 +258,9 @@ function Welcome() {
                   {description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       <section className="flex flex-col gap-10 md:gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
@@ -180,18 +273,36 @@ function Welcome() {
             leading investment summits, tracking sessions, capturing insights
             and monitoring investment conversations as they happen.
           </p>
-          <img
+          <motion.img
             src="./line-left.png"
             alt=""
             className="absolute top-0 -left-2 md:left-0 w-40"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
           />
-          <img
+          <motion.img
             src="./line-right.png"
             alt=""
             className="absolute bottom-0 -right-4 md:right-0 w-40"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
           />
         </div>
-        <img src="/sentiment-screenshot.png" alt="" />
+        <motion.img style={{ y }} src="/sentiment-screenshot.png" alt="" />
         <p className="text-sm text-white/80 font-inter text-center">
           Real-time event intelligence + AI insights + discussions tracking +
           post-event accountability as a single deployable system.
@@ -202,9 +313,22 @@ function Welcome() {
           strategic consulting but unlike existing solutions, we operate in real
           time and track outcomes beyond the event itself.
         </p>
-        <div className="border-4 border-blue50 rounded-2xl w-full h-125">
+        <motion.div
+          animate={{
+            boxShadow: [
+              "0 0 0 rgba(0,255,255,0)",
+              "0 0 40px rgba(0,255,255,.4)",
+              "0 0 0 rgba(0,255,255,0)",
+            ],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+          }}
+          className="border-4 border-blue50 rounded-2xl w-full h-125"
+        >
           <video></video>
-        </div>
+        </motion.div>
       </section>
 
       <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
@@ -233,7 +357,11 @@ function Welcome() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-7 md:gap-18">
             {resultOne.map(({ img, title, description }) => (
               <div key={title} className="flex flex-col gap-6">
-                <img src={img} alt="" className="w-10 h-10 lg:w-17.5 lg:h-17.5" />
+                <img
+                  src={img}
+                  alt=""
+                  className="w-10 h-10 lg:w-17.5 lg:h-17.5"
+                />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">
                     {title}
@@ -245,11 +373,23 @@ function Welcome() {
               </div>
             ))}
           </div>
-          <img src="/result-img.png" alt="" className="h-full w-full" />
+          <motion.img
+            style={{
+              rotate,
+              scale,
+            }}
+            src="/result-img.png"
+            alt=""
+            className="h-full w-full"
+          />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-7 md:gap-18">
             {resultTwo.map(({ img, title, description }) => (
               <div key={title} className="flex flex-col gap-6">
-                <img src={img} alt="" className="w-10 h-10 lg:w-17.5 lg:h-17.5" />
+                <img
+                  src={img}
+                  alt=""
+                  className="w-10 h-10 lg:w-17.5 lg:h-17.5"
+                />
                 <div className="flex flex-col gap-4">
                   <h5 className="font-anek font-bold text-white text-xl">
                     {title}
@@ -277,9 +417,12 @@ function Welcome() {
           </p>
         </div>
         <div className="md:flex-1 pl-4 md:pl-0 ">
-          <img src="/next-action-screenshot.png" alt="" className="w-full h-full"/>
+          <img
+            src="/next-action-screenshot.png"
+            alt=""
+            className="w-full h-full"
+          />
         </div>
-        
       </section>
 
       <section className="bg-blue150 px-4 gap-6 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center lg:gap-10">
@@ -292,22 +435,38 @@ function Welcome() {
             Designed for Leaders and Institutions
           </h4>
           <div className="flex flex-col gap-4">
-            {designs.map((design) => (
-              <div
+            {designs.map((design, i) => (
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  x: 50,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  x: 0,
+                }}
+                transition={{
+                  delay: i * 0.15,
+                }}
                 key={design}
                 className="p-4 border border-white rounded-2xl flex items-center gap-4"
               >
                 <div className="shrink-0 w-9 md:w-12 h-9 md:h-12 rounded-md bg-white flex items-center justify-center">
                   <FaRegTrashAlt className="w-5 md:w-6 h-5 md:h-6 text-black" />
                 </div>
-                <p className="text-white/80 font-inter text-sm md:text-lg">{design}</p>
-              </div>
+                <p className="text-white/80 font-inter text-sm md:text-lg">
+                  {design}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id='how-it-works' className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center">
+      <section
+        id="how-it-works"
+        className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature items-center"
+      >
         <div className="relative py-5 px-10 flex flex-col gap-2 items-center max-w-3xl">
           <p className="text-sm md;text-lg text-pink font-inter font-bold text-center uppercase">
             HOW IT WORKS
@@ -328,18 +487,42 @@ function Welcome() {
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {
-                works.map((work,i) => <div key={work} className={`border border-white/30 rounded-2xl py-8 md:py-12.5 px-7.5 flex flex-col gap-7 md:gap-10 self-stretch ${
-                    i === 0 ? 'bg-cyan' :
-                    i === 1 ? 'bg-pink' :
-                    i === 2 ? 'bg-brown700' :
-                    'bg-blue700'
-                }`}>
-                    <div className="w-10 h-10 flex items-center justify-center text-white font-mono text-4xl font-semibold">{i + 1}</div>
-                    <p className="text-xl md:text-2xl font-bold text-white font-anek">{work}</p>
-                </div>)
-            }
-
+          {works.map((work, i) => (
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 50,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: i * 0.55,
+              }}
+              whileHover={{
+                y: -15,
+                rotate: -2,
+              }}
+              key={work}
+              className={`border border-white/30 rounded-2xl py-8 md:py-12.5 px-7.5 flex flex-col gap-7 md:gap-10 self-stretch ${
+                i === 0
+                  ? "bg-cyan"
+                  : i === 1
+                    ? "bg-pink"
+                    : i === 2
+                      ? "bg-brown700"
+                      : "bg-blue700"
+              }`}
+            >
+              <div className="w-10 h-10 flex items-center justify-center text-white font-mono text-4xl font-semibold">
+                {i + 1}
+              </div>
+              <p className="text-xl md:text-2xl font-bold text-white font-anek">
+                {work}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
@@ -351,11 +534,14 @@ function Welcome() {
           <p className="text-white/80 font-inter text-sm md:text-base">
             Let’s help you move from conversations to measurable outcomes.
           </p>
-          <div className="flex items-center gap-3 ">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 ">
             <button className="rounded-lg bg-white text-blue600 px-6 md:px-3 lg:px-10 py-3 text-sm font-inter">
               Deploy EventsIntel
             </button>
-            <Link to='/demo-form' className="rounded-lg bg-pink text-white px-6 md:px-3 lg:px-10 py-3 text-sm font-inter cursor-pointer hover:bg-pink/90 transition-all">
+            <Link
+              to="/demo-form"
+              className="rounded-lg bg-pink text-white px-6 md:px-3 lg:px-10 py-3 text-sm font-inter cursor-pointer hover:bg-pink/90 transition-all"
+            >
               Request a Demo
             </Link>
           </div>
@@ -363,41 +549,141 @@ function Welcome() {
         <div className="md:flex-1 pl-4 md:pl-0">
           <img src="/security-screenshot.png" alt="" />
         </div>
-        
       </section>
 
       <section className="flex flex-col gap-9 py-20 px-4 md:px-10 lg:px-20 bg-blue150 items-center justify-center">
-        <h5 className="font-anek text-xl md:text-2xl font-semibold text-pink">Our main priorities for our Clients are to execute your unique event deployment brilliantly, make your reporting unforgettable, help you demonstrate measurable operational value to your stakeholders and convert your event into recurring institutional results that are useful for future decision making.</h5>
+        <h5 className="font-anek text-xl md:text-2xl font-semibold text-pink">
+          Our main priorities for our Clients are to execute your unique event
+          deployment brilliantly, make your reporting unforgettable, help you
+          demonstrate measurable operational value to your stakeholders and
+          convert your event into recurring institutional results that are
+          useful for future decision making.
+        </h5>
         <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-5 md:pl-25 md:pb-30 bg-cta">
-            <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] md:flex-1 md:pb-40">We’re ready to help you. Contact us now.</h4>
-            <form action="" className="flex flex-col gap-5 border border-white/50 rounded-2xl bg-neutral900 p-6 md:flex-1">
+          <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] md:flex-1 md:pb-40">
+            We’re ready to help you. Contact us now.
+          </h4>
+          <form
+            action=""
+            className="flex flex-col gap-5 border border-white/50 rounded-2xl bg-neutral900 p-6 md:flex-1"
+          >
             <div className="flex flex-col gap-3 ">
-                <label htmlFor="" className="text-white font-inter text-sm"> Full Name <span className="text-red">*</span></label>
-                <input type="text" name="" id="" placeholder="Jane Doe" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>
+              <label htmlFor="" className="text-white font-inter text-sm">
+                {" "}
+                Full Name <span className="text-red">*</span>
+              </label>
+              <motion.input
+                whileFocus={{
+                  scale: 1.02,
+                  borderColor: "#ff007a",
+                }}
+                type="text"
+                name=""
+                id=""
+                placeholder="Jane Doe"
+                className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"
+              />
             </div>
             <div className="flex flex-col gap-3 ">
-                <label htmlFor="" className="text-white font-inter text-sm"> Organization <span className="text-red">*</span></label>
-                <input type="text" name="" id="" placeholder="Uduth" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>
+              <label htmlFor="" className="text-white font-inter text-sm">
+                {" "}
+                Organization <span className="text-red">*</span>
+              </label>
+              <motion.input
+                whileFocus={{
+                  scale: 1.02,
+                  borderColor: "#ff007a",
+                }}
+                type="text"
+                name=""
+                id=""
+                placeholder="Uduth"
+                className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"
+              />
             </div>
             <div className="flex flex-col gap-3 ">
-                <label htmlFor="" className="text-white font-inter text-sm"> Job Title <span className="text-red">*</span></label>
-                <input type="text" name="" id="" placeholder="Nurse" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>
+              <label htmlFor="" className="text-white font-inter text-sm">
+                {" "}
+                Job Title <span className="text-red">*</span>
+              </label>
+              <motion.input
+                whileFocus={{
+                  scale: 1.02,
+                  borderColor: "#ff007a",
+                }}
+                type="text"
+                name=""
+                id=""
+                placeholder="Nurse"
+                className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"
+              />
             </div>
             <div className="flex flex-col gap-3 ">
-                <label htmlFor="" className="text-white font-inter text-sm"> Email Address <span className="text-red">*</span></label>
-                <input type="email" name="" id="" placeholder="Jjanedoe@gmail.com" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>
+              <label htmlFor="" className="text-white font-inter text-sm">
+                {" "}
+                Email Address <span className="text-red">*</span>
+              </label>
+              <motion.input
+                whileFocus={{
+                  scale: 1.02,
+                  borderColor: "#ff007a",
+                }}
+                type="email"
+                name=""
+                id=""
+                placeholder="Jjanedoe@gmail.com"
+                className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"
+              />
             </div>
             <div className="flex flex-col gap-3 ">
-                <label htmlFor="" className="text-white font-inter text-sm"> Phone number(perferably whatsapp) <span className="text-red">*</span></label>
-                <input type="text" name="" id="" placeholder="090 2345 4658" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>
+              <label htmlFor="" className="text-white font-inter text-sm">
+                {" "}
+                Phone number(perferably whatsapp){" "}
+                <span className="text-red">*</span>
+              </label>
+              <motion.input
+                whileFocus={{
+                  scale: 1.02,
+                  borderColor: "#ff007a",
+                }}
+                type="text"
+                name=""
+                id=""
+                placeholder="090 2345 4658"
+                className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"
+              />
             </div>
             <div className="flex flex-col gap-3 ">
-                <label htmlFor="" className="text-white font-inter text-sm"> Country <span className="text-red">*</span></label>
-                <input type="text" name="" id="" placeholder="Nigeria" className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"/>
+              <label htmlFor="" className="text-white font-inter text-sm">
+                {" "}
+                Country <span className="text-red">*</span>
+              </label>
+              <motion.input
+                whileFocus={{
+                  scale: 1.02,
+                  borderColor: "#ff007a",
+                }}
+                type="text"
+                name=""
+                id=""
+                placeholder="Nigeria"
+                className="border border-white/55 rounded-xl text-white/80 text-sm px-4 py-3 bg-white/10 outline-none"
+              />
             </div>
-            <button className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter">Submit</button>
-            </form>
-            {/* <img src="/form-shape.png" className="absolute bottom-0 left-0 w-full h-full -z-1"/> */}
+            <motion.button
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0 0 10px #ff007a",
+              }}
+              whileTap={{
+                scale: 0.95,
+              }}
+              className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter"
+            >
+              Submit
+            </motion.button>
+          </form>
+          {/* <img src="/form-shape.png" className="absolute bottom-0 left-0 w-full h-full -z-1"/> */}
         </div>
       </section>
     </div>
