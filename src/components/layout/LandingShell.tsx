@@ -81,9 +81,9 @@ function LandingShell({ children }: Props) {
             <FaYoutube className="text-white w-6 h-6" />
           </div>
           <div className="flex flex-col gap-5">
-            <button className="text-sm px-5.5 py-3.5 rounded-md bg-white text-blue600 text-center">
+            <Link to='/investlagos' className="text-sm px-5.5 py-3.5 rounded-md bg-white text-blue600 text-center">
               Deploy EventsIntel for Your Event
-            </button>
+            </Link>
             <Link
               to="/demo-form"
               className="text-sm px-8.5 py-3.5 rounded-md bg-pink text-white text-center"
