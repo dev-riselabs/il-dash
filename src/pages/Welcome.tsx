@@ -93,10 +93,6 @@ function Welcome() {
 
   const y = useTransform(scrollYProgress, [0, 1], [0, -150]);
 
-  const rotate = useTransform(scrollYProgress, [0, 0.5], [-8, 0]);
-
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
-
   return (
     <div>
       <section className="bg-hero px-4 mdpx-10 lg:px-20 pt-15 flex flex-col gap-10">
@@ -373,15 +369,7 @@ function Welcome() {
               </div>
             ))}
           </div>
-          <motion.img
-            style={{
-              rotate,
-              scale,
-            }}
-            src="/result-img.png"
-            alt=""
-            className="h-full w-full"
-          />
+          <img src="/result-img.png" alt="" className="h-full w-full" />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-7 md:gap-18">
             {resultTwo.map(({ img, title, description }) => (
               <div key={title} className="flex flex-col gap-6">
@@ -526,7 +514,7 @@ function Welcome() {
         </div>
       </section>
 
-      <section className="flex flex-col gap-7 md:flex-row md:items-center md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
+      <section className="flex flex-col gap-7  md:flex-row md:items-center md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
         <div className="flex flex-col gap-4 md:gap-6 md:flex-1 px-4 md:px-0">
           <h3 className="text-white font-anek font-semibold text-3xl md:text-4xl">
             Bring Intelligence to your next event
@@ -547,7 +535,7 @@ function Welcome() {
           </div>
         </div>
         <div className="md:flex-1 pl-4 md:pl-0">
-          <img src="/security-screenshot.png" alt="" />
+          <img src="/security-screenshot.png" alt="" className="w-full h-full" />
         </div>
       </section>
 
@@ -559,8 +547,8 @@ function Welcome() {
           convert your event into recurring institutional results that are
           useful for future decision making.
         </h5>
-        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-5 md:pl-25 md:pb-30 bg-cta">
-          <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] md:flex-1 md:pb-40">
+        <div className="flex flex-col gap-6 md:flex-row md:gap-10 md:items-end w-full md:px-5  md:pb-10 bg-cta">
+          <h4 className="text-2xl md:text-3xl font-bold font-anek text-white max-w-[25ch] md:flex-1 md:pb-10">
             We’re ready to help you. Contact us now.
           </h4>
           <form
