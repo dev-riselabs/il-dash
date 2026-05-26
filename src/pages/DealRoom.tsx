@@ -48,9 +48,15 @@ function DealRoom() {
 
   const handleDeleteConfirm = async () => {
     if (selectedDeal) {
-      await deleteMutation.mutateAsync(selectedDeal.id);
-      setDeleteOpen(false);
-      setSelectedDeal(null);
+      try {
+        await deleteMutation.mutateAsync(selectedDeal.id);
+        // Add a small delay to allow React Query to complete the refetch
+        await new Promise(resolve => setTimeout(resolve, 500));
+        setDeleteOpen(false);
+        setSelectedDeal(null);
+      } catch (error) {
+        console.error('Failed to delete deal:', error);
+      }
     }
   };
 

@@ -27,6 +27,13 @@ export function AuthGate({ children }: Props) {
     if (!initialized) void fetchMe()
   }, [initialized, fetchMe])
 
+  // Redirect to /investlagos when user is authenticated
+  useEffect(() => {
+    if (user && initialized) {
+      navigate('/investlagos')
+    }
+  }, [user, initialized, navigate])
+
   if (!initialized || (loading && !user)) {
     return (
       <div className="min-h-screen w-full grid place-items-center bg-black text-white/70 font-lexend text-sm">

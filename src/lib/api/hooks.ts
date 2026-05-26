@@ -548,9 +548,9 @@ export function useCreateDeal() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Deal>('/api/deals', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['deals'] })
-      qc.invalidateQueries({ queryKey: ['overview'] })
-      qc.invalidateQueries({ queryKey: ['executive'] })
+      qc.invalidateQueries({ queryKey: ['deals'], exact: false })
+      qc.invalidateQueries({ queryKey: qk.overview.kpis })
+      qc.invalidateQueries({ queryKey: qk.executive.kpis })
     },
   })
 }
@@ -561,9 +561,9 @@ export function useUpdateDeal() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Deal>(`/api/deals/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['deals'] })
-      qc.invalidateQueries({ queryKey: ['overview'] })
-      qc.invalidateQueries({ queryKey: ['executive'] })
+      qc.invalidateQueries({ queryKey: ['deals'], exact: false })
+      qc.invalidateQueries({ queryKey: qk.overview.kpis })
+      qc.invalidateQueries({ queryKey: qk.executive.kpis })
     },
   })
 }
@@ -574,9 +574,10 @@ export function useDeleteDeal() {
     mutationFn: (id: number) =>
       del<void>(`/api/deals/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['deals'] })
-      qc.invalidateQueries({ queryKey: ['overview'] })
-      qc.invalidateQueries({ queryKey: ['executive'] })
+      // Invalidate all deals-related queries (list, detail, etc) with exact: false
+      qc.invalidateQueries({ queryKey: ['deals'], exact: false })
+      qc.invalidateQueries({ queryKey: qk.overview.kpis })
+      qc.invalidateQueries({ queryKey: qk.executive.kpis })
     },
   })
 }
