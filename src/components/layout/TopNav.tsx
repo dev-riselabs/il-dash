@@ -44,7 +44,7 @@ export function TopNav() {
           Lagos &mdash; Africa's Global Gateway
         </div>
         <div className="text-[10px] sm:text-xs text-white font-light mt-0.75">
-          8th to 9th June 2026 | Eko Convention Center, NIGERIA
+          8th to 9th June 2026 | Eko Convention Center, Nigeria
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export function TopNav() {
             })}
           </div> */}
         <div className="text-[10px] sm:text-xs text-white font-light mt-1">
-          8th to 9th June 2026 | Eko Convention Center, NIGERIA
+          8th to 9th June 2026 | Eko Convention Center, Nigeria
         </div>
       </div>
     </header>
