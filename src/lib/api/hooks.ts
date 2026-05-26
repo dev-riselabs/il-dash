@@ -82,6 +82,12 @@ export const useSessionOptions = (o?: Q<SessionOption[]>) =>
 export const useOwners = (o?: Q<OwnerOption[]>) =>
   useQuery({ queryKey: qk.lookups.owners, queryFn: () => getPublic<OwnerOption[]>('/api/lookups/owners'), ...o })
 
+export const useSectorOptions = (o?: Q<Sector[]>) =>
+  useQuery({ queryKey: qk.lookups.sectors, queryFn: () => getPublic<Sector[]>('/api/lookups/sectors'), ...o })
+
+export const useInvestorOptions = (o?: Q<Investor[]>) =>
+  useQuery({ queryKey: qk.investors.list({}), queryFn: () => getPublic<Paginated<Investor>>('/api/investors', { per_page: 100 }).then(p => p.data), ...o })
+
 // ---- Dashboards ------------------------------------------------------------
 export const useOverviewKpis = (o?: Q<OverviewKpis>) =>
   useQuery({ queryKey: qk.overview.kpis, queryFn: () => getPublic<OverviewKpis>('/api/overview/kpis'), ...o })
@@ -532,6 +538,45 @@ export function useDeleteSession() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['sessions'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useCreateDeal() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<Deal>('/api/deals', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['deals'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['executive'] })
+    },
+  })
+}
+
+export function useUpdateDeal() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<Deal>(`/api/deals/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['deals'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['executive'] })
+    },
+  })
+}
+
+export function useDeleteDeal() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/deals/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['deals'] })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.invalidateQueries({ queryKey: ['executive'] })
     },
   })
 }

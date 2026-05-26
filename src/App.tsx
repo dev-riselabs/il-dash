@@ -40,6 +40,8 @@ const SpeakerFormIntegrated = lazy(() => import("./pages/SpeakerFormIntegrated")
 const SessionFormIntegrated = lazy(() => import("./pages/SessionFormIntegrated"));
 const FeedbackFormIntegrated = lazy(() => import("./pages/FeedbackFormIntegrated"));
 const AttendanceManagementPage = lazy(() => import("./pages/AttendanceManagementPage"));
+const DealRoom = lazy(() => import("./pages/DealRoom"));
+const DealRoomForm = lazy(() => import("./pages/DealRoomForm"));
 const About = lazy(() => import("./pages/About"));
 const DemoForm = lazy(() => import("./pages/DemoForm"));
 import { FormShell } from "./components/layout/FormShell";
@@ -123,6 +125,7 @@ function App() {
         <Route path="/speaker" element={<Suspense fallback={<PageLoader />}><Speaker /></Suspense>} />
         <Route path="/audience-feedback" element={<Suspense fallback={<PageLoader />}><AdudienceFeedback /></Suspense>} />
         <Route path="/attendance" element={<Suspense fallback={<PageLoader />}><Attendance /></Suspense>} />
+        <Route path="/deal-room" element={<Suspense fallback={<PageLoader />}><DealRoom /></Suspense>} />
         <Route
           path="/user-management"
           element={
@@ -141,6 +144,7 @@ function App() {
         <Route path="/session-form" element={<Suspense fallback={<PageLoader />}><SessionFormIntegrated /></Suspense>} />
         <Route path="/speaker-form" element={<Suspense fallback={<PageLoader />}><SpeakerFormIntegrated /></Suspense>} />
         <Route path="/attendee-form" element={<Suspense fallback={<PageLoader />}><AttendeeFormIntegrated /></Suspense>} />
+        <Route path="/deal-room-form" element={<Suspense fallback={<PageLoader />}><DealRoomForm /></Suspense>} />
         <Route
           path="/signup-admin"
           element={
