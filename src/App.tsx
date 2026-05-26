@@ -125,7 +125,7 @@ function App() {
         <Route path="/speaker" element={<Suspense fallback={<PageLoader />}><Speaker /></Suspense>} />
         <Route path="/audience-feedback" element={<Suspense fallback={<PageLoader />}><AdudienceFeedback /></Suspense>} />
         <Route path="/attendance" element={<Suspense fallback={<PageLoader />}><Attendance /></Suspense>} />
-        <Route path="/deal-room" element={<Suspense fallback={<PageLoader />}><DealRoom /></Suspense>} />
+        <Route path="/dealroom" element={<Suspense fallback={<PageLoader />}><DealRoom /></Suspense>} />
         <Route
           path="/user-management"
           element={
