@@ -102,7 +102,7 @@ function SessionQuotes() {
                       {q.speaker ? fullName(q.speaker) : "—"}
                     </div>
                     <span className="text-white text-sm col-span-2 italic">
-                      “{q.body}”
+                      “{q.quote_text}”
                     </span>
                   </div>
                 ))}

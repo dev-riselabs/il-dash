@@ -214,3 +214,19 @@ export const demoRequestSchema = z.object({
 
 export type DemoRequestFormData = z.infer<typeof demoRequestSchema>
 
+export const dealSchema = z.object({
+  title: z.string()
+    .min(1, 'Deal title is required')
+    .min(3, 'Deal title must be at least 3 characters')
+    .max(255, 'Deal title must be less than 255 characters'),
+  investor_id: z.string().optional(),
+  sector_id: z.string().optional(),
+  stage: z.enum(['discussion', 'negotiation', 'commitment', 'closed_won', 'closed_lost']).optional(),
+  value_naira: z.string().optional().pipe(
+    z.string().transform(val => val === '' ? null : parseInt(val)).nullable()
+  ),
+  owner_id: z.string().optional(),
+})
+
+export type DealFormData = z.infer<typeof dealSchema>
+

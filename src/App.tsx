@@ -2,7 +2,7 @@ import { Suspense, lazy } from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { AppShell } from "@/components/layout/AppShell";
 import { AuthGate } from "@/lib/auth/AuthGate";
-import { AuthGate as SignUp } from "@/lib/auth/SignUp";
+import { SignUp } from "@/lib/auth/SignUp";
 import { useAuth } from "@/lib/auth/store";
 import { useRealtimeInvalidations } from "@/lib/realtime/useRealtime";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
@@ -40,6 +40,8 @@ const SpeakerFormIntegrated = lazy(() => import("./pages/SpeakerFormIntegrated")
 const SessionFormIntegrated = lazy(() => import("./pages/SessionFormIntegrated"));
 const FeedbackFormIntegrated = lazy(() => import("./pages/FeedbackFormIntegrated"));
 const AttendanceManagementPage = lazy(() => import("./pages/AttendanceManagementPage"));
+const DealRoom = lazy(() => import("./pages/DealRoom"));
+const DealRoomForm = lazy(() => import("./pages/DealRoomForm"));
 const About = lazy(() => import("./pages/About"));
 const DemoForm = lazy(() => import("./pages/DemoForm"));
 import { FormShell } from "./components/layout/FormShell";
@@ -113,9 +115,9 @@ function App() {
         <Route path="/key-insight" element={<Suspense fallback={<PageLoader />}><KeyInsight /></Suspense>} />
       </Route>
 
-      {/* Public Auth Pages - Accessible Routes for Login/Signup */}
+      {/* Public Auth Pages - Separate Signup and Signin */}
+      <Route path="/signup" element={<Suspense fallback={<PageLoader />}><SignUp /></Suspense>} />
       <Route path="/signin" element={<Suspense fallback={<PageLoader />}><AuthGate><AuthedShell /></AuthGate></Suspense>} />
-      <Route path="/signup" element={<Suspense fallback={<PageLoader />}><SignUp><AuthedShell /></SignUp></Suspense>} />
 
       {/* Admin-Only Routes - Requires Authentication */}
       <Route element={<AuthGate><AuthedShell /></AuthGate>}>
@@ -123,6 +125,7 @@ function App() {
         <Route path="/speaker" element={<Suspense fallback={<PageLoader />}><Speaker /></Suspense>} />
         <Route path="/audience-feedback" element={<Suspense fallback={<PageLoader />}><AdudienceFeedback /></Suspense>} />
         <Route path="/attendance" element={<Suspense fallback={<PageLoader />}><Attendance /></Suspense>} />
+        <Route path="/deal-room" element={<Suspense fallback={<PageLoader />}><DealRoom /></Suspense>} />
         <Route
           path="/user-management"
           element={
@@ -141,6 +144,7 @@ function App() {
         <Route path="/session-form" element={<Suspense fallback={<PageLoader />}><SessionFormIntegrated /></Suspense>} />
         <Route path="/speaker-form" element={<Suspense fallback={<PageLoader />}><SpeakerFormIntegrated /></Suspense>} />
         <Route path="/attendee-form" element={<Suspense fallback={<PageLoader />}><AttendeeFormIntegrated /></Suspense>} />
+        <Route path="/deal-room-form" element={<Suspense fallback={<PageLoader />}><DealRoomForm /></Suspense>} />
         <Route
           path="/signup-admin"
           element={
