@@ -163,7 +163,7 @@ function Welcome() {
             </motion.a>
             <Link
               to="/demo-form"
-              className="rounded-lg bg-pink text-white px-10 py-3 text-sm font-inter hover:bg-pink/90 hover:scale-105 transition-all"
+              className="rounded-lg bg-pink text-white px-10 py-4 text-sm font-inter hover:bg-pink/90 hover:scale-105 transition-all"
             >
               Request a Demo
             </Link>
@@ -534,7 +534,7 @@ function Welcome() {
           <p className="text-white/80 font-inter text-sm md:text-base">
             Let’s help you move from conversations to measurable outcomes.
           </p>
-          <div className="flex items-center gap-3 ">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 ">
             <button className="rounded-lg bg-white text-blue600 px-6 md:px-3 lg:px-10 py-3 text-sm font-inter">
               Deploy EventsIntel
             </button>

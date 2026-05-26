@@ -16,7 +16,7 @@ function LandingShell({ children }: Props) {
     setShowMenu((prev) => !prev);
   }
   return (
-    <div>
+    <div onClick={()=> setShowMenu(false)}>
       <header className="flex justify-between gap-30 items-center py-4 px-4 md:px-10 lg:px-20 bg-[linear-gradient(90deg,#082250_0%,#0B2760_15%,#001C4A_45%,#052044_65%,#234F72_100%)]">
         <Link to="/">
           <img src="/events-intel.png" alt="" className="w-20" />
@@ -55,7 +55,7 @@ function LandingShell({ children }: Props) {
           </div>
         </div>
 
-        <div
+        <div onClick={(e)=> e.stopPropagation()}
           className={`flex flex-col px-6 gap-16 w-3/4 z-10 bg-black/50 backdrop-blur-sm lg:hidden py-16  ${
             showMenu ? "fixed top-0 h-screen right-0" : "hidden"
           }`}
