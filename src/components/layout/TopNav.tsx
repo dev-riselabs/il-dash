@@ -32,12 +32,12 @@ export function TopNav() {
         <div className="lg:divide-x divide-white flex items-center justify-between">
           <div className="flex-1">
             <img
-            src="./logo_il.png"
-            alt=""
-            className="md:w-25 md:h-15 px-2 w-20 h-15"
-          />
+              src="./logo_il.png"
+              alt=""
+              className="md:w-25 md:h-15 px-2 w-20 h-15"
+            />
           </div>
-          
+
           <div className="flex justify-between items-center gap-3 flex-1 lg:basis-2/8 lg:px-2">
             <img src="/invest-lagos.png" alt="" className="w-30 lg:w-40" />
             <button
@@ -58,7 +58,7 @@ export function TopNav() {
             Lagos &mdash; Africa's Global Gateway
           </div>
           <div className="text-[10px] sm:text-xs text-white font-light mt-0.75">
-            8th to 9th June 2026 | Eko Convention Center, NIGERIA
+            8th to 9th June 2026 | Eko Convention Center, Nigeria
           </div>
         </div>
 
@@ -86,7 +86,7 @@ export function TopNav() {
             })}
           </div> */}
           <div className="text-[10px] sm:text-xs text-white font-light mt-1">
-            8th to 9th June 2026 | Eko Convention Center, NIGERIA
+            8th to 9th June 2026 | Eko Convention Center, Nigeria
           </div>
         </div>
       </header>

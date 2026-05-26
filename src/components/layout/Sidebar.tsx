@@ -21,6 +21,7 @@ import {
   NotebookTabs,
   MessageSquareReply,
   LogOut,
+  Handshake,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -77,6 +78,12 @@ const adminItems = [
     to: "/audience-feedback",
     label: "Audience Feedback",
     icon: MessageSquareReply,
+    end: false,
+  },
+  {
+    to: "/dealroom",
+    label: "Deal Room",
+    icon: Handshake, 
     end: false,
   },
 ];
