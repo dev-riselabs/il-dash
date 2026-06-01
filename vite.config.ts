@@ -25,6 +25,12 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Activate the new service worker as soon as it is installed and
+        // take control of all open clients so returning visitors get the
+        // latest bundle without needing to manually close every tab.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         navigateFallbackDenylist: [/^\/api/, /^\/sanctum/, /^\/broadcasting/],
         runtimeCaching: [
           {

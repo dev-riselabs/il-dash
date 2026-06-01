@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { TopNav } from "./TopNav";
 import { Link } from "react-router-dom";
@@ -10,6 +10,10 @@ interface Props {
 }
 
 export function AppShell({ children }: Props) {
+  useEffect(() => {
+    document.title = "IL-DASH | Invest Lagos 3.0";
+  }, []);
+
   return (
     <div className="flex flex-col lg:h-screen w-screen bg-surface950 overflow-hidden">
       <TopNav />

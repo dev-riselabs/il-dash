@@ -2,7 +2,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 
 interface Props {
@@ -11,6 +11,10 @@ interface Props {
 
 function LandingShell({ children }: Props) {
   const [showMenu, setShowMenu] = useState(false);
+
+  useEffect(() => {
+    document.title = "Events Intel";
+  }, []);
 
   function toggleShowMenu() {
     setShowMenu((prev) => !prev);

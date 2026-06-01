@@ -132,9 +132,7 @@ export function Sidebar() {
 
         
       </nav>
-      <img src="./logo-b.png" alt="" className={`p-2 ${
-          isHovered ? 'w-30 pl-6' : ''
-        }`} />
+      
 
       {/* Admin Logout Button */}
       {user && (
