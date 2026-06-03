@@ -110,18 +110,22 @@ export default function Overview() {
         <div className="flex gap-4 items-center border border-white/30 rounded-xl overflow-hidden">
           <div className="flex flex-col gap-4 justify-center px-5 py-3 w-3/5">
             <p className="text-white font-lexend text-xs sm:text-base">
-              {headlineQuote
+              {/* {headlineQuote
                 ? `"${headlineQuote?.quote_text}"`
-                : "Lagos is not just the future of Africa—it is the blueprint for sustainable urbanization globally."}
+                : "Lagos is not just the future of Africa—it is the blueprint for sustainable urbanization globally."} */}
+              
+                "The story of Lagos is a story of ambition, resilience, and execution. We invite the world to invest, innovate, and grow with us."
             </p>
             <div className="">
               <p className="text-white font-lexend text-[10px] sm:text-sm text-right">
-                {fullName(headlineQuote?.speaker) ||
-                  "Babajide Olusola Sanwo-Olu"}
+                {/* {fullName(headlineQuote?.speaker) ||
+                  "Babajide Olusola Sanwo-Olu"} */}
+                  "Mr. Babajide Olusola Sanwo-Olu"
               </p>
               <p className="text-white font-lexend text-[8px] sm:text-[10px] text-right">
-                {headlineQuote?.speaker?.job_title ??
-                  "Executive Governor, Lagos State"}
+                  "Executive Governor, Lagos State"
+                {/* {headlineQuote?.speaker?.job_title ??
+                  "Executive Governor, Lagos State"} */}
               </p>
             </div>
           </div>
@@ -315,7 +319,6 @@ export default function Overview() {
                 "Minister, Communications, Innovation & Digital Economy"}
             </footer>
           </blockquote>
-          
         </section>
       </section>
 

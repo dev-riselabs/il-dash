@@ -3,7 +3,7 @@
 // Once authenticated, the admin pages render normally.
 
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from './store'
 import { Eye, EyeClosed } from 'lucide-react'
 
@@ -13,6 +13,7 @@ interface Props {
 
 export function AuthGate({ children }: Props) {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, loading, initialized, fetchMe, login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -27,12 +28,14 @@ export function AuthGate({ children }: Props) {
     if (!initialized) void fetchMe()
   }, [initialized, fetchMe])
 
-  // Redirect to /investlagos when user is authenticated
+  // After a successful sign-in, send the user to the overview. Only applies
+  // when the gate is mounted on the /signin route so other admin pages
+  // wrapped in AuthGate render normally for authenticated users.
   useEffect(() => {
-    if (user && initialized) {
+    if (user && initialized && location.pathname === '/signin') {
       navigate('/investlagos')
     }
-  }, [user, initialized, navigate])
+  }, [user, initialized, location.pathname, navigate])
 
   if (!initialized || (loading && !user)) {
     return (
