@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
-import { useUpdateSpeaker } from '@/lib/api/hooks'
+import { useUpdateSpeaker, useCountries, useJobTitles } from '@/lib/api/hooks'
 import { speakerSchema } from '@/lib/api/schemas'
 import { FormInput } from '@/components/ui/FormInput'
+import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
 import type { Speaker } from '@/lib/api/types'
 
@@ -15,6 +16,18 @@ interface SpeakerEditModalProps {
 
 export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalProps) {
   const updateMutation = useUpdateSpeaker()
+  const { data: countriesData } = useCountries()
+  const { data: jobTitlesData } = useJobTitles()
+
+  const countryOptions = (countriesData || []).map(c => ({
+    value: c.id,
+    label: c.name,
+  }))
+
+  const jobTitleOptions = (jobTitlesData || []).map(t => ({
+    value: t.id,
+    label: t.name,
+  }))
 
   const {
     register,
@@ -101,10 +114,11 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
             error={errors.email}
           />
 
-          <FormInput
+          <FormSelect
             label="Job Title"
-            placeholder="Enter job title"
+            placeholder="Select job title"
             {...register('job_title')}
+            options={jobTitleOptions}
             error={errors.job_title}
           />
 
@@ -115,10 +129,11 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
             error={errors.organization}
           />
 
-          <FormInput
+          <FormSelect
             label="Country"
-            placeholder="Enter country"
+            placeholder="Select country"
             {...register('country')}
+            options={countryOptions}
             error={errors.country}
           />
 

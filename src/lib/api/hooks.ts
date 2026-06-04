@@ -82,6 +82,12 @@ export const useSessionOptions = (o?: Q<SessionOption[]>) =>
 export const useOwners = (o?: Q<OwnerOption[]>) =>
   useQuery({ queryKey: qk.lookups.owners, queryFn: () => getPublic<OwnerOption[]>('/api/lookups/owners'), ...o })
 
+export const useCountries = (o?: Q<Array<{ id: string; name: string }>>) =>
+  useQuery({ queryKey: qk.lookups.countries, queryFn: () => getPublic<Array<{ id: string; name: string }>>('/api/lookups/countries'), ...o })
+
+export const useJobTitles = (o?: Q<Array<{ id: string; name: string }>>) =>
+  useQuery({ queryKey: qk.lookups.jobTitles, queryFn: () => getPublic<Array<{ id: string; name: string }>>('/api/lookups/job-titles'), ...o })
+
 export const useSectorOptions = (o?: Q<Sector[]>) =>
   useQuery({ queryKey: qk.lookups.sectors, queryFn: () => getPublic<Sector[]>('/api/lookups/sectors'), ...o })
 

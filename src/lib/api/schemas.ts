@@ -28,21 +28,18 @@ export const speakerSchema = z.object({
   last_name: z.string()
     .min(1, 'Last name is required')
     .min(2, 'Last name must be at least 2 characters'),
-  email: z.string()
-    .min(1, 'Email is required')
-    .email('Invalid email address'),
+  email: z.string().email('Invalid email address').optional(),
   job_title: z.string()
-    .min(1, 'Job title is required')
-    .min(2, 'Job title must be at least 2 characters'),
+    .min(2, 'Job title must be at least 2 characters')
+    .optional(),
   organization: z.string()
-    .min(1, 'Organization is required')
-    .min(2, 'Organization must be at least 2 characters'),
-  country: z.string()
-    .min(1, 'Country is required'),
+    .min(2, 'Organization must be at least 2 characters')
+    .optional(),
+  country: z.string().optional(),
   bio: z.string()
-    .min(1, 'Bio is required')
     .min(10, 'Bio must be at least 10 characters')
-    .max(500, 'Bio must be less than 500 characters'),
+    .max(500, 'Bio must be less than 500 characters')
+    .optional(),
   session_id: z.string().optional(),
   role: z.enum(['keynote', 'panelist', 'moderator']).optional(),
 })

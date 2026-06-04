@@ -15,6 +15,8 @@ export const qk = {
     venues: ['lookups', 'venues'] as const,
     sessionOptions: ['lookups', 'sessions', 'options'] as const,
     owners: ['lookups', 'owners'] as const,
+    countries: ['lookups', 'countries'] as const,
+    jobTitles: ['lookups', 'job-titles'] as const,
   },
 
   // Dashboard
