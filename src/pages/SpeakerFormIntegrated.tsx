@@ -130,7 +130,6 @@ export default function SpeakerFormIntegrated() {
 
         <FormSelect
           label="Job Title / Position (Optional)"
-          placeholder="Select a job title or position"
           {...register('job_title')}
           options={jobTitleOptions}
           error={errors.job_title}
@@ -145,7 +144,6 @@ export default function SpeakerFormIntegrated() {
 
         <FormSelect
           label="Country (Optional)"
-          placeholder="Select a country"
           {...register('country')}
           options={countryOptions}
           error={errors.country}

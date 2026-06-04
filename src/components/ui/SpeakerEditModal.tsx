@@ -116,7 +116,6 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
 
           <FormSelect
             label="Job Title"
-            placeholder="Select job title"
             {...register('job_title')}
             options={jobTitleOptions}
             error={errors.job_title}
@@ -131,7 +130,6 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
 
           <FormSelect
             label="Country"
-            placeholder="Select country"
             {...register('country')}
             options={countryOptions}
             error={errors.country}
