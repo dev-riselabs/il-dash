@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useVenuesList, useDeleteVenue } from '@/lib/api/hooks'
+import type { Venue } from '@/lib/api/types'
 import { VenueManagementModal } from '@/components/ui/VenueManagementModal'
 import { ChevronLeft, ChevronRight, Search, Trash2, Edit2, Plus } from 'lucide-react'
 
@@ -14,7 +15,7 @@ export function VenueManagementPage() {
   const deleteMutation = useDeleteVenue()
 
   const venues = response?.data || []
-  const pagination = response?.meta || {}
+  const pagination = (response as any) || { last_page: 0 }
 
   const handleEdit = (venue: Venue) => {
     setSelectedVenue(venue)

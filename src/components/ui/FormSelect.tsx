@@ -4,7 +4,7 @@ import { AlertCircle } from 'lucide-react'
 
 interface FormSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
-  error?: FieldError
+  error?: FieldError | string
   hint?: string
   required?: boolean
   options: Array<{ value: string | number; label: string }> | Array<{ id: string | number; name: string }>
@@ -49,7 +49,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
         {error && (
           <div className="flex items-center gap-1 mt-1.5 text-red-400 text-sm">
             <AlertCircle size={16} />
-            <span>{error.message}</span>
+            <span>{typeof error === 'string' ? error : error?.message}</span>
           </div>
         )}
         {hint && !error && (

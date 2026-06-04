@@ -77,7 +77,7 @@ export default function Overview() {
         <h1 className="text-white text-xl sm:text-2xl font-semibold font-lexend">
           REAL-TIME INTELLIGENCE DASHBOARD [IL-DASH]
         </h1>
-        <p className="text-white font-lexend font-light text-xs">Overview.</p>
+        {/* <p className="text-white font-lexend font-light text-xs">Overview.</p> */}
       </div>
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="grid grid-cols-2 md:grid-cols-2 gap-x-4 gap-y-3">

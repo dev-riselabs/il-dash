@@ -4,7 +4,7 @@ import { AlertCircle } from 'lucide-react'
 
 interface FormTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string
-  error?: FieldError
+  error?: FieldError | string
   hint?: string
   required?: boolean
   fullWidth?: boolean
@@ -41,7 +41,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
             {error && (
               <div className="flex items-center gap-1 text-red-400 text-sm">
                 <AlertCircle size={16} />
-                <span>{error.message}</span>
+                <span>{typeof error === 'string' ? error : error?.message}</span>
               </div>
             )}
             {hint && !error && (

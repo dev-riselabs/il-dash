@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import { useTracksList, useDeleteTrack } from '@/lib/api/hooks'
+import type { Track } from '@/lib/api/types'
 import { TrackManagementModal } from '@/components/ui/TrackManagementModal'
 import { ChevronLeft, ChevronRight, Search, Trash2, Edit2, Plus } from 'lucide-react'
 
@@ -18,7 +19,7 @@ export function TrackManagementPage({ eventId }: TrackManagementPageProps) {
   const deleteMutation = useDeleteTrack()
 
   const tracks = response?.data || []
-  const pagination = response?.meta || {}
+  const pagination = (response as any) || { last_page: 0 }
 
   const handleEdit = (track: Track) => {
     setSelectedTrack(track)

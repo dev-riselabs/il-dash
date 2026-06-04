@@ -4,7 +4,7 @@ import { AlertCircle } from 'lucide-react'
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
-  error?: FieldError
+  error?: FieldError | string
   hint?: string
   required?: boolean
   fullWidth?: boolean
@@ -35,7 +35,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
         {error && (
           <div className="flex items-center gap-1 mt-1.5 text-red-400 text-sm">
             <AlertCircle size={16} />
-            <span>{error.message}</span>
+            <span>{typeof error === 'string' ? error : error?.message}</span>
           </div>
         )}
         {hint && !error && (

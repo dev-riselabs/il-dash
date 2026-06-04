@@ -114,7 +114,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
             label="Track (Optional)"
             options={[
               { value: '', label: 'Select a track' },
-              ...(tracks ?? []).map(t => ({ value: t.id.toString(), label: t.name }))
+              ...(tracks?.data ?? []).map((t: any) => ({ value: t.id.toString(), label: t.name }))
             ]}
             {...register('track_id')}
             error={errors.track_id}

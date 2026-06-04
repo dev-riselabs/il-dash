@@ -39,7 +39,7 @@ export function VenueManagementModal({ isOpen, venue, onClose }: VenueManagement
       name: venueData?.name || '',
       slug: venueData?.slug || '',
       capacity: venueData?.capacity || undefined,
-      status: venueData?.status || 'available',
+      status: (venueData?.status as 'available' | 'unavailable') || 'available',
     },
   })
 
@@ -49,7 +49,7 @@ export function VenueManagementModal({ isOpen, venue, onClose }: VenueManagement
       setValue('name', freshVenue.name || '')
       setValue('slug', freshVenue.slug || '')
       setValue('capacity', freshVenue.capacity || undefined)
-      setValue('status', freshVenue.status || 'available')
+      setValue('status', (freshVenue.status as 'available' | 'unavailable') || 'available')
     }
   }, [freshVenue, setValue])
 

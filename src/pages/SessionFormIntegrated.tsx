@@ -30,7 +30,7 @@ export default function SessionFormIntegrated() {
     label: e.name,
   }))
 
-  const trackOptions = (tracksData || []).map(t => ({
+  const trackOptions = (tracksData?.data || []).map((t: any) => ({
     value: String(t.id),
     label: t.name,
   }))

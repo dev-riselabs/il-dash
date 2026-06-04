@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSectorsList, useDeleteSector } from '@/lib/api/hooks'
+import type { Sector } from '@/lib/api/types'
 import { SectorManagementModal } from '@/components/ui/SectorManagementModal'
 import { ChevronLeft, ChevronRight, Search, Trash2, Edit2, Plus } from 'lucide-react'
 
@@ -14,7 +15,7 @@ export function SectorManagementPage() {
   const deleteMutation = useDeleteSector()
 
   const sectors = response?.data || []
-  const pagination = response?.meta || {}
+  const pagination = (response as any) || { last_page: 0 }
 
   const handleEdit = (sector: Sector) => {
     setSelectedSector(sector)
