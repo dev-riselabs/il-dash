@@ -11,15 +11,11 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { QueryState } from "@/components/ui/QueryState";
 import { useEvent, useEventsList } from "@/lib/api/hooks";
 import {
   fmtDate,
   fmtRange,
-  fmtRelative,
-  fmtDateTime,
 } from "@/lib/api/format";
-import type { Event } from "@/lib/api/types";
 
 function EventInsight() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -45,19 +41,9 @@ function EventInsight() {
   // Calculate statistics
   const totalSessions = sessions.length;
   const completedSessions = sessions.filter(s => s.status === 'completed').length;
-  const liveSessions = sessions.filter(s => s.status === 'live').length;
   const totalAttendance = sessions.reduce((sum, s) => {
     return sum + ((s.attendance_in_person ?? 0) + (s.attendance_virtual ?? 0));
   }, 0);
-
-  const statusBreakdown = useMemo(() => {
-    const statuses = sessions.map(s => s.status);
-    const breakdown: Record<string, number> = {};
-    statuses.forEach(status => {
-      breakdown[status] = (breakdown[status] ?? 0) + 1;
-    });
-    return breakdown;
-  }, [sessions]);
 
   const uniqueSpeakers = useMemo(() => {
     const speakerIds = new Set<number>();
