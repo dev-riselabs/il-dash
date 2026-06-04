@@ -91,6 +91,7 @@ export function TrackManagementModal({ isOpen, track, eventId, onClose }: TrackM
         />
         <FormInput
           label="Slug"
+          hint="Auto-generated from name if left empty"
           {...register('slug')}
         />
         <FormInput

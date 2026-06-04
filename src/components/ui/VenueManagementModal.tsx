@@ -97,6 +97,7 @@ export function VenueManagementModal({ isOpen, venue, onClose }: VenueManagement
         />
         <FormInput
           label="Slug"
+          hint="Auto-generated from name if left empty"
           {...register('slug')}
         />
         <FormInput

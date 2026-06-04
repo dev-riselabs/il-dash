@@ -88,6 +88,7 @@ export function SectorManagementModal({ isOpen, sector, onClose }: SectorManagem
         />
         <FormInput
           label="Slug"
+          hint="Auto-generated from name if left empty"
           {...register('slug')}
         />
         <FormInput
