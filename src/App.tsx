@@ -16,6 +16,7 @@ const SentimentFeedback = lazy(() => import("./pages/SentimentFeedback"));
 const SocialmediaFeed = lazy(() => import("./pages/SocialmediaFeed"));
 const AlertsUpdates = lazy(() => import("./pages/AlertsUpdates"));
 const SessionInsight = lazy(() => import("./pages/SessionInsight"));
+const EventInsight = lazy(() => import("./pages/EventInsight"));
 const Reports = lazy(() => import("./pages/Reports"));
 const NextActionTracker = lazy(() => import("./pages/NextActionTracker"));
 const GlobalInvesorMap = lazy(() => import("./pages/GlobalInvesorMap"));
@@ -28,6 +29,7 @@ const SessionQuotes = lazy(() => import("./pages/SessionQuotes"));
 const Attendance = lazy(() => import("./pages/Attendance"));
 const Speaker = lazy(() => import("./pages/Speaker"));
 const Session = lazy(() => import("./pages/Session"));
+const Event = lazy(() => import("./pages/Event"));
 const AdudienceFeedback = lazy(() => import("./pages/AudienceFeedback"));
 const IntelligenceDashboard = lazy(() => import("./pages/IntelligenceDashboard"));
 const DeepDive = lazy(() => import("./pages/DeepDive"));
@@ -38,6 +40,7 @@ const UserManagementPage = lazy(() => import("./pages/UserManagementPage"));
 const AttendeeFormIntegrated = lazy(() => import("./pages/AttendeeFormIntegrated"));
 const SpeakerFormIntegrated = lazy(() => import("./pages/SpeakerFormIntegrated"));
 const SessionFormIntegrated = lazy(() => import("./pages/SessionFormIntegrated"));
+const EventFormIntegrated = lazy(() => import("./pages/EventFormIntegrated"));
 const FeedbackFormIntegrated = lazy(() => import("./pages/FeedbackFormIntegrated"));
 const AttendanceManagementPage = lazy(() => import("./pages/AttendanceManagementPage"));
 const DealRoom = lazy(() => import("./pages/DealRoom"));
@@ -95,6 +98,7 @@ function App() {
         <Route path="/investlagos" element={<Suspense fallback={<PageLoader />}><Overview /></Suspense>} />
         <Route path="/programme" element={<Suspense fallback={<PageLoader />}><ProgrammeTracker /></Suspense>} />
         <Route path="/insights" element={<Suspense fallback={<PageLoader />}><SessionInsight /></Suspense>} />
+        <Route path="/event-insights" element={<Suspense fallback={<PageLoader />}><EventInsight /></Suspense>} />
         <Route path="/deals" element={<Suspense fallback={<PageLoader />}><DealRoomTracker /></Suspense>} />
         <Route path="/heatmap" element={<Suspense fallback={<PageLoader />}><InvestmentHeatmap /></Suspense>} />
         <Route path="/resolutions" element={<Suspense fallback={<PageLoader />}><ResolutionBoard /></Suspense>} />
@@ -122,6 +126,16 @@ function App() {
       {/* Admin-Only Routes - Requires Authentication */}
       <Route element={<AuthGate><AuthedShell /></AuthGate>}>
         <Route path="/session" element={<Suspense fallback={<PageLoader />}><Session /></Suspense>} />
+        <Route
+          path="/event"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ProtectedRoute requiredRoles={["admin", "super_admin"]}>
+                <Event />
+              </ProtectedRoute>
+            </Suspense>
+          }
+        />
         <Route path="/speaker" element={<Suspense fallback={<PageLoader />}><Speaker /></Suspense>} />
         <Route path="/audience-feedback" element={<Suspense fallback={<PageLoader />}><AdudienceFeedback /></Suspense>} />
         <Route path="/attendance" element={<Suspense fallback={<PageLoader />}><Attendance /></Suspense>} />
@@ -142,6 +156,16 @@ function App() {
       <Route element={<FormShellLayout />}>
         <Route path="/feedback-form" element={<Suspense fallback={<PageLoader />}><FeedbackFormIntegrated /></Suspense>} />
         <Route path="/session-form" element={<Suspense fallback={<PageLoader />}><SessionFormIntegrated /></Suspense>} />
+        <Route
+          path="/event-form"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <ProtectedRoute requiredRoles={["admin", "super_admin"]}>
+                <EventFormIntegrated />
+              </ProtectedRoute>
+            </Suspense>
+          }
+        />
         <Route path="/speaker-form" element={<Suspense fallback={<PageLoader />}><SpeakerFormIntegrated /></Suspense>} />
         <Route path="/attendee-form" element={<Suspense fallback={<PageLoader />}><AttendeeFormIntegrated /></Suspense>} />
         <Route path="/deal-room-form" element={<Suspense fallback={<PageLoader />}><DealRoomForm /></Suspense>} />

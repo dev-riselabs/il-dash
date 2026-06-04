@@ -68,6 +68,11 @@ export const qk = {
     topEngagement: ['speakers', 'top-engagement'] as const,
     detail: (id: number) => ['speakers', 'detail', id] as const,
   },
+  events: {
+    list: (params: Record<string, unknown> = {}) =>
+      ['events', 'list', params] as const,
+    detail: (id: number) => ['events', 'detail', id] as const,
+  },
   sessions: {
     list: (params: Record<string, unknown> = {}) =>
       ['sessions', 'list', params] as const,
@@ -158,6 +163,7 @@ export const qkRoots = {
   intelligence: ['intelligence'] as const,
   analytics: ['analytics'] as const,
   sentiment: ['sentiment'] as const,
+  events: ['events'] as const,
   sessions: ['sessions'] as const,
   resolutions: ['resolutions'] as const,
   feedback: ['feedback'] as const,

@@ -33,22 +33,31 @@ export interface Sector extends BriefRef {}
 export interface Track extends BriefRef {}
 export interface Venue extends BriefRef {}
 
+export type EventStatus = 'upcoming' | 'live' | 'completed' | 'cancelled'
+
 export interface Event {
   id: number
   name: string
   slug?: string | null
   description?: string | null
+  location?: string | null
   starts_at?: string
   ends_at?: string
-  status?: string | null
+  status?: EventStatus | string | null
+  created_at?: string
+  updated_at?: string
+  days?: EventDay[]
+  tracks?: Track[]
+  sessions?: EventSession[]
 }
 
 export interface EventDay {
   id: number
   event_id: number
-  day_index: number
+  day_index?: number
+  day_no?: number
   date: string
-  label: string | null
+  label?: string | null
 }
 
 export interface SessionOption {

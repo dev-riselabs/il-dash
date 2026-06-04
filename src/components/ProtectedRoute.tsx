@@ -9,10 +9,8 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children, requiredRoles = [] }: ProtectedRouteProps) {
-  const { user, loading } = useAuth((s) => ({
-    user: s.user,
-    loading: s.loading,
-  }))
+  const user = useAuth((s) => s.user)
+  const loading = useAuth((s) => s.loading)
 
   if (loading) {
     return (

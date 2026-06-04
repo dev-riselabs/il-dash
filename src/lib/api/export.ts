@@ -1,4 +1,4 @@
-import type { Attendee, EventSession, Speaker, FeedbackSubmission } from './types'
+import type { Attendee, Event, EventSession, Speaker, FeedbackSubmission } from './types'
 
 const escapeCsvValue = (value: string) => {
   const escaped = value.replace(/"/g, '""')
@@ -53,6 +53,20 @@ export async function exportSpeakersToExcel(speakers: Speaker[]) {
     'Created At': s.created_at || '',
   }))
   downloadCsv(`speakers-${new Date().toISOString().split('T')[0]}.csv`, rows)
+}
+
+export async function exportEventsToExcel(events: Event[]) {
+  const rows = events.map(e => ({
+    'Name': e.name || '',
+    'Slug': e.slug || '',
+    'Status': e.status || '',
+    'Location': e.location || '',
+    'Description': e.description || '',
+    'Starts At': e.starts_at || '',
+    'Ends At': e.ends_at || '',
+    'Created At': e.created_at || '',
+  }))
+  downloadCsv(`events-${new Date().toISOString().split('T')[0]}.csv`, rows)
 }
 
 export async function exportSessionsToExcel(sessions: EventSession[]) {

@@ -22,6 +22,7 @@ import {
   MessageSquareReply,
   LogOut,
   Handshake,
+  CalendarPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -56,6 +57,12 @@ const publicItems = [
 ];
 
 const adminItems = [
+  {
+    to: "/event",
+    label: "Event",
+    icon: CalendarPlus,
+    end: false,
+  },
   {
     to: "/attendance",
     label: "Attendance",

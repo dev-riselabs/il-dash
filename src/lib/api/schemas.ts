@@ -47,6 +47,28 @@ export const speakerSchema = z.object({
   role: z.enum(['keynote', 'panelist', 'moderator']).optional(),
 })
 
+export const eventSchema = z.object({
+  name: z.string()
+    .min(1, 'Event name is required')
+    .min(3, 'Event name must be at least 3 characters')
+    .max(255, 'Event name must be less than 255 characters'),
+  slug: z.string().optional(),
+  description: z.string().optional(),
+  location: z.string().optional(),
+  starts_at: z.string()
+    .min(1, 'Start date is required'),
+  ends_at: z.string()
+    .min(1, 'End date is required'),
+  status: z.enum(['upcoming', 'live', 'completed', 'cancelled']).optional(),
+}).refine((data) => {
+  const start = new Date(data.starts_at)
+  const end = new Date(data.ends_at)
+  return end > start
+}, {
+  message: 'End date must be after start date',
+  path: ['ends_at'],
+})
+
 export const sessionSchema = z.object({
   event_id: z.string()
     .min(1, 'Event is required'),
@@ -163,6 +185,7 @@ export const userEditSchema = z.object({
 export type AttendeeFormData = z.infer<typeof attendeeSchema>
 export type SpeakerFormData = z.infer<typeof speakerSchema>
 export type SessionFormData = z.infer<typeof sessionSchema>
+export type EventFormData = z.infer<typeof eventSchema>
 export type FeedbackFormData = z.infer<typeof feedbackSchema>
 export type AdminSignupFormData = z.infer<typeof adminSignupSchema>
 export type UserCreateFormData = z.infer<typeof userCreateSchema>

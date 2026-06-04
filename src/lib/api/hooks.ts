@@ -159,6 +159,12 @@ export const useGlobalMapCountries = (o?: Q<GlobalMapCountryRow[]>) =>
   useQuery({ queryKey: qk.globalMap.countries, queryFn: () => getPublic<GlobalMapCountryRow[]>('/api/global-map/countries'), ...o })
 
 // ---- Domain collections (paginated) ----------------------------------------
+type EventListParams = { search?: string; status?: string; per_page?: number; page?: number }
+export const useEventsList = (params: EventListParams = {}, o?: Q<Paginated<Event>>) =>
+  useQuery({ queryKey: qk.events.list(params), queryFn: () => getPublic<Paginated<Event>>('/api/events', params), ...o })
+export const useEvent = (id: number | null, o?: Q<Event>) =>
+  useQuery({ queryKey: qk.events.detail(id ?? 0), queryFn: () => getPublic<Event>(`/api/events/${id}`), enabled: !!id, ...o })
+
 type AttendeeListParams = { search?: string; checked_in?: boolean; per_page?: number; page?: number; region?: string; category?: string }
 export const useAttendees = (params: AttendeeListParams = {}, o?: Q<Paginated<Attendee>>) =>
   useQuery({ queryKey: qk.attendees.list(params), queryFn: () => getPublic<Paginated<Attendee>>('/api/attendees', params), ...o })
@@ -401,7 +407,7 @@ export function useUpdateAttendee() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Attendee>(`/api/attendees/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['attendees'] })
+      qc.invalidateQueries({ queryKey: qk.attendees.list() })
       qc.invalidateQueries({ queryKey: ['analytics'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
@@ -414,7 +420,7 @@ export function useDeleteAttendee() {
     mutationFn: (id: number) =>
       del<void>(`/api/attendees/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['attendees'] })
+      qc.invalidateQueries({ queryKey: qk.attendees.list() })
       qc.invalidateQueries({ queryKey: ['analytics'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
@@ -463,7 +469,7 @@ export function useCreateAttendee() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Attendee>('/api/attendees', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['attendees'] })
+      qc.invalidateQueries({ queryKey: qk.attendees.list() })
       qc.invalidateQueries({ queryKey: ['analytics'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
@@ -476,7 +482,7 @@ export function useCreateSpeaker() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Speaker>('/api/speakers', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['speakers'] })
+      qc.invalidateQueries({ queryKey: qk.speakers.list() })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
@@ -488,7 +494,7 @@ export function useUpdateSpeaker() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Speaker>(`/api/speakers/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['speakers'] })
+      qc.invalidateQueries({ queryKey: qk.speakers.list() })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
@@ -500,7 +506,46 @@ export function useDeleteSpeaker() {
     mutationFn: (id: number) =>
       del<void>(`/api/speakers/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['speakers'] })
+      qc.invalidateQueries({ queryKey: qk.speakers.list() })
+      qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useCreateEvent() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<Event>('/api/events', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.events.list() })
+      qc.invalidateQueries({ queryKey: qk.lookups.events })
+    },
+  })
+}
+
+export function useUpdateEvent() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<Event>(`/api/events/${id}`, payload),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: qk.events.list() })
+      qc.invalidateQueries({ queryKey: qk.events.detail(data.id) })
+      qc.invalidateQueries({ queryKey: qk.lookups.events })
+    },
+  })
+}
+
+export function useDeleteEvent() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/events/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.events.list() })
+      qc.invalidateQueries({ queryKey: qk.lookups.events })
+      qc.invalidateQueries({ queryKey: ['sessions'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
@@ -512,7 +557,7 @@ export function useCreateSession() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<EventSession>('/api/sessions', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['sessions'] })
+      qc.invalidateQueries({ queryKey: qk.sessions.list() })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
@@ -524,7 +569,7 @@ export function useUpdateSession() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<EventSession>(`/api/sessions/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['sessions'] })
+      qc.invalidateQueries({ queryKey: qk.sessions.list() })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
@@ -536,7 +581,7 @@ export function useDeleteSession() {
     mutationFn: (id: number) =>
       del<void>(`/api/sessions/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ['sessions'] })
+      qc.invalidateQueries({ queryKey: qk.sessions.list() })
       qc.invalidateQueries({ queryKey: ['overview'] })
     },
   })
