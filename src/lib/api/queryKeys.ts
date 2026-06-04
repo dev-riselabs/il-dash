@@ -80,6 +80,21 @@ export const qk = {
       ['sessions', 'list', params] as const,
     detail: (id: number) => ['sessions', 'detail', id] as const,
   },
+  tracks: {
+    list: (params: Record<string, unknown> = {}) =>
+      ['tracks', 'list', params] as const,
+    detail: (id: number) => ['tracks', 'detail', id] as const,
+  },
+  sectors: {
+    list: (params: Record<string, unknown> = {}) =>
+      ['sectors', 'list', params] as const,
+    detail: (id: number) => ['sectors', 'detail', id] as const,
+  },
+  venues: {
+    list: (params: Record<string, unknown> = {}) =>
+      ['venues', 'list', params] as const,
+    detail: (id: number) => ['venues', 'detail', id] as const,
+  },
   quotes: {
     list: (params: Record<string, unknown> = {}) =>
       ['quotes', 'list', params] as const,

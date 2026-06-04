@@ -18,6 +18,9 @@ import { fmtDateTime, fullName } from "@/lib/api/format";
 import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { SessionEditModal } from "@/components/ui/SessionEditModal";
+import { TrackManagementFullModal } from "@/components/ui/TrackManagementFullModal";
+import { SectorManagementFullModal } from "@/components/ui/SectorManagementFullModal";
+import { VenueManagementFullModal } from "@/components/ui/VenueManagementFullModal";
 import { exportSessionsToExcel } from "@/lib/api/export";
 import type { SessionStatus, EventSession } from "@/lib/api/types";
 
@@ -40,6 +43,9 @@ function SessionPage() {
   const [downloadOpen, setDownloadOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [trackManagementOpen, setTrackManagementOpen] = useState(false);
+  const [sectorManagementOpen, setSectorManagementOpen] = useState(false);
+  const [venueManagementOpen, setVenueManagementOpen] = useState(false);
   const [selectedSession, setSelectedSession] = useState<EventSession | null>(
     null,
   );
@@ -129,6 +135,24 @@ function SessionPage() {
             className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 hover:bg-blue-900 transition-colors"
           >
             <Download className="w-5 h-5 text-white" />
+          </button>
+          <button
+            onClick={() => setTrackManagementOpen(true)}
+            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
+          >
+            Tracks
+          </button>
+          <button
+            onClick={() => setSectorManagementOpen(true)}
+            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
+          >
+            Sectors
+          </button>
+          <button
+            onClick={() => setVenueManagementOpen(true)}
+            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
+          >
+            Venues
           </button>
           <Link
             to="/session-form"
@@ -303,6 +327,21 @@ function SessionPage() {
           session={selectedSession}
         />
       )}
+
+      <SectorManagementFullModal
+        isOpen={sectorManagementOpen}
+        onClose={() => setSectorManagementOpen(false)}
+      />
+
+      <VenueManagementFullModal
+        isOpen={venueManagementOpen}
+        onClose={() => setVenueManagementOpen(false)}
+      />
+
+      <TrackManagementFullModal
+        isOpen={trackManagementOpen}
+        onClose={() => setTrackManagementOpen(false)}
+      />
     </section>
   );
 }

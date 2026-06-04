@@ -187,6 +187,24 @@ export const useSessions = (params: SessionListParams = {}, o?: Q<Paginated<Even
 export const useSession = (id: number | null, o?: Q<EventSession>) =>
   useQuery({ queryKey: qk.sessions.detail(id ?? 0), queryFn: () => getPublic<EventSession>(`/api/sessions/${id}`), enabled: !!id, ...o })
 
+type TrackListParams = { event_id?: number; search?: string; per_page?: number; page?: number }
+export const useTracksList = (params: TrackListParams = {}, o?: Q<Paginated<Track>>) =>
+  useQuery({ queryKey: qk.tracks.list(params), queryFn: () => getPublic<Paginated<Track>>('/api/tracks', params), ...o })
+export const useTrack = (id: number | null, o?: Q<Track>) =>
+  useQuery({ queryKey: qk.tracks.detail(id ?? 0), queryFn: () => getPublic<Track>(`/api/tracks/${id}`), enabled: !!id, ...o })
+
+type SectorListParams = { search?: string; per_page?: number; page?: number }
+export const useSectorsList = (params: SectorListParams = {}, o?: Q<Paginated<Sector>>) =>
+  useQuery({ queryKey: qk.sectors.list(params), queryFn: () => getPublic<Paginated<Sector>>('/api/sectors', params), ...o })
+export const useSectorDetail = (id: number | null, o?: Q<Sector>) =>
+  useQuery({ queryKey: qk.sectors.detail(id ?? 0), queryFn: () => getPublic<Sector>(`/api/sectors/${id}`), enabled: !!id, ...o })
+
+type VenueListParams = { search?: string; per_page?: number; page?: number }
+export const useVenuesList = (params: VenueListParams = {}, o?: Q<Paginated<Venue>>) =>
+  useQuery({ queryKey: qk.venues.list(params), queryFn: () => getPublic<Paginated<Venue>>('/api/venues', params), ...o })
+export const useVenueDetail = (id: number | null, o?: Q<Venue>) =>
+  useQuery({ queryKey: qk.venues.detail(id ?? 0), queryFn: () => getPublic<Venue>(`/api/venues/${id}`), enabled: !!id, ...o })
+
 type QuoteListParams = { event_session_id?: number; speaker_id?: number; search?: string; per_page?: number; page?: number }
 export const useQuotes = (params: QuoteListParams = {}, o?: Q<Paginated<SessionQuote>>) =>
   useQuery({ queryKey: qk.quotes.list(params), queryFn: () => getPublic<Paginated<SessionQuote>>('/api/quotes', params), ...o })
@@ -589,6 +607,105 @@ export function useDeleteSession() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: qk.sessions.list() })
       qc.invalidateQueries({ queryKey: ['overview'] })
+    },
+  })
+}
+
+export function useCreateTrack() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<Track>('/api/tracks', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tracks'] })
+    },
+  })
+}
+
+export function useUpdateTrack() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<Track>(`/api/tracks/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tracks'] })
+    },
+  })
+}
+
+export function useDeleteTrack() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/tracks/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['tracks'] })
+    },
+  })
+}
+
+export function useCreateSector() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<Sector>('/api/sectors', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['sectors'] })
+    },
+  })
+}
+
+export function useUpdateSector() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<Sector>(`/api/sectors/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['sectors'] })
+    },
+  })
+}
+
+export function useDeleteSector() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/sectors/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['sectors'] })
+    },
+  })
+}
+
+export function useCreateVenue() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<Venue>('/api/venues', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['venues'] })
+    },
+  })
+}
+
+export function useUpdateVenue() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<Venue>(`/api/venues/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['venues'] })
+    },
+  })
+}
+
+export function useDeleteVenue() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/venues/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['venues'] })
     },
   })
 }

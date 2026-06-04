@@ -29,9 +29,17 @@ export interface BriefRef {
   color?: string | null
 }
 
-export interface Sector extends BriefRef {}
-export interface Track extends BriefRef {}
-export interface Venue extends BriefRef {}
+export interface Sector extends BriefRef {
+  slug?: string | null
+}
+export interface Track extends BriefRef {
+  slug?: string | null
+}
+export interface Venue extends BriefRef {
+  capacity?: number | null
+  status?: 'available' | 'unavailable' | null
+  slug?: string | null
+}
 
 export type EventStatus = 'upcoming' | 'live' | 'completed' | 'cancelled'
 

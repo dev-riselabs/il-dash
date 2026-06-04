@@ -75,16 +75,13 @@ export const sessionSchema = z.object({
   description: z.string()
     .min(1, 'Description is required')
     .min(20, 'Description must be at least 20 characters'),
-  track_id: z.string()
-    .min(1, 'Track is required'),
+  track_id: z.string().optional(),
   sector_id: z.string().optional(),
-  venue_id: z.string()
-    .min(1, 'Venue is required'),
-  starts_at: z.string()
-    .min(1, 'Start time is required'),
-  ends_at: z.string()
-    .min(1, 'End time is required'),
+  venue_id: z.string().optional(),
+  starts_at: z.string().optional(),
+  ends_at: z.string().optional(),
 }).refine((data) => {
+  if (!data.starts_at || !data.ends_at) return true
   const start = new Date(data.starts_at)
   const end = new Date(data.ends_at)
   return end > start

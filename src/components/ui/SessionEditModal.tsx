@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
-import { useUpdateSession, useEvents, useTracks, useSectors, useVenues } from '@/lib/api/hooks'
+import { useUpdateSession, useEvents, useTracksList, useSectors, useVenues } from '@/lib/api/hooks'
 import { sessionSchema } from '@/lib/api/schemas'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
@@ -17,7 +17,7 @@ interface SessionEditModalProps {
 export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalProps) {
   const updateMutation = useUpdateSession()
   const { data: events } = useEvents()
-  const { data: tracks } = useTracks()
+  const { data: tracks } = useTracksList()
   const { data: sectors } = useSectors()
   const { data: venues } = useVenues()
 
@@ -111,7 +111,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
           />
 
           <FormSelect
-            label="Track"
+            label="Track (Optional)"
             options={[
               { value: '', label: 'Select a track' },
               ...(tracks ?? []).map(t => ({ value: t.id.toString(), label: t.name }))
@@ -131,7 +131,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
           />
 
           <FormSelect
-            label="Venue"
+            label="Venue (Optional)"
             options={[
               { value: '', label: 'Select a venue' },
               ...(venues ?? []).map(v => ({ value: v.id.toString(), label: v.name }))
@@ -141,14 +141,14 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
           />
 
           <FormInput
-            label="Start Time"
+            label="Start Time (Optional)"
             type="datetime-local"
             {...register('starts_at')}
             error={errors.starts_at}
           />
 
           <FormInput
-            label="End Time"
+            label="End Time (Optional)"
             type="datetime-local"
             {...register('ends_at')}
             error={errors.ends_at}

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { sessionSchema, type SessionFormData } from '@/lib/api/schemas'
-import { useCreateSession, useEvents, useTracks, useSectors, useVenues } from '@/lib/api/hooks'
+import { useCreateSession, useEvents, useTracksList, useSectors, useVenues } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
@@ -20,7 +20,7 @@ export default function SessionFormIntegrated() {
 
   const createMutation = useCreateSession()
   const { data: eventsData } = useEvents()
-  const { data: tracksData } = useTracks()
+  const { data: tracksData } = useTracksList()
   const { data: sectorsData } = useSectors()
   const { data: venuesData } = useVenues()
   const isSubmitting = createMutation.isPending
@@ -48,13 +48,18 @@ export default function SessionFormIntegrated() {
   const onSubmit = async (data: SessionFormData) => {
     setApiError('')
     try {
-      await createMutation.mutateAsync({
-        ...data,
+      const payload: any = {
         event_id: parseInt(data.event_id),
-        track_id: parseInt(data.track_id),
-        ...(data.sector_id && { sector_id: parseInt(data.sector_id) }),
-        venue_id: parseInt(data.venue_id),
-      })
+      }
+      if (data.title) payload.title = data.title
+      if (data.description) payload.description = data.description
+      if (data.track_id) payload.track_id = parseInt(data.track_id)
+      if (data.sector_id) payload.sector_id = parseInt(data.sector_id)
+      if (data.venue_id) payload.venue_id = parseInt(data.venue_id)
+      if (data.starts_at) payload.starts_at = data.starts_at
+      if (data.ends_at) payload.ends_at = data.ends_at
+
+      await createMutation.mutateAsync(payload)
       setSubmitted(true)
       reset()
     } catch (error: any) {
@@ -128,7 +133,7 @@ export default function SessionFormIntegrated() {
         <div className="flex gap-3">
           <div className="flex-1">
             <FormSelect
-              label="Track"
+              label="Track (Optional)"
               {...register('track_id')}
               options={trackOptions}
               error={errors.track_id}
@@ -147,7 +152,7 @@ export default function SessionFormIntegrated() {
         <div className="flex gap-3">
           <div className="flex-1">
             <FormSelect
-              label="Venue"
+              label="Venue (Optional)"
               {...register('venue_id')}
               options={venueOptions}
               error={errors.venue_id}
@@ -158,7 +163,7 @@ export default function SessionFormIntegrated() {
         <div className="flex gap-3">
           <div className="flex-1">
             <FormInput
-              label="Start Time"
+              label="Start Time (Optional)"
               type="datetime-local"
               {...register('starts_at')}
               error={errors.starts_at}
@@ -166,7 +171,7 @@ export default function SessionFormIntegrated() {
           </div>
           <div className="flex-1">
             <FormInput
-              label="End Time"
+              label="End Time (Optional)"
               type="datetime-local"
               {...register('ends_at')}
               error={errors.ends_at}
