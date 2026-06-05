@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { speakerSchema, type SpeakerFormData } from '@/lib/api/schemas'
-import { useCreateSpeaker, useSessionOptions, useCountries, useJobTitles } from '@/lib/api/hooks'
+import { useCreateSpeaker, useSessionOptions, useCountries } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
@@ -21,7 +21,6 @@ export default function SpeakerFormIntegrated() {
   const createMutation = useCreateSpeaker()
   const { data: sessionsData } = useSessionOptions()
   const { data: countriesData } = useCountries()
-  const { data: jobTitlesData } = useJobTitles()
   const isSubmitting = createMutation.isPending
 
   const sessionOptions = (sessionsData || []).map(s => ({
@@ -32,11 +31,6 @@ export default function SpeakerFormIntegrated() {
   const countryOptions = (countriesData || []).map(c => ({
     value: c.id,
     label: c.name,
-  }))
-
-  const jobTitleOptions = (jobTitlesData || []).map(t => ({
-    value: t.id,
-    label: t.name,
   }))
 
   const roleOptions = [
@@ -121,17 +115,9 @@ export default function SpeakerFormIntegrated() {
         </div>
 
         <FormInput
-          label="Email Address (Optional)"
-          type="email"
-          placeholder="jane@example.com"
-          {...register('email')}
-          error={errors.email}
-        />
-
-        <FormSelect
           label="Job Title / Position (Optional)"
+          placeholder="Software Engineer"
           {...register('job_title')}
-          options={jobTitleOptions}
           error={errors.job_title}
         />
 
@@ -167,10 +153,10 @@ export default function SpeakerFormIntegrated() {
             />
           </div>
           <div className="flex-1">
-            <FormSelect
+            <FormInput
               label="Speaker Role (Optional)"
+              placeholder="e.g., Keynote, Panelist, Moderator"
               {...register('role')}
-              options={roleOptions}
               error={errors.role}
             />
           </div>

@@ -135,7 +135,6 @@ export interface Speaker {
   last_name: string
   organization?: string | null
   job_title?: string | null
-  email?: string | null
   bio?: string | null
   photo_url?: string | null
   country?: string | null

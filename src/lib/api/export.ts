@@ -45,7 +45,6 @@ export async function exportSpeakersToExcel(speakers: Speaker[]) {
   const rows = speakers.map(s => ({
     'First Name': s.first_name || '',
     'Last Name': s.last_name || '',
-    'Email': s.email || '',
     'Organization': s.organization || '',
     'Job Title': s.job_title || '',
     'Country': s.country || '',

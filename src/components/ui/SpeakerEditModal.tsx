@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
-import { useUpdateSpeaker, useCountries, useJobTitles } from '@/lib/api/hooks'
+import { useUpdateSpeaker, useCountries } from '@/lib/api/hooks'
 import { speakerSchema } from '@/lib/api/schemas'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
@@ -17,16 +17,10 @@ interface SpeakerEditModalProps {
 export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalProps) {
   const updateMutation = useUpdateSpeaker()
   const { data: countriesData } = useCountries()
-  const { data: jobTitlesData } = useJobTitles()
 
   const countryOptions = (countriesData || []).map(c => ({
     value: c.id,
     label: c.name,
-  }))
-
-  const jobTitleOptions = (jobTitlesData || []).map(t => ({
-    value: t.id,
-    label: t.name,
   }))
 
   const {
@@ -39,7 +33,6 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
     defaultValues: {
       first_name: speaker.first_name,
       last_name: speaker.last_name,
-      email: speaker.email || '',
       job_title: speaker.job_title || '',
       organization: speaker.organization || '',
       country: speaker.country || '',
@@ -53,7 +46,6 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
         id: speaker.id,
         first_name: data.first_name,
         last_name: data.last_name,
-        email: data.email,
         job_title: data.job_title,
         organization: data.organization,
         country: data.country,
@@ -63,7 +55,6 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
       reset({
         first_name: speaker.first_name,
         last_name: speaker.last_name,
-        email: speaker.email || '',
         job_title: speaker.job_title || '',
         organization: speaker.organization || '',
         country: speaker.country || '',
@@ -107,17 +98,9 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
           </div>
 
           <FormInput
-            label="Email"
-            type="email"
-            placeholder="Enter email address"
-            {...register('email')}
-            error={errors.email}
-          />
-
-          <FormSelect
-            label="Job Title"
+            label="Job Title / Position"
+            placeholder="Enter job title or position"
             {...register('job_title')}
-            options={jobTitleOptions}
             error={errors.job_title}
           />
 
