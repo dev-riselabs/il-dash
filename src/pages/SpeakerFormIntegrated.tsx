@@ -33,12 +33,6 @@ export default function SpeakerFormIntegrated() {
     label: c.name,
   }))
 
-  const roleOptions = [
-    { value: 'keynote', label: 'Keynote' },
-    { value: 'panelist', label: 'Panelist' },
-    { value: 'moderator', label: 'Moderator' },
-  ]
-
   const onSubmit = async (data: SpeakerFormData) => {
     setApiError('')
     try {
