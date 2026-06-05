@@ -58,13 +58,30 @@ export default function SpeakerFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Speaker information has been submitted successfully.
           </p>
-          <button
-            onClick={() => navigate('/overview')}
+          <div>
+            <button
+            onClick={() => navigate('/investlagos')}
             className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
           >
             Go to Dashboard
             <ArrowRight className="w-4 h-4" />
           </button>
+          <button
+            onClick={() => navigate('/speaker-form')}
+            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
+          >
+            Add new Speaker
+            <ArrowRight className="w-4 h-4" />
+          </button>
+          <button
+            onClick={() => navigate('/speaker')}
+            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
+          >
+            See Speakers
+            <ArrowRight className="w-4 h-4" />
+          </button>
+          </div>
+          
         </section>
       </section>
     )
