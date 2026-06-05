@@ -58,7 +58,7 @@ export default function SpeakerFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Speaker information has been submitted successfully.
           </p>
-          <div>
+          <div className='flex gap-2 items-center'>
             <button
             onClick={() => navigate('/investlagos')}
             className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
