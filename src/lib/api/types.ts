@@ -138,6 +138,7 @@ export interface Speaker {
   bio?: string | null
   photo_url?: string | null
   country?: string | null
+  role?: string | null
   created_at?: string
 }
 
