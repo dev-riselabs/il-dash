@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { dealSchema, type DealFormData } from '@/lib/api/schemas'
-import { useCreateDeal, useUpdateDeal, useSectorOptions, useInvestorOptions, useOwners, useDeals } from '@/lib/api/hooks'
+import { useCreateDeal, useUpdateDeal, useSectorOptions, useDeals } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
@@ -28,8 +28,6 @@ function DealRoomForm() {
   const createMutation = useCreateDeal()
   const updateMutation = useUpdateDeal()
   const { data: sectorsData } = useSectorOptions()
-  const { data: investorsData } = useInvestorOptions()
-  const { data: ownersData } = useOwners()
   
   const isSubmitting = isEditing ? updateMutation.isPending : createMutation.isPending
 
@@ -38,8 +36,7 @@ function DealRoomForm() {
     if (isEditing && dealToEdit) {
       setValue('title', dealToEdit.title)
       if (dealToEdit.sector_id) setValue('sector_id', String(dealToEdit.sector_id))
-      if (dealToEdit.investor_id) setValue('investor_id', String(dealToEdit.investor_id))
-      if (dealToEdit.owner_id) setValue('owner_id', String(dealToEdit.owner_id))
+      if (dealToEdit.investor_name) setValue('investor_name', dealToEdit.investor_name)
       if (dealToEdit.stage) setValue('stage', dealToEdit.stage)
       if (dealToEdit.value_naira) setValue('value_naira', dealToEdit.value_naira)
     }
@@ -48,16 +45,6 @@ function DealRoomForm() {
   const sectorOptions = (sectorsData || []).map(s => ({
     value: String(s.id),
     label: s.name,
-  }))
-
-  const investorOptions = (investorsData || []).map(i => ({
-    value: String(i.id),
-    label: i.name,
-  }))
-
-  const ownerOptions = (ownersData || []).map(o => ({
-    value: String(o.id),
-    label: o.name,
   }))
 
   const stageOptions = [
@@ -73,9 +60,8 @@ function DealRoomForm() {
     try {
       const payload = {
         title: data.title,
-        ...(data.investor_id && { investor_id: parseInt(data.investor_id) }),
+        ...(data.investor_name && { investor_name: data.investor_name }),
         ...(data.sector_id && { sector_id: parseInt(data.sector_id) }),
-        ...(data.owner_id && { owner_id: parseInt(data.owner_id) }),
         ...(data.stage && { stage: data.stage }),
         ...(data.value_naira !== null && { value_naira: data.value_naira }),
       }
@@ -163,11 +149,11 @@ function DealRoomForm() {
             />
           </div>
           <div className="flex-1">
-            <FormSelect
+            <FormInput
               label="Investor / Partner"
-              options={investorOptions}
-              {...register('investor_id')}
-              error={errors.investor_id}
+              placeholder="e.g., Acme Corporation"
+              {...register('investor_name')}
+              error={errors.investor_name}
             />
           </div>
         </div>
@@ -192,16 +178,7 @@ function DealRoomForm() {
           </div>
         </div>
 
-        <div className="flex gap-3">
-          <div className="flex-1">
-            <FormSelect
-              label="Owner"
-              options={ownerOptions}
-              {...register('owner_id')}
-              error={errors.owner_id}
-            />
-          </div>
-        </div>
+
 
         <button
           type="submit"

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
-import { useUpdateSession, useEvents, useTracksList, useSectors, useVenues } from '@/lib/api/hooks'
+import { useUpdateSession, useEvents, useTracksList, useSectors, useVenues, useEventDaysList } from '@/lib/api/hooks'
 import { sessionSchema } from '@/lib/api/schemas'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
@@ -20,6 +20,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
   const { data: tracks } = useTracksList()
   const { data: sectors } = useSectors()
   const { data: venues } = useVenues()
+  const { data: eventDays } = useEventDaysList({ per_page: 100 })
 
   const {
     register,
@@ -32,6 +33,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
       event_id: session.event_id || '',
       title: session.title,
       description: session.description || '',
+      event_day_id: session.event_day_id?.toString() || '',
       track_id: session.track_id || '',
       sector_id: session.sector_id || '',
       venue_id: session.venue_id || '',
@@ -47,6 +49,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
         event_id: parseInt(data.event_id),
         title: data.title,
         description: data.description,
+        event_day_id: data.event_day_id ? parseInt(data.event_day_id) : null,
         track_id: data.track_id ? parseInt(data.track_id) : null,
         sector_id: data.sector_id ? parseInt(data.sector_id) : null,
         venue_id: data.venue_id ? parseInt(data.venue_id) : null,
@@ -58,6 +61,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
         event_id: session.event_id || '',
         title: session.title,
         description: session.description || '',
+        event_day_id: session.event_day_id?.toString() || '',
         track_id: session.track_id || '',
         sector_id: session.sector_id || '',
         venue_id: session.venue_id || '',
@@ -128,6 +132,19 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
             ]}
             {...register('sector_id')}
             error={errors.sector_id}
+          />
+
+          <FormSelect
+            label="Event Day (Optional)"
+            options={[
+              { value: '', label: 'Select an event day' },
+              ...(eventDays?.data ?? []).map((d: any) => ({ 
+                value: d.id.toString(), 
+                label: d.label ? `Day ${d.day_no} - ${d.label}` : `Day ${d.day_no}`
+              }))
+            ]}
+            {...register('event_day_id')}
+            error={errors.event_day_id}
           />
 
           <FormSelect

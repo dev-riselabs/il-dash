@@ -339,7 +339,7 @@ function ExecutiveView() {
                     className="flex items-center justify-between gap-3 px-2 py-1 border border-white/40 rounded-2xl"
                   >
                     <div className="text-white font-dmSans font-semibold text-sm flex-1">
-                      {d.investor?.name ?? d.title}
+                      {d.investor_name ?? d.title}
                     </div>
                     <div className="text-white font-dmSans font-semibold text-sm text-left flex-1">
                       {d.sector?.name ?? "—"}
