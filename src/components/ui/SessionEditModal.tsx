@@ -37,6 +37,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
       track_id: session.track_id || '',
       sector_id: session.sector_id || '',
       venue_id: session.venue_id || '',
+      status: session.status || 'upcoming',
       starts_at: session.starts_at ? session.starts_at.slice(0, 16) : '',
       ends_at: session.ends_at ? session.ends_at.slice(0, 16) : '',
     },
@@ -53,6 +54,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
         track_id: data.track_id ? parseInt(data.track_id) : null,
         sector_id: data.sector_id ? parseInt(data.sector_id) : null,
         venue_id: data.venue_id ? parseInt(data.venue_id) : null,
+        status: data.status || 'upcoming',
         starts_at: data.starts_at,
         ends_at: data.ends_at,
       }
@@ -65,6 +67,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
         track_id: session.track_id || '',
         sector_id: session.sector_id || '',
         venue_id: session.venue_id || '',
+        status: session.status || 'upcoming',
         starts_at: session.starts_at ? session.starts_at.slice(0, 16) : '',
         ends_at: session.ends_at ? session.ends_at.slice(0, 16) : '',
       })
@@ -155,6 +158,15 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
             ]}
             {...register('venue_id')}
             error={errors.venue_id}
+          />
+
+          <FormSelect
+            label="Status"
+            options={[
+              { value: 'upcoming', label: 'Upcoming' }
+            ]}
+            {...register('status')}
+            error={errors.status}
           />
 
           <FormInput

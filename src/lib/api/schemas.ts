@@ -81,6 +81,7 @@ export const sessionSchema = z.object({
   track_id: z.string().optional(),
   sector_id: z.string().optional(),
   venue_id: z.string().optional(),
+  status: z.enum(['upcoming']).optional(),
   starts_at: z.string().optional(),
   ends_at: z.string().optional(),
 }).refine((data) => {
