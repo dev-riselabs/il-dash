@@ -163,7 +163,9 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
           <FormSelect
             label="Status"
             options={[
-              { value: 'upcoming', label: 'Upcoming' }
+              { value: 'upcoming', label: 'Upcoming' },
+              { value: 'live', label: 'Live' },
+              { value: 'completed', label: 'Completed' }
             ]}
             {...register('status')}
             error={errors.status}
