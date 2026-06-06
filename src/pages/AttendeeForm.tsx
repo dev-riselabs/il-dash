@@ -3,7 +3,7 @@ function AttendeeForm() {
     <section className="space-y-6 max-w-3xl w-full">
       <section className="border border-white/55 rounded-2xl flex flex-col gap-3 p-5 lg:px-7.5 lg:py-9 border-l-4 border-l-orange500">
         <h1 className="text-2xl md:text-3xl font-semibold font-lexend text-white">
-          Attendee  Form
+          Registration  Form
         </h1>
         <p className="text-sm md:text-base font-lexend text-white">
           Fill this out after each speaker finishes talking
