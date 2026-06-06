@@ -41,10 +41,9 @@ function ProgrammeTracker() {
     const flow = flowQ.data;
     if (!flow) return [] as EventSession[];
     const ordered: EventSession[] = [
-      ...flow.live,
-      ...flow.next,
-      ...flow.upcoming,
-      ...flow.completed,
+      ...(flow.live ?? []),
+      ...(flow.upcoming ?? []),
+      ...(flow.completed ?? []),
     ];
     const seen = new Set<number>();
     let result = ordered.filter((s) => {

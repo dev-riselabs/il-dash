@@ -168,8 +168,8 @@ function CommandCenter() {
 
   const sessionsRows: EventSession[] = [
     ...(flowQ.data?.live ?? []),
-    ...(flowQ.data?.next ?? []),
     ...(flowQ.data?.upcoming ?? []),
+    ...(flowQ.data?.completed ?? []),
   ].slice(0, 6);
 
   const kpis = [

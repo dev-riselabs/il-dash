@@ -93,7 +93,7 @@ function ExecutiveView() {
   const kpiCards = useMemo(() => {
     const k = kpisQ.data;
     const totalLive =
-      (flowQ.data?.live.length ?? 0) + (flowQ.data?.next.length ?? 0);
+      (flowQ.data?.live?.length ?? 0) + (flowQ.data?.upcoming?.length ?? 0);
     return [
       {
         label: "Total Attendance",
@@ -122,17 +122,17 @@ function ExecutiveView() {
       {
         label: "Commitments",
         value: fmtNaira(k?.commitments_value_naira ?? 0),
-        delta: `${totalLive} live + next`,
+        delta: `${totalLive} live + upcoming`,
         tone: "text-white",
       },
     ];
   }, [kpisQ.data, flowQ.data, dealsQ.data, resolutionsQ.data]);
 
-  // Live programme tracker = live + next + upcoming (first 5 by start time)
+  // Live programme tracker = live + upcoming (first 5 by start time)
   const programmeRows = useMemo<EventSession[]>(() => {
     const f = flowQ.data;
     if (!f) return [];
-    return [...f.live, ...f.next, ...f.upcoming]
+    return [...(f.live ?? []), ...(f.upcoming ?? [])]
       .slice(0, 5)
       .sort(
         (a, b) =>

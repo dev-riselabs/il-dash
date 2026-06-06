@@ -53,7 +53,7 @@ export default function Overview() {
   ];
 
   const liveSession = flowQ.data?.live?.[0] ?? null;
-  const nextSessions = flowQ.data?.next ?? [];
+  const nextSessions = flowQ.data?.upcoming ?? [];
   const completedSessions = flowQ.data?.completed ?? [];
   const tickerItems = tickerQ.data ?? [];
   const liveSessionDetail = liveQ.data?.session ?? null;

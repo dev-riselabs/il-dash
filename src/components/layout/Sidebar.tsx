@@ -10,7 +10,7 @@ import {
   Heart,
   // Megaphone,
   // Bell,
-  FileText,
+  // FileText,
   // ShieldAlert,
   SatelliteDish,
   Globe,
@@ -42,7 +42,7 @@ const publicItems = [
   // { to: "/social", label: "Social Media Feed", icon: Megaphone },
   // { to: "/alerts", label: "Alerts & Updates", icon: Bell },
   // { to: "/security", label: "Security", icon: ShieldAlert },
-  { to: "/reports", label: "Reports", icon: FileText },
+  // { to: "/reports", label: "Reports", icon: FileText },
   { to: "/global", label: "Global Investor Map", icon: Globe },
   {
     to: "/next-action-tracker",
