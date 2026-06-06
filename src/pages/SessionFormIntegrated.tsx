@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { sessionSchema, type SessionFormData } from '@/lib/api/schemas'
-import { useCreateSession, useEvents, useTracksList, useSectors, useVenues } from '@/lib/api/hooks'
+import { useCreateSession, useEvents, useTracksList, useSectors, useVenues, useEventDaysList } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
@@ -23,11 +23,17 @@ export default function SessionFormIntegrated() {
   const { data: tracksData } = useTracksList()
   const { data: sectorsData } = useSectors()
   const { data: venuesData } = useVenues()
+  const { data: eventDaysData } = useEventDaysList({ per_page: 100 })
   const isSubmitting = createMutation.isPending
 
   const eventOptions = (eventsData || []).map(e => ({
     value: String(e.id),
     label: e.name,
+  }))
+
+  const eventDayOptions = (eventDaysData?.data || []).map((d: any) => ({
+    value: String(d.id),
+    label: d.label ? `Day ${d.day_no} - ${d.label}` : `Day ${d.day_no}`,
   }))
 
   const trackOptions = (tracksData?.data || []).map((t: any) => ({
@@ -53,6 +59,7 @@ export default function SessionFormIntegrated() {
       }
       if (data.title) payload.title = data.title
       if (data.description) payload.description = data.description
+      if (data.event_day_id) payload.event_day_id = parseInt(data.event_day_id)
       if (data.track_id) payload.track_id = parseInt(data.track_id)
       if (data.sector_id) payload.sector_id = parseInt(data.sector_id)
       if (data.venue_id) payload.venue_id = parseInt(data.venue_id)
@@ -145,6 +152,14 @@ export default function SessionFormIntegrated() {
               {...register('sector_id')}
               options={sectorOptions}
               error={errors.sector_id}
+            />
+          </div>
+          <div className="flex-1">
+            <FormSelect
+              label="Event Day (Optional)"
+              {...register('event_day_id')}
+              options={eventDayOptions}
+              error={errors.event_day_id}
             />
           </div>
         </div>

@@ -183,7 +183,7 @@ function DealRoom() {
                     </div>
                     <div className="col-span-1">
                       <span className="text-white text-sm truncate">
-                        {deal.investor?.name ?? "—"}
+                        {deal.investor_name ?? "—"}
                       </span>
                     </div>
                     <div className="col-span-1">

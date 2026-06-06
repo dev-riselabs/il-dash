@@ -258,10 +258,7 @@ function DealRow({ deal }: { deal: Deal }) {
       <div className="col-span-3 flex items-center gap-2">
         <div className="w-10 h-10 rounded-md bg-white" />
         <div className="flex flex-col gap-1 font-lexend">
-          <span className="text-white font-light text-xs">{deal.investor?.name ?? "—"}</span>
-          <span className="text-white font-light text-[10px]">
-            {deal.owner?.name ?? ""}
-          </span>
+          <span className="text-white font-light text-xs">{deal.investor_name ?? "—"}</span>
         </div>
       </div>
       <div

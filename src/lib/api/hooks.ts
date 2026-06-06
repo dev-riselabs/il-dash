@@ -205,6 +205,12 @@ export const useVenuesList = (params: VenueListParams = {}, o?: Q<Paginated<Venu
 export const useVenueDetail = (id: number | null, o?: Q<Venue>) =>
   useQuery({ queryKey: qk.venues.detail(id ?? 0), queryFn: () => getPublic<Venue>(`/api/venues/${id}`), enabled: !!id, ...o })
 
+type EventDayListParams = { event_id?: number; search?: string; per_page?: number; page?: number }
+export const useEventDaysList = (params: EventDayListParams = {}, o?: Q<Paginated<EventDay>>) =>
+  useQuery({ queryKey: qk.eventDays.list(params), queryFn: () => getPublic<Paginated<EventDay>>('/api/event-days', params), ...o })
+export const useEventDayDetail = (id: number | null, o?: Q<EventDay>) =>
+  useQuery({ queryKey: qk.eventDays.detail(id ?? 0), queryFn: () => getPublic<EventDay>(`/api/event-days/${id}`), enabled: !!id, ...o })
+
 type QuoteListParams = { event_session_id?: number; speaker_id?: number; search?: string; per_page?: number; page?: number }
 export const useQuotes = (params: QuoteListParams = {}, o?: Q<Paginated<SessionQuote>>) =>
   useQuery({ queryKey: qk.quotes.list(params), queryFn: () => getPublic<Paginated<SessionQuote>>('/api/quotes', params), ...o })
@@ -706,6 +712,39 @@ export function useDeleteVenue() {
       del<void>(`/api/venues/${id}`),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['venues'] })
+    },
+  })
+}
+
+export function useCreateEventDay() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: Record<string, unknown>) =>
+      post<EventDay>('/api/event-days', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['event-days'] })
+    },
+  })
+}
+
+export function useUpdateEventDay() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
+      patch<EventDay>(`/api/event-days/${id}`, payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['event-days'] })
+    },
+  })
+}
+
+export function useDeleteEventDay() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/event-days/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['event-days'] })
     },
   })
 }

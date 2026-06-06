@@ -17,6 +17,7 @@ import { fmtDateTime } from "@/lib/api/format";
 import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { EventEditModal } from "@/components/ui/EventEditModal";
+import { EventDayManagementFullModal } from "@/components/ui/EventDayManagementFullModal";
 import { exportEventsToExcel } from "@/lib/api/export";
 import type { Event, EventStatus } from "@/lib/api/types";
 
@@ -37,6 +38,7 @@ function EventPage() {
   const [downloadOpen, setDownloadOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
+  const [eventDaysManagementOpen, setEventDaysManagementOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   const { data, isLoading, isError, error } = useEventsList({
@@ -124,6 +126,12 @@ function EventPage() {
             className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 hover:bg-blue-900 transition-colors"
           >
             <Download className="w-5 h-5 text-white" />
+          </button>
+          <button
+            onClick={() => setEventDaysManagementOpen(true)}
+            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
+          >
+            Event Days
           </button>
           <Link
             to="/event-form"
@@ -281,6 +289,11 @@ function EventPage() {
           event={selectedEvent}
         />
       )}
+
+      <EventDayManagementFullModal
+        isOpen={eventDaysManagementOpen}
+        onClose={() => setEventDaysManagementOpen(false)}
+      />
     </section>
   );
 }

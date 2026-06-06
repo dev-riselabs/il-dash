@@ -95,6 +95,11 @@ export const qk = {
       ['venues', 'list', params] as const,
     detail: (id: number) => ['venues', 'detail', id] as const,
   },
+  eventDays: {
+    list: (params: Record<string, unknown> = {}) =>
+      ['event-days', 'list', params] as const,
+    detail: (id: number) => ['event-days', 'detail', id] as const,
+  },
   quotes: {
     list: (params: Record<string, unknown> = {}) =>
       ['quotes', 'list', params] as const,

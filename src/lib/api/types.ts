@@ -310,17 +310,14 @@ export type DealStage =
 export interface Deal {
   id: number
   title: string
-  investor_id?: number | null
+  investor_name?: string | null
   sector_id?: number | null
-  owner_id?: number | null
   stage: DealStage
   value_naira?: number | null
   opened_at?: string | null
   updated_at?: string
   created_at?: string
-  investor?: { id: number; name: string; logo_url?: string | null } | null
   sector?: BriefRef | null
-  owner?: { id: number; name: string } | null
 }
 
 export interface Investor {
