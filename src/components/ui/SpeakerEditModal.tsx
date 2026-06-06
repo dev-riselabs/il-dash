@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
-import { useUpdateSpeaker, useCountries } from '@/lib/api/hooks'
+import { useUpdateSpeaker, useCountries, useSessionOptions } from '@/lib/api/hooks'
 import { speakerSchema } from '@/lib/api/schemas'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
@@ -17,10 +17,16 @@ interface SpeakerEditModalProps {
 export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalProps) {
   const updateMutation = useUpdateSpeaker()
   const { data: countriesData } = useCountries()
+  const { data: sessionsData } = useSessionOptions()
 
   const countryOptions = (countriesData || []).map(c => ({
     value: c.id,
     label: c.name,
+  }))
+
+  const sessionOptions = (sessionsData || []).map(s => ({
+    value: String(s.id),
+    label: s.title,
   }))
 
   const {
@@ -37,6 +43,8 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
       organization: speaker.organization || '',
       country: speaker.country || '',
       bio: speaker.bio || '',
+      session_id: '',
+      role: speaker.role || '',
     },
   })
 
@@ -59,6 +67,8 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
         organization: speaker.organization || '',
         country: speaker.country || '',
         bio: speaker.bio || '',
+        session_id: '',
+        role: speaker.role || '',
       })
       onClose()
     } catch (error) {
@@ -124,6 +134,25 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
             {...register('bio')}
             error={errors.bio}
           />
+
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <FormSelect
+                label="Session (Optional)"
+                {...register('session_id')}
+                options={sessionOptions}
+                error={errors.session_id}
+              />
+            </div>
+            <div className="flex-1">
+              <FormInput
+                label="Speaker Role (Optional)"
+                placeholder="e.g., Keynote, Panelist, Moderator"
+                {...register('role')}
+                error={errors.role}
+              />
+            </div>
+          </div>
 
           <div className="flex gap-3 pt-4 border-t border-slate-700 mt-6">
             <button
