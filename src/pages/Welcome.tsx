@@ -391,9 +391,9 @@ function Welcome() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col gap-7 md:flex-row md:items-end md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
+      <section className="flex flex-col gap-7 md:flex-row md:items-center md:gap-10 lg:gap-20 pt-10 md:py-10 md:pl-10 lg:pl-20 md:pb-0 bg-cyan100">
         <div className="flex flex-col gap-6 md:pb-10 md:flex-1 px-4 md:px-0">
-          <h3 className="text-white font-anek font-semibold text-3xl lg:text-4xl">
+          <h3 className="text-white font-anek font-semibold text-3xl lg:text-4xl max-w-[24ch]">
             Most Events End in talk. Photos & Videos. Heavy Reports people
             rarely read. then the end. We Delivers Actionable Outcomes.{" "}
           </h3>
@@ -535,7 +535,11 @@ function Welcome() {
           </div>
         </div>
         <div className="md:flex-1 pl-4 md:pl-0">
-          <img src="/security-screenshot.png" alt="" className="w-full h-full" />
+          <img
+            src="/security-screenshot.png"
+            alt=""
+            className="w-full h-full"
+          />
         </div>
       </section>
 
