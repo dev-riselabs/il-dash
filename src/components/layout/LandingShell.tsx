@@ -2,7 +2,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { AiFillInstagram } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Menu, X } from "lucide-react";
 
 interface Props {
@@ -11,6 +11,7 @@ interface Props {
 
 function LandingShell({ children }: Props) {
   const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     document.title = "Events Intel";
@@ -19,8 +20,23 @@ function LandingShell({ children }: Props) {
   function toggleShowMenu() {
     setShowMenu((prev) => !prev);
   }
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowMenu(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div  className="overflow-hidden">
+    <div className="overflow-hidden">
       <header className="flex justify-between gap-30 items-center py-4 px-4 md:px-10 lg:px-20 bg-[linear-gradient(90deg,#082250_0%,#0B2760_15%,#001C4A_45%,#052044_65%,#234F72_100%)]">
         <Link to="/">
           <img src="/events-intel.png" alt="" className="w-20" />
@@ -60,6 +76,7 @@ function LandingShell({ children }: Props) {
         </div>
 
         <div
+          ref={menuRef}
           className={`flex flex-col px-6 gap-16 w-3/4 z-10 bg-black/50 backdrop-blur-sm lg:hidden py-16  ${
             showMenu ? "fixed top-0 h-screen right-0" : "hidden"
           }`}
@@ -71,10 +88,18 @@ function LandingShell({ children }: Props) {
             <X className="w-6 h-6 text-white" />
           </button>
           <ul className="flex flex-col gap-8">
-            <Link to="/" className="font-inter text-sm text-white">
+            <Link
+              onClick={() => setShowMenu(false)}
+              to="/"
+              className="font-inter text-sm text-white"
+            >
               Welcome
             </Link>
-            <Link to="/about" className="font-inter text-sm text-white">
+            <Link
+              onClick={() => setShowMenu(false)}
+              to="/about"
+              className="font-inter text-sm text-white"
+            >
               About us
             </Link>
           </ul>
@@ -85,10 +110,15 @@ function LandingShell({ children }: Props) {
             <FaYoutube className="text-white w-6 h-6" />
           </div>
           <div className="flex flex-col gap-5">
-            <Link to='/investlagos' className="text-sm px-5.5 py-3.5 rounded-md bg-white text-blue600 text-center">
+            <Link
+              onClick={() => setShowMenu(false)}
+              to="/investlagos"
+              className="text-sm px-5.5 py-3.5 rounded-md bg-white text-blue600 text-center"
+            >
               Deploy EventsIntel for Your Event
             </Link>
             <Link
+              onClick={() => setShowMenu(false)}
               to="/demo-form"
               className="text-sm px-8.5 py-3.5 rounded-md bg-pink text-white text-center"
             >
