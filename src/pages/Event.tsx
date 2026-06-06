@@ -292,7 +292,11 @@ function EventPage() {
 
       <EventDayManagementFullModal
         isOpen={eventDaysManagementOpen}
-        onClose={() => setEventDaysManagementOpen(false)}
+        eventId={selectedEvent?.id}
+        onClose={() => {
+          setEventDaysManagementOpen(false)
+          setSelectedEvent(null)
+        }}
       />
     </section>
   );

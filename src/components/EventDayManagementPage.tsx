@@ -149,6 +149,7 @@ export function EventDayManagementPage({ eventId }: EventDayManagementPageProps)
       <EventDayManagementModal
         isOpen={isModalOpen}
         eventDay={selectedEventDay}
+        eventId={eventId}
         onClose={handleCloseModal}
       />
     </div>

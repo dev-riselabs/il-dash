@@ -7,7 +7,7 @@ import { FormInput } from './FormInput'
 import { useCreateEventDay, useUpdateEventDay, useEventDayDetail } from '@/lib/api/hooks'
 
 const eventDaySchema = z.object({
-  event_id: z.number().min(1, 'Event is required').optional(),
+  event_id: z.number().min(1, 'Event is required'),
   day_no: z.number().min(1, 'Day number is required'),
   date: z.string().min(1, 'Date is required'),
   label: z.string().optional(),
@@ -18,10 +18,11 @@ type EventDayFormData = z.infer<typeof eventDaySchema>
 interface EventDayManagementModalProps {
   isOpen: boolean
   eventDay?: { id: number; event_id?: number; day_no?: number; date?: string; label?: string | null }
+  eventId?: number
   onClose: () => void
 }
 
-export function EventDayManagementModal({ isOpen, eventDay, onClose }: EventDayManagementModalProps) {
+export function EventDayManagementModal({ isOpen, eventDay, eventId, onClose }: EventDayManagementModalProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
   const createMutation = useCreateEventDay()
@@ -35,6 +36,7 @@ export function EventDayManagementModal({ isOpen, eventDay, onClose }: EventDayM
   const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<EventDayFormData>({
     resolver: zodResolver(eventDaySchema),
     defaultValues: {
+      event_id: eventDayData?.event_id || eventId || 0,
       day_no: eventDayData?.day_no ?? 1,
       date: eventDayData?.date || '',
       label: eventDayData?.label || '',
@@ -44,18 +46,24 @@ export function EventDayManagementModal({ isOpen, eventDay, onClose }: EventDayM
   // Update form when fresh data arrives
   useEffect(() => {
     if (freshEventDay) {
+      setValue('event_id', freshEventDay.event_id || eventId || 0)
       setValue('day_no', freshEventDay.day_no ?? 1)
       setValue('date', freshEventDay.date || '')
       setValue('label', freshEventDay.label || '')
     }
-  }, [freshEventDay, setValue])
+  }, [freshEventDay, eventId, setValue])
 
   const onSubmit = async (data: EventDayFormData) => {
     setIsLoading(true)
     setSubmitError(null)
     try {
       if (isCreating) {
-        await createMutation.mutateAsync(data)
+        if (!eventId) {
+          setSubmitError('Event is required to create an event day')
+          setIsLoading(false)
+          return
+        }
+        await createMutation.mutateAsync({ ...data, event_id: eventId })
       } else {
         await updateMutation.mutateAsync({ id: eventDay!.id, ...data })
       }
