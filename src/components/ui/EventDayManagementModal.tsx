@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import { Modal } from './Modal'
 import { FormInput } from './FormInput'
+import { fmtDateForInput } from '@/lib/api/format'
 import { useCreateEventDay, useUpdateEventDay, useEventDayDetail } from '@/lib/api/hooks'
 
 const eventDaySchema = z.object({
@@ -38,7 +39,7 @@ export function EventDayManagementModal({ isOpen, eventDay, eventId, onClose }: 
     defaultValues: {
       event_id: eventDayData?.event_id || eventId || 0,
       day_no: eventDayData?.day_no ?? 1,
-      date: eventDayData?.date || '',
+      date: fmtDateForInput(eventDayData?.date),
       label: eventDayData?.label || '',
     },
   })
@@ -48,10 +49,17 @@ export function EventDayManagementModal({ isOpen, eventDay, eventId, onClose }: 
     if (freshEventDay) {
       setValue('event_id', freshEventDay.event_id || eventId || 0)
       setValue('day_no', freshEventDay.day_no ?? 1)
-      setValue('date', freshEventDay.date || '')
+      setValue('date', fmtDateForInput(freshEventDay.date))
       setValue('label', freshEventDay.label || '')
     }
   }, [freshEventDay, eventId, setValue])
+
+  // Reset form when opening in create mode
+  useEffect(() => {
+    if (isOpen && isCreating) {
+      reset()
+    }
+  }, [isOpen, isCreating, reset])
 
   const onSubmit = async (data: EventDayFormData) => {
     setIsLoading(true)

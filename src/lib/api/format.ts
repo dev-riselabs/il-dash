@@ -105,3 +105,17 @@ export function startsInCountdown(startsAt: string | null | undefined): string {
   const s = String(totalSec % 60).padStart(2, '0')
   return `${h}:${m}:${s}`
 }
+
+/**
+ * Format ISO date string to yyyy-MM-dd format for HTML date inputs
+ * E.g., "2026-05-12T00:00:00.000000Z" -> "2026-05-12"
+ */
+export function fmtDateForInput(iso: string | null | undefined): string {
+  if (!iso) return ''
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return ''
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}

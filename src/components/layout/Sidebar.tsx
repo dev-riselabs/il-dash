@@ -104,8 +104,6 @@ export function Sidebar() {
     setIsHovered((prev) => !prev);
   }
 
-  const items = user ? [...publicItems, ...adminItems] : publicItems;
-
   const handleLogout = async () => {
     await logout();
     navigate('/signin');
@@ -118,7 +116,8 @@ export function Sidebar() {
       className={`${isHovered ? "w-62" : "w-20"} shrink-0 bg-surface900 border-r border-white/5 flex-col lg:flex hidden transition-all `}
     >
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto lg:pb-20">
-        {items.map(({ to, label, icon: Icon, end }) => (
+        {/* Public Items */}
+        {publicItems.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}
@@ -137,7 +136,30 @@ export function Sidebar() {
           </NavLink>
         ))}
 
-        
+        {/* Separator - Only show for authenticated users */}
+        {user && (
+          <div className="my-2 border-t border-white/10" />
+        )}
+
+        {/* Admin Items - Only show for authenticated users */}
+        {user && adminItems.map(({ to, label, icon: Icon, end }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={end ?? false}
+            className={({ isActive }) =>
+              cn(
+                "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit",
+                isActive
+                  ? "bg-cyan/10 text-cyan"
+                  : "text-white hover:text-slate-200 hover:bg-white/5",
+              )
+            }
+          >
+            <Icon className="w-5 h-5 shrink-0" strokeWidth={1.5} />
+            {isHovered && <span className="truncate">{label}</span>}
+          </NavLink>
+        ))}
       </nav>
       
 

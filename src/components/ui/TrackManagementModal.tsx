@@ -52,6 +52,13 @@ export function TrackManagementModal({ isOpen, track, eventId, onClose }: TrackM
     }
   }, [freshTrack, setValue])
 
+  // Reset form when opening in create mode
+  useEffect(() => {
+    if (isOpen && isCreating) {
+      reset()
+    }
+  }, [isOpen, isCreating, reset])
+
   const onSubmit = async (data: TrackFormData) => {
     setIsLoading(true)
     setSubmitError(null)

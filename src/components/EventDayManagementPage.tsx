@@ -15,12 +15,15 @@ export function EventDayManagementPage({ eventId }: EventDayManagementPageProps)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const perPage = 10
 
-  const { data: response, isLoading } = useEventDaysList({ 
-    event_id: eventId, 
-    search, 
-    per_page: perPage, 
-    page 
-  })
+  const { data: response, isLoading } = useEventDaysList(
+    { 
+      event_id: eventId, 
+      search, 
+      per_page: perPage, 
+      page 
+    },
+    { enabled: !!eventId }
+  )
   const deleteMutation = useDeleteEventDay()
 
   const eventDays = response?.data || []

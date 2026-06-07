@@ -7,7 +7,7 @@ import { dealSchema, type DealFormData } from '@/lib/api/schemas'
 import { useCreateDeal, useUpdateDeal, useSectorOptions, useDeals } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
-import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
+import { AlertCircle, Loader, ArrowRight, RotateCcw } from 'lucide-react'
 
 function DealRoomForm() {
   const navigate = useNavigate()
@@ -55,6 +55,11 @@ function DealRoomForm() {
     { value: 'closed_lost', label: 'Closed Lost' },
   ]
 
+  const handleUploadMore = () => {
+    setSubmitted(false)
+    reset()
+  }
+
   const onSubmit = async (data: DealFormData) => {
     setApiError('')
     try {
@@ -96,13 +101,24 @@ function DealRoomForm() {
           <p className="text-base font-lexend text-white">
             Deal information has been {isEditing ? 'updated' : 'submitted'} successfully.
           </p>
-          <button
-            onClick={() => navigate('/dealroom')}
-            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
-          >
-            Go to Deals
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div className="flex gap-3 mt-4">
+            {!isEditing && (
+              <button
+                onClick={handleUploadMore}
+                className="bg-white/10 border border-white/20 rounded-lg px-6 font-medium py-3 font-inter text-white text-sm hover:bg-white/20 transition-colors flex items-center gap-2"
+              >
+                <RotateCcw className="w-4 h-4" />
+                Upload More
+              </button>
+            )}
+            <button
+              onClick={() => navigate('/dealroom')}
+              className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm hover:bg-gray-100 transition-colors flex items-center gap-2"
+            >
+              Go to Deals
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </section>
       </section>
     )

@@ -7,7 +7,7 @@ import { useCreateEvent } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
-import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
+import { AlertCircle, Loader, ArrowRight, RotateCcw } from 'lucide-react'
 
 const STATUS_OPTIONS = [
   { value: 'upcoming', label: 'Upcoming' },
@@ -28,6 +28,11 @@ export default function EventFormIntegrated() {
 
   const createMutation = useCreateEvent()
   const isSubmitting = createMutation.isPending
+
+  const handleUploadMore = () => {
+    setSubmitted(false)
+    reset()
+  }
 
   const onSubmit = async (data: EventFormData) => {
     setApiError('')
@@ -60,13 +65,22 @@ export default function EventFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Event has been created successfully.
           </p>
-          <button
-            onClick={() => navigate('/event')}
-            className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
-          >
-            View Events
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div className="flex gap-3 mt-4">
+            <button
+              onClick={handleUploadMore}
+              className="bg-white/10 border border-white/20 rounded-lg px-6 font-medium py-3 font-inter text-white text-sm hover:bg-white/20 transition-colors flex items-center gap-2"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Upload More
+            </button>
+            <button
+              onClick={() => navigate('/event')}
+              className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm hover:bg-gray-100 transition-colors flex items-center gap-2"
+            >
+              Go to Events
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </section>
       </section>
     )

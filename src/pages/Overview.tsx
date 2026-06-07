@@ -309,7 +309,7 @@ export default function Overview() {
             <p className="text-sm sm:text-lg font-lexend text-white leading-relaxed">
               {headlineQuote
                 ? `"${headlineQuote?.quote_text}"`
-                : '"Lagos is not just keeping up with the future, we are building it for Africa and the world."'}
+                : '"Lagos remains one of Africa\'s most compelling investment destinations, a city where capital, innovation, enterprise and opportunity converge. As Nigeria advances its economic reform agenda, Lagos will continue to serve as a critical gateway connecting investors to the vast opportunities of the Nigerian and African markets."'}
             </p>
             <footer className="text-xs text-white font-dmSans flex flex-col gap-1">
               <strong className="text-cyan text-sm sm:text-base">

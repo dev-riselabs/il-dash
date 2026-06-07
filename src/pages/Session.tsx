@@ -18,9 +18,8 @@ import { fmtDateTime, fullName } from "@/lib/api/format";
 import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { SessionEditModal } from "@/components/ui/SessionEditModal";
-import { TrackManagementFullModal } from "@/components/ui/TrackManagementFullModal";
-import { SectorManagementFullModal } from "@/components/ui/SectorManagementFullModal";
-import { VenueManagementFullModal } from "@/components/ui/VenueManagementFullModal";
+import { QuoteManagementFullModal } from "@/components/ui/QuoteManagementFullModal";
+import { InsightManagementFullModal } from "@/components/ui/InsightManagementFullModal";
 import { exportSessionsToExcel } from "@/lib/api/export";
 import type { SessionStatus, EventSession } from "@/lib/api/types";
 
@@ -43,9 +42,8 @@ function SessionPage() {
   const [downloadOpen, setDownloadOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [trackManagementOpen, setTrackManagementOpen] = useState(false);
-  const [sectorManagementOpen, setSectorManagementOpen] = useState(false);
-  const [venueManagementOpen, setVenueManagementOpen] = useState(false);
+  const [quoteManagementOpen, setQuoteManagementOpen] = useState(false);
+  const [insightManagementOpen, setInsightManagementOpen] = useState(false);
   const [selectedSession, setSelectedSession] = useState<EventSession | null>(
     null,
   );
@@ -136,24 +134,6 @@ function SessionPage() {
           >
             <Download className="w-5 h-5 text-white" />
           </button>
-          <button
-            onClick={() => setTrackManagementOpen(true)}
-            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
-          >
-            Tracks
-          </button>
-          <button
-            onClick={() => setSectorManagementOpen(true)}
-            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
-          >
-            Sectors
-          </button>
-          <button
-            onClick={() => setVenueManagementOpen(true)}
-            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
-          >
-            Venues
-          </button>
           <Link
             to="/session-form"
             className="bg-white text-black text-sm font-medium rounded-lg py-2.5 px-6 flex items-center justify-center shrink-0"
@@ -243,6 +223,26 @@ function SessionPage() {
 
                     {activeDropdown === s.id && (
                       <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                        <button
+                          onClick={() => {
+                            setSelectedSession(s);
+                            setQuoteManagementOpen(true);
+                            handleActiveDropdown(null);
+                          }}
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
+                        >
+                          💬 Manage Quotes
+                        </button>
+                        <button
+                          onClick={() => {
+                            setSelectedSession(s);
+                            setInsightManagementOpen(true);
+                            handleActiveDropdown(null);
+                          }}
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
+                        >
+                          ✨ Manage Insights
+                        </button>
                         {s.status === "completed" && (
                           <Link
                             to="/feedback-form"
@@ -328,19 +328,16 @@ function SessionPage() {
         />
       )}
 
-      <SectorManagementFullModal
-        isOpen={sectorManagementOpen}
-        onClose={() => setSectorManagementOpen(false)}
+      <QuoteManagementFullModal
+        isOpen={quoteManagementOpen}
+        session={selectedSession}
+        onClose={() => setQuoteManagementOpen(false)}
       />
 
-      <VenueManagementFullModal
-        isOpen={venueManagementOpen}
-        onClose={() => setVenueManagementOpen(false)}
-      />
-
-      <TrackManagementFullModal
-        isOpen={trackManagementOpen}
-        onClose={() => setTrackManagementOpen(false)}
+      <InsightManagementFullModal
+        isOpen={insightManagementOpen}
+        session={selectedSession}
+        onClose={() => setInsightManagementOpen(false)}
       />
     </section>
   );

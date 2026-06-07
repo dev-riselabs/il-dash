@@ -18,6 +18,9 @@ import { DownloadModal } from "@/components/ui/DownloadModal";
 import { DeleteConfirmationModal } from "@/components/ui/DeleteConfirmationModal";
 import { EventEditModal } from "@/components/ui/EventEditModal";
 import { EventDayManagementFullModal } from "@/components/ui/EventDayManagementFullModal";
+import { TrackManagementFullModal } from "@/components/ui/TrackManagementFullModal";
+import { SectorManagementFullModal } from "@/components/ui/SectorManagementFullModal";
+import { VenueManagementFullModal } from "@/components/ui/VenueManagementFullModal";
 import { exportEventsToExcel } from "@/lib/api/export";
 import type { Event, EventStatus } from "@/lib/api/types";
 
@@ -39,6 +42,9 @@ function EventPage() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [eventDaysManagementOpen, setEventDaysManagementOpen] = useState(false);
+  const [trackManagementOpen, setTrackManagementOpen] = useState(false);
+  const [sectorManagementOpen, setSectorManagementOpen] = useState(false);
+  const [venueManagementOpen, setVenueManagementOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   const { data, isLoading, isError, error } = useEventsList({
@@ -128,10 +134,22 @@ function EventPage() {
             <Download className="w-5 h-5 text-white" />
           </button>
           <button
-            onClick={() => setEventDaysManagementOpen(true)}
+            onClick={() => setTrackManagementOpen(true)}
             className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
           >
-            Event Days
+            Tracks
+          </button>
+          <button
+            onClick={() => setSectorManagementOpen(true)}
+            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
+          >
+            Sectors
+          </button>
+          <button
+            onClick={() => setVenueManagementOpen(true)}
+            className="bg-blue950 text-white text-sm font-medium rounded-lg py-2.5 px-4 hover:bg-blue-900 transition-colors"
+          >
+            Venues
           </button>
           <Link
             to="/event-form"
@@ -215,6 +233,16 @@ function EventPage() {
                     {activeDropdown === e.id && (
                       <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
                         <button
+                          onClick={() => {
+                            setSelectedEvent(e);
+                            setEventDaysManagementOpen(true);
+                            handleActiveDropdown(null);
+                          }}
+                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
+                        >
+                          <CalendarDays className="w-4 h-4 text-black" /> Event Days
+                        </button>
+                        <button
                           onClick={() => handleEditClick(e)}
                           className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
                         >
@@ -290,13 +318,30 @@ function EventPage() {
         />
       )}
 
-      <EventDayManagementFullModal
-        isOpen={eventDaysManagementOpen}
-        eventId={selectedEvent?.id}
-        onClose={() => {
-          setEventDaysManagementOpen(false)
-          setSelectedEvent(null)
-        }}
+      {selectedEvent && (
+        <EventDayManagementFullModal
+          isOpen={eventDaysManagementOpen}
+          eventId={selectedEvent.id}
+          onClose={() => {
+            setEventDaysManagementOpen(false);
+            setSelectedEvent(null);
+          }}
+        />
+      )}
+
+      <TrackManagementFullModal
+        isOpen={trackManagementOpen}
+        onClose={() => setTrackManagementOpen(false)}
+      />
+
+      <SectorManagementFullModal
+        isOpen={sectorManagementOpen}
+        onClose={() => setSectorManagementOpen(false)}
+      />
+
+      <VenueManagementFullModal
+        isOpen={venueManagementOpen}
+        onClose={() => setVenueManagementOpen(false)}
       />
     </section>
   );

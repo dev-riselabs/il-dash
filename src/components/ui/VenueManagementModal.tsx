@@ -53,6 +53,13 @@ export function VenueManagementModal({ isOpen, venue, onClose }: VenueManagement
     }
   }, [freshVenue, setValue])
 
+  // Reset form when opening in create mode
+  useEffect(() => {
+    if (isOpen && isCreating) {
+      reset()
+    }
+  }, [isOpen, isCreating, reset])
+
   const statusOptions = [
     { value: 'available', label: 'Available' },
     { value: 'unavailable', label: 'Unavailable' },

@@ -103,6 +103,12 @@ export const qk = {
   quotes: {
     list: (params: Record<string, unknown> = {}) =>
       ['quotes', 'list', params] as const,
+    detail: (id: number) => ['quotes', 'detail', id] as const,
+  },
+  insights: {
+    list: (params: Record<string, unknown> = {}) =>
+      ['session-insights', 'list', params] as const,
+    detail: (id: number) => ['session-insights', 'detail', id] as const,
   },
   feedback: {
     list: (params: Record<string, unknown> = {}) =>

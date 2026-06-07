@@ -40,7 +40,11 @@ export const useAuth = create<AuthState>((set, get) => ({
           }
         : null
       set({ user, loading: false, initialized: true })
-    } catch {
+    } catch (err: any) {
+      // 401 is expected when user is not authenticated - not an error
+      if (err?.response?.status !== 401) {
+        console.error('Failed to fetch user:', err)
+      }
       set({ user: null, loading: false, initialized: true })
     }
   },

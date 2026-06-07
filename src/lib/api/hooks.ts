@@ -39,6 +39,7 @@ import type {
   Sector,
   SectorInvestmentSummary,
   SentimentScore,
+  SessionInsight,
   SessionOption,
   SessionQuote,
   SocialHashtag,
@@ -207,13 +208,16 @@ export const useVenueDetail = (id: number | null, o?: Q<Venue>) =>
 
 type EventDayListParams = { event_id?: number; search?: string; per_page?: number; page?: number }
 export const useEventDaysList = (params: EventDayListParams = {}, o?: Q<Paginated<EventDay>>) =>
-  useQuery({ queryKey: qk.eventDays.list(params), queryFn: () => getPublic<Paginated<EventDay>>('/api/event-days', params), ...o })
+  useQuery({ queryKey: qk.eventDays.list(params), queryFn: () => get<Paginated<EventDay>>('/api/event-days', params), ...o })
 export const useEventDayDetail = (id: number | null, o?: Q<EventDay>) =>
-  useQuery({ queryKey: qk.eventDays.detail(id ?? 0), queryFn: () => getPublic<EventDay>(`/api/event-days/${id}`), enabled: !!id, ...o })
+  useQuery({ queryKey: qk.eventDays.detail(id ?? 0), queryFn: () => get<EventDay>(`/api/event-days/${id}`), enabled: !!id, ...o })
 
 type QuoteListParams = { event_session_id?: number; speaker_id?: number; search?: string; per_page?: number; page?: number }
 export const useQuotes = (params: QuoteListParams = {}, o?: Q<Paginated<SessionQuote>>) =>
   useQuery({ queryKey: qk.quotes.list(params), queryFn: () => getPublic<Paginated<SessionQuote>>('/api/quotes', params), ...o })
+
+export const useQuoteDetail = (id: number | null, o?: Q<SessionQuote>) =>
+  useQuery({ queryKey: qk.quotes.detail(id ?? 0), queryFn: () => get<SessionQuote>(`/api/quotes/${id}`), enabled: !!id, ...o })
 
 type FeedbackListParams = { event_session_id?: number; channel?: string; sentiment_label?: string; per_page?: number; page?: number }
 export const useFeedback = (params: FeedbackListParams = {}, o?: Q<Paginated<FeedbackSubmission>>) =>
@@ -745,6 +749,91 @@ export function useDeleteEventDay() {
       del<void>(`/api/event-days/${id}`),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['event-days'] })
+    },
+  })
+}
+
+// Session Quotes
+type QuoteCreateParams = { event_session_id: number; speaker_id?: number; quote_text: string; said_at: string }
+export function useCreateQuote() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: QuoteCreateParams) =>
+      post<SessionQuote>('/api/quotes', payload),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.quotes.list() })
+    },
+  })
+}
+
+export function useDeleteQuote() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/quotes/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.quotes.list() })
+    },
+  })
+}
+
+export function useUpdateQuote() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (params: { id: number; data: Partial<QuoteCreateParams> }) =>
+      patch<SessionQuote>(`/api/quotes/${params.id}`, params.data),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.quotes.list() })
+    },
+  })
+}
+
+// Session Insights
+type InsightListParams = { event_session_id?: number; kind?: string; search?: string; per_page?: number; page?: number }
+export const useSessionInsights = (params: InsightListParams = {}, o?: Q<Paginated<SessionInsight>>) =>
+  useQuery({ queryKey: qk.insights.list(params), queryFn: () => getPublic<Paginated<SessionInsight>>('/api/session-insights', params), ...o })
+
+export const useSessionInsightDetail = (id: number | null, o?: Q<SessionInsight>) =>
+  useQuery({ queryKey: qk.insights.detail(id ?? 0), queryFn: () => getPublic<SessionInsight>(`/api/session-insights/${id}`), enabled: !!id, ...o })
+
+type InsightCreateParams = { event_session_id: number; body: string; kind?: string; order?: number }
+export function useCreateSessionInsight() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: InsightCreateParams) =>
+      post<SessionInsight>('/api/session-insights', payload),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: qk.insights.list() })
+      if (data.event_session_id) {
+        qc.invalidateQueries({ queryKey: qk.insights.list({ event_session_id: data.event_session_id }) })
+      }
+    },
+  })
+}
+
+type InsightUpdateParams = { id: number; body?: string; kind?: string; order?: number }
+export function useUpdateSessionInsight() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: ({ id, ...payload }: InsightUpdateParams & Record<string, unknown>) =>
+      patch<SessionInsight>(`/api/session-insights/${id}`, payload),
+    onSuccess: (data) => {
+      qc.invalidateQueries({ queryKey: qk.insights.list() })
+      qc.invalidateQueries({ queryKey: qk.insights.detail(data.id) })
+      if (data.event_session_id) {
+        qc.invalidateQueries({ queryKey: qk.insights.list({ event_session_id: data.event_session_id }) })
+      }
+    },
+  })
+}
+
+export function useDeleteSessionInsight() {
+  const qc = useQueryClient()
+  return useMutation({
+    mutationFn: (id: number) =>
+      del<void>(`/api/session-insights/${id}`),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: qk.insights.list() })
     },
   })
 }

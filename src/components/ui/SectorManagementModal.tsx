@@ -49,6 +49,13 @@ export function SectorManagementModal({ isOpen, sector, onClose }: SectorManagem
     }
   }, [freshSector, setValue])
 
+  // Reset form when opening in create mode
+  useEffect(() => {
+    if (isOpen && isCreating) {
+      reset()
+    }
+  }, [isOpen, isCreating, reset])
+
   const onSubmit = async (data: SectorFormData) => {
     setIsLoading(true)
     setSubmitError(null)
