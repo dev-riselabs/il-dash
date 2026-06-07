@@ -182,8 +182,8 @@ function DealsCard({
         <div className="overflow-hidden overflow-x-auto">
           <div className="flex flex-col gap-6 min-w-360">
             <div className="grid grid-cols-12 gap-6">
-              <h5 className="font-lexend font-bold text-base text-slate100 col-span-4">Deal / Project</h5>
-              <h5 className="font-lexend font-bold text-base text-slate100 col-span-1 text-center">Sector</h5>
+              <h5 className="font-lexend font-bold text-base text-slate100 col-span-3">Deal / Project</h5>
+              <h5 className="font-lexend font-bold text-base text-slate100 col-span-2 text-center">Sector</h5>
               <h5 className="font-lexend font-bold text-base text-slate100 col-span-3">Investor / Partner</h5>
               <h5 className="font-lexend font-bold text-base text-slate100 col-span-2 text-center">Stage</h5>
               <h5 className="font-lexend font-bold text-base text-slate100 col-span-1">Deal Value</h5>
