@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface Props {
   children: ReactNode;
@@ -33,7 +34,9 @@ export function FormShell({ children }: Props) {
         </div>
         <div className="text-[10px] sm:text-xs text-white font-lexend flex items-center justify-between gap-1.5">
           AI Deployment Partner
-          <img src="/rise-networks-logo.png" alt="" className="h-10" />
+          <Link to='https://risenetworks.org' >
+            <img src="/rise-networks-logo.png" alt="" className="h-10" />
+          </Link>
         </div>
       </footer>
     </div>
