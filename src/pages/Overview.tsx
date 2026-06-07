@@ -313,10 +313,11 @@ export default function Overview() {
             </p>
             <footer className="text-xs text-white font-dmSans flex flex-col gap-1">
               <strong className="text-cyan text-sm sm:text-base">
-                {fullName(headlineQuote?.speaker) || "Dr. Bosun Tijani"}
+                {fullName(headlineQuote?.speaker) || "Mr. Taiwo Oyedele"}
+                {/* {fullName(headlineQuote?.speaker) || "Dr. Bosun Tijani"} */}
               </strong>{" "}
               {headlineQuote?.speaker?.job_title ??
-                "Minister, Communications, Innovation & Digital Economy"}
+                "Minister of Finance, Coordinating Minister of the Economy for the Federal Republic of Nigeria"}
             </footer>
           </blockquote>
         </section>
