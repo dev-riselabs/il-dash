@@ -34,7 +34,9 @@ export function AppShell({ children }: Props) {
         </div>
         <div className="text-[10px] sm:text-xs text-white font-lexend flex items-center justify-between gap-1.5">
           AI Deployment Partner
+          <Link to='https://risenetworks.org' >
           <img src="/rise-networks-logo.png" alt="" className="h-10"/>
+          </Link>
         </div>
       </footer>
         </div>
