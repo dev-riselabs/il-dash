@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 import { Modal } from './Modal'
-import { FormInput } from './FormInput'
 import { useCreateSessionInsight, useUpdateSessionInsight, useSessionInsightDetail } from '@/lib/api/hooks'
 import type { EventSession, SessionInsight } from '@/lib/api/types'
 

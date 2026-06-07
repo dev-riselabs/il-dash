@@ -211,6 +211,7 @@ export interface SessionQuote {
   quote_text: string
   body: string
   recorded_at?: string | null
+  said_at?: string | null
   speaker?: Speaker | null
   session?: { id: number; title: string } | null
 }

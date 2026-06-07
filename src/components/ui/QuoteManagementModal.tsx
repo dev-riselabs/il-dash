@@ -37,7 +37,7 @@ export function QuoteManagementModal({ isOpen, session, quote, onClose, speakers
     defaultValues: {
       quote_text: quote?.quote_text || '',
       speaker_id: quote?.speaker_id || undefined,
-      said_at: quote?.said_at ? new Date(quote.said_at).toISOString().slice(0, 16) : new Date().toISOString().slice(0, 16),
+      said_at: quote?.said_at || quote?.recorded_at ? new Date(quote.said_at || quote.recorded_at || '').toISOString().slice(0, 16) : new Date().toISOString().slice(0, 16),
     },
   })
 
@@ -45,8 +45,8 @@ export function QuoteManagementModal({ isOpen, session, quote, onClose, speakers
   useEffect(() => {
     if (!isCreating && freshQuote) {
       setValue('quote_text', freshQuote.quote_text)
-      setValue('speaker_id', freshQuote.speaker_id)
-      const saidAtDate = new Date(freshQuote.said_at)
+      setValue('speaker_id', freshQuote.speaker_id ?? undefined)
+      const saidAtDate = new Date(freshQuote.said_at || freshQuote.recorded_at || '')
       setValue('said_at', saidAtDate.toISOString().slice(0, 16))
     }
   }, [freshQuote, isCreating, setValue])
