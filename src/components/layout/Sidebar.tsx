@@ -118,7 +118,7 @@ export function Sidebar() {
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto lg:pb-20">
         {/* Public Items */}
         {publicItems.map(({ to, label, icon: Icon, end }) => (
-          <NavLink
+          <NavLink 
             key={to}
             to={to}
             end={end ?? false}
