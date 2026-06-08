@@ -2,14 +2,22 @@ import { useEffect, type ReactNode } from "react";
 import { Sidebar } from "./Sidebar";
 import { TopNav } from "./TopNav";
 import { Link } from "react-router-dom";
-
-
+import { useAuth } from "@/lib/auth/store";
 
 interface Props {
   children: ReactNode;
 }
 
 export function AppShell({ children }: Props) {
+  const { initialized, fetchMe } = useAuth();
+
+  // Initialize auth state on app load
+  useEffect(() => {
+    if (!initialized) {
+      void fetchMe();
+    }
+  }, [initialized, fetchMe]);
+
   useEffect(() => {
     document.title = "IL-DASH | Invest Lagos 3.0";
   }, []);
