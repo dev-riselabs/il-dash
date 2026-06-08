@@ -5,7 +5,7 @@ import {
   // Brain,
   Briefcase,
   Map,
-  ListChecks,
+  // ListChecks,
   BarChart3,
   Heart,
   // Megaphone,
