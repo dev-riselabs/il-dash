@@ -24,6 +24,7 @@ import {
   BrainCircuit,
   LogOut,
   CalendarPlus,
+  Handshake,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth/store";
@@ -87,6 +88,12 @@ const adminItems = [
     icon: MessageSquareReply,
     end: false,
   },
+  {
+    to: "/dealroom",
+    label: "Deal Room",
+    icon: Handshake, 
+    end: false,
+  },
 ];
 
 type SidebarProps = {
@@ -115,6 +122,7 @@ export function MobileSidebar({ handleCloseMenu, showMenu }: SidebarProps) {
         <div className="flex-1">
           {items.map(({ to, label, icon: Icon, end }) => (
             <NavLink
+              onClick={handleCloseMenu}
               key={to}
               to={to}
               end={end ?? false}
@@ -141,7 +149,7 @@ export function MobileSidebar({ handleCloseMenu, showMenu }: SidebarProps) {
               onClick={handleLogout}
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors font-outfit w-full",
-                "text-white hover:text-slate-200 hover:bg-white/5"
+                "text-white hover:text-slate-200 hover:bg-white/5",
               )}
             >
               <LogOut className="w-5 h-5 shrink-0" strokeWidth={1.5} />
