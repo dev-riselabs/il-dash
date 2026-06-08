@@ -93,7 +93,7 @@ const adminItems = [
     icon: Handshake, 
     end: false,
   },
-];
+]; 
 
 export function Sidebar() {
   const navigate = useNavigate();
@@ -101,7 +101,7 @@ export function Sidebar() {
   const { user, logout } = useAuth();
 
   function toggleIsHovered() {
-    setIsHovered((prev) => !prev);
+    setIsHovered((prev) => !prev); 
   }
 
   const handleLogout = async () => {
