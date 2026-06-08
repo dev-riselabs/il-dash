@@ -64,7 +64,7 @@ export function TopNav() {
 
         {/* Live clock */}
         <div className="lg:basis-3/8 lg:px-4">
-          <div className="flex justify-between gap-4 items-center">
+          <div className="flex justify-between gap-4 items-center w-full">
             <div>
               <div className="text-[10px] sm:text-xs font-light tracking-widest text-white uppercase">
                 Live Clock

@@ -139,7 +139,7 @@ export function MobileSidebar({ handleCloseMenu, showMenu }: SidebarProps) {
               <span className="truncate">{label}</span>
             </NavLink>
           ))}
-          <img src="./logo-b.png" alt="" className="h-30 mt-6 w-full" />
+          
         </div>
 
         {/* Admin Logout Button */}
