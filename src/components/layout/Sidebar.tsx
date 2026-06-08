@@ -12,7 +12,8 @@ import {
   // Bell,
   // FileText,
   // ShieldAlert,
-  SatelliteDish,
+  // SatelliteDish,
+  BrainCircuit,
   Globe,
   Target,
   Command,
@@ -36,7 +37,7 @@ const publicItems = [
   // { to: "/insights", label: "Session Insights", icon: Brain },
   { to: "/deals", label: "Deal Room Tracker", icon: Briefcase },
   { to: "/heatmap", label: "Investment Heatmap", icon: Map },
-  { to: "/resolutions", label: "Resolution Board", icon: ListChecks },
+  // { to: "/resolutions", label: "Resolution Board", icon: ListChecks },
   { to: "/analytics", label: "Analytics", icon: BarChart3 },
   { to: "/feedback", label: "Sentiment & Feedback", icon: Heart },
   // { to: "/social", label: "Social Media Feed", icon: Megaphone },
@@ -44,16 +45,16 @@ const publicItems = [
   // { to: "/security", label: "Security", icon: ShieldAlert },
   // { to: "/reports", label: "Reports", icon: FileText },
   { to: "/global", label: "Global Investor Map", icon: Globe },
-  {
-    to: "/next-action-tracker",
-    label: "Next Action Tracker",
-    icon: SatelliteDish,
-  },
   // {
-  //   to: "/intelligence-dashboard",
-  //   label: "Intelligence Dashboard",
-  //   icon: BrainCircuit,
+  //   to: "/next-action-tracker",
+  //   label: "Next Action Tracker",
+  //   icon: SatelliteDish,
   // },
+  {
+    to: "/intelligence-dashboard",
+    label: "Intelligence Dashboard",
+    icon: BrainCircuit,
+  },
 ];
 
 const adminItems = [
