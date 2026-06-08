@@ -21,7 +21,7 @@ import {
   Speaker,
   NotebookTabs,
   MessageSquareReply,
-  BrainCircuit,
+  // BrainCircuit,
   LogOut,
   CalendarPlus,
   Handshake,
