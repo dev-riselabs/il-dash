@@ -114,7 +114,7 @@ export default function Overview() {
                 ? `"${headlineQuote?.quote_text}"`
                 : "Lagos is not just the future of Africa—it is the blueprint for sustainable urbanization globally."} */}
               
-                "The story of Lagos is a story of ambition, resilience, and execution. We invite the world to invest, innovate, and grow with us."
+                "The story of Lagos is a story of ambition, resilience and execution. We invite the world to invest, innovate and grow with us."
             </p>
             <div className="">
               <p className="text-white font-lexend text-[10px] sm:text-sm text-right">
