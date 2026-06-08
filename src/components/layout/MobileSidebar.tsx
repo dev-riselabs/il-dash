@@ -24,6 +24,7 @@ import {
   BrainCircuit,
   LogOut,
   CalendarPlus,
+  Handshake,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth/store";
@@ -85,6 +86,12 @@ const adminItems = [
     to: "/audience-feedback",
     label: "Audience Feedback",
     icon: MessageSquareReply,
+    end: false,
+  },
+  {
+    to: "/dealroom",
+    label: "Deal Room",
+    icon: Handshake, 
     end: false,
   },
 ];
