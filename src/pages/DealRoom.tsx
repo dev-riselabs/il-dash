@@ -51,11 +51,11 @@ function DealRoom() {
       try {
         await deleteMutation.mutateAsync(selectedDeal.id);
         // Add a small delay to allow React Query to complete the refetch
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
         setDeleteOpen(false);
         setSelectedDeal(null);
       } catch (error) {
-        console.error('Failed to delete deal:', error);
+        console.error("Failed to delete deal:", error);
       }
     }
   };
@@ -94,7 +94,7 @@ function DealRoom() {
             View and manage all deal room records from the summit.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="border border-white rounded-md p-2 flex items-center gap-2 min-w-50 sm:min-w-70">
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
@@ -123,7 +123,7 @@ function DealRoom() {
             <option value="closed_won">Closed Won</option>
             <option value="closed_lost">Closed Lost</option>
           </select>
-          <button 
+          <button
             onClick={() => setDownloadOpen(true)}
             className="bg-blue950 rounded-xl w-10 h-10 flex items-center justify-center shrink-0 hover:bg-blue-900 transition-colors"
           >
@@ -140,7 +140,7 @@ function DealRoom() {
 
       <section className="flex flex-col gap-10 border border-white rounded-2xl py-6 px-4 lg:p-6">
         <div className="overflow-x-auto">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 min-w-200">
             <div className="grid grid-cols-8 gap-4 font-dmSans">
               <h6 className="text-cyan text-base font-semibold col-span-2 uppercase">
                 Deal Title
@@ -170,7 +170,10 @@ function DealRoom() {
             >
               <div className="flex flex-col gap-6">
                 {rows.map((deal) => (
-                  <div key={deal.id} className="grid grid-cols-8 gap-4 font-dmSans items-center">
+                  <div
+                    key={deal.id}
+                    className="grid grid-cols-8 gap-4 font-dmSans items-center"
+                  >
                     <div className="col-span-2">
                       <span className="text-white text-sm font-medium truncate">
                         {deal.title}
@@ -187,13 +190,17 @@ function DealRoom() {
                       </span>
                     </div>
                     <div className="col-span-1">
-                      <span className={`text-white text-xs font-semibold px-3 py-1 rounded-full ${stageColors[deal.stage as keyof typeof stageColors]}`}>
+                      <span
+                        className={`text-white text-xs font-semibold px-3 py-1 rounded-full ${stageColors[deal.stage as keyof typeof stageColors]}`}
+                      >
                         {stageLabels[deal.stage as keyof typeof stageLabels]}
                       </span>
                     </div>
                     <div className="col-span-2">
                       <span className="text-white text-sm">
-                        {deal.value_naira ? deal.value_naira.toLocaleString() : "—"}
+                        {deal.value_naira
+                          ? deal.value_naira.toLocaleString()
+                          : "—"}
                       </span>
                     </div>
                     <div className="relative col-span-1">
@@ -216,7 +223,7 @@ function DealRoom() {
                           >
                             <Pencil className="w-4 h-4 text-black" /> Edit
                           </Link>
-                          <button 
+                          <button
                             onClick={() => handleDeleteClick(deal)}
                             className="flex items-center gap-1.5 text-red font-dmSans text-xs hover:opacity-70 px-2 py-1"
                           >

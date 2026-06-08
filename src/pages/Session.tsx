@@ -90,7 +90,7 @@ function SessionPage() {
   const rows = data?.data ?? [];
 
   return (
-    <section  onClick={() => handleActiveDropdown(null)} className="space-y-6">
+    <section onClick={() => handleActiveDropdown(null)} className="space-y-6">
       <section className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
         <div className="space-y-2">
           <h1 className="text-white text-2xl font-semibold font-lexend">
@@ -144,133 +144,132 @@ function SessionPage() {
       </section>
 
       <section className="flex flex-col gap-10 border border-white rounded-2xl py-6 px-4 lg:p-6">
-        <div className="flex flex-col gap-8">
-          <div className="grid grid-cols-6 gap-10 font-dmSans">
-            <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-1 uppercase">
-              STARTS AT <CalendarDays className="text-white w-3 h-3" />
-            </h6>
-            <h6 className="text-cyan text-base font-semibold col-span-2 uppercase">
-              SESSION NAME
-            </h6>
-            <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
-              Speakers
-            </h6>
-            <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
-              Sector
-            </h6>
-            <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
-              Status
-            </h6>
-          </div>
-          <QueryState
-            isLoading={isLoading}
-            isError={isError}
-            error={error as { message?: string } | null}
-            isEmpty={rows.length === 0}
-            emptyLabel="No sessions match your filters."
-          >
-            <div className="flex flex-col gap-6">
-              {rows.map((s) => (
-                <div
-                  key={s.id}
-                  className="grid grid-cols-6 gap-10 font-dmSans items-center"
-                >
-                  <div className="flex items-center gap-2 text-white text-sm col-span-1 font-dmSans">
-                    <CalendarDays className="text-white w-3 h-3" />
-                    <span>{fmtDateTime(s.starts_at)}</span>
-                  </div>
-                  <span className="text-white text-sm col-span-2 truncate">
-                    {s.title}
-                  </span>
-                  <span className="text-white text-sm col-span-1 truncate">
-                    {(s.speakers ?? [])
-                      .slice(0, 2)
-                      .map((sp) => fullName(sp))
-                      .join(", ") || "—"}
-                  </span>
-                  <span className="text-white text-sm col-span-1 truncate">
-                    {s.sector?.name ?? "—"}
-                  </span>
-                  <div
-                   
-                    className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans"
-                  >
-                    <span
-                      className={`text-xs col-span-1 uppercase rounded px-2 py-1 inline-flex justify-center font-medium ${
-                        s.status === "live"
-                          ? "bg-green450 text-green350 border border-green350"
-                          : s.status === "delayed"
-                            ? "bg-brown200 text-yellow400 border border-yellow400"
-                            : s.status === "cancelled"
-                              ? "bg-red200 text-red100 border border-red100"
-                              : s.status === "completed"
-                                ? "bg-blue300 text-blue400 border border-blue400"
-                                : "bg-blue500 text-white border border-slate400"
-                      }`}
-                    >
-                      {s.status}
-                    </span>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleActiveDropdown(s.id);
-                      }}
-                      className="cursor-pointer"
-                    >
-                      <Ellipsis className="text-white w-5 h-5" />
-                    </button>
-
-                    {activeDropdown === s.id && (
-                      <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
-                        <button
-                          onClick={() => {
-                            setSelectedSession(s);
-                            setQuoteManagementOpen(true);
-                            handleActiveDropdown(null);
-                          }}
-                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
-                        >
-                          💬 Manage Quotes
-                        </button>
-                        <button
-                          onClick={() => {
-                            setSelectedSession(s);
-                            setInsightManagementOpen(true);
-                            handleActiveDropdown(null);
-                          }}
-                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
-                        >
-                          ✨ Manage Insights
-                        </button>
-                        {s.status === "completed" && (
-                          <Link
-                            to="/feedback-form"
-                            className="flex items-center gap-1.5 text-black font-dmSans text-xs"
-                          >
-                            <MessageCircleReply className="w-4 h-4 text-black" />{" "}
-                            Give Feedback
-                          </Link>
-                        )}
-                        <button
-                          onClick={() => handleEditClick(s)}
-                          className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
-                        >
-                          <Pencil className="w-4 h-4 text-black" /> Edit
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(s)}
-                          className="flex items-center gap-1.5 text-red font-dmSans text-xs hover:opacity-70"
-                        >
-                          <Trash className="w-4 h-4 text-red" /> Delete
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
+        <div className="overflow-x-auto">
+          <div className="flex flex-col gap-8   min-w-200">
+            <div className="grid grid-cols-6 gap-10 font-dmSans">
+              <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-1 uppercase">
+                STARTS AT <CalendarDays className="text-white w-3 h-3" />
+              </h6>
+              <h6 className="text-cyan text-base font-semibold col-span-2 uppercase">
+                SESSION NAME
+              </h6>
+              <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
+                Speakers
+              </h6>
+              <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
+                Sector
+              </h6>
+              <h6 className="text-cyan text-base font-semibold col-span-1 uppercase">
+                Status
+              </h6>
             </div>
-          </QueryState>
+            <QueryState
+              isLoading={isLoading}
+              isError={isError}
+              error={error as { message?: string } | null}
+              isEmpty={rows.length === 0}
+              emptyLabel="No sessions match your filters."
+            >
+              <div className="flex flex-col gap-6">
+                {rows.map((s) => (
+                  <div
+                    key={s.id}
+                    className="grid grid-cols-6 gap-10 font-dmSans items-center"
+                  >
+                    <div className="flex items-center gap-2 text-white text-sm col-span-1 font-dmSans">
+                      <CalendarDays className="text-white w-3 h-3" />
+                      <span>{fmtDateTime(s.starts_at)}</span>
+                    </div>
+                    <span className="text-white text-sm col-span-2 truncate">
+                      {s.title}
+                    </span>
+                    <span className="text-white text-sm col-span-1 truncate">
+                      {(s.speakers ?? [])
+                        .slice(0, 2)
+                        .map((sp) => fullName(sp))
+                        .join(", ") || "—"}
+                    </span>
+                    <span className="text-white text-sm col-span-1 truncate">
+                      {s.sector?.name ?? "—"}
+                    </span>
+                    <div className="relative flex items-center justify-between gap-2 text-white text-sm col-span-1 font-dmSans">
+                      <span
+                        className={`text-xs col-span-1 uppercase rounded px-2 py-1 inline-flex justify-center font-medium ${
+                          s.status === "live"
+                            ? "bg-green450 text-green350 border border-green350"
+                            : s.status === "delayed"
+                              ? "bg-brown200 text-yellow400 border border-yellow400"
+                              : s.status === "cancelled"
+                                ? "bg-red200 text-red100 border border-red100"
+                                : s.status === "completed"
+                                  ? "bg-blue300 text-blue400 border border-blue400"
+                                  : "bg-blue500 text-white border border-slate400"
+                        }`}
+                      >
+                        {s.status}
+                      </span>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleActiveDropdown(s.id);
+                        }}
+                        className="cursor-pointer"
+                      >
+                        <Ellipsis className="text-white w-5 h-5" />
+                      </button>
+
+                      {activeDropdown === s.id && (
+                        <div className="flex flex-col gap-5 bg-white z-10 absolute top-6 right-0 p-3 rounded-md">
+                          <button
+                            onClick={() => {
+                              setSelectedSession(s);
+                              setQuoteManagementOpen(true);
+                              handleActiveDropdown(null);
+                            }}
+                            className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
+                          >
+                            💬 Manage Quotes
+                          </button>
+                          <button
+                            onClick={() => {
+                              setSelectedSession(s);
+                              setInsightManagementOpen(true);
+                              handleActiveDropdown(null);
+                            }}
+                            className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
+                          >
+                            ✨ Manage Insights
+                          </button>
+                          {s.status === "completed" && (
+                            <Link
+                              to="/feedback-form"
+                              className="flex items-center gap-1.5 text-black font-dmSans text-xs"
+                            >
+                              <MessageCircleReply className="w-4 h-4 text-black" />{" "}
+                              Give Feedback
+                            </Link>
+                          )}
+                          <button
+                            onClick={() => handleEditClick(s)}
+                            className="flex items-center gap-1.5 text-black font-dmSans text-xs hover:opacity-70"
+                          >
+                            <Pencil className="w-4 h-4 text-black" /> Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeleteClick(s)}
+                            className="flex items-center gap-1.5 text-red font-dmSans text-xs hover:opacity-70"
+                          >
+                            <Trash className="w-4 h-4 text-red" /> Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </QueryState>
+          </div>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-lexend text-white">

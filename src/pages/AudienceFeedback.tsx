@@ -93,7 +93,7 @@ function AudienceFeedback() {
             View and manage all audience feedback for the summit.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="border border-white rounded-md p-2 flex items-center gap-2 min-w-50 sm:min-w-70">
             <Search className="w-4 h-4 text-white shrink-0" />
             <input
@@ -164,7 +164,8 @@ function AudienceFeedback() {
       </div>
 
       <section className="flex flex-col gap-10 border border-white rounded-2xl py-6 px-4 lg:p-6">
-        <div className="flex flex-col gap-8">
+        <div className="overflow-x-auto">
+        <div className="flex flex-col gap-8 min-w-200">
           <div className="grid grid-cols-7 gap-10 font-dmSans">
             <h6 className="text-cyan text-base font-semibold flex items-center gap-2 col-span-2 uppercase">
               TIMESTAMP <CalendarDays className="text-white w-3 h-3" />
@@ -255,6 +256,7 @@ function AudienceFeedback() {
               ))}
             </div>
           </QueryState>
+        </div>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5 text-xs font-lexend text-white">
