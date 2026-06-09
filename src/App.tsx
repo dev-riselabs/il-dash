@@ -114,6 +114,7 @@ function App() {
         <Route path="/command-center" element={<Suspense fallback={<PageLoader />}><CommandCenter /></Suspense>} />
         <Route path="/session-quotes" element={<Suspense fallback={<PageLoader />}><SessionQuotes /></Suspense>} />
         <Route path="/attendance-management" element={<Suspense fallback={<PageLoader />}><AttendanceManagementPage /></Suspense>} />
+        <Route path="/attendance" element={<Suspense fallback={<PageLoader />}><Attendance /></Suspense>} />
         <Route path="/intelligence-dashboard" element={<Suspense fallback={<PageLoader />}><IntelligenceDashboard /></Suspense>} />
         <Route path="/deep-dive" element={<Suspense fallback={<PageLoader />}><DeepDive /></Suspense>} />
         <Route path="/key-insight" element={<Suspense fallback={<PageLoader />}><KeyInsight /></Suspense>} />
@@ -138,7 +139,6 @@ function App() {
         />
         <Route path="/speaker" element={<Suspense fallback={<PageLoader />}><Speaker /></Suspense>} />
         <Route path="/audience-feedback" element={<Suspense fallback={<PageLoader />}><AdudienceFeedback /></Suspense>} />
-        <Route path="/attendance" element={<Suspense fallback={<PageLoader />}><Attendance /></Suspense>} />
         <Route path="/dealroom" element={<Suspense fallback={<PageLoader />}><DealRoom /></Suspense>} />
         <Route
           path="/user-management"
