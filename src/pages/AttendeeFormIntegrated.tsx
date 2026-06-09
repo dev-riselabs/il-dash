@@ -105,7 +105,7 @@ export default function AttendeeFormIntegrated() {
 
       {apiError && (
         <div className="p-4 bg-red-900/20 border border-red-800 rounded-lg flex gap-3">
-          <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
           <p className="text-red-200">{apiError}</p>
         </div>
       )}
