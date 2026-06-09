@@ -321,9 +321,9 @@ const del = async <T,>(url: string) => {
   return (await api.delete<T>(url)).data
 }
 
-// Public mutations - fetch CSRF cookie first, then post without auth
+// Public mutations - fetch CSRF cookie, then axios interceptor handles credentials
 const postPublic = async <T,>(url: string, payload?: unknown) => {
-  await getCsrfCookie() // Fetch CSRF cookie before public POST
+  await getCsrfCookie() // Fetch CSRF cookie, interceptor will inject token
   return (await publicApi.post<T>(url, payload)).data
 }
 
