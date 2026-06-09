@@ -140,6 +140,7 @@ export interface Speaker {
   country?: string | null
   role?: string | null
   created_at?: string
+  sessions?: {id?:number}[]
 }
 
 export interface SpeakerEngagementScore {

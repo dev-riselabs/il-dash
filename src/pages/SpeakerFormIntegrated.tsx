@@ -1,78 +1,90 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { speakerSchema, type SpeakerFormData } from '@/lib/api/schemas'
-import { useCreateSpeaker, useSessionOptions, useCountries } from '@/lib/api/hooks'
-import { FormInput } from '@/components/ui/FormInput'
-import { FormSelect } from '@/components/ui/FormSelect'
-import { FormTextarea } from '@/components/ui/FormTextarea'
-import { AlertCircle, Loader, ArrowRight, RotateCcw, X } from 'lucide-react'
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { speakerSchema, type SpeakerFormData } from "@/lib/api/schemas";
+import {
+  useCreateSpeaker,
+  useSessionOptions,
+  useCountries,
+} from "@/lib/api/hooks";
+import { FormInput } from "@/components/ui/FormInput";
+import { FormSelect } from "@/components/ui/FormSelect";
+import { FormTextarea } from "@/components/ui/FormTextarea";
+import { AlertCircle, Loader, ArrowRight, RotateCcw, X } from "lucide-react";
 
 export default function SpeakerFormIntegrated() {
-  const navigate = useNavigate()
-  const [apiError, setApiError] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  const [selectedSessions, setSelectedSessions] = useState<string[]>([])
-  
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<SpeakerFormData>({
-    resolver: zodResolver(speakerSchema),
-  })
+  const navigate = useNavigate();
+  const [apiError, setApiError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedSessions, setSelectedSessions] = useState<string[]>([]);
 
-  const createMutation = useCreateSpeaker()
-  const { data: sessionsData } = useSessionOptions()
-  const { data: countriesData } = useCountries()
-  const isSubmitting = createMutation.isPending
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<SpeakerFormData>({
+    resolver: zodResolver(speakerSchema),
+  });
+
+  const createMutation = useCreateSpeaker();
+  const { data: sessionsData } = useSessionOptions();
+  const { data: countriesData } = useCountries();
+  const isSubmitting = createMutation.isPending;
 
   const handleUploadMore = () => {
-    setSubmitted(false)
-    reset()
-    setSelectedSessions([])
-  }
+    setSubmitted(false);
+    reset();
+    setSelectedSessions([]);
+  };
 
-  const sessionOptions = (sessionsData || []).map(s => ({
+  const sessionOptions = (sessionsData || []).map((s) => ({
     value: String(s.id),
     label: s.title,
-  }))
+  }));
 
-  const countryOptions = (countriesData || []).map(c => ({
+  const countryOptions = (countriesData || []).map((c) => ({
     value: c.id,
     label: c.name,
-  }))
+  }));
 
   const handleAddSession = (sessionId: string) => {
     if (sessionId && !selectedSessions.includes(sessionId)) {
-      setSelectedSessions([...selectedSessions, sessionId])
+      setSelectedSessions([...selectedSessions, sessionId]);
     }
-  }
+  };
 
   const handleRemoveSession = (sessionId: string) => {
-    setSelectedSessions(selectedSessions.filter(id => id !== sessionId))
-  }
+    setSelectedSessions(selectedSessions.filter((id) => id !== sessionId));
+  };
 
   const onSubmit = async (data: SpeakerFormData) => {
-    setApiError('')
+    setApiError("");
     try {
       const payload: any = {
         first_name: data.first_name,
         last_name: data.last_name,
-      }
-      if (data.job_title) payload.job_title = data.job_title
-      if (data.organization) payload.organization = data.organization
-      if (data.country) payload.country = data.country
-      if (data.bio) payload.bio = data.bio
+      };
+      if (data.job_title) payload.job_title = data.job_title;
+      if (data.organization) payload.organization = data.organization;
+      if (data.country) payload.country = data.country;
+      if (data.bio) payload.bio = data.bio;
       if (selectedSessions.length > 0) {
-        payload.session_ids = selectedSessions.map(id => parseInt(id))
+        payload.session_ids = selectedSessions.map((id) => parseInt(id));
       }
 
-      await createMutation.mutateAsync(payload)
-      setSubmitted(true)
-      reset()
-      setSelectedSessions([])
+      await createMutation.mutateAsync(payload);
+      setSubmitted(true);
+      reset();
+      setSelectedSessions([]);
     } catch (error: any) {
-      setApiError(error?.response?.data?.message || 'Failed to submit speaker information')
+      setApiError(
+        error?.response?.data?.message ||
+          "Failed to submit speaker information",
+      );
     }
-  }
+  };
 
   if (submitted) {
     return (
@@ -93,7 +105,7 @@ export default function SpeakerFormIntegrated() {
               Upload More
             </button>
             <button
-              onClick={() => navigate('/speaker')}
+              onClick={() => navigate("/speaker")}
               className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm hover:bg-gray-100 transition-colors flex items-center gap-2"
             >
               Go to Speakers
@@ -102,7 +114,7 @@ export default function SpeakerFormIntegrated() {
           </div>
         </section>
       </section>
-    )
+    );
   }
 
   return (
@@ -129,7 +141,7 @@ export default function SpeakerFormIntegrated() {
             <FormInput
               label="First Name"
               placeholder="Jane"
-              {...register('first_name')}
+              {...register("first_name")}
               error={errors.first_name}
             />
           </div>
@@ -137,7 +149,7 @@ export default function SpeakerFormIntegrated() {
             <FormInput
               label="Last Name"
               placeholder="Doe"
-              {...register('last_name')}
+              {...register("last_name")}
               error={errors.last_name}
             />
           </div>
@@ -146,20 +158,20 @@ export default function SpeakerFormIntegrated() {
         <FormInput
           label="Job Title / Position (Optional)"
           placeholder="Software Engineer"
-          {...register('job_title')}
+          {...register("job_title")}
           error={errors.job_title}
         />
 
         <FormInput
           label="Organization (Optional)"
           placeholder="Company or Institution Name"
-          {...register('organization')}
+          {...register("organization")}
           error={errors.organization}
         />
 
         <FormSelect
           label="Country (Optional)"
-          {...register('country')}
+          {...register("country")}
           options={countryOptions}
           error={errors.country}
         />
@@ -167,7 +179,7 @@ export default function SpeakerFormIntegrated() {
         <FormTextarea
           label="Bio (Optional)"
           placeholder="Brief biography and professional background"
-          {...register('bio')}
+          {...register("bio")}
           error={errors.bio}
           maxLength={500}
         />
@@ -177,7 +189,7 @@ export default function SpeakerFormIntegrated() {
           <label className="text-white font-inter text-sm font-medium">
             Assign to Sessions (Optional)
           </label>
-          
+
           {/* Session selector */}
           <div className="flex gap-2">
             <select
@@ -190,9 +202,13 @@ export default function SpeakerFormIntegrated() {
             >
               <option value="">Select a session...</option>
               {sessionOptions
-                .filter(opt => !selectedSessions.includes(opt.value))
-                .map(opt => (
-                  <option key={opt.value} value={opt.value} className="bg-slate-900 text-white">
+                .filter((opt) => !selectedSessions.includes(opt.value))
+                .map((opt) => (
+                  <option
+                    key={opt.value}
+                    value={opt.value}
+                    className="bg-slate-900 text-white"
+                  >
                     {opt.label}
                   </option>
                 ))}
@@ -202,8 +218,10 @@ export default function SpeakerFormIntegrated() {
           {/* Selected Sessions Tags */}
           {selectedSessions.length > 0 && (
             <div className="flex flex-wrap gap-2">
-              {selectedSessions.map(sessionId => {
-                const sessionName = sessionOptions.find(s => s.value === sessionId)?.label
+              {selectedSessions.map((sessionId) => {
+                const sessionName = sessionOptions.find(
+                  (s) => s.value === sessionId,
+                )?.label;
                 return (
                   <div
                     key={sessionId}
@@ -218,13 +236,13 @@ export default function SpeakerFormIntegrated() {
                       <X className="w-4 h-4" />
                     </button>
                   </div>
-                )
+                );
               })}
             </div>
           )}
         </div>
 
-        <button 
+        <button
           type="submit"
           disabled={isSubmitting}
           className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
@@ -235,12 +253,10 @@ export default function SpeakerFormIntegrated() {
               Submitting...
             </>
           ) : (
-            'Submit'
+            "Submit"
           )}
         </button>
       </form>
     </section>
-  )
+  );
 }
-
-

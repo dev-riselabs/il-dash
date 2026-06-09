@@ -120,7 +120,7 @@ export default function SessionFormIntegrated() {
               Upload More
             </button>
             <button
-              onClick={() => navigate('/sessions')}
+              onClick={() => navigate('/session')}
               className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm hover:bg-gray-100 transition-colors flex items-center gap-2"
             >
               Go to Sessions
@@ -241,7 +241,10 @@ export default function SessionFormIntegrated() {
             <select
               onChange={(e) => handleAddSpeaker(e.target.value)}
               value=""
-              className="flex-1 text-white font-inter border border-white/55 rounded-xl py-3 px-4 bg-white/10 text-sm outline-none"
+              className="flex-1 w-full px-3 py-2 bg-slate-900 border rounded-lg
+            text-white placeholder-slate-500
+            focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
+            transition-all duration-200"
             >
               <option value="">Select a speaker...</option>
               {speakerOptions
@@ -297,19 +300,19 @@ export default function SessionFormIntegrated() {
     </section>
   )
 }
-          disabled={isSubmitting}
-          className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
-        >
-          {isSubmitting ? (
-            <>
-              <Loader className="w-4 h-4 animate-spin" />
-              Submitting...
-            </>
-          ) : (
-            'Submit'
-          )}
-        </button>
-      </form>
-    </section>
-  )
-}
+//        <button   disabled={isSubmitting}
+//           className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+//         >
+//           {isSubmitting ? (
+//             <>
+//               <Loader className="w-4 h-4 animate-spin" />
+//               Submitting...
+//             </>
+//           ) : (
+//             'Submit'
+//           )}
+//         </button>
+//       </form>
+//     </section>
+//   )
+// }
