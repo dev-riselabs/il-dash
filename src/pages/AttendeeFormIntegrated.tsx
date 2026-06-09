@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate,  } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { attendeeSchema, type AttendeeFormData } from "@/lib/api/schemas";
 import { FormInput } from "@/components/ui/FormInput";
@@ -11,14 +11,14 @@ import {
   useTracks,
   useSectors,
 } from "@/lib/api/hooks";
-import { AlertCircle, Loader, ArrowRight, RotateCcw } from "lucide-react";
+import { AlertCircle, Loader, ArrowRight } from "lucide-react";
 
 export default function AttendeeFormIntegrated() {
   const navigate = useNavigate();
   const [apiError, setApiError] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const { id } = useParams<{ id?: string }>();
-  const isEditing = !!id;
+  // const { id } = useParams<{ id?: string }>();
+  // const isEditing = !!id;
 
   const createMutation = useCreateAttendee();
   const eventsQ = useEvents();
@@ -29,7 +29,7 @@ export default function AttendeeFormIntegrated() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
+    // reset,
   } = useForm<AttendeeFormData>({
     resolver: zodResolver(attendeeSchema),
   });
@@ -56,10 +56,10 @@ export default function AttendeeFormIntegrated() {
       setApiError(error?.response?.data?.message || "Failed to submit form");
     }
   };
-  const handleUploadMore = () => {
-    setSubmitted(false);
-    reset();
-  };
+  // const handleUploadMore = () => {
+  //   setSubmitted(false);
+  //   reset();
+  // };
 
   if (submitted) {
     return (
