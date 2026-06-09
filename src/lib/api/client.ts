@@ -4,11 +4,12 @@ const baseURL = import.meta.env.VITE_API_BASE_URL
 
 /**
  * Public API client - for unauthenticated requests from public pages
- * No credentials sent, no CORS credential conflicts
+ * Sends CSRF token but no session credentials
  */
 export const publicApi: AxiosInstance = axios.create({
   baseURL,
-  withCredentials: false,
+  withCredentials: true, // Send/receive CSRF cookie
+  withXSRFToken: true,   // Auto-inject CSRF token from cookie
   headers: {
     Accept: 'application/json',
     'X-Requested-With': 'XMLHttpRequest',

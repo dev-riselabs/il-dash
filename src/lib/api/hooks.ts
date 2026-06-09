@@ -321,9 +321,11 @@ const del = async <T,>(url: string) => {
   return (await api.delete<T>(url)).data
 }
 
-// Public mutations - no auth required, no CSRF needed
-const postPublic = async <T,>(url: string, payload?: unknown) =>
-  (await publicApi.post<T>(url, payload)).data
+// Public mutations - fetch CSRF cookie first, then post without auth
+const postPublic = async <T,>(url: string, payload?: unknown) => {
+  await getCsrfCookie() // Fetch CSRF cookie before public POST
+  return (await publicApi.post<T>(url, payload)).data
+}
 
 export function useUpdateSessionStatus() {
   const qc = useQueryClient()
