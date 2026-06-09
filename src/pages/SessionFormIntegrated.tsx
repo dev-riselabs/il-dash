@@ -3,16 +3,17 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { sessionSchema, type SessionFormData } from '@/lib/api/schemas'
-import { useCreateSession, useEvents, useTracksList, useSectors, useVenues, useEventDaysList } from '@/lib/api/hooks'
+import { useCreateSession, useEvents, useTracksList, useSectors, useVenues, useEventDaysList, useSpeakersOptions } from '@/lib/api/hooks'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
-import { AlertCircle, Loader, ArrowRight, RotateCcw } from 'lucide-react'
+import { AlertCircle, Loader, ArrowRight, RotateCcw, X } from 'lucide-react'
 
 export default function SessionFormIntegrated() {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [selectedSpeakers, setSelectedSpeakers] = useState<string[]>([])
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<SessionFormData>({
     resolver: zodResolver(sessionSchema),
@@ -24,11 +25,15 @@ export default function SessionFormIntegrated() {
   const { data: sectorsData } = useSectors()
   const { data: venuesData } = useVenues()
   const { data: eventDaysData } = useEventDaysList({ per_page: 100 })
+  const { data: speakersData } = useSpeakersOptions()
   const isSubmitting = createMutation.isPending
+
   const handleUploadMore = () => {
     setSubmitted(false)
     reset()
+    setSelectedSpeakers([])
   }
+
   const eventOptions = (eventsData || []).map(e => ({
     value: String(e.id),
     label: e.name,
@@ -54,6 +59,21 @@ export default function SessionFormIntegrated() {
     label: v.name,
   }))
 
+  const speakerOptions = (speakersData || []).map(s => ({
+    value: String(s.id),
+    label: `${s.first_name} ${s.last_name}`,
+  }))
+
+  const handleAddSpeaker = (speakerId: string) => {
+    if (speakerId && !selectedSpeakers.includes(speakerId)) {
+      setSelectedSpeakers([...selectedSpeakers, speakerId])
+    }
+  }
+
+  const handleRemoveSpeaker = (speakerId: string) => {
+    setSelectedSpeakers(selectedSpeakers.filter(id => id !== speakerId))
+  }
+
   const onSubmit = async (data: SessionFormData) => {
     setApiError('')
     try {
@@ -68,10 +88,14 @@ export default function SessionFormIntegrated() {
       if (data.venue_id) payload.venue_id = parseInt(data.venue_id)
       if (data.starts_at) payload.starts_at = data.starts_at
       if (data.ends_at) payload.ends_at = data.ends_at
+      if (selectedSpeakers.length > 0) {
+        payload.speaker_ids = selectedSpeakers.map(id => parseInt(id))
+      }
 
       await createMutation.mutateAsync(payload)
       setSubmitted(true)
       reset()
+      setSelectedSpeakers([])
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit session')
     }
@@ -206,8 +230,73 @@ export default function SessionFormIntegrated() {
           </div>
         </div>
 
+        {/* Multiple Speakers Assignment */}
+        <div className="flex flex-col gap-4">
+          <label className="text-white font-inter text-sm font-medium">
+            Assign Speakers (Optional)
+          </label>
+          
+          {/* Speaker selector */}
+          <div className="flex gap-2">
+            <select
+              onChange={(e) => handleAddSpeaker(e.target.value)}
+              value=""
+              className="flex-1 text-white font-inter border border-white/55 rounded-xl py-3 px-4 bg-white/10 text-sm outline-none"
+            >
+              <option value="">Select a speaker...</option>
+              {speakerOptions
+                .filter(opt => !selectedSpeakers.includes(opt.value))
+                .map(opt => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          {/* Selected Speakers Tags */}
+          {selectedSpeakers.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {selectedSpeakers.map(speakerId => {
+                const speakerName = speakerOptions.find(s => s.value === speakerId)?.label
+                return (
+                  <div
+                    key={speakerId}
+                    className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg px-3 py-2 text-white font-inter text-sm"
+                  >
+                    <span>{speakerName}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveSpeaker(speakerId)}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+
         <button 
           type="submit"
+          disabled={isSubmitting}
+          className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader className="w-4 h-4 animate-spin" />
+              Submitting...
+            </>
+          ) : (
+            'Submit'
+          )}
+        </button>
+      </form>
+    </section>
+  )
+}
           disabled={isSubmitting}
           className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
         >

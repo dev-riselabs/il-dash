@@ -1,7 +1,8 @@
+import { useState, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
-import { useUpdateSession, useEvents, useTracksList, useSectors, useVenues, useEventDaysList } from '@/lib/api/hooks'
+import { useUpdateSession, useEvents, useTracksList, useSectors, useVenues, useEventDaysList, useSpeakersOptions } from '@/lib/api/hooks'
 import { sessionSchema } from '@/lib/api/schemas'
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
@@ -15,12 +16,17 @@ interface SessionEditModalProps {
 }
 
 export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalProps) {
+  const [selectedSpeakers, setSelectedSpeakers] = useState<string[]>(
+    (session.speakers || []).map(s => String(s.id))
+  )
+
   const updateMutation = useUpdateSession()
   const { data: events } = useEvents()
   const { data: tracks } = useTracksList()
   const { data: sectors } = useSectors()
   const { data: venues } = useVenues()
   const { data: eventDays } = useEventDaysList({ per_page: 100 })
+  const { data: speakersData } = useSpeakersOptions()
 
   const {
     register,
@@ -43,6 +49,25 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
     },
   })
 
+  const speakerOptions = (speakersData || []).map(s => ({
+    value: String(s.id),
+    label: `${s.first_name} ${s.last_name}`,
+  }))
+
+  const handleAddSpeaker = (speakerId: string) => {
+    if (speakerId && !selectedSpeakers.includes(speakerId)) {
+      setSelectedSpeakers([...selectedSpeakers, speakerId])
+    }
+  }
+
+  const handleRemoveSpeaker = (speakerId: string) => {
+    setSelectedSpeakers(selectedSpeakers.filter(id => id !== speakerId))
+  }
+
+  const availableSpeakers = useMemo(() => {
+    return speakerOptions.filter(opt => !selectedSpeakers.includes(opt.value))
+  }, [speakerOptions, selectedSpeakers])
+
   const onSubmit = async (data: any) => {
     try {
       const payload = {
@@ -57,6 +82,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
         status: data.status || 'upcoming',
         starts_at: data.starts_at,
         ends_at: data.ends_at,
+        speaker_ids: selectedSpeakers.map(id => parseInt(id)),
       }
       await updateMutation.mutateAsync(payload)
       reset({
@@ -184,6 +210,55 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
             {...register('ends_at')}
             error={errors.ends_at}
           />
+
+          {/* Multiple Speakers Assignment */}
+          <div className="flex flex-col gap-4 border-t border-slate-700 pt-4">
+            <label className="text-white font-medium text-sm">
+              Assign Speakers (Optional)
+            </label>
+
+            {/* Speaker selector */}
+            {availableSpeakers.length > 0 && (
+              <div className="flex gap-2">
+                <select
+                  onChange={(e) => handleAddSpeaker(e.target.value)}
+                  value=""
+                  className="flex-1 text-white font-inter border border-slate-600 rounded-lg py-2 px-3 bg-slate-800 text-sm outline-none"
+                >
+                  <option value="">Select a speaker...</option>
+                  {availableSpeakers.map(opt => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* Selected Speakers Tags */}
+            {selectedSpeakers.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {selectedSpeakers.map(speakerId => {
+                  const speakerName = speakerOptions.find(s => s.value === speakerId)?.label
+                  return (
+                    <div
+                      key={speakerId}
+                      className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg px-3 py-2 text-white text-sm"
+                    >
+                      <span>{speakerName}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSpeaker(speakerId)}
+                        className="text-cyan-400 hover:text-cyan-300"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
 
           <div className="flex gap-3 pt-4 border-t border-slate-700 mt-6">
             <button

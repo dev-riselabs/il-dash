@@ -80,6 +80,11 @@ export const useVenues = (o?: Q<Venue[]>) =>
   useQuery({ queryKey: qk.lookups.venues, queryFn: () => getPublic<Venue[]>('/api/lookups/venues'), ...o })
 export const useSessionOptions = (o?: Q<SessionOption[]>) =>
   useQuery({ queryKey: qk.lookups.sessionOptions, queryFn: () => getPublic<SessionOption[]>('/api/lookups/sessions/options'), ...o })
+export const useSpeakersOptions = (o?: Q<any[]>) =>
+  useQuery({ queryKey: qk.speakers.list(), queryFn: async () => {
+    const res = await getPublic<Paginated<any>>('/api/speakers', { per_page: 1000 })
+    return res.data
+  }, ...o })
 export const useOwners = (o?: Q<OwnerOption[]>) =>
   useQuery({ queryKey: qk.lookups.owners, queryFn: () => getPublic<OwnerOption[]>('/api/lookups/owners'), ...o })
 

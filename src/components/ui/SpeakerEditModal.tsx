@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
@@ -15,6 +16,10 @@ interface SpeakerEditModalProps {
 }
 
 export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalProps) {
+  const [selectedSessions, setSelectedSessions] = useState<string[]>(
+    (speaker.sessions || []).map(s => String(s.id))
+  )
+
   const updateMutation = useUpdateSpeaker()
   const { data: countriesData } = useCountries()
   const { data: sessionsData } = useSessionOptions()
@@ -43,10 +48,22 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
       organization: speaker.organization || '',
       country: speaker.country || '',
       bio: speaker.bio || '',
-      session_id: '',
-      role: speaker.role || '',
     },
   })
+
+  const handleAddSession = (sessionId: string) => {
+    if (sessionId && !selectedSessions.includes(sessionId)) {
+      setSelectedSessions([...selectedSessions, sessionId])
+    }
+  }
+
+  const handleRemoveSession = (sessionId: string) => {
+    setSelectedSessions(selectedSessions.filter(id => id !== sessionId))
+  }
+
+  const availableSessions = useMemo(() => {
+    return sessionOptions.filter(opt => !selectedSessions.includes(opt.value))
+  }, [sessionOptions, selectedSessions])
 
   const onSubmit = async (data: any) => {
     try {
@@ -58,6 +75,7 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
         organization: data.organization,
         country: data.country,
         bio: data.bio,
+        session_ids: selectedSessions.map(id => parseInt(id)),
       }
       await updateMutation.mutateAsync(payload)
       reset({
@@ -67,8 +85,6 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
         organization: speaker.organization || '',
         country: speaker.country || '',
         bio: speaker.bio || '',
-        session_id: '',
-        role: speaker.role || '',
       })
       onClose()
     } catch (error) {
@@ -135,23 +151,53 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
             error={errors.bio}
           />
 
-          <div className="flex gap-3">
-            <div className="flex-1">
-              <FormSelect
-                label="Session (Optional)"
-                {...register('session_id')}
-                options={sessionOptions}
-                error={errors.session_id}
-              />
-            </div>
-            <div className="flex-1">
-              <FormInput
-                label="Speaker Role (Optional)"
-                placeholder="e.g., Keynote, Panelist, Moderator"
-                {...register('role')}
-                error={errors.role}
-              />
-            </div>
+          {/* Multiple Sessions Assignment */}
+          <div className="flex flex-col gap-4 border-t border-slate-700 pt-4">
+            <label className="text-white font-medium text-sm">
+              Assign to Sessions (Optional)
+            </label>
+
+            {/* Session selector */}
+            {availableSessions.length > 0 && (
+              <div className="flex gap-2">
+                <select
+                  onChange={(e) => handleAddSession(e.target.value)}
+                  value=""
+                  className="flex-1 text-white font-inter border border-slate-600 rounded-lg py-2 px-3 bg-slate-800 text-sm outline-none"
+                >
+                  <option value="">Select a session...</option>
+                  {availableSessions.map(opt => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {/* Selected Sessions Tags */}
+            {selectedSessions.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {selectedSessions.map(sessionId => {
+                  const sessionName = sessionOptions.find(s => s.value === sessionId)?.label
+                  return (
+                    <div
+                      key={sessionId}
+                      className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg px-3 py-2 text-white text-sm"
+                    >
+                      <span>{sessionName}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSession(sessionId)}
+                        className="text-cyan-400 hover:text-cyan-300"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           <div className="flex gap-3 pt-4 border-t border-slate-700 mt-6">

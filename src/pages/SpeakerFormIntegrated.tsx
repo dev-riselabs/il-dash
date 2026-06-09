@@ -7,12 +7,13 @@ import { useCreateSpeaker, useSessionOptions, useCountries } from '@/lib/api/hoo
 import { FormInput } from '@/components/ui/FormInput'
 import { FormSelect } from '@/components/ui/FormSelect'
 import { FormTextarea } from '@/components/ui/FormTextarea'
-import { AlertCircle, Loader, ArrowRight, RotateCcw } from 'lucide-react'
+import { AlertCircle, Loader, ArrowRight, RotateCcw, X } from 'lucide-react'
 
 export default function SpeakerFormIntegrated() {
   const navigate = useNavigate()
   const [apiError, setApiError] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [selectedSessions, setSelectedSessions] = useState<string[]>([])
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<SpeakerFormData>({
     resolver: zodResolver(speakerSchema),
@@ -26,6 +27,7 @@ export default function SpeakerFormIntegrated() {
   const handleUploadMore = () => {
     setSubmitted(false)
     reset()
+    setSelectedSessions([])
   }
 
   const sessionOptions = (sessionsData || []).map(s => ({
@@ -38,16 +40,35 @@ export default function SpeakerFormIntegrated() {
     label: c.name,
   }))
 
+  const handleAddSession = (sessionId: string) => {
+    if (sessionId && !selectedSessions.includes(sessionId)) {
+      setSelectedSessions([...selectedSessions, sessionId])
+    }
+  }
+
+  const handleRemoveSession = (sessionId: string) => {
+    setSelectedSessions(selectedSessions.filter(id => id !== sessionId))
+  }
+
   const onSubmit = async (data: SpeakerFormData) => {
     setApiError('')
     try {
-      const payload = {
-        ...data,
-        ...(data.session_id && { session_id: parseInt(data.session_id) }),
+      const payload: any = {
+        first_name: data.first_name,
+        last_name: data.last_name,
       }
+      if (data.job_title) payload.job_title = data.job_title
+      if (data.organization) payload.organization = data.organization
+      if (data.country) payload.country = data.country
+      if (data.bio) payload.bio = data.bio
+      if (selectedSessions.length > 0) {
+        payload.session_ids = selectedSessions.map(id => parseInt(id))
+      }
+
       await createMutation.mutateAsync(payload)
       setSubmitted(true)
       reset()
+      setSelectedSessions([])
     } catch (error: any) {
       setApiError(error?.response?.data?.message || 'Failed to submit speaker information')
     }
@@ -79,7 +100,6 @@ export default function SpeakerFormIntegrated() {
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-          
         </section>
       </section>
     )
@@ -152,23 +172,53 @@ export default function SpeakerFormIntegrated() {
           maxLength={500}
         />
 
-        <div className="flex gap-3">
-          <div className="flex-1">
-            <FormSelect
-              label="Session (Optional)"
-              {...register('session_id')}
-              options={sessionOptions}
-              error={errors.session_id}
-            />
+        {/* Multiple Sessions Assignment */}
+        <div className="flex flex-col gap-4">
+          <label className="text-white font-inter text-sm font-medium">
+            Assign to Sessions (Optional)
+          </label>
+          
+          {/* Session selector */}
+          <div className="flex gap-2">
+            <select
+              onChange={(e) => handleAddSession(e.target.value)}
+              value=""
+              className="flex-1 text-white font-inter border border-white/55 rounded-xl py-3 px-4 bg-white/10 text-sm outline-none"
+            >
+              <option value="">Select a session...</option>
+              {sessionOptions
+                .filter(opt => !selectedSessions.includes(opt.value))
+                .map(opt => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+            </select>
           </div>
-          <div className="flex-1">
-            <FormInput
-              label="Speaker Role (Optional)"
-              placeholder="e.g., Keynote, Panelist, Moderator"
-              {...register('role')}
-              error={errors.role}
-            />
-          </div>
+
+          {/* Selected Sessions Tags */}
+          {selectedSessions.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {selectedSessions.map(sessionId => {
+                const sessionName = sessionOptions.find(s => s.value === sessionId)?.label
+                return (
+                  <div
+                    key={sessionId}
+                    className="flex items-center gap-2 bg-cyan-500/20 border border-cyan-500/50 rounded-lg px-3 py-2 text-white font-inter text-sm"
+                  >
+                    <span>{sessionName}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveSession(sessionId)}
+                      className="text-cyan-400 hover:text-cyan-300"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          )}
         </div>
 
         <button 

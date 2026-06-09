@@ -40,10 +40,7 @@ export const speakerSchema = z.object({
   bio: z.string()
     .transform(val => val.trim() === '' ? undefined : val)
     .pipe(z.string().min(10, 'Bio must be at least 10 characters').max(500, 'Bio must be less than 500 characters').optional()),
-  session_id: z.string().optional(),
-  role: z.string()
-    .transform(val => val.trim() === '' ? undefined : val)
-    .pipe(z.string().optional()),
+  session_ids: z.array(z.string()).optional(), // Support multiple sessions
 })
 
 export const eventSchema = z.object({
@@ -84,6 +81,7 @@ export const sessionSchema = z.object({
   status: z.enum(['live', 'upcoming', 'completed']).optional(),
   starts_at: z.string().optional(),
   ends_at: z.string().optional(),
+  speaker_ids: z.array(z.string()).optional(), // Support multiple speakers
 }).refine((data) => {
   if (!data.starts_at || !data.ends_at) return true
   const start = new Date(data.starts_at)
