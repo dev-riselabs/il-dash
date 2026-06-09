@@ -321,6 +321,10 @@ const del = async <T,>(url: string) => {
   return (await api.delete<T>(url)).data
 }
 
+// Public mutations - no auth required, no CSRF needed
+const postPublic = async <T,>(url: string, payload?: unknown) =>
+  (await publicApi.post<T>(url, payload)).data
+
 export function useUpdateSessionStatus() {
   const qc = useQueryClient()
   return useMutation({
@@ -402,7 +406,7 @@ export function useCreateFeedback() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (payload: Partial<FeedbackSubmission>) =>
-      post<FeedbackSubmission>('/api/feedback', payload),
+      postPublic<FeedbackSubmission>('/api/feedback', payload),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['feedback'] })
       qc.invalidateQueries({ queryKey: ['overview'] })
@@ -501,7 +505,7 @@ export function useCreateAttendee() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (payload: Record<string, unknown>) =>
-      post<Attendee>('/api/attendees', payload),
+      postPublic<Attendee>('/api/attendees', payload),
     onSuccess: () => {
       qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
       qc.refetchQueries({ queryKey: ['analytics'] })
@@ -514,7 +518,7 @@ export function useCreateSpeaker() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (payload: Record<string, unknown>) =>
-      post<Speaker>('/api/speakers', payload),
+      postPublic<Speaker>('/api/speakers', payload),
     onSuccess: () => {
       qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'speakers' })
       qc.refetchQueries({ queryKey: ['overview'] })
@@ -588,7 +592,7 @@ export function useCreateSession() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: (payload: Record<string, unknown>) =>
-      post<EventSession>('/api/sessions', payload),
+      postPublic<EventSession>('/api/sessions', payload),
     onSuccess: () => {
       qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
       qc.refetchQueries({ queryKey: ['overview'] })
