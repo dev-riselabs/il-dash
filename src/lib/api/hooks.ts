@@ -563,7 +563,7 @@ export function useUpdateEvent() {
   return useMutation({
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Event>(`/api/events/${id}`, payload),
-    onSuccess: (data) => {
+    onSuccess: () => {
       qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'events' })
       qc.refetchQueries({ queryKey: qk.lookups.events })
     },

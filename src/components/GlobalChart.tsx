@@ -7,8 +7,7 @@ import {
 } from "chart.js";
 import { Bubble } from "react-chartjs-2";
 import { useState, useMemo, useRef, useEffect } from "react";
-import { useGlobalMapCountries, useInvestors, useHeatmapSectors } from "@/lib/api/hooks";
-import { fmtNumber } from "@/lib/api/format";
+import { useGlobalMapCountries, useHeatmapSectors } from "@/lib/api/hooks";
 
 ChartJS.register(Tooltip, Legend, LinearScale, PointElement);
 
@@ -37,7 +36,6 @@ const InvestmentHeatmap = () => {
   const [showModal, setShowModal] = useState(false);
   const chartRef = useRef<any>(null);
   
-  const investorsQ = useInvestors({ country: selectedCountry || undefined });
   const sectorsQ = useHeatmapSectors();
 
   const totalInvestors = useMemo(
@@ -47,7 +45,7 @@ const InvestmentHeatmap = () => {
 
   // Generate dynamic datasets from country data
   const datasets = useMemo(() => {
-    return (countriesQ.data ?? []).map((country, idx) => {
+    return (countriesQ.data ?? []).map((country) => {
       const pos = COUNTRY_POSITIONS[country.country] || {
         x: Math.random() * 80 + 10,
         y: Math.random() * 80 + 10,
@@ -130,7 +128,6 @@ const InvestmentHeatmap = () => {
       const y = event.clientY - rect.top;
       
       const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
       
       // Convert pixel coordinates to chart coordinates
       const xScale = chart.scales.x;
@@ -138,11 +135,8 @@ const InvestmentHeatmap = () => {
       
       if (!xScale || !yScale) return;
       
-      const chartX = xScale.getValueForPixel(x);
-      const chartY = yScale.getValueForPixel(y);
-      
       // Check which bubble was clicked
-      datasets.forEach((dataset: any, datasetIndex: number) => {
+      datasets.forEach((dataset: any) => {
         const bubble = dataset.data[0];
         if (!bubble) return;
         
