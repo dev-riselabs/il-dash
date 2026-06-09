@@ -183,13 +183,16 @@ export default function SpeakerFormIntegrated() {
             <select
               onChange={(e) => handleAddSession(e.target.value)}
               value=""
-              className="flex-1 text-white font-inter border border-white/55 rounded-xl py-3 px-4 bg-white/10 text-sm outline-none"
+              className="flex-1 w-full px-3 py-2 bg-slate-900 border rounded-lg
+            text-white placeholder-slate-500
+            focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
+            transition-all duration-200"
             >
               <option value="">Select a session...</option>
               {sessionOptions
                 .filter(opt => !selectedSessions.includes(opt.value))
                 .map(opt => (
-                  <option key={opt.value} value={opt.value}>
+                  <option key={opt.value} value={opt.value} className="bg-slate-900 text-white">
                     {opt.label}
                   </option>
                 ))}

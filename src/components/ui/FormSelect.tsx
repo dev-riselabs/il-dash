@@ -36,7 +36,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
             focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
             transition-all duration-200
             ${error ? 'border-red-500 focus:ring-red-500' : 'border-slate-700'}
-            ${className}
+            ${className} 
           `}
         >
           <option value="">-- Select an option --</option>
