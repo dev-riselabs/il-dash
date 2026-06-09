@@ -71,7 +71,7 @@ export default function AttendeeFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Your attendee information has been submitted successfully
           </p>
-          {!isEditing && (
+          {/* {!isEditing && (
             <button
               onClick={handleUploadMore}
               className="bg-white/10 border border-white/20 rounded-lg px-6 font-medium py-3 font-inter text-white text-sm hover:bg-white/20 transition-colors flex items-center gap-2"
@@ -79,12 +79,12 @@ export default function AttendeeFormIntegrated() {
               <RotateCcw className="w-4 h-4" />
               Upload More
             </button>
-          )}
+          )} */}
           <button
-            onClick={() => navigate("/attendance")}
+            onClick={() => navigate("/investlagos")}
             className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
           >
-            Go to Attendance
+            Go to Dashboard
             <ArrowRight className="w-4 h-4" />
           </button>
         </section>
@@ -179,7 +179,7 @@ export default function AttendeeFormIntegrated() {
         <div className="flex gap-3">
           <div className="flex-1">
             <FormSelect
-              label="Gender (optional)"
+              label="Gender*"
               {...register("gender")}
               options={[
                 { value: "", label: "Select gender" },
