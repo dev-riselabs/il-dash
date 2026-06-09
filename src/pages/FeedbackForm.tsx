@@ -18,7 +18,7 @@ function FeedbackForm() {
         </p>
       </section>
 
-      <form action="" className="flex flex-col gap-10">
+      <form action="" className="flex flex-col gap-10 px-4 sm:p-6">
         <div className="flex flex-col gap-4">
           <label htmlFor="fullName" className="text-white font-inter text-sm ">
             Full Name <span className="text-red">*</span>
@@ -131,7 +131,9 @@ function FeedbackForm() {
           />
         </div>
 
-        <button className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center" >Submit</button>
+        <button className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center">
+          Submit
+        </button>
       </form>
     </section>
   );
