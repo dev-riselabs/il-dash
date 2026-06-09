@@ -416,9 +416,9 @@ export function useCheckInAttendee() {
   return useMutation({
     mutationFn: (id: number) => post<Attendee>(`/api/attendees/${id}/check-in`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
-      qc.invalidateQueries({ queryKey: ['analytics'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
+      qc.refetchQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ queryKey: ['analytics'] })
     },
   })
 }
@@ -428,9 +428,9 @@ export function useCheckOutAttendee() {
   return useMutation({
     mutationFn: (id: number) => post<Attendee>(`/api/attendees/${id}/check-out`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
-      qc.invalidateQueries({ queryKey: ['analytics'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
+      qc.refetchQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ queryKey: ['analytics'] })
     },
   })
 }
@@ -441,9 +441,9 @@ export function useUpdateAttendee() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Attendee>(`/api/attendees/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
-      qc.invalidateQueries({ queryKey: ['analytics'] })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
+      qc.refetchQueries({ queryKey: ['analytics'] })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -454,9 +454,9 @@ export function useDeleteAttendee() {
     mutationFn: (id: number) =>
       del<void>(`/api/attendees/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
-      qc.invalidateQueries({ queryKey: ['analytics'] })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
+      qc.refetchQueries({ queryKey: ['analytics'] })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -503,9 +503,9 @@ export function useCreateAttendee() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Attendee>('/api/attendees', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
-      qc.invalidateQueries({ queryKey: ['analytics'] })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'attendees' })
+      qc.refetchQueries({ queryKey: ['analytics'] })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -516,8 +516,8 @@ export function useCreateSpeaker() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Speaker>('/api/speakers', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'speakers' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'speakers' })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -528,8 +528,8 @@ export function useUpdateSpeaker() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Speaker>(`/api/speakers/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'speakers' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'speakers' })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -540,8 +540,8 @@ export function useDeleteSpeaker() {
     mutationFn: (id: number) =>
       del<void>(`/api/speakers/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'speakers' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'speakers' })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -552,8 +552,8 @@ export function useCreateEvent() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Event>('/api/events', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'events' })
-      qc.invalidateQueries({ queryKey: qk.lookups.events })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'events' })
+      qc.refetchQueries({ queryKey: qk.lookups.events })
     },
   })
 }
@@ -564,8 +564,8 @@ export function useUpdateEvent() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Event>(`/api/events/${id}`, payload),
     onSuccess: (data) => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'events' })
-      qc.invalidateQueries({ queryKey: qk.lookups.events })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'events' })
+      qc.refetchQueries({ queryKey: qk.lookups.events })
     },
   })
 }
@@ -576,10 +576,10 @@ export function useDeleteEvent() {
     mutationFn: (id: number) =>
       del<void>(`/api/events/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'events' })
-      qc.invalidateQueries({ queryKey: qk.lookups.events })
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'events' })
+      qc.refetchQueries({ queryKey: qk.lookups.events })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -590,8 +590,8 @@ export function useCreateSession() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<EventSession>('/api/sessions', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -602,8 +602,8 @@ export function useUpdateSession() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<EventSession>(`/api/sessions/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -614,8 +614,8 @@ export function useDeleteSession() {
     mutationFn: (id: number) =>
       del<void>(`/api/sessions/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
-      qc.invalidateQueries({ queryKey: ['overview'] })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sessions' })
+      qc.refetchQueries({ queryKey: ['overview'] })
     },
   })
 }
@@ -626,7 +626,7 @@ export function useCreateTrack() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Track>('/api/tracks', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'tracks' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'tracks' })
     },
   })
 }
@@ -637,7 +637,7 @@ export function useUpdateTrack() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Track>(`/api/tracks/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'tracks' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'tracks' })
     },
   })
 }
@@ -648,7 +648,7 @@ export function useDeleteTrack() {
     mutationFn: (id: number) =>
       del<void>(`/api/tracks/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'tracks' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'tracks' })
     },
   })
 }
@@ -659,7 +659,7 @@ export function useCreateSector() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Sector>('/api/sectors', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'sectors' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sectors' })
     },
   })
 }
@@ -670,7 +670,7 @@ export function useUpdateSector() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Sector>(`/api/sectors/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'sectors' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sectors' })
     },
   })
 }
@@ -681,7 +681,7 @@ export function useDeleteSector() {
     mutationFn: (id: number) =>
       del<void>(`/api/sectors/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'sectors' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'sectors' })
     },
   })
 }
@@ -692,7 +692,7 @@ export function useCreateVenue() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<Venue>('/api/venues', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'venues' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'venues' })
     },
   })
 }
@@ -703,7 +703,7 @@ export function useUpdateVenue() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<Venue>(`/api/venues/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'venues' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'venues' })
     },
   })
 }
@@ -714,7 +714,7 @@ export function useDeleteVenue() {
     mutationFn: (id: number) =>
       del<void>(`/api/venues/${id}`),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'venues' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'venues' })
     },
   })
 }
@@ -725,7 +725,7 @@ export function useCreateEventDay() {
     mutationFn: (payload: Record<string, unknown>) =>
       post<EventDay>('/api/event-days', payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'eventDays' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'eventDays' })
     },
   })
 }
@@ -736,7 +736,7 @@ export function useUpdateEventDay() {
     mutationFn: ({ id, ...payload }: Record<string, unknown> & { id: number }) =>
       patch<EventDay>(`/api/event-days/${id}`, payload),
     onSuccess: () => {
-      qc.invalidateQueries({ predicate: (query) => query.queryKey[0] === 'eventDays' })
+      qc.refetchQueries({ predicate: (query) => query.queryKey[0] === 'eventDays' })
     },
   })
 }

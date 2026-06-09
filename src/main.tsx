@@ -30,9 +30,14 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 0,
-      gcTime: 5 * 60 * 1000,
+      gcTime: 1 * 60 * 1000, // Keep cache for 1 minute instead of 5
       refetchOnWindowFocus: true,
-      refetchOnMount: 'stale',
+      refetchOnMount: true, // Refetch on mount if data is stale
+      refetchInterval: 30 * 1000, // Auto-refetch every 30 seconds for active queries
+      refetchIntervalInBackground: true, // Continue refetching even when tab is in background
+    },
+    mutations: {
+      retry: 1, // Retry failed mutations once
     },
   },
 })
