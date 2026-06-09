@@ -1,29 +1,41 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { attendeeSchema, type AttendeeFormData } from '@/lib/api/schemas'
-import { FormInput } from '@/components/ui/FormInput'
-import { FormSelect } from '@/components/ui/FormSelect'
-import { useCreateAttendee, useEvents, useTracks, useSectors } from '@/lib/api/hooks'
-import { AlertCircle, Loader, ArrowRight } from 'lucide-react'
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { attendeeSchema, type AttendeeFormData } from "@/lib/api/schemas";
+import { FormInput } from "@/components/ui/FormInput";
+import { FormSelect } from "@/components/ui/FormSelect";
+import {
+  useCreateAttendee,
+  useEvents,
+  useTracks,
+  useSectors,
+} from "@/lib/api/hooks";
+import { AlertCircle, Loader, ArrowRight, RotateCcw } from "lucide-react";
 
 export default function AttendeeFormIntegrated() {
-  const navigate = useNavigate()
-  const [apiError, setApiError] = useState('')
-  const [submitted, setSubmitted] = useState(false)
-  
-  const createMutation = useCreateAttendee()
-  const eventsQ = useEvents()
-  const tracksQ = useTracks()
-  const sectorsQ = useSectors()
-  
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<AttendeeFormData>({
+  const navigate = useNavigate();
+  const [apiError, setApiError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const { id } = useParams<{ id?: string }>();
+  const isEditing = !!id;
+
+  const createMutation = useCreateAttendee();
+  const eventsQ = useEvents();
+  const tracksQ = useTracks();
+  const sectorsQ = useSectors();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<AttendeeFormData>({
     resolver: zodResolver(attendeeSchema),
-  })
+  });
 
   const onSubmit = async (data: AttendeeFormData) => {
-    setApiError('')
+    setApiError("");
     try {
       await createMutation.mutateAsync({
         first_name: data.first_name,
@@ -38,12 +50,16 @@ export default function AttendeeFormIntegrated() {
         event_id: data.event_id ? parseInt(data.event_id) : undefined,
         track_id: data.track_id ? parseInt(data.track_id) : undefined,
         sector_id: data.sector_id ? parseInt(data.sector_id) : undefined,
-      })
-      setSubmitted(true)
+      });
+      setSubmitted(true);
     } catch (error: any) {
-      setApiError(error?.response?.data?.message || 'Failed to submit form')
+      setApiError(error?.response?.data?.message || "Failed to submit form");
     }
-  }
+  };
+  const handleUploadMore = () => {
+    setSubmitted(false);
+    reset();
+  };
 
   if (submitted) {
     return (
@@ -55,16 +71,25 @@ export default function AttendeeFormIntegrated() {
           <p className="text-base font-lexend text-white">
             Your attendee information has been submitted successfully
           </p>
+          {!isEditing && (
+            <button
+              onClick={handleUploadMore}
+              className="bg-white/10 border border-white/20 rounded-lg px-6 font-medium py-3 font-inter text-white text-sm hover:bg-white/20 transition-colors flex items-center gap-2"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Upload More
+            </button>
+          )}
           <button
-            onClick={() => navigate('/overview')}
+            onClick={() => navigate("/attendance")}
             className="bg-white rounded-lg px-6 font-medium py-3 font-inter text-black text-sm self-start hover:bg-gray-100 transition-colors flex items-center gap-2 mt-4"
           >
-            Go to Dashboard
+            Go to Attendance
             <ArrowRight className="w-4 h-4" />
           </button>
         </section>
       </section>
-    )
+    );
   }
 
   return (
@@ -91,7 +116,7 @@ export default function AttendeeFormIntegrated() {
             <FormInput
               label="First Name"
               placeholder="Jane"
-              {...register('first_name')}
+              {...register("first_name")}
               error={errors.first_name}
             />
           </div>
@@ -99,7 +124,7 @@ export default function AttendeeFormIntegrated() {
             <FormInput
               label="Last Name"
               placeholder="Doe"
-              {...register('last_name')}
+              {...register("last_name")}
               error={errors.last_name}
             />
           </div>
@@ -109,7 +134,7 @@ export default function AttendeeFormIntegrated() {
           label="Email Address"
           type="email"
           placeholder="jane@example.com"
-          {...register('email')}
+          {...register("email")}
           error={errors.email}
         />
 
@@ -118,7 +143,7 @@ export default function AttendeeFormIntegrated() {
             <FormInput
               label="Job Title (optional)"
               placeholder="Software Engineer"
-              {...register('job_title')}
+              {...register("job_title")}
               error={errors.job_title}
             />
           </div>
@@ -126,7 +151,7 @@ export default function AttendeeFormIntegrated() {
             <FormInput
               label="Organization (optional)"
               placeholder="Tech Corp"
-              {...register('organization')}
+              {...register("organization")}
               error={errors.organization}
             />
           </div>
@@ -137,7 +162,7 @@ export default function AttendeeFormIntegrated() {
             <FormInput
               label="Country (optional)"
               placeholder="Nigeria"
-              {...register('country')}
+              {...register("country")}
               error={errors.country}
             />
           </div>
@@ -145,7 +170,7 @@ export default function AttendeeFormIntegrated() {
             <FormInput
               label="Region (optional)"
               placeholder="Lagos"
-              {...register('region')}
+              {...register("region")}
               error={errors.region}
             />
           </div>
@@ -155,12 +180,12 @@ export default function AttendeeFormIntegrated() {
           <div className="flex-1">
             <FormSelect
               label="Gender (optional)"
-              {...register('gender')}
+              {...register("gender")}
               options={[
-                { value: '', label: 'Select gender' },
-                { value: 'male', label: 'Male' },
-                { value: 'female', label: 'Female' },
-                { value: 'other', label: 'Other' },
+                { value: "", label: "Select gender" },
+                { value: "male", label: "Male" },
+                { value: "female", label: "Female" },
+                { value: "other", label: "Other" },
               ]}
               error={errors.gender}
             />
@@ -168,16 +193,16 @@ export default function AttendeeFormIntegrated() {
           <div className="flex-1">
             <FormSelect
               label="Category (optional)"
-              {...register('category')}
+              {...register("category")}
               options={[
-                { value: '', label: 'Select category' },
-                { value: 'Entrepreneur', label: 'Entrepreneur' },
-                { value: 'Investor', label: 'Investor' },
-                { value: 'Corporate', label: 'Corporate' },
-                { value: 'Media', label: 'Media' },
-                { value: 'Student', label: 'Student' },
-                { value: 'Government', label: 'Government' },
-                { value: 'Other', label: 'Other' },
+                { value: "", label: "Select category" },
+                { value: "Entrepreneur", label: "Entrepreneur" },
+                { value: "Investor", label: "Investor" },
+                { value: "Corporate", label: "Corporate" },
+                { value: "Media", label: "Media" },
+                { value: "Student", label: "Student" },
+                { value: "Government", label: "Government" },
+                { value: "Other", label: "Other" },
               ]}
               error={errors.category}
             />
@@ -188,10 +213,13 @@ export default function AttendeeFormIntegrated() {
           <div className="flex-1">
             <FormSelect
               label="Event (optional)"
-              {...register('event_id')}
+              {...register("event_id")}
               options={[
-                { value: '', label: 'Select event' },
-                ...(eventsQ.data ?? []).map(e => ({ value: String(e.id), label: e.name }))
+                { value: "", label: "Select event" },
+                ...(eventsQ.data ?? []).map((e) => ({
+                  value: String(e.id),
+                  label: e.name,
+                })),
               ]}
               error={errors.event_id}
             />
@@ -202,10 +230,13 @@ export default function AttendeeFormIntegrated() {
           <div className="flex-1">
             <FormSelect
               label="Track (optional)"
-              {...register('track_id')}
+              {...register("track_id")}
               options={[
-                { value: '', label: 'Select track' },
-                ...(tracksQ.data ?? []).map(t => ({ value: String(t.id), label: t.name }))
+                { value: "", label: "Select track" },
+                ...(tracksQ.data ?? []).map((t) => ({
+                  value: String(t.id),
+                  label: t.name,
+                })),
               ]}
               error={errors.track_id}
             />
@@ -213,17 +244,20 @@ export default function AttendeeFormIntegrated() {
           <div className="flex-1">
             <FormSelect
               label="Sector (optional)"
-              {...register('sector_id')}
+              {...register("sector_id")}
               options={[
-                { value: '', label: 'Select sector' },
-                ...(sectorsQ.data ?? []).map(s => ({ value: String(s.id), label: s.name }))
+                { value: "", label: "Select sector" },
+                ...(sectorsQ.data ?? []).map((s) => ({
+                  value: String(s.id),
+                  label: s.name,
+                })),
               ]}
               error={errors.sector_id}
             />
           </div>
         </div>
 
-        <button 
+        <button
           type="submit"
           disabled={isSubmitting || createMutation.isPending}
           className="bg-white rounded-lg px-40 font-medium py-4 font-inter text-black text-sm self-center hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
@@ -234,10 +268,10 @@ export default function AttendeeFormIntegrated() {
               Submitting...
             </>
           ) : (
-            'Submit'
+            "Submit"
           )}
         </button>
       </form>
     </section>
-  )
+  );
 }
