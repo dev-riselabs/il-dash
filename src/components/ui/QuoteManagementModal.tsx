@@ -118,7 +118,7 @@ export function QuoteManagementModal({ isOpen, session, quote, onClose, speakers
 
         <div>
           <label className="block text-sm font-medium text-white font-lexend mb-2">
-            Speaker (Optional)
+            Speaker
           </label>
           <select
             {...register('speaker_id', { valueAsNumber: true })}

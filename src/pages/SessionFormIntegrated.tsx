@@ -233,7 +233,7 @@ export default function SessionFormIntegrated() {
         {/* Multiple Speakers Assignment */}
         <div className="flex flex-col gap-4">
           <label className="text-white font-inter text-sm font-medium">
-            Assign Speakers (Optional)
+            Assign Speakers *
           </label>
           
           {/* Speaker selector */}

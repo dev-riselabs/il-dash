@@ -214,7 +214,7 @@ export function SessionEditModal({ isOpen, onClose, session }: SessionEditModalP
           {/* Multiple Speakers Assignment */}
           <div className="flex flex-col gap-4 border-t border-slate-700 pt-4">
             <label className="text-white font-medium text-sm">
-              Assign Speakers (Optional)
+              Assign Speakers 
             </label>
 
             {/* Speaker selector */}

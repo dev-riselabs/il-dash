@@ -154,7 +154,7 @@ export function SpeakerEditModal({ isOpen, onClose, speaker }: SpeakerEditModalP
           {/* Multiple Sessions Assignment */}
           <div className="flex flex-col gap-4 border-t border-slate-700 pt-4">
             <label className="text-white font-medium text-sm">
-              Assign to Sessions (Optional)
+              Assign to Sessions
             </label>
 
             {/* Session selector */}
