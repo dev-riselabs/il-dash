@@ -191,3 +191,20 @@ html {
 }
   
 }
+
+/* Select dropdown styling */
+select {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+select option {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+select option:checked {
+  background-color: #0891b2 !important;
+  background-image: linear-gradient(#0891b2, #0891b2);
+  color: #ffffff !important;
+}

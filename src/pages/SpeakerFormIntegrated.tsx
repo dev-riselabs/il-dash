@@ -200,7 +200,7 @@ export default function SpeakerFormIntegrated() {
             focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent
             transition-all duration-200"
             >
-              <option value="">Select a session...</option>
+              <option value="" className="bg-slate-900 text-white">Select a session...</option>
               {sessionOptions
                 .filter((opt) => !selectedSessions.includes(opt.value))
                 .map((opt) => (

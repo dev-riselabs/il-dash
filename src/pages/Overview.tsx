@@ -32,7 +32,8 @@ export default function Overview() {
   const kpis = [
     {
       label: "Total Attendance",
-      value: kpisQ.data?.total_attendance,
+      // value: kpisQ.data?.total_attendance,
+      value: 1837,
       delta: "Live",
     },
     {
