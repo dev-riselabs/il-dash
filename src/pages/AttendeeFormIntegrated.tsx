@@ -96,7 +96,7 @@ export default function AttendeeFormIntegrated() {
     <section className="space-y-6">
       <section className="border border-white/55 rounded-2xl flex flex-col gap-3 p-5 lg:px-7.5 lg:py-9 border-l-4 border-l-orange500">
         <h1 className="text-3xl font-semibold font-lexend text-white">
-          Registeration Form
+          Registration Form
         </h1>
         <p className="text-base font-lexend text-white">
           Fill this out to register as an attendee
