@@ -39,9 +39,13 @@ const pillars = [
 ];
 
 const services = [
-  "EventsIntel is a real-time intelligence and command system that captures conversations, tracks decisions and converts them into structured data, insights and measurable outcomes. This is not a pure tech or pure events management platform. It’s a Bridge.",
-  "Most High-level events have a recurring problem. They host high-level conversations but cannot track outcomes in real time or after the event and that’s our entry point. We’re not offering you a dashboard or just data visualisation tools, we’re providing you control rooms, evidence of impact, post-event accountability and investor conversion tracking. We deploy a full intelligence team + system for your event.",
-  "For every client, we offer customized pre-event setup, Live event intelligence, post-event tracking (30–90 days), outcomes, decision-making, accountability powered by sophisticated modern technology and those are the core of our product.",
+  "EventsIntelis an event technology, intelligence and operational command platform designed for conferences, summits, forums and high-level engagements. We combine digital infrastructure, real-time intelligence and operational visibility to help organizations track activities, capture insights and deliver measurable outcomes.",
+  "Most High-level events have a recurring problem. They host high-level conversations but cannot track outcomes in real time or after the event and that’s our entry point. We’re not offering you a dashboard or just data visualisation tools, we’re providing you control rooms, operational frameworks, evidence of impact, post-event accountability and investor conversion tracking. We deploy a full intelligence team + system for your event.",
+  "Our deployments can include digital event platforms, executive dashboards, real-time intelligence, delegate support systems, reporting frameworks and post-event accountability tracking.",
+
+  // "EventsIntel is a real-time intelligence and command system that captures conversations, tracks decisions and converts them into structured data, insights and measurable outcomes. This is not a pure tech or pure events management platform. It’s a Bridge.",
+  // "Most High-level events have a recurring problem. They host high-level conversations but cannot track outcomes in real time or after the event and that’s our entry point. We’re not offering you a dashboard or just data visualisation tools, we’re providing you control rooms, evidence of impact, post-event accountability and investor conversion tracking. We deploy a full intelligence team + system for your event.",
+  // "For every client, we offer customized pre-event setup, Live event intelligence, post-event tracking (30–90 days), outcomes, decision-making, accountability powered by sophisticated modern technology and those are the core of our product.",
 ];
 
 function About() {
@@ -58,7 +62,7 @@ function About() {
             }}
             className="text-white font-bold font-anek text-2xl md:text-3xl"
           >
-            About the Service
+            About Events Intel
           </motion.h1>
           <div className="flex flex-col gap-3">
             {services.map((service, i) => (
@@ -104,10 +108,14 @@ function About() {
             }}
             className="text-white/80 font-inter text-sm lg:text-base"
           >
-            We don’t just help you run events. We help you track outcomes,
+            {/* We don’t just help you run events. We help you track outcomes,
             capture data and intelligence and convert conversations into
             measurable impact. This is a standard operating system for how
-            high-level events are run across Africa.
+            high-level events are run across Africa. */}
+            We don't just run events. We provide the technology, intelligence
+            and operational systems that transform activities into insights,
+            decisions and measurable impact. Events Intel is a standard
+            operating system for how high-level events are run across Africa.
           </motion.p>
         </div>
         <div className="pl-4 md:pl-0 md:flex-1">
@@ -132,31 +140,36 @@ function About() {
           </h2>
           <ul className="flex flex-col gap-3 list-disc pl-5">
             <li className="text-white text-sm md:text-base font-inter">
-              Executive intelligence dashboards
+              Executive Dashboards & Command Centres
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              Live event monitoring
+              Event Websites & Registration Systems
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              AI-assisted insight extraction
+              Live Event Monitoring
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              Decision and resolution tracking
+              AI-Assisted Insight Extraction
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              Security and operational command systems
+              Deal Rooms & Opportunity Tracking
+              {/* Security and operational command systems */}
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              Investment/deal-flow intelligence
+              Delegate Experience Systems
+              {/* Investment/deal-flow intelligence */}
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              Stakeholder coordination{" "}
+              Decision & Resolution Tracking
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              Post-event accountability tracking
+              Stakeholder Coordination
             </li>
             <li className="text-white text-sm md:text-base font-inter">
-              Enterprise and government reporting systems
+              Post-Event Accountability Tracking
+            </li>
+            <li className="text-white text-sm md:text-base font-inter">
+              Enterprise & Government Reporting Systems
             </li>
           </ul>
         </div>
@@ -286,19 +299,26 @@ function About() {
           </h3>
           <ul className="flex flex-col gap-2 lg:gap-3 list-disc pl-4">
             <li className="text-white font-inter text-sm md:text-base">
-              Proprietary event intelligence datasets
+              {/* Proprietary event intelligence datasets */}
+              Event Technology Infrastructure
             </li>
             <li className="text-white font-inter text-sm md:text-base">
-              Institutional workflows
+              {/* Institutional workflows */}
+              Real-Time Intelligence & Analytics
             </li>
             <li className="text-white font-inter text-sm md:text-base">
-              Executive reporting infrastructure
+              {/* Executive reporting infrastructure */}
+              Executive Dashboards & Reporting
             </li>
             <li className="text-white font-inter text-sm md:text-base">
-              Operational coordination systems
+              Operational Coordination Systems
             </li>
             <li className="text-white font-inter text-sm md:text-base">
-              And post-event accountability tracking
+              {/* And post-event accountability tracking */}
+              Delegate Support Frameworks
+            </li>
+            <li className="text-white font-inter text-sm md:text-base">
+              Post-Event Accountability Tracking
             </li>
           </ul>
         </div>

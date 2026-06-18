@@ -18,6 +18,43 @@ const features = [
     title: "Convert Discussions into Data & Structured Outcomes",
     description: "Track deals, commitments and follow-ups beyond the event.",
   },
+  {
+    title: "Power Event Operations",
+    description:
+      "Monitor programmes, speakers, delegates and activities in real time.",
+  },
+];
+const deployments = [
+  {
+    title: "Event Technology",
+    description:
+      "Event websites, registration platforms, hosting, security and digital infrastructure.",
+  },
+  {
+    title: "Executive Dashboards:",
+    description:
+      "Real-time operational visibility, programme monitoring and leadership reporting.",
+  },
+  {
+    title: "Deal Rooms",
+    description:
+      "Digital platforms for investment opportunities, applications and stakeholder engagement.",
+  },
+  {
+    title: "Delegate Experience",
+    description:
+      "Information centres, support systems and participant communications.",
+  },
+  {
+    title: "Event Intelligence",
+    description:
+      "AI-powered analytics, insights, reporting and outcome tracking.",
+  },
+  {
+    title: "Knowledge Intelligence",
+    description:
+      "Documentation, reporting and knowledge products that extend impact beyond the event.",
+  },
 ];
 
 const resultOne = [
@@ -37,7 +74,8 @@ const resultOne = [
     img: "/cw-icon.png",
     title: "Executive Command View",
     description:
-      "View, track and manage all safety and security incidents in real time.",
+      "Monitor programmes, delegates, speakers and event performance from one dashboard.",
+    // description: "View, track and manage all safety and security incidents in real time.",
   },
   {
     img: "/pa-icon.png",
@@ -120,9 +158,12 @@ function Welcome() {
               }}
               className="font-inter text-white text-base md:text-lg text-center max-w-[70ch]"
             >
-              EventsIntel captures live discussions, extracts key insights,
+              {/* EventsIntel captures live discussions, extracts key insights,
               tracks investments and discussions signals, and ensures that every
-              high-level engagement delivers tangible results.
+              high-level engagement delivers tangible results. */}
+              Events Intel combines event technology, real-time intelligence and
+              operational systems to help organizations track activities,
+              capture insights and deliver tangible results
             </motion.p>
             <img
               src="./line-left.png"
@@ -238,11 +279,11 @@ function Welcome() {
               }}
               key={title}
               className={`flex flex-col w-full border border-white/10 rounded-3xl py-12.5 px-5 md:px-7.5 gap-10 ${
-                i === 1 ? "bg-pink" : "bg-neutral900"
+                i % 2 === 1 ? "bg-pink" : "bg-neutral900"
               }`}
             >
               <img
-                src={`${i === 1 ? "/robotic-arm-a.png" : "/robotic-arm.png"}`}
+                src={`${i % 2 === 1 ? "/robotic-arm-a.png" : "/robotic-arm.png"}`}
                 alt=""
                 className="w-15 md:w-18 h-15 md:h-18"
               />
@@ -265,9 +306,12 @@ function Welcome() {
             Live Use Case
           </h2>
           <p className="text-sm text-white/80 font-inter text-center">
-            EventsIntel provides real-time intelligence at one of Africa’s
+            {/* EventsIntel provides real-time intelligence at one of Africa’s
             leading investment summits, tracking sessions, capturing insights
-            and monitoring investment conversations as they happen.
+            and monitoring investment conversations as they happen. */}
+            Events Intel powers one of Africa's leading investment summits with
+            real-time intelligence, executive dashboards, deal rooms and
+            operational tracking.
           </p>
           <motion.img
             src="./line-left.png"
@@ -300,14 +344,18 @@ function Welcome() {
         </div>
         <motion.img style={{ y }} src="/sentiment-screenshot.png" alt="" />
         <p className="text-sm text-white/80 font-inter text-center">
-          Real-time event intelligence + AI insights + discussions tracking +
-          post-event accountability as a single deployable system.
+          {/* Real-time event intelligence + AI insights + discussions tracking +
+          post-event accountability as a single deployable system. */}
+          Event technology + operational intelligence + AI insights + outcome
+          tracking as a single deployable system.
         </p>
         <img src="/participation-screenshot.png" alt="" />
         <p className="text-sm text-white/80 font-inter text-center max-w-[75ch]">
-          We sit at the centre points of event technology, data analytics and
+          {/* We sit at the centre points of event technology, data analytics and
           strategic consulting but unlike existing solutions, we operate in real
-          time and track outcomes beyond the event itself.
+          time and track outcomes beyond the event itself. */}
+          We combine event technology, intelligence and operational systems to
+          track outcomes before, during and after every event.
         </p>
         <motion.div
           animate={{
@@ -412,6 +460,84 @@ function Welcome() {
           />
         </div>
       </section>
+      <section className="flex flex-col gap-16 py-15 md:py-30 px-4 md:px-10 lg:px-20 bg-feature bg-neutral800 items-center">
+        <div className="relative py-5 w-200 text-center">
+          <h2 className="font-anek font-semibold text-white text-3xl text-center">
+            What We Deploy <br />
+            Beyond Event Intelligence
+          </h2>
+          <p className="text-white">
+            Events Intel delivers the technology, intelligence and operational
+            systems that power modern conferences, summits, investment forums
+            and high-level engagements.
+          </p>
+          <motion.img
+            src="./line-left.png"
+            alt=""
+            className="absolute top-0 -left-2 md:left-0 w-30"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
+          />
+          <motion.img
+            src="./line-right.png"
+            alt=""
+            className="absolute bottom-0 -right-3 md:right-0 w-30"
+            animate={{
+              y: [0, -15, 0],
+              opacity: [0.8, 1, 0.8],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+            }}
+          />
+        </div>
+        <motion.div
+          variants={staggerContainer}
+          className="flex flex-col md:flex-row gap-5"
+        >
+          {deployments.map(({ title, description }, i) => (
+            <motion.div
+              variants={fadeUp}
+              whileHover={{
+                y: -10,
+                scale: 1.03,
+                boxShadow: "0px 0px 10px rgba(255,0,128,.35)",
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 250,
+              }}
+              key={title}
+              className={`flex flex-col w-full border border-white/10 rounded-3xl py-8.5 px-3 md:px-3.5 gap-10 ${
+                i % 2 === 1 ? "bg-pink" : "bg-neutral900"
+              }`}
+            >
+              <img
+                src={`${i % 2 === 1 ? "/robotic-arm-a.png" : "/robotic-arm.png"}`}
+                alt=""
+                className="w-11 md:w-14 h-11 md:h-14"
+              />
+              <div className="flex flex-col gap-3">
+                <h4 className="text-white font-bold text-xl font-anek">
+                  {title}
+                </h4>
+                <p className="font-inter text-white/70 text-base">
+                  {description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </section>
 
       <section className="bg-blue150 px-4 gap-6 md:px-10 lg:px-20 py-10 md:py-20 flex flex-col lg:flex-row lg:items-center lg:gap-10">
         <img src="/built-img.png" alt="" className="max-h-150" />
@@ -420,7 +546,8 @@ function Welcome() {
             WHO WE BUILT THIS FOR
           </h5>
           <h4 className="text-2xl md:text-3xl font-bold font-anek text-white">
-            Designed for Leaders and Institutions
+            {/* Designed for Leaders and Institutions */}
+            Designed for High-Stakes Events and Strategic Convenings
           </h4>
           <div className="flex flex-col gap-4">
             {designs.map((design, i) => (
