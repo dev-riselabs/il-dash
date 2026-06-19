@@ -33,7 +33,7 @@ export default function Overview() {
     {
       label: "Total Attendance",
       // value: kpisQ.data?.total_attendance,
-      value: 1837,
+      value: 2537,
       delta: "Live",
     },
     {
